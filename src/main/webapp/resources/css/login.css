@@ -1,0 +1,83 @@
+@charset "UTF-8";
+/* 로그인 정보 입력*/
+#summit_button {
+	width: 100%;
+}
+
+/* 소셜 로그인*/
+#login_button_container {
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.login_button {
+	width: 10%;
+	height: auto;
+	align-self: center;
+}
+
+#fb_login_button {
+	border-radius: 6px;
+}
+
+.login_text {
+	display: flex;
+	flex-direction: column;
+	font-size: 10pt;
+	color: #B3B1B1;
+	align-items: center;
+}
+
+.hr-sect {
+	display: flex;
+	flex-basis: 100%;
+	align-items: center;
+	color: rgba(0, 0, 0, 0.35);
+	font-size: 12px;
+	margin: 8px 0px;
+}
+
+.hr-sect::before, .hr-sect::after {
+	content: "";
+	flex-grow: 1;
+	background: rgba(0, 0, 0, 0.35);
+	height: 1px;
+	font-size: 0px;
+	line-height: 0px;
+	margin: 0px 16px;
+}
+
+.searchID {
+	border: none;
+	color: #B3B1B1;
+}
+
+.searchPW {
+	border: none;
+	color: #B3B1B1;
+}
+
+.signup_btn {
+	border: none;
+	color: #B3B1B1;
+}
+.button_orange{
+	height: 38px;
+    border: solid 2px;
+    border-color: #7FD858;
+    color: #7FD858;
+    vertical-align: middle;
+    justify-content: center;
+    text-align: center;
+    font-weight: 100;
+    border-radius: 5px;
+
+}
+.button_orange:hover{
+    border: solid 2px;
+    border-color: #7FD858;
+    color: #fafafa;
+    background-color: #7FD858;
+}
