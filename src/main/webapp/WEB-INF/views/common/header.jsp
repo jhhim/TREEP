@@ -16,10 +16,6 @@
 <link rel="stylesheet" type="text/css"
 	href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <script defer="defer" type="text/javascript"
-	src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script defer="defer" type="text/javascript"
-	src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script defer="defer"
 	src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <!-- bootstrap -->
 <link
@@ -37,21 +33,65 @@
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <!-- Hangul -->
 <script defer src="https://unpkg.com/type-hangul"></script>
-<!-- font awesome -->
-<script src="https://kit.fontawesome.com/457d4d2300.js"
-	crossorigin="anonymous"></script>
+
 <!-- TREEP.css 링크 -->
 <link rel="stylesheet" href="${path}/resources/css/header.css">
 <link rel="stylesheet" href="${path}/resources/css/login.css">
 <link rel="stylesheet" href="${path}/resources/css/signup.css">
-<!-- TREEP.img 링크 -->
+<link rel="stylesheet" href="${path}/resources/css/mypage.css">
+<!-- TREEP.js 링크 -->
+<script defer src="${path}/resources/js/mypage.js"></script>
 </head>
 <body>
-	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-		data-bs-target="#exampleModal">로그인</button>
+ <header>
+        <nav class="navbar">
+            <div class="navbar-logo">
+                <a href=""><img class="navbar-logo__img" src="${path}/resources/img/logo.png"></a>
+            </div>
+             
+            <div class="navbar-menu-container">
+              
+              <ul class="nav justify-content-end">
+              <li class="nav-item br"><a class="nav-item" href="">커뮤니티</a></li>
+            </ul>
+              
+              <ul class="nav justify-content-end">
+              <li class="nav-item br"><a class="nav-item" href="#" data-bs-toggle="modal" data-bs-target="#loginmodal">로그인</a></li>
+              <li class="nav-item"><a class="nav-item" href="signup">회원가입</a></li>
+              </ul>
+            </div>
+            <!-- <div class="navbar-menu-container ">
+
+                <ul class="nav justify-content-end">
+                    <li class="nav-item br"><a class="nav-item" href="">커뮤니티</a></li>
+
+                    <div class="navright">
+                        <li class="dropdown">
+                            <button type="button">
+                                <i class="fa-regular fa-user navbar-menu__dropdownIcon"></i>
+                            </button>
+
+                            <ul class="dropdown-content">
+                                <li><a class="dropdown-item" href=""><i class="fa-solid fa-address-card icon1"></i>
+                                        마이페이지</a></li>
+                                <li><a class="dropdown-item" href=""><i class="fa-solid fa-message icon1"></i> 1:1
+                                        문의</a></li>
+                                <li><a class="dropdown-item" href=""><i class="fa-solid fa-paper-plane icon1"></i> 쪽지함
+                                    </a></li>
+                                <li><a class="dropdown-item" href=""> <i class="fa-solid fa-id-badge icon1"></i>
+                                        로그아웃</a></li>
+                            </ul>
+
+                        </li>
+                    </div>
+                </ul>
+
+            </div> -->
+        </nav>
+    </header>
+
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1"
+	<div class="modal fade" id="loginmodal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">

@@ -13,7 +13,7 @@ public class LoginController {
     public String email() {
         return "signup/email";
     }
-	@RequestMapping("/signup/signup")
+	@RequestMapping("/signup/info")
 	public String signup1() {
 		return "signup/signup";
 	}
