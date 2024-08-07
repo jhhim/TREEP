@@ -53,7 +53,7 @@
 					src="${path}/resources/img/logo.png"></a>
 			</div>
 
-	<!-- 		 <div class="navbar-menu-container">
+	 		 <div class="navbar-menu-container">
               
               <ul class="nav justify-content-end">
               <li class="nav-item br"><a class="nav-item" href="">커뮤니티</a></li>
@@ -61,11 +61,11 @@
               
               <ul class="nav justify-content-end">
               <li class="nav-item br"><a class="nav-item" href="#" data-bs-toggle="modal" data-bs-target="#loginmodal">로그인</a></li>
-              <li class="nav-item"><a class="nav-item" href="signup">회원가입</a></li>
+              <li class="nav-item"><a class="nav-item" href="emailcheck">회원가입</a></li>
               </ul>
-            </div>  -->
+            </div>  
 
-			<div class="navbar-menu-container">
+			<!-- <div class="navbar-menu-container">
 				<ul class="nav">
 					<li class="nav-item br"><a class="nav-item" href="">커뮤니티</a></li>
 
@@ -89,7 +89,7 @@
 
 				</ul>
 
-			</div>
+			</div> -->
 		</nav>
 	</header>
 

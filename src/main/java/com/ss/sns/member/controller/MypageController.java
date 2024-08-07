@@ -9,7 +9,7 @@ public class MypageController {
 	public String mypage() {
 		return "mypage/mypage";
 	}
-	@RequestMapping("/mypage/setting")
+	@RequestMapping("/profile")
 	public String setting() {
 		return "mypage/setting";
 	}

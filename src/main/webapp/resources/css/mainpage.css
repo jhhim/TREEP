@@ -149,10 +149,6 @@
 }
 
 /* ***************************** main-modal*********************************** */
-.btn-close:focus {
-	outline: none;
-	box-shadow: #caf7b6 0px 0px 0px 2px;
-}
 
 .modal-fullscreen {
 	height: 100vh;

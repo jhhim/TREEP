@@ -5,15 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class LoginController {
-	@RequestMapping("/signup")
+	@RequestMapping("/emailcheck")
     public String signup() {
-        return "redirect:signup/email";
-    }
-	@RequestMapping("/signup/email")
-    public String email() {
         return "signup/email";
     }
-	@RequestMapping("/signup/info")
+	@RequestMapping("/signupinfo")
 	public String signupInfo() {
 		return "signup/signup";
 	}

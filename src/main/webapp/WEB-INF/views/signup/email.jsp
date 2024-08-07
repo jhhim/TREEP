@@ -10,7 +10,7 @@
 			<p id="email_space_title_sub">TREEP서비스는 이메일 인증 후 회원가입을 실시하실 수
 				있습니다.</p>
 		</div>
-		<form style="width: 100%;" method="post" action="info">
+		<form style="width: 100%;" method="post" action="signupinfo">
 			<div class="input_area_email col-auto mb-5">
 				<div class="input_InputEmail_area">
 					<label for="InputEmail" class="col-form-label" id="input_text">이메일

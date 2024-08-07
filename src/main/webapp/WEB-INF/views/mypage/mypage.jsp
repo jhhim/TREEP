@@ -18,7 +18,7 @@
 		<div class="profile_info container-md">
 			<div class="profile_nickname">Username</div>
 			<!-- 마이페이지 설정으로 이동 -->
-			<a href="mypage/setting" class="profile_manage"> <span>프로필 관리</span> <img
+			<a href="profile" class="profile_manage"> <span>프로필 관리</span> <img
 				src="${path}/resources/img/mypage/setting.png" class="setting_icon">
 			</a>
 		</div>
