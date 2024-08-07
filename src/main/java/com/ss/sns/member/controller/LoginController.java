@@ -14,7 +14,7 @@ public class LoginController {
         return "signup/email";
     }
 	@RequestMapping("/signup/info")
-	public String signup1() {
+	public String signupInfo() {
 		return "signup/signup";
 	}
 	@RequestMapping("/searchid")
