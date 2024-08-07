@@ -37,7 +37,6 @@
 <link rel="stylesheet" href="${path}/resources/css/header.css">
 <link rel="stylesheet" href="${path}/resources/css/login.css">
 <link rel="stylesheet" href="${path}/resources/css/mainpage.css">
-<link rel="stylesheet" href="${path}/resources/css/signup.css">
 <link rel="stylesheet" href="${path}/resources/css/mypage.css">
 <link rel="stylesheet" href="${path}/resources/css/message.css">
 <!-- TREEP.js 링크 -->
@@ -120,7 +119,7 @@
 						<div class="login_text mt-3">
 							<p>
 								아직 회원이 아니세요?
-								<button class="signup_btn" href="./signup.html">회원가입</button>
+								<a class="signup_btn" href="emailcheck">회원가입</a>
 							</p>
 							<p>or</p>
 						</div>
