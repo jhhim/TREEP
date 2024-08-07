@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+#note-store,#note-delete,#note-write,#store-delete,
+#store-confirm,#send-close,#send-confirm{
+    border: 1px solid #7FD858;
+}
+#note-store:hover,#note-delete:hover,#note-write:hover,
+#store-delete:hover,#store-confirm:hover,#send-close:hover,#send-confirm:hover{
+    background-color: #7FD858;
+    color: white;
+}
+/* 쪽지 보내기 인풋칸 */
+#message-text,#recipient-name{
+    border: solid 1px #e0e0e0;
+    border-radius: 5pxx;
+}
+#message-text:focus,#recipient-name:focus{
+    
+    box-shadow: #caf7b6 0px 0px 0px 2px;
+    border: solid 1px #caf7b6;
+}
+#note-store,#note-delete{
+    margin-left: 5px;
+    float: right;
+    font-weight: bold;
+}
+#note-write{
+    font-weight: bold;
+}
+#empty-store{
+    width: 100%;
+    height: 300px;
+    text-align: center;
+    display: none;
+}
+#empty-store-text{
+    font-size: 2rem;
+    padding: 130px;
+}    
+#store-delete{
+    float: right;
+}
