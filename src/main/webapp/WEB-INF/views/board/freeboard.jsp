@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <title>자유 게시판</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <main>
@@ -30,7 +30,7 @@
 	<div class="filter-container">
 		<button type="button" class="btn filterBtn" data-bs-toggle="modal"
 			data-bs-target="#filter">
-			<img src="filter.png" class="filterImg" alt="">
+			<img src="${path}/resources/img/board/filter.png" class="filterImg" alt="">
 		</button>
 
 
@@ -85,7 +85,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="resetBtn" onclick="resetModal()">
-							<img src="reset.png" class="resetImg" alt="">초기화
+							<img src="${path}/resources/img/board/reset.png" class="resetImg" alt="">초기화
 						</button>
 						<button type="button" class="filter-submitBtn"
 							data-bs-dismiss="modal" onclick="">필터 적용하기</button>

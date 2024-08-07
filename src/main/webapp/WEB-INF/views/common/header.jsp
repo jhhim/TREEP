@@ -39,10 +39,13 @@
 <link rel="stylesheet" href="${path}/resources/css/mainpage.css">
 <link rel="stylesheet" href="${path}/resources/css/mypage.css">
 <link rel="stylesheet" href="${path}/resources/css/message.css">
+<link rel="stylesheet" href="${path}/resources/css/board.css">
 <!-- TREEP.js 링크 -->
 <script defer src="${path}/resources/js/mainpage.js"></script>
 <script defer src="${path}/resources/js/mypage.js"></script>
 <script defer src="${path}/resources/js/message.js"></script>
+<script defer src="${path}/resources/js/board.js"></script>
+
 </head>
 <body>
 	<header>
