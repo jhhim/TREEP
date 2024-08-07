@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <!-- JQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
 	integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
@@ -40,9 +39,11 @@
 <link rel="stylesheet" href="${path}/resources/css/mainpage.css">
 <link rel="stylesheet" href="${path}/resources/css/signup.css">
 <link rel="stylesheet" href="${path}/resources/css/mypage.css">
+<link rel="stylesheet" href="${path}/resources/css/message.css">
 <!-- TREEP.js 링크 -->
 <script defer src="${path}/resources/js/mainpage.js"></script>
 <script defer src="${path}/resources/js/mypage.js"></script>
+<script defer src="${path}/resources/js/message.js"></script>
 </head>
 <body>
 	<header>
@@ -52,7 +53,7 @@
 					src="${path}/resources/img/logo.png"></a>
 			</div>
 
-			 <div class="navbar-menu-container">
+	<!-- 		 <div class="navbar-menu-container">
               
               <ul class="nav justify-content-end">
               <li class="nav-item br"><a class="nav-item" href="">커뮤니티</a></li>
@@ -62,9 +63,9 @@
               <li class="nav-item br"><a class="nav-item" href="#" data-bs-toggle="modal" data-bs-target="#loginmodal">로그인</a></li>
               <li class="nav-item"><a class="nav-item" href="signup">회원가입</a></li>
               </ul>
-            </div> 
+            </div>  -->
 
-	<!-- 		<div class="navbar-menu-container">
+			<div class="navbar-menu-container">
 				<ul class="nav">
 					<li class="nav-item br"><a class="nav-item" href="">커뮤니티</a></li>
 
@@ -77,7 +78,7 @@
 						<ul class="dropdown-content">
 							<li><a class="dropdown-item" href="mypage"><i
 									class="fa-solid fa-address-card icon1"></i> 마이페이지</a></li>
-							<li><a class="dropdown-item" href=""><i
+							<li><a class="dropdown-item" href="message"><i
 									class="fa-solid fa-paper-plane icon1"></i> 쪽지함 </a></li>
 							<li><a class="dropdown-item" href=""> <i
 									class="fa-solid fa-id-badge icon1"></i> 로그아웃
@@ -88,7 +89,7 @@
 
 				</ul>
 
-			</div> -->
+			</div>
 		</nav>
 	</header>
 

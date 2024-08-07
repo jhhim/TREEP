@@ -52,6 +52,13 @@ h5 {
 ul {
 	padding: 0;
 }
+input[type="checkbox"]{
+    accent-color: #7FD858;
+}
+.btn-close:focus {
+	outline: none;
+	box-shadow: #caf7b6 0px 0px 0px 2px;
+}
 /* Header */
 header {
 	height: 90px;

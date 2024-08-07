@@ -55,7 +55,7 @@
         <!-- 마이페이지 설정 돌아가기, 저장 -->
         <div class="row profile-setting-button">
             <div class="col">
-                <button type="button" class="btn" id="back">돌아가기</button>
+                <button type="button" class="btn" id="back" onclick="history.back()">돌아가기</button>
             </div>
             <div class="col">
                 <button type="button" class="btn" id="save">저장</button>
