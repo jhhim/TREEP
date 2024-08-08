@@ -13,9 +13,9 @@ public class BoardController {
 	public String joinboard() {
 		return "board/joinboard";
 	}
-	@RequestMapping("/inquiryboard")
-	public String inquiryboard() {
-		return "board/inquiryboard";
+	@RequestMapping("/askboard")
+	public String askboard() {
+		return "board/askboard";
 	}
 	
 	

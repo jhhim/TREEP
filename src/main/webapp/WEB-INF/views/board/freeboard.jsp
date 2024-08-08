@@ -6,9 +6,9 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <main>
 	<ul class="MyTab">
-		<li class="MyTabMenu"><a href="FriendBoard.html">동행게시판</a></li>
-		<li class="MyTabMenu MyActive"><a href="FreeBoard.html">자유게시판</a></li>
-		<li class="MyTabMenu"><a href="AskBoard.html">문의게시판</a></li>
+		<li class="MyTabMenu"><a href="joinboard">동행게시판</a></li>
+		<li class="MyTabMenu MyActive"><a href="freeboard">자유게시판</a></li>
+		<li class="MyTabMenu"><a href="askboard">문의게시판</a></li>
 	</ul>
 
 	<!-- <div class="summary-container">

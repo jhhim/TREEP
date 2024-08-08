@@ -271,3 +271,421 @@
 	border: 1px solid #D2D2D2;
 	padding: 4px 2px 0 2px;
 }
+
+/*********************** friend board *******************************/
+.MyTabfd {
+	display: flex;
+	justify-content: space-around;
+	padding: 0;
+	margin-bottom: 50px;
+	/* top: 0; */
+	/* z-index: 1;
+    position: sticky; */
+}
+
+.MyTabMenufd {
+	list-style-type: none;
+	margin: 10px;
+	padding: 10px;
+}
+
+.MyActivefd {
+	border-bottom: 2px solid rgb(42, 157, 143);
+}
+
+.title-containerfd {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+/* 게시판 제목 */
+.titlefd {
+	color: rgb(42, 157, 143);
+	font-size: 70px;
+}
+
+.filter-containerfd {
+	display: flex;
+	justify-content: end;
+}
+
+.filterBtnfd {
+	margin-top: 20px;
+	margin-right: 94px;
+	border: none;
+}
+
+.filterImgfd {
+	width: 30px;
+	height: 30px;
+	/* margin-top: 20px;
+    margin-right: 94px; */
+}
+
+/* 필터 모달 제목 */
+.modal-title-customfd {
+	position: relative;
+	left: 330px;
+	top: 3px;
+	font-weight: bold;
+}
+
+/* 필터 초기화 버튼 */
+.resetBtnfd {
+	color: #7FD858;
+	border: 2px solid #7FD858;
+	border-radius: 10px;
+	padding: 10px 9px 7px 7px;
+	outline: none;
+}
+
+.resetBtnClickfd {
+	background-color: #7ed8583a;
+}
+
+/* 필터 적용 버튼 */
+.filter-submitBtnfd {
+	width: 660px;
+	color: #9c9c9c;
+	background-color: #dfdfdf;
+	border-radius: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-left: 10px;
+	outline: none;
+}
+
+/* 필터 적용 버튼 클릭 안했을 시 추가하는 클래스 */
+.filter-submitBtn-nonClickfd {
+	color: #9c9c9c;
+	background-color: #dfdfdf;
+}
+
+/* 필터 적용 버튼 클릭 했을 시 추가하는 클래스 */
+.filter-submitBtn-Clickfd {
+	background-color: #7FD858;
+	color: white;
+}
+
+/* 여행지 버튼 */
+.locationBtnfd {
+	background-color: #dfdfdf;
+	color: black;
+	width: 105px;
+	padding: 9px 10px 6px 10px;
+	border-radius: 25px;
+	margin-left: 10px;
+	margin-bottom: 15px;
+	font-size: 15px;
+	border: none;
+	outline: none;
+}
+
+/* 등급 버튼 */
+.gradeBtnfd {
+	background-color: #dfdfdf;
+	color: black;
+	width: 100px;
+	padding: 10px 10px 10px 10px;
+	border-radius: 25px;
+	margin: 10px;
+	font-size: 15px;
+	border: none;
+	outline: none;
+}
+
+/* 정렬 기준 버튼 */
+.lineupBtnfd {
+	background-color: #dfdfdf;
+	color: black;
+	width: 105px;
+	padding: 9px 10px 6px 10px;
+	border-radius: 25px;
+	margin-left: 10px;
+	margin-bottom: 15px;
+	font-size: 15px;
+	border: none;
+	outline: none;
+}
+
+/* 필터에서 해당 버튼 클릭 시 추가할 클래스 */
+.clickBtnfd {
+	background-color: #7FD858;
+	color: white;
+}
+
+/* 초기화 이미지 */
+.resetImgfd {
+	position: relative;
+	bottom: 2px;
+	width: 25px;
+	height: 25px;
+}
+
+/* 대륙버튼 컨테이너 */
+/* .continent-container{
+    display: flex;
+    justify-content: center;
+    margin: 50px 94px 20px 94px;
+} */
+
+/* 대륙 버튼 */
+/* .continent{
+    width: 100%;
+    margin: 8px;
+    background-color: white;
+    color: black;
+    border-radius: 30px;
+    border: 3px solid #D2D2D2; 
+    padding: 8px 5px 5px 5px;
+    outline: none;
+} */
+
+/* 대륙 버튼 호버 */
+/* .continent:hover{
+    outline: none;
+    border: 3px solid rgb(42, 157, 143);
+    transform: scale(1.04);
+} */
+
+/* .select_continent_outline{
+    border: 3px solid rgb(42, 157, 143);
+} */
+
+/* 카드 프레임 */
+.card-customfd {
+	/* position: relative; */
+	border: 2px solid #d2d2d2;
+	border-radius: 7px;
+	transition-duration: 0.1s;
+}
+
+/* 급구 카드 프레임 */
+.siren-card-customfd {
+	/* position: relative; */
+	border: 2px solid #d2d2d2;
+	border-radius: 7px;
+	transition-duration: 0.1s;
+}
+
+
+/* 급구(사이렌)이미지 */
+.sirenImgfd {
+	position: relative;
+	bottom: 4px;
+	width: 20px;
+	height: 20px;
+	margin-left: 2px;
+	/* margin-top: 5px; */
+	margin-right: 7px;
+	animation: blink-effect 1s step-end infinite;
+}
+
+.sirenTitlefd {
+	display: flex;
+	/* background-color: red; */
+	width: 60px;
+	height: 45px;
+	color: red;
+	border-radius: 20px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	margin-left: 15px;
+	margin-top: 15px;
+}
+
+/* 카드 안에 내용 */
+.card-titlefd {
+	font-size: 20px;
+	height: 60px;
+	/* 동행게시판 작성페이지 만들 때 제목 최대길이 지정해주기 */
+}
+
+.cardFormfd {
+	padding: 0 80px;
+}
+
+.card-queryfd {
+	height: 500px;
+	padding: 30px 30px;
+}
+
+.pifd {
+	margin-top: 20px;
+	border-radius: 100%;
+	position: relative;
+	display: flex;
+	width: 30px;
+	height: 30px;
+	justify-content: center;
+	align-items: center;
+	transition-duration: 0.4s;
+}
+
+.plusicon-customfd {
+	position: absolute;
+}
+
+/* 검색바 컨테이너 */
+.search-containerfd {
+	position: relative;
+	width: 745px;
+	height: 50px;
+	margin: 10px auto;
+	display: flex;
+	justify-content: center;
+}
+
+/* 검색바 */
+.searchbarfd {
+	border: rgb(210, 210, 210, 0.5) solid 1px;
+	/* border: 3px solid rgb(42, 157, 143); */
+	border-radius: 10px;
+	padding: 5px 30px 3px 35px;
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+	/* outline: rgb(42, 157, 143); */
+}
+
+.searchbarfd::placeholder {
+	color: rgb(0, 0, 0, 0.2);
+}
+
+.searchbarfd:focus {
+	/* box-shadow: 0 0 0 0.2rem rgba(255, 87, 51, 0.25); */
+	/* border: none;
+    outline: none; */
+	outline: 2px solid #7FD858;
+}
+
+.searchicon-containerfd {
+	display: flex;
+	/* justify-content: space-between; */
+	position: absolute;
+	top: 17px;
+	left: 12px;
+}
+
+.pagenation-containerfd {
+	display: flex;
+	justify-content: center;
+	margin: 10px;
+	margin-bottom: 20px;
+}
+
+.pagenationfd {
+	text-align: center;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #D2D2D2;
+	padding: 4px 2px 0 2px;
+}
+/*********************** ask board *******************************/
+.MyTab {
+	display: flex;
+	justify-content: space-around;
+	padding: 0;
+	margin-bottom: 50px;
+	/* top: 0; */
+	/* z-index: 1;
+    position: sticky; */
+}
+
+.MyTabMenu {
+	list-style-type: none;
+	margin: 10px;
+	padding: 10px;
+}
+
+.MyActive {
+	border-bottom: 2px solid rgb(42, 157, 143);
+}
+
+.title-container {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 50px;
+}
+
+.title {
+	color: #2a9d8f;
+	font-size: 70px;
+}
+
+.table-container {
+	margin: 0 90px;
+}
+
+.wrtie-container {
+	display: flex;
+	justify-content: flex-end;
+	margin: 0 90px;
+	margin-bottom: 10px;
+}
+
+.write-btn {
+	border: 2px solid #2a9d8f;
+	border-radius: 10px;
+	padding: 6px 12px 4px 12px;
+}
+
+.write-btn:hover {
+	border: 2px solid #2a9d8f;
+	background-color: #2a9d8f;
+	color: white;
+}
+
+.write-btn:focus {
+	border: 2px solid #2a9d8f;
+}
+
+.ask {
+	background-color: #2a9d8f;
+	width: 40px;
+	padding: 3px;
+	text-align: center;
+	line-height: 1;
+	font-weight: 100;
+	color: white;
+}
+
+.askText {
+	text-align: left;
+}
+
+.arrow {
+	transform: rotate(90deg);
+	position: absolute;
+}
+
+.answer {
+	position: absolute;
+	width: 40px;
+	padding: 3px;
+	text-align: center;
+	margin-left: 20px;
+	line-height: 1;
+	font-weight: 100;
+	color: white;
+}
+
+.pagenation-container {
+	display: flex;
+	justify-content: center;
+	margin: 10px;
+	margin-bottom: 20px;
+}
+
+.pagenation {
+	text-align: center;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #D2D2D2;
+}
