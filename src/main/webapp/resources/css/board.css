@@ -1,0 +1,273 @@
+@charset "UTF-8";
+/*********************** free board *******************************/
+.MyTab {
+	display: flex;
+	justify-content: space-around;
+	padding: 0;
+	margin-bottom: 50px;
+	/* top: 0; */
+	/* z-index: 1;
+    position: sticky; */
+}
+
+.MyTabMenu {
+	list-style-type: none;
+	margin: 10px;
+	padding: 10px;
+}
+
+.MyActive {
+	border-bottom: 2px solid rgb(42, 157, 143);
+}
+
+.title-container {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.title {
+	color: rgb(42, 157, 143);
+	font-size: 70px;
+}
+
+.filter-container {
+	display: flex;
+	justify-content: end;
+}
+
+.filterBtn {
+	margin-top: 20px;
+	margin-right: 94px;
+	border: none;
+}
+
+.filterImg {
+	width: 30px;
+	height: 30px;
+	/* margin-top: 20px;
+    margin-right: 94px; */
+}
+
+/* 필터 모달 제목 */
+.modal-title-custom {
+	position: relative;
+	left: 330px;
+	top: 3px;
+	font-weight: bold;
+}
+
+/* 필터 초기화 버튼 */
+.resetBtn {
+	color: #7FD858;
+	border: 2px solid #7FD858;
+	border-radius: 10px;
+	padding: 10px 9px 7px 7px;
+	outline: none;
+}
+
+.resetBtnClick {
+	background-color: #7ed8583a;
+}
+
+/* 필터 적용 버튼 */
+.filter-submitBtn {
+	width: 660px;
+	color: #9c9c9c;
+	background-color: #dfdfdf;
+	border-radius: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-left: 10px;
+	outline: none;
+}
+
+/* 필터 적용 버튼 클릭 안했을 시 추가하는 클래스 */
+.filter-submitBtn-nonClick {
+	color: #9c9c9c;
+	background-color: #dfdfdf;
+}
+
+/* 필터 적용 버튼 클릭 했을 시 추가하는 클래스 */
+.filter-submitBtn-Click {
+	background-color: #7FD858;
+	color: white;
+}
+
+/* 게시글 종류 버튼 */
+.locationBtn {
+	background-color: #dfdfdf;
+	color: black;
+	width: 105px;
+	padding: 9px 10px 6px 10px;
+	border-radius: 25px;
+	margin-left: 10px;
+	margin-bottom: 15px;
+	font-size: 15px;
+	border: none;
+	outline: none;
+}
+
+/* 등급 버튼 */
+.gradeBtn {
+	background-color: #dfdfdf;
+	color: black;
+	width: 100px;
+	padding: 10px 10px 10px 10px;
+	border-radius: 25px;
+	margin: 10px;
+	font-size: 15px;
+	border: none;
+	outline: none;
+}
+
+/* 정렬 기준 버튼 */
+.lineupBtn {
+	background-color: #dfdfdf;
+	color: black;
+	width: 105px;
+	padding: 9px 10px 6px 10px;
+	border-radius: 25px;
+	margin-left: 10px;
+	margin-bottom: 15px;
+	font-size: 15px;
+	border: none;
+	outline: none;
+}
+/* 필터에서 해당 버튼 클릭 시 추가할 클래스 */
+.clickBtn {
+	background-color: #7FD858;
+	color: white;
+}
+
+/* 초기화 이미지 */
+.resetImg {
+	position: relative;
+	bottom: 2px;
+	width: 25px;
+	height: 25px;
+}
+/* 
+.continent-container{
+    display: flex;
+    justify-content: center;
+    margin: 50px 94px 20px 94px;
+}
+.continent{
+    width: 100%;
+    margin: 8px;
+    background-color: white;
+    color: black;
+    border-radius: 30px;
+    border: 3px solid #D2D2D2; 
+    padding: 8px 5px 5px 5px;
+    outline: none;
+}
+
+.continent:hover{
+    border: 3px solid rgb(42, 157, 143);
+    transform: scale(1.04);
+    outline: none;
+}
+
+
+
+.select_continent_outline{
+    border: 3px solid rgb(42, 157, 143);
+} */
+
+/* 카드 프레임 */
+.card-custom {
+	border: 2px solid #D2D2D2;
+	border-radius: 7px;
+	transition-duration: 0.1s;
+}
+
+/* 카드 안에 내용 */
+.card-title {
+	font-size: 20px;
+	height: 90px;
+	/* 동행게시판 작성페이지 만들 때 제목 최대길이 지정해주기 */
+}
+
+/* 카드를 넣어주는 컨테이너 */
+.cardForm {
+	padding: 0 80px;
+}
+
+.card-query {
+	height: 500px;
+	padding: 30px 30px;
+}
+
+.pi {
+	margin-top: 20px;
+	border-radius: 100%;
+	position: relative;
+	display: flex;
+	width: 30px;
+	height: 30px;
+	justify-content: center;
+	align-items: center;
+	transition-duration: 0.2s;
+}
+
+.plusicon-custom {
+	position: absolute;
+}
+
+.search-container {
+	position: relative;
+	width: 745px;
+	height: 50px;
+	margin: 10px auto;
+	display: flex;
+	justify-content: center;
+}
+
+.searchbar {
+	border: rgb(210, 210, 210, 0.5) solid 1px;
+	/* border: 3px solid rgb(42, 157, 143); */
+	border-radius: 10px;
+	padding: 5px 30px 3px 35px;
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+	/* outline: rgb(42, 157, 143); */
+}
+
+.searchbar::placeholder {
+	color: rgb(0, 0, 0, 0.2);
+}
+
+.searchbar:focus {
+	/* box-shadow: 0 0 0 0.2rem rgba(255, 87, 51, 0.25); */
+	/* border: none;
+    outline: none; */
+	outline: 2px solid rgb(42, 157, 143);
+}
+
+.searchicon-container {
+	display: flex;
+	/* justify-content: space-between; */
+	position: absolute;
+	top: 17px;
+	left: 12px;
+}
+
+.pagenation-container {
+	display: flex;
+	justify-content: center;
+	margin: 10px;
+	margin-bottom: 20px;
+}
+
+.pagenation {
+	text-align: center;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #D2D2D2;
+	padding: 4px 2px 0 2px;
+}
