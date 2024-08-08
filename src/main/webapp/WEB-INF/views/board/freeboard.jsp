@@ -5,6 +5,12 @@
 <title>자유 게시판</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <main>
+	   <c:forEach var="board" items="${boardPage.boardList}">
+        <div>
+            <h2>${board.BOARD_TITLE}</h2>
+
+        </div>
+    </c:forEach>
 	<ul class="MyTab">
 		<li class="MyTabMenu"><a href="joinboard">동행게시판</a></li>
 		<li class="MyTabMenu MyActive"><a href="freeboard">자유게시판</a></li>

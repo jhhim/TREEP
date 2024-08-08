@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ss.sns.board.mapper.BoardMapper">
-
-
+	<select id="countBoard" parameterType="int" resultType="int">
+	  SELECT COUNT(*) FROM BOARD WHERE board_kind = #{board_kind}
+	</select>
+	<select id="selectBoardList" parameterType="map" resultType="BoardDTO">
+		select * from( select rownum rNum, Tb.* from (select * from board where BOARD_KIND=#{board_kind} order by BOARD_NO desc) Tb) where rNum between #{startNo} and #{endNo}
+	</select>
 </mapper>
