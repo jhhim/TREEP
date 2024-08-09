@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <main>
    
@@ -30,17 +31,26 @@
                     <tr>
                         <th scope="col"><input type="checkbox" name="allcheck" value="all" onclick="allCheck()" /></th>
                         <th scope="col">보낸 사람</th>
-                        <th scope="col">제목</th>
+                        <th scope="col">내용</th>
                         <th scope="col">날짜</th>
                         <th scope="col">읽음 상태</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <tr>
+                <c:forEach var="msg" items="${msgPage.msgList }">
+                	  <tr>
                         <th><input type="checkbox" name="check" value="first" onclick="chkSelect()" /></th>
-                        <th scope="row">sdffsdf</th>
+                        <th scope="row">${msg.message_sen }</th>
                         <td style="width: 40%;"><a href="#" id="note-title-click" data-bs-toggle="modal" data-bs-target="#note-title" >
-                                엄청 기이이이이이이잉이이이이인 제목
+                                                                                                                  <c:choose>
+    					<c:when test="${fn:length(msg.message_content) > 29 }">
+        					${fn:substring(msg.message_content,0,30) } ...
+    					</c:when>
+    					<c:otherwise>
+        				${msg.message_content }
+						</c:otherwise>
+						</c:choose>
+              
                             </a>
                             <!-- 쪽지 상세 보기 모달 -->
 
@@ -57,30 +67,18 @@
                                         <div class="modal-body">
                                             <div class="note-detail-container container-md">
                                                 <div class="send-note-row">
-                                                    <span id="send-person">보낸사람</span><span id="detail-send-person">po********</span>   
+                                                    <span id="send-person">보낸사람</span><span id="detail-send-person">${msg.message_sen }</span>   
                                                 </div>
                                                 <div class="recieveDate-note-row">
-                                                    <span id="receive-date">받은시간</span><span id="detail-receive-date">2024.08.07 [09:11]</span>
+                                                    <span id="receive-date">받은시간</span><span id="detail-receive-date">${msg.send_date }</span>
                                                 </div>
                                                 <div class="title-note-row">
-                                                    <span id="send-note-title">제목</span><span id="send-note-title">기이이이이이이잉이이이이인 제목</span>
+                                                    <span id="send-note-title">내용</span>
+                                                    <%-- <span id="send-note-title">${msg.message_content  }</span> --%>
                                                 </div>
                                         
                                                 <div class="note-detail-content">
-                                                    (광고) 인기 가전을 시즌 할인 특가로 만난다!
-                                                    알렛츠X하이마트 인기 가전 모음! 시즌 한정 할인 특가!
-                                                    ▶ https://vvd.bz/eYr6
-                                        
-                                        
-                                                    ▣ Z플립6·폴드6 등 최신 스마트폰 특별 구매 혜택!
-                                                    ▶ https://vvd.bz/e4Vh
-                                        
-                                        
-                                                    ▣ 자동차보험료 확인하고 네이버페이 8천원 받기!
-                                                    ▶ https://vvd.bz/cM9i
-                                        
-                                                    본 내용은 상업적 내용이 포함될 수 있으며, 쪽지의 내용 및 제품 설명은 각 광고 업체가 제공한 것으로 카페는 별도의 책임을 지지 않습니다.
-                                                    수신을 원하지 않을 경우 상단 버튼 수신 거부가 가능합니다.
+                                               		${msg.message_content }
                                                 </div>
                                             </div>
                                         </div>
@@ -95,23 +93,25 @@
                                 </div>
                             </div>
                         </td>
-                        <td>2024.07.31</td>
+                        <td>${msg.send_date }</td>
                         <td><span class="completeRead"></span></td>
                     </tr>
-                    <tr>
+                </c:forEach>
+                  
+                   <%--  <tr>
                         <th><input type="checkbox" name="check" value="second" onclick="chkSelect()" /></th>
                         <th scope="row">kossds</th>
                         <td style="width: 40%;">엄청 기이이이이이이이이이이인 제목</td>
                         <td>2024.07.31</td>
-                        <td><span class="completeRead"></span></td>
-                    </tr>
-                    <tr>
+                        <td><span class="completeRead">${msg.message_status_yn }</span></td>
+                    </tr> --%>
+                    <!-- <tr>
                         <th><input type="checkbox" name="check" value="third" onclick="chkSelect()" /></th>
                         <th scope="row">sfsdfsdf</th>
                         <td style="width: 40%;">엄청 기이이이이이이이이이이인 제목</td>
                         <td>2024.07.31</td>
                         <td><span class="noRead"></span></td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
 
@@ -189,27 +189,16 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <tr>
+                <c:forEach var="msg2" items="${msgPage2.msgList }"> 
                         <th><input type="checkbox" name="check" value="first" onclick="chkSelect()" /></th>
-                        <th scope="row">sdffsdf</th>
-                        <td style="width: 40%;">엄청 기이이이이이이이이이이인 제목</td>
-                        <td>2024.07.31</td>
-                        <td>읽음</td>
+                        <th scope="row">${msg2.message_sen }</th>
+                        <td style="width: 40%;">${msg2.message_content }</td>
+                        <td>${msg2.send_date}</td>
+                        <td>${msg2.message_status_yn}</td>
                     </tr>
-                    <tr>
-                        <th><input type="checkbox" name="check" value="second" onclick="chkSelect()" /></th>
-                        <th scope="row">kossds</th>
-                        <td style="width: 40%;">엄청 기이이이이이이이이이이인 제목</td>
-                        <td>2024.07.31</td>
-                        <td>읽음</td>
-                    </tr>
-                    <tr>
-                        <th><input type="checkbox" name="check" value="third" onclick="chkSelect()" /></th>
-                        <th scope="row">sfsdfsdf</th>
-                        <td style="width: 40%;">엄청 기이이이이이이이이이이인 제목</td>
-                        <td>2024.07.31</td>
-                        <td>읽지 않음</td>
-                    </tr>
+                   
+                </c:forEach>
+                    
                 </tbody>
             </table>
             <span class="note-manage">
@@ -251,23 +240,55 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination" id="note-pagination">
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
+                <button type=button class="page-link" onclick="location.href='message?page=${msgPage.currentPage -1 }'" 
+                ${msgPage.currentPage == 1 ? 'disabled' : ''} aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
-                </a>
+                </button>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <c:forEach var="i" begin="${msgPage.startPage}" end="${msgPage.endPage }">
+             <li class="page-item"><button type="button" class="page-link ${msgPage.currentPage == i ? 'active' : '' }"  onclick="location.href='message?page=${i}'">${i}</button></li>
+            </c:forEach>
+           
+        <!--     <li class="page-item"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
             <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li> -->
 
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
+                 <button type=button class="page-link" onclick="location.href='message?page=${msgPage.currentPage +1 }'" 
+                ${msgPage.currentPage == msgPage.totalPage ? 'disabled' : ''} aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
-                </a>
+                </button>
             </li>
         </ul>
     </nav>
+    
+    
+<%--     <nav aria-label="Page navigation example">
+        <ul class="pagination" id="note-pagination">
+            <li class="page-item">
+                <button type=button class="page-link" onclick="location.href='message?page=${msgPage2.currentPage -1 }'" 
+                ${msgPage2.currentPage == 1 ? 'disabled' : ''} aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </button>
+            </li>
+            <c:forEach var="i" begin="${msgPage2.startPage}" end="${msgPage2.endPage }">
+             <li class="page-item"><button type="button" class="page-link ${msgPage2.currentPage == i ? 'active' : '' }"  onclick="location.href='message?page=${i}'">${i}</button></li>
+            </c:forEach>
+           
+        <!--     <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li> -->
+
+            <li class="page-item">
+                 <button type=button class="page-link" onclick="location.href='message?page=${msgPage2.currentPage +1 }'" 
+                ${msgPage2.currentPage == msgPage2.totalPage ? 'disabled' : ''} aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </button>
+            </li>
+        </ul>
+    </nav> --%>
 </div>
 </main>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
