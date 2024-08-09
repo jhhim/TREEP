@@ -231,35 +231,6 @@ function appendCardfd() {
 
         $('.cardFormfd').append(cardfd);
         
-        }else{
-            var cardfd1 =
-
-
-            '<div class="col card-queryfd">'
-            + '<a href="FriendDetailBoard.html">'
-            + '<div class="card h-100 card-customfd">'
-            + '<div class="card-body h-25 ratio "style="--bs-aspect-ratio: 50%;">'
-            + '<img src="/sns/resources/img/board/car2.png" class="card-img-top boardImgfd" onerror="this.src=\'/sns/resources/img/board/car1.png\'" alt="">'
-            + '</div>'
-            + '<h5 class="card-titlefd p-3">파리 여행 동행분 구합니다</h5>'
-            + '<div class="col plus-customfd d-flex align-self-end align-item-center m-4">'
-            + '<div class="pi">'
-            + '<i class="plusicon-customfd fa-solid fa-plus"></i>'
-            + '</div>'
-            + '</div>'
-            + '<div class="card-footer">'
-            + '<small class="text-body-secondary d-flex justify-content-between">'
-            + '<p class="mb-0">2024.07.29</p>'
-            + '<p class="mb-0"> 조회수 : 134 </p>'
-            + '<p class="mb-0">LIKE : 64</p>'
-            + '</small>'
-            + '</div>'
-            + '</div>'
-            + '</a>'
-            + '</div>'
-
-        $('.cardFormfd').append(cardfd1);
-        
         }
 
     }

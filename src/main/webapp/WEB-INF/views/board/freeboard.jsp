@@ -118,7 +118,7 @@
 		<!-- 카드 자리 -->
 			<c:forEach var="board" items="${boardPage.boardList}">
 				<div class="col card-query">
-			<a href="detailboard?kind=1&no=${board.board_no}">
+			<a href="detailboard?kind=${board.board_kind}&no=${board.board_no}">
 				<div class="card h-100 card-custom">
 					<div class="card-body h-25 ratio" style="-bs-aspect-ratio: 50%;">
 						<img src="${path}/resources/img/board/${board.board_img}"

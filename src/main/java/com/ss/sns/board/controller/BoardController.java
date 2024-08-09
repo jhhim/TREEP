@@ -35,8 +35,17 @@ public class BoardController {
 		return "board/freeboard";
 	}
 	@RequestMapping("/joinboard")
-	public String joinboard() {
-		
+	public String joinboard(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
+		int board_kind = 2;
+		int freeTotalCount = service.countBoard(board_kind);
+		int pageSize = 8;
+		BoardPage boardPage = new BoardPage(pageSize, freeTotalCount, currentPage);
+		Map<String, Integer> hmap = new HashMap<String, Integer>();
+		hmap.put("startNo", boardPage.getStartNo());
+		hmap.put("endNo", boardPage.getEndNo());
+		hmap.put("board_kind", board_kind);
+		boardPage.setBoardList(service.selectBoardList(hmap));
+		model.addAttribute("boardPage", boardPage);
 		return "board/joinboard";
 	}
 	@RequestMapping("/askboard")
@@ -51,17 +60,17 @@ public class BoardController {
 		BoardDTO board = service.selectByBoardNo(hmap);
 		MemberDTO writeMember = service.selectJoinBoardMember(hmap);
 		switch (board.getBoard_continent()) {
-	    case "C1":board.setBoard_continent("국내");break;
-	    case "C2":board.setBoard_continent("일본");break;
-	    case "C3":board.setBoard_continent("중국");break;
-	    case "C4":board.setBoard_continent("아시아");break;
-	    case "C5":board.setBoard_continent("미국");break;
-	    case "C6":board.setBoard_continent("캐나다");break;
-	    case "C7":board.setBoard_continent("중남미");break;
-	    case "C8":board.setBoard_continent("유럽");break;
-	    case "C9":board.setBoard_continent("중동");break;
-	    case "C10":board.setBoard_continent("아프리카");break;
-	    case "C11":board.setBoard_continent("남태평양");break;
+	    case "c1": board.setBoard_continent("국내"); break;
+	    case "c2": board.setBoard_continent("일본"); break;
+	    case "c3": board.setBoard_continent("중국"); break;
+	    case "c4": board.setBoard_continent("아시아"); break;
+	    case "c5": board.setBoard_continent("미국"); break;
+	    case "c6": board.setBoard_continent("캐나다"); break;
+	    case "c7": board.setBoard_continent("중남미"); break;
+	    case "c8": board.setBoard_continent("유럽"); break;
+	    case "c9": board.setBoard_continent("중동"); break;
+	    case "c10": board.setBoard_continent("아프리카"); break;
+	    case "c11": board.setBoard_continent("남태평양"); break;
 	    default:board.setBoard_continent("");break;
 	}
 

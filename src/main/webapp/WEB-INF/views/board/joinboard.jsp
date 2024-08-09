@@ -137,16 +137,52 @@
           </div>
         </div>
       </div> -->
-
 	<div
 		class="row row-cols-1 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 g-4 cardFormfd">
-
+		<c:forEach var="board" items="${boardPage.boardList}">
+			<div class="col card-queryfd">
+				<a href="detailboard?kind=${board.board_kind}&no=${board.board_no}">
+					<div class="card h-100 card-customfd">
+						<div class="card-body h-25 ratio" style="-bs-aspect-ratio: 50%;">
+							<img src="${path}/resources/img/board/${board.board_img}"
+								class="card-img-top boardImgfd"
+								onerror="this.src='/sns/resources/img/board/car1.png'" alt="">
+						</div>
+						<h5 class="card-titlefd p-3">${board.board_title}</h5>
+						<div
+							class="col plus-customfd d-flex align-self-end align-item-center m-4">
+							<div class="pifd">
+								<i class="plusicon-customfd fa-solid fa-plus"></i>
+							</div>
+						</div>
+						<div class="card-footer">
+							<small class="text-body-secondary d-flex justify-content-between">
+								<p class="mb-0">${board.create_date}</p>
+								<p class="mb-0">조회수 : ${board.board_hit}</p>
+								<p class="mb-0">LIKE : ${board.board_like}</p>
+							</small>
+						</div>
+					</div>
+				</a>
+			</div>
+		</c:forEach>
 	</div>
 
-	<div class="pagenation-containerfd">
-		<div class="pagenationfd">
-
-			<a href="#">1</a>
+	<div class="pagination-container">
+		<div class="pagination">
+			<button type="button"
+				onclick="location.href='joinboard?page=${boardPage.currentPage - 1}'"
+				${boardPage.currentPage == 1 ? 'disabled' : ''}>«</button>
+			<c:forEach var="i" begin="${boardPage.startPage}"
+				end="${boardPage.endPage}">
+				<button type="button" onclick="location.href='joinboard?page=${i}'"
+					class="${boardPage.currentPage == i ? 'active' : ''}">
+					${i}</button>
+			</c:forEach>
+			<button type="button"
+				onclick="location.href='joinboard?page=${boardPage.currentPage + 1}'"
+				${boardPage.currentPage == boardPage.totalPage ? 'disabled' : ''}>
+				»</button>
 		</div>
 	</div>
 
