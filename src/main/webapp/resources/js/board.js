@@ -94,6 +94,12 @@ for(let i = 0; i < locationBtn.length; i++){
 for(let i = 0; i < lineupBtn.length; i++){
 
 lineupBtn[i].addEventListener('click',function(){
+for(let j = 0; j < lineupBtn.length; j++){
+        if(i != j){
+            
+            lineupBtn[j].classList.remove('clickBtn');
+        }
+    }
     if(lineupBtn[i].classList.contains("clickBtn")){
         lineupBtn[i].classList.remove('clickBtn');
         
@@ -107,10 +113,7 @@ lineupBtn[i].addEventListener('click',function(){
         
         console.log(LineupCount);
     }else{
-        if(LineupCount >= 3){
-            // lineupBtn쪽에선 필요 없는 기능임 어짜피 최대 3개라서
-            // alert('최대 3개까지 선택 가능합니다.');
-        }else{
+       
             lineupBtn[i].classList.add('clickBtn');
             const d = document.querySelector('.filter-submitBtn');
             d.classList.remove('filter-submitBtn-nonClick');
@@ -118,7 +121,7 @@ lineupBtn[i].addEventListener('click',function(){
 
             LineupCount++;
             console.log(LineupCount);
-        }
+        
     }
 })
 
@@ -363,6 +366,13 @@ for(let i = 0; i < locationBtnfd.length; i++){
 for(let i = 0; i < lineupBtnfd.length; i++){
 
 lineupBtnfd[i].addEventListener('click',function(){
+
+for(let j = 0; j < lineupBtnfd.length; j++){
+        if(i != j){
+            
+            lineupBtnfd[j].classList.remove('clickBtnfd');
+        }
+    }
     if(lineupBtnfd[i].classList.contains("clickBtnfd")){
         lineupBtnfd[i].classList.remove('clickBtnfd');
         
@@ -376,10 +386,9 @@ lineupBtnfd[i].addEventListener('click',function(){
         
         console.log(LineupCountfd);
     }else{
-        if(LineupCountfd >= 3){
-            // lineupBtn쪽에선 필요 없는 기능임 어짜피 최대 3개라서
-            alert('최대 3개까지 선택 가능합니다.');
-        }else{
+
+
+
             lineupBtnfd[i].classList.add('clickBtnfd');
             const dfd = document.querySelector('.filter-submitBtnfd');
             dfd.classList.remove('filter-submitBtn-nonClickfd');
@@ -387,7 +396,7 @@ lineupBtnfd[i].addEventListener('click',function(){
 
             LineupCountfd++;
             console.log(LineupCountfd);
-        }
+
     }
 })
 
@@ -488,7 +497,7 @@ function appendAsk() {
     th.style.alignItems = 'center';
     const p = document.createElement('p');
     p.classList.add('ask');
-    p.textContent = '댓글';
+    p.textContent = '문의';
     th.appendChild(p);
     tr.appendChild(th);
 

@@ -689,3 +689,113 @@
 	height: 30px;
 	border: 1px solid #D2D2D2;
 }
+
+/********************************** 게시글상세 ****************************************/
+
+/* 게시글 */
+#post{
+	margin-top: 30px;
+	
+}
+.post-writer{
+    font-weight: bold;
+}
+/* 게시글 제목 */
+.post-title{
+    font-size: 1.5rem;
+}
+/* 게시글 신고,쪽지,수정,삭제 페이지 이동 버튼 */
+.post-manage{
+    float: right;
+}
+/* 게시글 첨부 이미지 */
+.post-content-img{
+    width: 500px;
+    height: 300px;
+}
+/* 좋아요 이미지 */
+#like{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    margin-top: -3.6px;
+}
+
+/* sns 컨테이너 */
+.sns-container{
+    float: right;
+}
+/* sns 이미지 */
+.sns_img{
+    width: 30px;
+    height: 30px;
+    transition: all 0.5s ;
+}
+/* sns 이미지 hover 이벤트 */
+.sns_img:hover{
+    transform: translate(0,-7px)
+}
+
+/* 드롭다운 메뉴의 화살표를 없애기 위한 css */
+.no-arrow::after{
+    display: none !important;
+}
+.reply-writer{
+    font-weight: bold;
+}
+#reply-content{
+    border: solid 1px #e0e0e0;
+    border-radius: 5pxx;
+}
+#reply-content:focus{
+    
+    box-shadow: #caf7b6 0px 0px 0px 2px;
+    border: solid 1px #caf7b6;
+}
+.reply-input{
+    border: solid 1px #e0e0e0;
+    border-radius: 5px;
+
+}
+.reply-input:focus{
+    box-shadow: #caf7b6 0px 0px 0px 2px;
+    border: solid 1px #caf7b6;
+}
+/* 댓글 신고,쪽지,수정,삭제 페이지 이동 버튼 */
+.reply-manage{
+    float: right;
+}
+
+#reply{
+    margin-bottom: 300px;
+}
+
+
+.reply-table {
+    width: 100%;
+}
+
+/* 대댓글 들여쓰기 */
+.replies {
+    margin-left: 20px;
+}
+
+.reply-input-container {
+    display: none;
+    
+}
+#reply-submit{
+    border: 1px solid #7FD858;
+}
+#reply-submit:hover{
+    background-color: #7FD858;
+    color: white;
+}
+
+.reply-reply-submit{
+    border: 1px solid #7FD858;
+}
+.reply-reply-submit:hover{
+    background-color: #7FD858;
+    color: white;
+}

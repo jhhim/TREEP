@@ -9,8 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ss.sns.board.dto.BoardDTO;
 import com.ss.sns.board.dto.BoardPage;
 import com.ss.sns.board.service.BoardService;
+import com.ss.sns.member.dto.MemberDTO;
 
 @Controller
 public class BoardController {
@@ -29,7 +31,6 @@ public class BoardController {
 		hmap.put("endNo", boardPage.getEndNo());
 		hmap.put("board_kind", board_kind);
 		boardPage.setBoardList(service.selectBoardList(hmap));
-		System.out.println(boardPage);
 		model.addAttribute("boardPage", boardPage);
 		return "board/freeboard";
 	}
@@ -41,6 +42,32 @@ public class BoardController {
 	@RequestMapping("/askboard")
 	public String askboard() {
 		return "board/askboard";
+	}
+	@RequestMapping("/detailboard")
+	public String detailboard(int kind,int no,Model model) {	
+		Map<String, Integer> hmap = new HashMap<String, Integer>();
+		hmap.put("board_kind", kind);
+		hmap.put("board_no", no);
+		BoardDTO board = service.selectByBoardNo(hmap);
+		MemberDTO writeMember = service.selectJoinBoardMember(hmap);
+		switch (board.getBoard_continent()) {
+	    case "C1":board.setBoard_continent("국내");break;
+	    case "C2":board.setBoard_continent("일본");break;
+	    case "C3":board.setBoard_continent("중국");break;
+	    case "C4":board.setBoard_continent("아시아");break;
+	    case "C5":board.setBoard_continent("미국");break;
+	    case "C6":board.setBoard_continent("캐나다");break;
+	    case "C7":board.setBoard_continent("중남미");break;
+	    case "C8":board.setBoard_continent("유럽");break;
+	    case "C9":board.setBoard_continent("중동");break;
+	    case "C10":board.setBoard_continent("아프리카");break;
+	    case "C11":board.setBoard_continent("남태평양");break;
+	    default:board.setBoard_continent("");break;
+	}
+
+		model.addAttribute("board", board);
+		model.addAttribute("writeMember", writeMember);
+		return "board/detail";
 	}
 	
 	

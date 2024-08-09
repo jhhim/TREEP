@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ss.sns.board.dto.BoardDTO;
 import com.ss.sns.board.dto.BoardPage;
 import com.ss.sns.board.mapper.BoardMapper;
+import com.ss.sns.member.dto.MemberDTO;
 
 @Service
 public class BoardService {
@@ -23,6 +24,15 @@ public class BoardService {
 	public ArrayList<BoardDTO> selectBoardList(Map<String, Integer> hmap) {
 		return mapper.selectBoardList(hmap);
 	}
+
+	public BoardDTO selectByBoardNo(Map<String, Integer> hmap) {
+		return mapper.selectByBoardNo(hmap);
+	}
+	public MemberDTO selectJoinBoardMember(Map<String, Integer> hmap) {
+		return mapper.selectJoinBoardMember(hmap);
+	}
+	
+
 	
 	
 }

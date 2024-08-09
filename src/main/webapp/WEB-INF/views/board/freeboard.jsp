@@ -64,9 +64,6 @@
 								type="button" class="locationBtn" value="후기"> <input
 								type="button" class="locationBtn" value="공지사항">
 						</div>
-
-
-
 						<div>
 							<div style="padding: 10px;">
 								<h3>정렬</h3>
@@ -121,10 +118,10 @@
 		<!-- 카드 자리 -->
 			<c:forEach var="board" items="${boardPage.boardList}">
 				<div class="col card-query">
-			<a href="FriendDetailBoard.html">
+			<a href="detailboard?kind=1&no=${board.board_no}">
 				<div class="card h-100 card-custom">
 					<div class="card-body h-25 ratio" style="-bs-aspect-ratio: 50%;">
-						<img src="${path}/resources/img/board/${board_img}"
+						<img src="${path}/resources/img/board/${board.board_img}"
 							class="card-img-top boardImg"
 							onerror="this.src='/sns/resources/img/board/car1.png'" alt="">
 					</div>

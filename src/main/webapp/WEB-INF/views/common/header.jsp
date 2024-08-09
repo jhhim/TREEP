@@ -45,6 +45,7 @@
 <script defer src="${path}/resources/js/mypage.js"></script>
 <script defer src="${path}/resources/js/message.js"></script>
 <script defer src="${path}/resources/js/board.js"></script>
+<script defer src="${path}/resources/js/detailboard.js"></script>
 
 </head>
 <body>
