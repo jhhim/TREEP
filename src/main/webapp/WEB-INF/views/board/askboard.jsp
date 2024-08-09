@@ -7,10 +7,9 @@
 <main>
 	<ul class="MyTab">
 		<li class="MyTabMenu"><a href="joinboard">동행게시판</a></li>
-		<li class="MyTabMenu MyActive"><a href="freeboard">자유게시판</a></li>
-		<li class="MyTabMenu"><a href="askboard">문의게시판</a></li>
+		<li class="MyTabMenu"><a href="freeboard">자유게시판</a></li>
+		<li class="MyTabMenu MyActive"><a href="askboard">문의게시판</a></li>
 	</ul>
-
 	<!-- <div class="summary-container">
         <p id="summary-icon"><i class="fa-solid fa-house"></i></p>
         <p id="summary-icon"><i class="fa-solid fa-arrow-right"></i></p>
@@ -108,18 +107,35 @@
 
 			<tbody class="table-group-divider asktable"
 				style="border-top-color: #264653">
-
-				<!-- <tr>
-            <th scope="row"><p class="ask">댓글</p></th>
-            <td>제목 :  <input type="text" style="width:200px;"></td>
-            <td><input type="text" style="width:500px;"></td>
-          </tr> 
-
-           <tr>
-            <th scope="row" >&nbsp;<i class="fa-solid fa-arrow-turn-up arrow"></i><p class="answer">&nbsp;답변</p></th>
-            <td colspan="2"></td>                                  
-           
-          </tr>  -->
+				<c:forEach var="board" items="${boardPage.boardList}">
+				<tr>
+					<th scope="row"
+						style="width: 80px; vertical-align: top; align-items: center;">
+						<p class="ask">문의</p>
+					</th>
+					<td class="askText" style="vertical-align: middle;">제목 : ${board.board_title }<br> ${board.board_content }
+					</td>
+					<td style="text-align: right;"><input type="button" value="삭제"
+						class="btn btn-danger" onclick="deleteWrite()"><br>
+					<br>
+						<button type="button" class="btn btn-primary"
+							data-bs-toggle="modal" data-bs-target="#answerAsk">답변</button></td>
+				</tr>
+				<tr>
+					<th scope="row"
+						style="width: 80px; vertical-align: top; position: relative;">
+						<i class="fa-solid fa-arrow-turn-up arrow"></i>
+						<div class="answer"
+							style="background: #e76f51; width: 40px; height: 20px; text-align: center;">
+							<p style="position: relative; right: 2px;">&nbsp;답변</p>
+						</div>
+					</th>
+					<!-- 댓글로 널아니면 보이게 -->
+					<td colspan="2">
+						<p></p>
+					</td>
+				</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 

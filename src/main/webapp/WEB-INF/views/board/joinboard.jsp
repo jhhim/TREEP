@@ -101,49 +101,17 @@
 						<button type="button" class="filter-submitBtnfd"
 							data-bs-dismiss="modal" onclick="">필터 적용하기</button>
 					</div>
-
-
 				</form>
 			</div>
 		</div>
 	</div>
-
-
-	<!-- <div class="continent-container">
-        <input type="button" value="아시아" class="continent select_continent_outline">
-        <input type="button" value="남아메리카" class="continent">
-        <input type="button" value="북아메리카" class="continent">
-        <input type="button" value="유럽" class="continent">
-        <input type="button" value="오세아니아" class="continent">
-        <input type="button" value="아프리카" class="continent">
-    </div> -->
-
-	<!-- <div class="col card-query">
-        <div class="card h-100 card-custom">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body ratio " style="--bs-aspect-ratio: 50%;">
-            <h5 class="card-title p-3">파리 여행 동행분 구합니다 파리 여행 동행분 구합니다 파리 여행 동행분 구합니다 파리 여행 동행분 구합니다 파리 여행 동행분 구합니다</h5>
-            <p class="card-text"></p>
-          </div>
-          <div class="col plus-custom align-self-end m-4">
-              <i class="fa-solid fa-plus fa-2x p-3 "></i>
-          </div>
-          <div class="card-footer">
-              <small class="text-body-secondary d-flex justify-content-between">
-                  <p class="mb-0">2024.07.29</p> 
-                  <p class="mb-0"> 조회수 : 134 </p>
-                  <p class="mb-0">LIKE : 64</p>  
-                  </small>
-          </div>
-        </div>
-      </div> -->
 	<div
 		class="row row-cols-1 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 g-4 cardFormfd">
 		<c:forEach var="board" items="${boardPage.boardList}">
 			<div class="col card-queryfd">
 				<a href="detailboard?kind=${board.board_kind}&no=${board.board_no}">
 					<div class="card h-100 card-customfd">
-						<div class="card-body h-25 ratio" style="-bs-aspect-ratio: 50%;">
+						<div class="card-body h-50 ratio" style="-bs-aspect-ratio: 50%;">
 							<img src="${path}/resources/img/board/${board.board_img}"
 								class="card-img-top boardImgfd"
 								onerror="this.src='/sns/resources/img/board/car1.png'" alt="">

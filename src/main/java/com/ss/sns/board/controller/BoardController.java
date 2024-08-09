@@ -49,14 +49,26 @@ public class BoardController {
 		return "board/joinboard";
 	}
 	@RequestMapping("/askboard")
-	public String askboard() {
+	public String askboard(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
+		int board_kind = 3;
+		int freeTotalCount = service.countBoard(board_kind);
+		int pageSize = 10;
+		BoardPage boardPage = new BoardPage(pageSize, freeTotalCount, currentPage);
+		Map<String, Integer> hmap = new HashMap<String, Integer>();
+		hmap.put("startNo", boardPage.getStartNo());
+		hmap.put("endNo", boardPage.getEndNo());
+		hmap.put("board_kind", board_kind);
+		boardPage.setBoardList(service.selectBoardList(hmap));
+		model.addAttribute("boardPage", boardPage);
 		return "board/askboard";
 	}
 	@RequestMapping("/detailboard")
-	public String detailboard(int kind,int no,Model model) {	
+	public String detailboard(int kind,int no,Model model) {
+		
 		Map<String, Integer> hmap = new HashMap<String, Integer>();
 		hmap.put("board_kind", kind);
 		hmap.put("board_no", no);
+		/* service.updateHit(hmap); */
 		BoardDTO board = service.selectByBoardNo(hmap);
 		MemberDTO writeMember = service.selectJoinBoardMember(hmap);
 		switch (board.getBoard_continent()) {
