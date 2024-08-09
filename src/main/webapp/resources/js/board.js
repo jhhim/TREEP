@@ -1,39 +1,5 @@
 /*********************** free board *******************************/
-// 카드 추가하는 반복문
-function appendCard(){
-    for(let i = 0; i < 8; i++){
-        
-        var card = 
-          '<div class="col card-query">'
-        + '<a href="FriendDetailBoard.html">'
-        + '<div class="card h-100 card-custom">'
-        + '<div class="card-body h-25 ratio "style="--bs-aspect-ratio: 50%;">'
-        + '<img src="/sns/resources/img/board/car2.png" class="card-img-top boardImg" onerror="this.src=\'/sns/resources/img/board/car1.png\'" alt="">'
-        +  '</div>'
-        +  '<h5 class="card-title p-3">파리 여행 동행분 구합니다</h5>'
-        +  '<div class="col plus-custom d-flex align-self-end align-item-center m-4">'
-        +  '<div class="pi">'
-        +  '<i class="plusicon-custom fa-solid fa-plus"></i>'
-        +  '</div>'
-        +  '</div>'
-        +  '<div class="card-footer">'
-        +  '<small class="text-body-secondary d-flex justify-content-between">'
-        +  '<p class="mb-0">2024.07.29</p>'
-        +  '<p class="mb-0"> 조회수 : 134 </p>'
-        +  '<p class="mb-0">LIKE : 64</p>'
-        +  '</small>'
-        +  '</div>'
-        +  '</div>'
-        +  '</a>'
-        +  '</div>'
-       
 
-        $('.cardForm').append(card);
-    }
-
-}
-
-appendCard();
 
 
 // 카드에 마우스 올라왔을 때 이벤트 발생
