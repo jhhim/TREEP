@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -13,6 +14,8 @@ import com.ss.sns.board.dto.BoardDTO;
 import com.ss.sns.board.dto.BoardPage;
 import com.ss.sns.board.service.BoardService;
 import com.ss.sns.member.dto.MemberDTO;
+
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 public class BoardController {
@@ -85,11 +88,19 @@ public class BoardController {
 	    case "c11": board.setBoard_continent("남태평양"); break;
 	    default:board.setBoard_continent("");break;
 	}
-
 		model.addAttribute("board", board);
 		model.addAttribute("writeMember", writeMember);
 		return "board/detail";
 	}
-	
-	
+	@PostMapping("/reply")
+	public String reply(String replyContent,int kind,int no) {
+		 System.out.println("댓글 내용: " + replyContent);
+			Map<String, Integer> hmap = new HashMap<String, Integer>();
+			hmap.put("board_kind", kind);
+			hmap.put("board_no", no);
+			hmap.put("member_no",1000);
+			service.insertReply(hmap);
+		 
+	return "redirect:/detailboard?kind=" + kind + "&no=" + no;
+	}
 }

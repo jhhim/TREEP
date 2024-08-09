@@ -66,17 +66,16 @@
 	<br>
 
 
-	<div class="container-md" id="reply">
+	<form method="post" action="reply?kind=${board.board_kind}&no=${board.board_no}" class="container-md" id="reply">
 		<div class="reply_num">댓글 2</div>
 		<br>
 		<div class="post-reply input-group mb-3">
 			<textarea id="reply-content" class="form-control"
-				placeholder="댓글을 작성해주세요"></textarea>
-			<button class="btn" type="button" id="reply-submit"
-				onclick="addComment()">등록</button>
+				placeholder="댓글을 작성해주세요" name="replyContent"></textarea>
+			<button class="btn" type="submit" id="reply-submit">등록</button><!-- onclick="addComment()" -->
 		</div>
 		<div id="comment-container"></div>
 		<br>
-	</div>
+	</form>
 </main>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

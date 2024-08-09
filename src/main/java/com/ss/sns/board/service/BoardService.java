@@ -35,6 +35,10 @@ public class BoardService {
 	public void updateHit(Map<String, Integer> hmap) {
 		mapper.updateHit(hmap);
 	}
+
+	public void insertReply(Map<String, Integer> hmap) {
+		mapper.insertReply(hmap);	
+	}
 	
 
 	

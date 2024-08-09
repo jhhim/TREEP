@@ -28,5 +28,5 @@
 	<update id="updateHit" parameterType="map">
 	update board set board_hit = board_hit+1 where board_kind = #{board_kind} and board_no=#{board_no}
 	</update>
-	
+	<!-- 댓글 insert -->
 </mapper>
