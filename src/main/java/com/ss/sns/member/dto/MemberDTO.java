@@ -9,18 +9,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class MemberDTO {
-	private int MEMBER_NO;
-	private String MEMBER_ID;
-	private String MEMBER_PW;
-	private String MEMBER_NAME;
-	private String MEMBER_NICKNAME;
-	private String MEMBER_EMAIL;
-	private LocalDate DATE;
-	private String MEMBER_GENDER;
-	private LocalDate MEMBER_ENROLL;
-	private String MEMBER_PHONE;
-	private String MEMBER_TYPE;
-	private String MEMBER_IMG;
-	private String MEMBER_GRADE;
-	private String MANAGER_YN;
+	private int member_no;
+	private String member_id;
+	private String member_pw;
+	private String member_name;
+	private String member_nickname;
+	private String member_email;
+	private LocalDate date;
+	private String member_gender;
+	private LocalDate member_enroll;
+	private String member_phone;
+	private String member_type;
+	private String member_img;
+	private String member_grade;
+	private String manager_yn;
 }

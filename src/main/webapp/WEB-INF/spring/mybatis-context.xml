@@ -6,8 +6,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp2.BasicDataSource"
-		p:driverClassName="${driver}" p:url="${url}" p:username="${username}"
-		p:password="${password}" destroy-method="close" />
+		p:driverClassName="${db.driver}" p:url="${db.url}" p:username="${db.username}"
+		p:password="${db.password}" destroy-method="close" />
 	<bean id="mybatisConfig"
 		class="org.apache.ibatis.session.Configuration" />
 	<bean id="sqlSessionFactory"
