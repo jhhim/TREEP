@@ -109,7 +109,11 @@
 	margin: 10px 15px;
 	display: flex;
 	align-items: center;
-	gap: 190px;
+	gap: 15px;
+}
+.search-box-wrap i{
+ font-size:18px;
+    color: #f4a261;
 }
 
 .search-left h5 {
@@ -125,16 +129,6 @@
 	font-weight: 100;
 }
 
-.search-right {
-	font-size: 14px;
-	color: #f4a261;
-	width: 20%;
-	text-align: end;
-}
-
-.search-right i {
-	font-size: 14px;
-}
 
 .main-banner-right {
 	height: 100%;

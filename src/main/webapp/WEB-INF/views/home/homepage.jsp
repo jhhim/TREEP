@@ -19,69 +19,55 @@
                             <div class="search-place-scroll">
                                 <a href="#" class="search-box-wrap" data-bs-toggle="modal"
                                     data-bs-target="#detail-modal">
+                                    <i class="fa-solid fa-location-dot"></i>
                                     <div class="search-left">
                                         <h5>제주</h5>
                                         <span>대한민국</span>
                                     </div>
-                                    <div class="search-right">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <span>3688</span>
-                                    </div>
                                 </a>
                                 <a href="#" class="search-box-wrap" data-bs-toggle="modal"
                                 data-bs-target="#detail-modal">
+                                  <i class="fa-solid fa-location-dot"></i>
                                     <div class="search-left">
                                         <h5>코타키나발루</h5>
                                         <span>말레이시아</span>
                                     </div>
-                                    <div class="search-right">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <span>1142</span>
-                                    </div>
                                 </a>
                                 <a href="#" class="search-box-wrap" data-bs-toggle="modal"
                                     data-bs-target="#detail-modal">
+                                     <i class="fa-solid fa-location-dot"></i>
                                     <div class="search-left">
                                         <h5>나트랑</h5>
                                         <span>베트남</span>
                                     </div>
-                                    <div class="search-right">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <span>896</span>
-                                    </div>
+                                    
                                 </a>
                                 <a href="#" class="search-box-wrap" data-bs-toggle="modal"
                                 data-bs-target="#detail-modal">
+                                 <i class="fa-solid fa-location-dot"></i>
                                     <div class="search-left">
                                         <h5>발리</h5>
                                         <span>인도네시아</span>
                                     </div>
-                                    <div class="search-right">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <span>896</span>
-                                    </div>
+                                    
                                 </a>
                                 <a href="#" class="search-box-wrap" data-bs-toggle="modal"
                                     data-bs-target="#detail-modal">
+                                     <i class="fa-solid fa-location-dot"></i>
                                     <div class="search-left">
                                         <h5>후쿠오카</h5>
                                         <span>일본</span>
                                     </div>
-                                    <div class="search-right">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <span>875</span>
-                                    </div>
+                                    
                                 </a>
                                 <a href="#" class="search-box-wrap" data-bs-toggle="modal"
                                 data-bs-target="#detail-modal">
+                                 <i class="fa-solid fa-location-dot"></i>
                                     <div class="search-left">
                                         <h5>치앙마이</h5>
                                         <span>태국</span>
                                     </div>
-                                    <div class="search-right">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <span>666</span>
-                                    </div>
+                                   
                                 </a>
 
                             </div>

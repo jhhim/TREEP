@@ -31,6 +31,10 @@ public class BoardService {
 	public MemberDTO selectJoinBoardMember(Map<String, Integer> hmap) {
 		return mapper.selectJoinBoardMember(hmap);
 	}
+
+	public void updateHit(Map<String, Integer> hmap) {
+		mapper.updateHit(hmap);
+	}
 	
 
 	

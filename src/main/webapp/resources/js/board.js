@@ -9,10 +9,10 @@ card.forEach((a, index) =>{
     
 
     a.addEventListener('mouseover',function(){
-         this.style.border = '2px solid rgb(42, 157, 143)';
+         this.style.border = '2px solid rgb(127, 216, 88)';
          this.style.transform='scale(1.02)';
          this.style.boxShadow='rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
-         this.querySelector('.pi').style.backgroundColor='rgb(42, 157, 143)';
+         this.querySelector('.pi').style.backgroundColor='rgb(127, 216, 88)';
          this.querySelector('.pi').style.transform='rotate(90deg)';
      
      });
@@ -246,10 +246,10 @@ cardfd.forEach((a, index) => {
 
 
     a.addEventListener('mouseover', function () {
-        this.style.border = '2px solid rgb(42, 157, 143)';
+        this.style.border = '2px solid rgb(127, 216, 88)';
         this.style.transform = 'scale(1.02)';
         this.style.boxShadow = 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px';
-        this.querySelector('.pifd').style.backgroundColor = 'rgb(42, 157, 143)';
+        this.querySelector('.pifd').style.backgroundColor = 'rgb(127, 216, 88)';
         this.querySelector('.pifd').style.transform = 'rotate(90deg)';
 
     });

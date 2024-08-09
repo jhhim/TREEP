@@ -68,7 +68,7 @@ public class BoardController {
 		Map<String, Integer> hmap = new HashMap<String, Integer>();
 		hmap.put("board_kind", kind);
 		hmap.put("board_no", no);
-		/* service.updateHit(hmap); */
+		service.updateHit(hmap);
 		BoardDTO board = service.selectByBoardNo(hmap);
 		MemberDTO writeMember = service.selectJoinBoardMember(hmap);
 		switch (board.getBoard_continent()) {

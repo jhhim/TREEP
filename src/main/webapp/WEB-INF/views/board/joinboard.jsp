@@ -1,7 +1,15 @@
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
+<%
+LocalDate today = LocalDate.now();
+pageContext.setAttribute("today", today.toString());
+%>
 <title>동행 게시판</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <main>
@@ -33,7 +41,8 @@
 	<div class="filter-containerfd">
 		<button type="button" class="btn filterBtnfd" data-bs-toggle="modal"
 			data-bs-target="#filterfd">
-			<img src="${path}/resources/img/board/filter.png" class="filterImgfd" alt="">
+			<img src="${path}/resources/img/board/filter.png" class="filterImgfd"
+				alt="">
 		</button>
 
 
@@ -96,7 +105,8 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="resetBtnfd" onclick="resetModalfd()">
-							<img src="${path}/resources/img/board/reset.png" class="resetImgfd" alt="">초기화
+							<img src="${path}/resources/img/board/reset.png"
+								class="resetImgfd" alt="">초기화
 						</button>
 						<button type="button" class="filter-submitBtnfd"
 							data-bs-dismiss="modal" onclick="">필터 적용하기</button>
@@ -125,7 +135,18 @@
 						</div>
 						<div class="card-footer">
 							<small class="text-body-secondary d-flex justify-content-between">
-								<p class="mb-0">${board.create_date}</p>
+								<p class="mb-0">
+									<c:choose>
+										<c:when
+											test="${fn:substring(board.create_date, 0, 10) eq today}">
+											<p class="mb-0">${fn:substring(board.create_date, 11, 16)}</p>
+										</c:when>
+										<c:otherwise>
+											<p class="mb-0">${fn:substring(board.create_date, 0, 10)}</p>
+										</c:otherwise>
+									</c:choose>
+								</p>
+
 								<p class="mb-0">조회수 : ${board.board_hit}</p>
 								<p class="mb-0">LIKE : ${board.board_like}</p>
 							</small>

@@ -24,4 +24,9 @@
 		m.member_no WHERE b.BOARD_KIND = #{board_kind} AND b.board_no =
 		#{board_no}
 	</select>
+	<!-- 보드 조회수 up -->
+	<update id="updateHit" parameterType="map">
+	update board set board_hit = board_hit+1 where board_kind = #{board_kind} and board_no=#{board_no}
+	</update>
+	
 </mapper>

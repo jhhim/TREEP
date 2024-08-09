@@ -188,7 +188,7 @@
 /* 카드 안에 내용 */
 .card-title {
 	font-size: 20px;
-	height: 90px;
+	height: 60px;
 	/* 동행게시판 작성페이지 만들 때 제목 최대길이 지정해주기 */
 }
 
@@ -221,7 +221,11 @@
 .plusicon-custom {
 	position: absolute;
 }
-
+.card-footer span{
+	background-color:#7FD858;
+	padding: 2px 7px;
+	border-radius: 10px;
+}
 .search-container {
 	position: relative;
 	width: 745px;
