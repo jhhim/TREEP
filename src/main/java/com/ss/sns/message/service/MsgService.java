@@ -44,4 +44,9 @@ public class MsgService {
 		return mapper.selectMsgMemberNo(id);
 	}
 
+	public void deleteSendMessage(int msg_no) {
+		mapper.deleteSendMessage(msg_no);
+		
+	}
+
 }

@@ -25,7 +25,7 @@ public class MsgController {
 		
 		int temp = 1020;
 		int who = service.selectMemberNo(temp);
-		System.out.println("회원번호 : " + who);
+//		System.out.println("회원번호 : " + who);
 		
 		// 세션에 있는 멤버한테 온 메시지 전체 개수
 		int MessageTotalCount = service.selectMessageCount(temp);
@@ -59,10 +59,19 @@ public class MsgController {
 	}
 	
 	
-	@RequestMapping("/delete")
-	public String Delete(@RequestParam(value="message_no") int msg_no){
+	@RequestMapping("/deleteRev")
+	public String DeleteRev(@RequestParam(value="message_no") int msg_no){
 		
 		service.deleteRevMessage(msg_no);
+		
+		return "redirect:/message";
+	}
+	
+	
+	@RequestMapping("/deleteSend")
+	public String DeleteSend(@RequestParam(value="message_no") int msg_no){
+		
+		service.deleteSendMessage(msg_no);
 		
 		return "redirect:/message";
 	}

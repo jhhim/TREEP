@@ -24,4 +24,6 @@ public interface MsgMapper {
 
 	int selectMsgMemberNo(String id);
 
+	void deleteSendMessage(int msg_no);
+
 }

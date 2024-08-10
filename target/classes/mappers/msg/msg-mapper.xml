@@ -38,4 +38,10 @@
 		VALUES (DEFAULT, #{text} ,#{message_sen} ,#{message_rev}, sysdate,'N')
 </insert>
 
+
+<delete id="deleteSendMessage" parameterType="int">
+	DELETE FROM MESSAGE WHERE MESSAGE_NO = #{msg_no}
+</delete>
+
+
 </mapper>

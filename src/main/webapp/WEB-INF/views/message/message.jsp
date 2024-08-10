@@ -37,11 +37,11 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                <c:forEach var="msg" items="${msgPage.msgList }" varStatus="i">
-                	  <tr class="${i.index }">
-                        <th><input type="checkbox" name="check" value="${i.index }" onclick="chkSelect()" /></th>
+                <c:forEach var="msg" items="${msgPage.msgList }">
+                	  <tr>
+                        <th><input type="checkbox" name="checkrev" value="${msg.message_no }" onclick="chkSelectrev()" /></th>
                         <th scope="row">${msg.message_sen }</th>
-                        <td style="width: 40%;"><a href="#" id="note-title-click" data-bs-toggle="modal" data-bs-target="#note-title-${i.index }" >
+                        <td style="width: 40%;"><a href="#" id="note-title-click" data-bs-toggle="modal" data-bs-target="#note-title-${msg.message_no }" >
                                                                                                                   <c:choose>
     					<c:when test="${fn:length(msg.message_content) > 29 }">
         					${fn:substring(msg.message_content,0,30) } ...
@@ -54,7 +54,7 @@
                             </a>
                             <!-- 쪽지 상세 보기 모달 -->
 
-                            <div class="modal fade" id="note-title-${i.index }" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            <div class="modal fade" id="note-title-${msg.message_no }" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
@@ -87,7 +87,7 @@
                                            <!-- 보관 버튼 -->
                                             <button type="button" class="btn" id="note-detail-store" data-bs-toggle="modal" data-bs-target="#note-detail-store">보관</button>
                                               <!-- 삭제버튼 -->
-                                            <button type="button" class="btn" id="note-detail-delete" onclick="location.href='delete?message_no=${msg.message_no}'">삭제</button>
+                                            <button type="button" class="btn" id="note-detail-delete" onclick="location.href='deleteRev?message_no=${msg.message_no}'">삭제</button>
                                         </div>
                                     </div>
                                 </div>
@@ -146,7 +146,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn" id="note-delete" >삭제</button>  <!-- onclick="deleteCheck()" -->
+                <button type="button" class="btn" id="note-delete" onclick="deleteRevCheck()">삭제</button>  <!-- onclick="deleteCheck()" -->
                 <button type="button" class="btn" id="note-store" onclick="storeNote()" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">보관</button>
 
@@ -189,7 +189,7 @@
                 </thead>
                 <tbody class="table-group-divider">
                 <c:forEach var="msg2" items="${msgPage2.msgList }"> 
-                        <th><input type="checkbox" name="check" value="first" onclick="chkSelect()" /></th>
+                        <th><input type="checkbox" name="checksend" value="${msg2.message_no }" onclick="chkSelectsend()" /></th>
                         <th scope="row">${msg2.message_rev }</th>
                         <td style="width: 40%;">${msg2.message_content }</td>
                         <td>${msg2.send_date}</td>
@@ -201,7 +201,7 @@
                 </tbody>
             </table>
             <span class="note-manage">
-                <button type="button" class="btn" id="note-delete">
+                <button type="button" class="btn" id="note-delete" onclick="deleteSendCheck()">
                         삭제</button>
             </span>
 

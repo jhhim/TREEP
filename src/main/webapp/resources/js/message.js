@@ -13,10 +13,34 @@ function allCheck() {
 }
 
 
-function chkSelect() {
+function chkSelectrev() {
     //전체 선택된 상태에서 체크가 풀릴경우 전체선택 체크도 풀리는 기능
-    const checkBoxs = document.getElementsByName('check');
+    const checkBoxs = document.getElementsByName('checkrev');
+	
+	for(let i = 0; i < checkBoxs.length; i++){
+		if(checkBoxs[i].checked){
+		console.log(checkBoxs[i].value);
+		}
+	}
 
+	
+    let flag = true;
+    for (let checkbox of checkBoxs) {
+        if (!checkbox.checked) {
+            flag = false;
+        }
+    }
+    document.getElementsByName('allcheck')[0].checked = flag;
+}
+
+function chkSelectsend() {
+    //전체 선택된 상태에서 체크가 풀릴경우 전체선택 체크도 풀리는 기능
+    const checkBoxs = document.getElementsByName('checksend');
+	
+
+	for(let i = 0; i < checkBoxs.length; i++){
+		console.log(checkBoxs[i]);
+	}
     let flag = true;
     for (let checkbox of checkBoxs) {
         if (!checkbox.checked) {
@@ -104,13 +128,39 @@ function sendMessage() {
 }
 
 
-/*
 
-function deleteCheck(){
- const checkBoxs = document.getElementsByName('check');
 
-let checkNum = document.querySelector
+function deleteRevCheck(){
+ const checkBoxs = document.getElementsByName('checkrev');
+ 
 
+
+	for(let i = 0; i < checkBoxs.length; i++){
+		if(checkBoxs[i].checked){
+		
+		 location.href='deleteRev?message_no=' + checkBoxs[i].value;
+		  
+		}
+	}
+
+	
 }
 
-*/
+
+function deleteSendCheck(){
+ const checkBoxs = document.getElementsByName('checksend');
+ 
+
+
+	for(let i = 0; i < checkBoxs.length; i++){
+		if(checkBoxs[i].checked){
+		
+		 location.href='deleteRev?message_no=' + checkBoxs[i].value;
+		  
+		}
+	}
+
+	
+}
+
+
