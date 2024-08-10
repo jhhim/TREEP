@@ -49,4 +49,9 @@ public class MsgService {
 		
 	}
 
+	public void updateRevStatus(int msg_no) {
+		mapper.updateRevStatus(msg_no);
+			
+	}
+
 }

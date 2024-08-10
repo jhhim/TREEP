@@ -61,7 +61,7 @@
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">자세히 보기</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                                                aria-label="Close" onclick="location.href='updateRev?message_no=${msg.message_no }'"></button>
                                         </div>
                                         <!-- 상세보기 내용 -->
                                         <div class="modal-body">
