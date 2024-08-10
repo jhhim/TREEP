@@ -57,4 +57,31 @@ public class MsgController {
 		
 		return "message/message";
 	}
+	
+	
+	@RequestMapping("/delete")
+	public String Delete(@RequestParam(value="message_no") int msg_no, Model model){
+		
+		service.deleteRevMessage(msg_no);
+		
+		return "redirect:/message";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

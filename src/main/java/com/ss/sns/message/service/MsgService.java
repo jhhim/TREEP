@@ -32,4 +32,8 @@ public class MsgService {
 		return mapper.selectMessageSenList(hmap2);
 	}
 
+	public void deleteRevMessage(int msg_no) {
+		mapper.deleteRevMessage(msg_no);
+	}
+
 }

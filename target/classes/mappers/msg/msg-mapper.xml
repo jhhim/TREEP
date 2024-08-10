@@ -23,4 +23,8 @@
 	RNUM BETWEEN #{startNo} and #{endNo}
 </select>
 
+<delete id="deleteRevMessage" parameterType="int">
+	DELETE FROM MESSAGE WHERE MESSAGE_NO = #{msg_no}
+</delete>
+
 </mapper>

@@ -18,4 +18,6 @@ public interface MsgMapper {
 
 	ArrayList<MsgDTO> selectMessageSenList(Map<String, Integer> hmap2);
 
+	void deleteRevMessage(int msg_no);
+
 }

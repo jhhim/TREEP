@@ -87,7 +87,7 @@
                                            <!-- 보관 버튼 -->
                                             <button type="button" class="btn" id="note-detail-store" data-bs-toggle="modal" data-bs-target="#note-detail-store">보관</button>
                                               <!-- 삭제버튼 -->
-                                            <button type="button" class="btn" id="note-detail-delete">삭제</button>
+                                            <button type="button" class="btn" id="note-detail-delete" onclick="location.href='delete?message_no=${msg.message_no}'">삭제</button>
                                         </div>
                                     </div>
                                 </div>
