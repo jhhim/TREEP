@@ -36,4 +36,12 @@ public class MsgService {
 		mapper.deleteRevMessage(msg_no);
 	}
 
+	public void SendMessage(Map<String, Object> sendMsg) {
+		mapper.SendMessage(sendMsg);		
+	}
+
+	public int selectMsgMemberNo(String id) {
+		return mapper.selectMsgMemberNo(id);
+	}
+
 }

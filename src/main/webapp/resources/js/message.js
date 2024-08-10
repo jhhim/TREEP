@@ -95,3 +95,12 @@ for(read of completeReads){
 for (no of noReads){
     no.innerHTML=`<i class="fa-solid fa-circle" style="color: red; font-size: 0.5rem;"></i> 읽지 않음`;
 }
+
+
+function sendMessage() {
+    var recipientName = document.getElementById('recipient-name').value;
+    var messageText = document.getElementById('message-text').value;
+    location.href = 'SendMessage?recipient_name=' + recipientName + '&message_text=' + messageText;
+}
+
+

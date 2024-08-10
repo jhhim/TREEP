@@ -116,8 +116,7 @@
             </table>
 
             <span class="note-manage">
-                <button type="button" class="btn" id="note-write" data-bs-toggle="modal" data-bs-target="#noteWrite">쪽지
-                    보내기</button>
+                <button type="button" class="btn" id="note-write" data-bs-toggle="modal" data-bs-target="#noteWrite">쪽지 보내기</button>
                 <!--쪽지 보내기 모달-->
                 <div class="modal fade" id="noteWrite" tabindex="-1" aria-labelledby="noteWriteLabel"
                     aria-hidden="true">
@@ -129,7 +128,7 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form action="">
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">받는 사람</label>
                                         <input type="text" class="form-control" id="recipient-name">
@@ -142,7 +141,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn" data-bs-dismiss="modal" id="send-close">Close</button>
-                                <button type="button" class="btn" id="send-confirm">Send message</button>
+                                <button type="button" class="btn" id="send-confirm" onclick="sendMessage()">Send message</button>
                             </div>
                         </div>
                     </div>
@@ -191,7 +190,7 @@
                 <tbody class="table-group-divider">
                 <c:forEach var="msg2" items="${msgPage2.msgList }"> 
                         <th><input type="checkbox" name="check" value="first" onclick="chkSelect()" /></th>
-                        <th scope="row">${msg2.message_sen }</th>
+                        <th scope="row">${msg2.message_rev }</th>
                         <td style="width: 40%;">${msg2.message_content }</td>
                         <td>${msg2.send_date}</td>
                         <td>${msg2.message_status_yn}</td>

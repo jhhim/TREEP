@@ -60,9 +60,34 @@ public class MsgController {
 	
 	
 	@RequestMapping("/delete")
-	public String Delete(@RequestParam(value="message_no") int msg_no, Model model){
+	public String Delete(@RequestParam(value="message_no") int msg_no){
 		
 		service.deleteRevMessage(msg_no);
+		
+		return "redirect:/message";
+	}
+	
+	
+	@RequestMapping("/SendMessage")
+	public String SendMessage(@RequestParam(value="recipient_name") String id, @RequestParam(value="message_text") String msgText){
+		Map<String, Object> sendMsg = new HashMap<String, Object>();
+		
+		
+//		INSERT INTO MESSAGE(MESSAGE_NO, MESSAGE_CONTENT, MESSAGE_SEN, MESSAGE_REV, SEND_DATE, MESSAGE_STATUS_YN)
+//		VALUES (DEFAULT,'안녕하세요10.',1020,1026,'2024-08-02','Y');
+
+		int temp = 1020;
+		System.out.println(id);
+		System.out.println(msgText);
+		
+		int member_no = service.selectMsgMemberNo(id);
+		
+		
+		sendMsg.put("message_sen", temp);
+		sendMsg.put("message_rev", member_no);
+		sendMsg.put("text",msgText);
+		
+		service.SendMessage(sendMsg);
 		
 		return "redirect:/message";
 	}
