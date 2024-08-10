@@ -13,10 +13,34 @@ function allCheck() {
 }
 
 
-function chkSelect() {
+function chkSelectrev() {
     //전체 선택된 상태에서 체크가 풀릴경우 전체선택 체크도 풀리는 기능
-    const checkBoxs = document.getElementsByName('check');
+    const checkBoxs = document.getElementsByName('checkrev');
+	
+	for(let i = 0; i < checkBoxs.length; i++){
+		if(checkBoxs[i].checked){
+		console.log(checkBoxs[i].value);
+		}
+	}
 
+	
+    let flag = true;
+    for (let checkbox of checkBoxs) {
+        if (!checkbox.checked) {
+            flag = false;
+        }
+    }
+    document.getElementsByName('allcheck')[0].checked = flag;
+}
+
+function chkSelectsend() {
+    //전체 선택된 상태에서 체크가 풀릴경우 전체선택 체크도 풀리는 기능
+    const checkBoxs = document.getElementsByName('checksend');
+	
+
+	for(let i = 0; i < checkBoxs.length; i++){
+		console.log(checkBoxs[i]);
+	}
     let flag = true;
     for (let checkbox of checkBoxs) {
         if (!checkbox.checked) {
@@ -95,3 +119,48 @@ for(read of completeReads){
 for (no of noReads){
     no.innerHTML=`<i class="fa-solid fa-circle" style="color: red; font-size: 0.5rem;"></i> 읽지 않음`;
 }
+
+
+function sendMessage() {
+    var recipientName = document.getElementById('recipient-name').value;
+    var messageText = document.getElementById('message-text').value;
+    location.href = 'SendMessage?recipient_name=' + recipientName + '&message_text=' + messageText;
+}
+
+
+
+
+function deleteRevCheck(){
+ const checkBoxs = document.getElementsByName('checkrev');
+ 
+
+
+	for(let i = 0; i < checkBoxs.length; i++){
+		if(checkBoxs[i].checked){
+		
+		 location.href='deleteRev?message_no=' + checkBoxs[i].value;
+		  
+		}
+	}
+
+	
+}
+
+
+function deleteSendCheck(){
+ const checkBoxs = document.getElementsByName('checksend');
+ 
+
+
+	for(let i = 0; i < checkBoxs.length; i++){
+		if(checkBoxs[i].checked){
+		
+		 location.href='deleteRev?message_no=' + checkBoxs[i].value;
+		  
+		}
+	}
+
+	
+}
+
+
