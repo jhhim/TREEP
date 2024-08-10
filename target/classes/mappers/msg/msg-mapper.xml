@@ -43,5 +43,11 @@
 	DELETE FROM MESSAGE WHERE MESSAGE_NO = #{msg_no}
 </delete>
 
+<update id="updateRevStatus" parameterType="int">
+	UPDATE MESSAGE 
+	SET MESSAGE_STATUS_YN = 'Y'
+	WHERE
+	MESSAGE_NO = #{msg_no}
+</update>
 
 </mapper>

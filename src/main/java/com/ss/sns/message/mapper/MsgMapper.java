@@ -26,4 +26,6 @@ public interface MsgMapper {
 
 	void deleteSendMessage(int msg_no);
 
+	void updateRevStatus(int msg_no);
+
 }

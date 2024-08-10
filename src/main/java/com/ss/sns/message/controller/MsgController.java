@@ -77,6 +77,15 @@ public class MsgController {
 	}
 	
 	
+	@RequestMapping("/updateRev")
+	public String updateRev(@RequestParam(value="message_no") int msg_no){
+		
+		service.updateRevStatus(msg_no);
+		
+		return "redirect:/message";
+	}
+	
+	
 	@RequestMapping("/SendMessage")
 	public String SendMessage(@RequestParam(value="recipient_name") String id, @RequestParam(value="message_text") String msgText){
 		Map<String, Object> sendMsg = new HashMap<String, Object>();
