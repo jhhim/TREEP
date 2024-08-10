@@ -29,7 +29,7 @@
             <table class="table" id="receive-note-table">
                 <thead>
                     <tr>
-                        <th scope="col"><input type="checkbox" name="allcheck" value="all" onclick="allCheck()" /></th>
+                        <th scope="col"><input type="checkbox" name="allcheck" value="all" onclick="allCheckRev()" /></th>
                         <th scope="col">보낸 사람</th>
                         <th scope="col">내용</th>
                         <th scope="col">날짜</th>
@@ -180,7 +180,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col"><input type="checkbox" name="allcheck" value="all" onclick="allCheck()" /></th>
+                        <th scope="col"><input type="checkbox" name="allcheck" value="all" onclick="allCheckSend()" /></th>
                         <th scope="col">받는 사람</th>
                         <th scope="col">제목</th>
                         <th scope="col">날짜</th>

@@ -1,16 +1,32 @@
 //전체 선택
-function allCheck() {
+function allCheckRev() {
 
 
     console.log("전체 선택 버튼 클릭");
     let check = document.getElementsByName('allcheck')[0].checked;
 
-    const checkBoxs = document.getElementsByName('check');
+    const checkBoxs = document.getElementsByName('checkrev');
 
     for (let checkbox of checkBoxs) {
         checkbox.checked = check;
     }
 }
+
+
+function allCheckSend() {
+
+
+    console.log("전체 선택 버튼 클릭");
+    let check = document.getElementsByName('allcheck')[1].checked;
+
+    const checkBoxs = document.getElementsByName('checksend');
+
+    for (let checkbox of checkBoxs) {
+        checkbox.checked = check;
+    }
+}
+
+
 
 
 function chkSelectrev() {
