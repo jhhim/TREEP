@@ -104,3 +104,13 @@ function sendMessage() {
 }
 
 
+/*
+
+function deleteCheck(){
+ const checkBoxs = document.getElementsByName('check');
+
+let checkNum = document.querySelector
+
+}
+
+*/

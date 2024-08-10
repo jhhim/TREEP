@@ -37,11 +37,11 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                <c:forEach var="msg" items="${msgPage.msgList }">
-                	  <tr>
-                        <th><input type="checkbox" name="check" value="first" onclick="chkSelect()" /></th>
+                <c:forEach var="msg" items="${msgPage.msgList }" varStatus="i">
+                	  <tr class="${i.index }">
+                        <th><input type="checkbox" name="check" value="${i.index }" onclick="chkSelect()" /></th>
                         <th scope="row">${msg.message_sen }</th>
-                        <td style="width: 40%;"><a href="#" id="note-title-click" data-bs-toggle="modal" data-bs-target="#note-title" >
+                        <td style="width: 40%;"><a href="#" id="note-title-click" data-bs-toggle="modal" data-bs-target="#note-title-${i.index }" >
                                                                                                                   <c:choose>
     					<c:when test="${fn:length(msg.message_content) > 29 }">
         					${fn:substring(msg.message_content,0,30) } ...
@@ -54,7 +54,7 @@
                             </a>
                             <!-- 쪽지 상세 보기 모달 -->
 
-                            <div class="modal fade" id="note-title" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            <div class="modal fade" id="note-title-${i.index }" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
@@ -94,7 +94,7 @@
                             </div>
                         </td>
                         <td>${msg.send_date }</td>
-                        <td><span class="completeRead"></span></td>
+                        <td>${msg.message_status_yn}</td>
                     </tr>
                 </c:forEach>
                   
@@ -146,7 +146,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn" id="note-delete">삭제</button>
+                <button type="button" class="btn" id="note-delete" >삭제</button>  <!-- onclick="deleteCheck()" -->
                 <button type="button" class="btn" id="note-store" onclick="storeNote()" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">보관</button>
 
