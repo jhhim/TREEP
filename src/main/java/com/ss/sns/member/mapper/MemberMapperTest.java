@@ -1,0 +1,41 @@
+package com.ss.sns.member.mapper;
+
+import java.time.LocalDate;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.ss.sns.member.dto.MemberDTO;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+public class MemberMapperTest {
+	@Autowired
+	private MemberMapper memberMapper;
+	
+	@Test
+	public void memberSignup() throws Exception{
+		MemberDTO member = new MemberDTO();
+		
+		
+		member.setMember_no(1);
+		member.setMember_id("1244");
+		member.setMember_pw("pw");
+		member.setMember_name("re5al");
+		member.setMember_nickname("r1eal");
+		member.setMember_email("alsehdns@m5ail.com");
+		member.setMember_birth(LocalDate.parse("1999-03-19"));
+		member.setMember_gender("M");
+		member.setMember_enroll(LocalDate.parse("1999-03-19"));
+		member.setMember_phone("010-0911-5586");
+		member.setMember_type("normal");
+		member.setMember_img("002.jpg");
+		member.setMember_grade("1F");
+		member.setManager_yn("N");
+		System.out.println(member.toString());
+		memberMapper.memberSignup(member);
+	}
+}

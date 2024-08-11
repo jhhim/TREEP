@@ -1,1 +1,5 @@
-/.metadata/
+# manifest 무시
+**/MANIFEST.MF
+
+# pom.properties 무시
+**/pom.properties

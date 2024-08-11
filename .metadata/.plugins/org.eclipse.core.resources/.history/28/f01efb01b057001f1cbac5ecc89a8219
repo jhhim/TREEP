@@ -1,0 +1,34 @@
+package com.ss.sns.member.controller;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ss.sns.member.sevice.MemberService;
+
+@Controller
+public class LoginController {
+	@RequestMapping("/emailcheck")
+    public String signup() {
+        return "signup/email";
+    }
+	@RequestMapping("/signupinfo")
+	public String signupInfo() {
+		private MemberService memberServic1;
+		
+		return "signup/signup";
+	}
+	@RequestMapping("/searchid")
+	public String searchID() {
+		return "signup/searchID";
+	}
+	@RequestMapping("/searchpw")
+	public String searchPW() {
+		return "signup/searchPW";
+	}
+	@RequestMapping("/changepw")
+	public String changePW() {
+		return "signup/changePW";
+	}
+}

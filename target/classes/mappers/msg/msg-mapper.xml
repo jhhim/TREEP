@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ss.sns.message.mapper.MsgMapper">
+
+<select id="selectMemberNo" parameterType="int" resultType="int">
+	select count(*) from member where member_no = #{member_no}
+</select>
+
+<select id="selectMessageCount" parameterType="int" resultType="int">
+	select count(*) from message where message_rev = #{member_no}
+</select>
+
+<select id="selectMessageRevList" parameterType="map" resultType="MsgDTO">
+	SELECT * FROM (SELECT ROWNUM RNUM, TM.* FROM(SELECT * FROM
+	MESSAGE WHERE MESSAGE_REV = #{message_rev} ORDER BY MESSAGE_NO DESC) TM) WHERE
+	RNUM BETWEEN #{startNo} and #{endNo}
+</select>
+
+
+<select id="selectMessageSenList" parameterType="map" resultType="MsgDTO">
+	SELECT * FROM (SELECT ROWNUM RNUM, TM.* FROM(SELECT * FROM
+	MESSAGE WHERE MESSAGE_SEN = #{message_sen} ORDER BY MESSAGE_NO DESC) TM) WHERE
+	RNUM BETWEEN #{startNo} and #{endNo}
+</select>
+
+<delete id="deleteRevMessage" parameterType="int">
+	DELETE FROM MESSAGE WHERE MESSAGE_NO = #{msg_no}
+</delete>
+
+
+<select id="selectMsgMemberNo" parameterType="string" resultType="int">
+	SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID = #{id}
+</select>
+
+
+<insert id="SendMessage" parameterType="map">
+	INSERT INTO MESSAGE(MESSAGE_NO, MESSAGE_CONTENT, MESSAGE_SEN, MESSAGE_REV, SEND_DATE, MESSAGE_STATUS_YN)
+		VALUES (DEFAULT, #{text} ,#{message_sen} ,#{message_rev}, sysdate,'N')
+</insert>
+
+
+<delete id="deleteSendMessage" parameterType="int">
+	DELETE FROM MESSAGE WHERE MESSAGE_NO = #{msg_no}
+</delete>
+
+<update id="updateRevStatus" parameterType="int">
+	UPDATE MESSAGE 
+	SET MESSAGE_STATUS_YN = 'Y'
+	WHERE
+	MESSAGE_NO = #{msg_no}
+</update>
+
+</mapper>
