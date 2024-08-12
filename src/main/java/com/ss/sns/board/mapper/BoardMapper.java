@@ -20,5 +20,6 @@ public interface BoardMapper {
 	public void updateHit(Map<String, Integer> hmap);
 	public void insertReply(Map<String, Object> hmap);
 	public ArrayList<ReplyDTO> selectReply(int board_no);
+	public ArrayList<ReplyDTO> selectReReply(int reply_no);
 
 }

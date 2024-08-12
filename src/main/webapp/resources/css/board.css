@@ -1035,3 +1035,35 @@
     background-color: #7FD858;
     color: white;
 }
+
+
+
+
+/*********************************************보드디테일 리플************************************************/
+  .comment {
+        margin-bottom: 15px;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .sub-comment {
+        margin-left: 20px; /* 대댓글 들여쓰기 */
+        border-left: 2px solid #ccc; /* 대댓글 구분선 */
+        padding-left: 10px;
+    }
+    
+    .input-reply {
+        border: solid 1px #e0e0e0;
+        border-radius: 5px;
+        box-shadow: 0 0 0 2px #caf7b6;
+    }
+    
+    .reply-reply-submit {
+        border: 1px solid #7FD858;
+        background-color: #7FD858;
+        color: white;
+    }
+    
+    .reply-reply-submit:hover {
+        background-color: #6dbd44;
+    }

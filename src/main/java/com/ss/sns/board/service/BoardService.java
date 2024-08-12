@@ -41,11 +41,17 @@ public class BoardService {
 	}
 
 	public ArrayList<ReplyDTO> selectReply(int board_no) {
-		return mapper.selectReply(board_no);
 		
+	    ArrayList<ReplyDTO> replies = mapper.selectReply(board_no);
+	    for (ReplyDTO reply : replies) {
+	        ArrayList<ReplyDTO> rereplies = mapper.selectReReply(reply.getReply_no());
+	        reply.setReReplyList(rereplies);
+	    }
+	    return replies;
 	}
+}
 	
 
 	
 	
-}
+

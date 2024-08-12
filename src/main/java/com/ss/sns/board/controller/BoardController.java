@@ -18,7 +18,6 @@ import com.ss.sns.board.dto.ReplyDTO;
 import com.ss.sns.board.service.BoardService;
 import com.ss.sns.member.dto.MemberDTO;
 
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 public class BoardController {
@@ -94,21 +93,19 @@ public class BoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("writeMember", writeMember);
 		
-		//댓글 불러오기(rereply 있으면 밑에 보이게 처리 해야함)
 		ArrayList<ReplyDTO>repliList= service.selectReply(no);
-		System.out.println(repliList);
 		model.addAttribute("repliList",repliList);
 		return "board/detail";
 	}
 	@PostMapping("/reply")
-	public String reply(String replyContent,int kind,int no) {
-		
+	public String reply(String replyContent,int kind,int no,@RequestParam(value = "rereply_no", required = false) Integer rereply_no) {
+		System.out.println(rereply_no);
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("board_no", no);
 		hmap.put("member_no", 1000);
 		hmap.put("replyContent", replyContent);
 		// 비밀글 여부 체크박스 생성 후 관련 쿼리 추가예정
-		// 대댓글 추가예정 hmap.put("rereply_no", rereply_no);
+		hmap.put("rereply_no", rereply_no);
 		service.insertReply(hmap);
 	return "redirect:/detailboard?kind=" + kind + "&no=" + no;
 	}
