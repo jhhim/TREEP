@@ -29,4 +29,12 @@
 	update board set board_hit = board_hit+1 where board_kind = #{board_kind} and board_no=#{board_no}
 	</update>
 	<!-- 댓글 insert -->
+	<insert id="insertReply" parameterType="map">
+	INSERT INTO reply (BOARD_NO,MEMBER_NO, REPLY_CONTENT, REPLY_STATUS_YN,REPLY_DATE) 
+	VALUES ( #{board_no}, #{member_no},#{replyContent}, 'Y', SYSDATE)
+	</insert>
+	<select id="selectReply" parameterType="int"
+		resultType="ReplyDTO">
+		select * from reply where board_no= #{board_no}
+	</select>
 </mapper>

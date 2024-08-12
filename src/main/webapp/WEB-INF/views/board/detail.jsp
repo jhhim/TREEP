@@ -66,15 +66,54 @@
 	<br>
 
 
-	<form method="post" action="reply?kind=${board.board_kind}&no=${board.board_no}" class="container-md" id="reply">
+	<form method="post"
+		action="reply?kind=${board.board_kind}&no=${board.board_no}"
+		class="container-md" id="reply">
 		<div class="reply_num">댓글 2</div>
 		<br>
 		<div class="post-reply input-group mb-3">
 			<textarea id="reply-content" class="form-control"
 				placeholder="댓글을 작성해주세요" name="replyContent"></textarea>
-			<button class="btn" type="submit" id="reply-submit">등록</button><!-- onclick="addComment()" -->
+			<button class="btn" type="submit" id="reply-submit">등록</button>
+			<!-- onclick="addComment()" -->
 		</div>
-		<div id="comment-container"></div>
+		<div id="comment-container">
+			<c:forEach var="reply" items="${repliList }">
+				<div class="comment">
+					<div class="row">
+						<div class="col-12">
+							<span class="reply-writer"></span> <span
+								class="reply-manage dropdown">
+								<button class="btn dropdown-toggle no-arrow" type="button"
+									data-toggle="dropdown" aria-expanded="false"
+									style="font-weight: bold;">⋮</button>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="#">신고하기</a></li>
+									<li><a class="dropdown-item" href="#">쪽지보내기</a></li>
+									<li><a class="dropdown-item" href="#">수정</a></li>
+									<li><a class="dropdown-item" href="#">삭제</a></li>
+								</ul>
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<span class="reply-content">${reply.reply_content }</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<span style="color: gray;">2024-08-12 12:34:56</span>
+							<button type="button" class="btn btn-secondary"
+								onclick="showReplyContainer(1)">↳답글쓰기</button>
+							<div id="replies-1" class="replies"></div>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+
+
 		<br>
 	</form>
 </main>
