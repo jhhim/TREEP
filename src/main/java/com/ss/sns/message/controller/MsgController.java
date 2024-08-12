@@ -25,11 +25,11 @@ public class MsgController {
 		// session이 누군지에 따라서 보여주기(현재는 임의로 1인애 찾기)\
 		
 		int temp = 1020;
-		int who = service.selectMemberNo(temp);
+//		int who = service.selectMemberNo(temp);
 //		System.out.println("회원번호 : " + who);
 		
 		// 세션에 있는 멤버한테 온 메시지 전체 개수
-		int MessageTotalCount = service.selectMessageCount(temp);
+		int MessageTotalCount = service.selectMessageRevCount(temp);
 		int pageSize = 2;
 		
 //		받은 쪽지함
@@ -41,20 +41,33 @@ public class MsgController {
 		hmap.put("message_rev", temp);
 		
 		
-		msgPage.setMsgList(service.selectMessageRevList(hmap));
+		msgPage.setMsgList1(service.selectMessageRevList(hmap));
 		model.addAttribute("msgPage",msgPage);
 		
 //		보낸쪽지함
-		MsgPage msgPage2 = new MsgPage(pageSize, MessageTotalCount, currentPage);
+		
+		int MessageTotalCount2 = service.selectMessageSenCount(temp);
+		MsgPage msgPage2 = new MsgPage(pageSize, MessageTotalCount2, currentPage);
 		Map<String, Integer> hmap2 = new HashMap<String,Integer>();
 		
 		hmap2.put("startNo", msgPage2.getStartNo());
 		hmap2.put("endNo", msgPage2.getEndNo());
 		hmap2.put("message_sen", temp);
 		
-		msgPage2.setMsgList(service.selectMessageSenList(hmap2));
+		msgPage2.setMsgList2(service.selectMessageSenList(hmap2));
 		model.addAttribute("msgPage2", msgPage2);
 		
+//      보관쪽지함
+		int MessageTotalCount3 = service.selectMessageStoreCount(temp);
+		MsgPage msgPage3 = new MsgPage(pageSize, MessageTotalCount3, currentPage);
+		
+		Map<String, Integer> hmap3 = new HashMap<String,Integer>();
+		
+		hmap3.put("startNo", msgPage3.getStartNo());
+		hmap3.put("endNo", msgPage3.getEndNo());
+		hmap3.put("message_rev", temp);
+		msgPage3.setMsgList1(service.selectMessageRevStoreList(hmap3));
+		model.addAttribute("msgPage3",msgPage3);
 		
 		return "message/message";
 	}
@@ -82,10 +95,24 @@ public class MsgController {
 	public String updateRev(@RequestParam(value="message_no") int msg_no){
 		
 		service.updateRevStatus(msg_no);
+		service.updateSenStatus(msg_no);
+		return "redirect:/message";
+	}
+	
+	
+	@RequestMapping("/RevStore")
+	public String RevStore(@RequestParam(value="message_no") int msg_no) {
+		service.updateRevStore(msg_no);
 		
 		return "redirect:/message";
 	}
 	
+	@RequestMapping("/RevStoreDelete")
+	public String RevStoreDelete(@RequestParam(value="message_no") int msg_no) {
+		service.updateRevStoreDelete(msg_no);
+		
+		return "redirect:/message";
+	}
 	
 	@RequestMapping("/SendMessage")
 	public String SendMessage(@RequestParam(value="recipient_name") String id, @RequestParam(value="message_text") String msgText){
@@ -107,24 +134,10 @@ public class MsgController {
 		sendMsg.put("text",msgText);
 		
 		service.SendMessage(sendMsg);
+		service.RevStore(sendMsg);
 		
 		return "redirect:/message";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
