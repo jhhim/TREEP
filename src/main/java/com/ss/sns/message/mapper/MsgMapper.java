@@ -11,7 +11,6 @@ import com.ss.sns.message.dto.MsgSenDTO;
 @Mapper
 public interface MsgMapper {
 
-	int selectMemberNo(int member_no);
 
 	int selectMessageRevCount(int member_no);
 
@@ -42,5 +41,7 @@ public interface MsgMapper {
 	ArrayList<MsgRevDTO> selectMessageRevStoreList(Map<String, Integer> hmap3);
 
 	void updateRevStoreDelete(int msg_no);
+
+	int getMemberNo(String Nickname);
 
 }

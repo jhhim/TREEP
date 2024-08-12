@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ss.sns.message.mapper.MsgMapper">
 
-<!-- <select id="selectMemberNo" parameterType="int" resultType="int">
-	select count(*) from member where member_no = #{member_no}
-</select> -->
+ <select id="getMemberNo" parameterType="string" resultType="int">
+	select member_no from member where member_nickname = #{Nickname}
+</select> 
 
 <select id="selectMessageRevCount" parameterType="int" resultType="int">
 	select count(*) from messagerev where message_rev = #{member_no} and STORE_STATUS_YN = 'N'

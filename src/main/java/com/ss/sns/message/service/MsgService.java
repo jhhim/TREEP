@@ -16,12 +16,8 @@ public class MsgService {
 	@Autowired
 	private MsgMapper mapper;
 	
-	public int selectMemberNo(int temp) {
-		return mapper.selectMemberNo(temp);
-	}
-	
-	public int selectMessageRevCount(int temp) {
-		return mapper.selectMessageRevCount(temp);
+	public int selectMessageRevCount(int member_no) {
+		return mapper.selectMessageRevCount(member_no);
 	}
 
 	public ArrayList<MsgRevDTO> selectMessageRevList(Map<String, Integer> hmap) {
@@ -82,6 +78,11 @@ public class MsgService {
 
 	public void updateRevStoreDelete(int msg_no) {
 		mapper.updateRevStoreDelete(msg_no);
+	}
+
+	public int getMemberNo(String Nickname) {
+		// TODO Auto-generated method stub
+		return mapper.getMemberNo(Nickname);
 	}
 
 }
