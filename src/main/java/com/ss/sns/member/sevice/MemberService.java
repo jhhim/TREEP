@@ -10,7 +10,18 @@ import com.ss.sns.member.mapper.MemberMapper;
 public class MemberService {
 	@Autowired
 	MemberMapper membermapper;
+	
+	
 	public void memberSignup(MemberDTO member) throws Exception{
 		membermapper.memberSignup(member);
 	}
+	
+	public MemberDTO memberLogin(MemberDTO member) throws Exception {
+		
+		return membermapper.memberLogin(member);
+		
+		
+	}
+
+	
 }

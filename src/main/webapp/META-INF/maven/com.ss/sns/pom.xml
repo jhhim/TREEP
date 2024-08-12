@@ -120,12 +120,17 @@
 		</dependency>
 
 		<!-- Test -->
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<version>4.13</version>
 			<scope>test</scope>
 		</dependency>
+
+
+
 
 
 		<!-- 내가 받고 싶은 라이브러리 -->
@@ -189,7 +194,13 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.12.3</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.3.27.RELEASE</version>
+			<scope>complie</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

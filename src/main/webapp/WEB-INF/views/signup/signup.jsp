@@ -92,8 +92,7 @@ $(document).ready(function(){
 	$("#signup_form").submit();
 		
 	});
-	
-});
+
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 

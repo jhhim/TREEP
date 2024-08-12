@@ -7,6 +7,7 @@ import com.ss.sns.member.dto.MemberDTO;
 @Mapper
 public interface MemberMapper {
 	public void memberSignup(MemberDTO member) ;
-
+	public MemberDTO memberLogin(MemberDTO member);
+	
 
 }

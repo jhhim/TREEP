@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -57,20 +58,21 @@
 				<a href="/sns"><img class="navbar-logo__img"
 					src="${path}/resources/img/logo.png"></a>
 			</div>
-
-<div class="navbar-menu-container">
+	<c:if test="${member == null }">
+	<div class="navbar-menu-container">
               
               <ul class="nav justify-content-end">
               <li class="nav-item br"><a class="nav-item" href="">커뮤니티</a></li>
             </ul>
               
               <ul class="nav justify-content-end">
-              <li class="nav-item br"><a class="nav-item" href="#" data-bs-toggle="modal" data-bs-target="#loginmodal">로그인</a></li>
+              <li class="nav-item br"><a class="nav-item" href="login" >로그인</a></li>
               <li class="nav-item"><a class="nav-item" href="emailcheck">회원가입</a></li>
               </ul>
             </div>
-
-			 <!-- <div class="navbar-menu-container">
+	</c:if>
+	<c:if test="${member != null }">
+			  <div class="navbar-menu-container">
 				<ul class="nav">
 					<li class="nav-item br"><a class="nav-item" href="freeboard">커뮤니티</a></li>
 
@@ -94,56 +96,10 @@
 
 				</ul>
 
-			</div> -->
+			</div>
+			</c:if> 
 		</nav>
 	</header>
 
 	<!-- Modal -->
-	<div class="modal fade" id="loginmodal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<form>
-						<div class="mb-3">
-							<label for="exampleInputEmail1" class="form-label">아이디</label> <input
-								type="email" class="form-control input_text_common"
-								id="exampleInputEmail1" aria-describedby="emailHelp">
-						</div>
-						<div class="mb-3">
-							<label for="exampleInputPassword1" class="form-label">비밀번호</label>
-							<input type="password" class="form-control input_text_common"
-								id="exampleInputPassword1">
-						</div>
-						<button type="submit" class="button_orange" id="summit_button">로그인</button>
-						<div class="login_text m-3">
-							<p>
-								<a href="searchid" class="searchID">아이디 /</a> <a href="searchpw"
-									class="searchPW">비밀번호 찾기</a>
-							</p>
-						</div>
-						<div class="login_text mt-3">
-							<p>
-								아직 회원이 아니세요?
-								<a class="signup_btn" href="emailcheck">회원가입</a>
-							</p>
-							<p>or</p>
-						</div>
-						<div class="hr-sect">소셜 로그인</div>
-						<div class="m-3" id="login_button_container">
-							<img class="login_button m-4" id="kakao_login_button"
-								src="${path}/resources/img/login/kakao_btn_logo.png"></img> <img
-								class="login_button m-4" id="naver_login_button"
-								src="${path}/resources/img/login/btnG_아이콘사각.png" href=""></img>
-							<img class="login_button m-4" id="google_login_button"
-								src="${path}/resources/img/login/web_light_sq_na@2x.png" href=""></img>
-							<img class="login_button m-4" id="fb_login_button"
-								src="${path}/resources/img/login/fb_loginbtn.png" />
-						</div>
-					</form>
-
-
-				</div>
-			</div>
-		</div>
-	</div>
+	

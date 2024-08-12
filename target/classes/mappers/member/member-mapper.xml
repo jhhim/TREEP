@@ -32,5 +32,8 @@
 	'1F',
 	 'N')
 	</insert>
+	<select id="memberLogin" resultType="com.ss.sns.member.dto.MemberDTO">
+	select member_name,member_nickname,manager_yn from member where member_id = #{member_id} and member_pw = #{member_pw}
+	</select>
 
 </mapper>

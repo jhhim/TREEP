@@ -442,3 +442,27 @@
 	box-shadow: #caf7b6 0px 0px 0px 2px;
 	border: solid 1px #caf7b6;
 }
+.login_form{
+    width: 20%;
+    margin: 10% 40% 0% 40%;
+
+}
+#login_btn{
+    width: 100%;
+}
+#login_title_main{
+    font-size: 25pt;
+}
+#login_title_sub{
+    font-size: 12pt;
+    color: #B3B1B1;
+}
+.loginWarn{
+	display: flex;
+	justify-content: center;
+	margin-top: 5px;
+	margin-bottom: 7px;
+	color: red;
+	font-size: 12px;
+	align-content: center;
+}
