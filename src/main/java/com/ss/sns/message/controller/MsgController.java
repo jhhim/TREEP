@@ -30,6 +30,7 @@ public class MsgController {
 		MemberDTO Session = (MemberDTO)session.getAttribute("member");
 //		System.out.println("현재 세션 아이디 : " +);
 		
+		// 세션에 있는 memberDTO에서 닉네임 값 받아서 디비에서 member_no값 가져오기
 		int member_no = service.getMemberNo(Session.getMember_nickname());
 		
 		// 세션에 있는 멤버한테 온 메시지 전체 개수
@@ -45,6 +46,7 @@ public class MsgController {
 		hmap.put("message_rev", member_no);
 		
 		
+		// map 형식의 변수를 넘겨줘서 MsgList1(RevDTO)에 디비에서 넘어온 값 모두 저장하기
 		msgPage.setMsgList1(service.selectMessageRevList(hmap));
 		model.addAttribute("msgPage",msgPage);
 		
