@@ -101,7 +101,11 @@ $('.InputNICKname').on("input", function() {
 	console.log("keyup 테스트");
 	var member_nickname = $('.InputNICKname').val();	
 	var data = {'member_nickname' : member_nickname}
-	
+	if (!member_nickname) {
+		 $('.nickname_check_re1').css("display", "none");
+		 $('.nickname_check_re2').css("display", "none");
+	      return;
+	    }
 	$.ajax({
 		type : "post",
 		url : "${path}/signinfo/memberNicknameChk",
@@ -121,7 +125,14 @@ $('.InputNICKname').on("input", function() {
 	
 $('.Inputid').on("input", function() {
 		console.log("keyup 테스트");
-		var member_id = $('.Inputid').val();	// .Inputid에 입력되는 값
+		var member_id = $('.Inputid').val();// .Inputid에 입력되는 값
+		
+		 if (!member_id) {
+			 $('.id_check_re1').css("display", "none");
+			 $('.id_check_re2').css("display", "none");
+		      return;
+		    }
+		
 		var data = {'member_id' : member_id}		// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
 		
 		$.ajax({

@@ -38,7 +38,8 @@
 	color: #B3B1B1;
 }
 
-#signup_space_ {
+#signup_space_,
+#mail_check_input_box_false {
 	width: 100%;
 	display: flex;
 	align-items: center;
@@ -248,10 +249,10 @@
 	margin-bottom: 10%;
 }
 
-.input_Authenticationnumber_area {
+.mail_check_input_box {
 	width: 100%;
 	height: auto;
-	/* visibility : hidden; */
+	
 }
 
 .email_space {
@@ -361,17 +362,26 @@
 }
 
 .id_check_re1,
-.nickname_check_re1{
+.nickname_check_re1,
+.correct_msg{
 	
-	font-size: 10px;
+	font-size: 12px;
 	font-color : green;
 	display: none;
 }
 .id_check_re2,
-.nickname_check_re2{
+.nickname_check_re2,
+.error_msg{
 	
 	font-size: 12px;
 	font-color : red;
 	display: none;
 	
 }
+#mail_check_input_box_false{
+	background-color: black;
+}
+#mail_check_input_box_true{
+	background-color: #fafafa;
+}
+

@@ -5,18 +5,18 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ss.sns.message.dto.MsgRevDTO;
-import com.ss.sns.message.dto.MsgSenDTO;
+import com.ss.sns.message.dto.MsgDTO;
 
 @Mapper
 public interface MsgMapper {
 
+	int selectMemberNo(int member_no);
 
-	int selectMessageRevCount(int member_no);
+	int selectMessageCount(int member_no);
 
-	ArrayList<MsgRevDTO> selectMessageRevList(Map<String, Integer> hmap);
+	ArrayList<MsgDTO> selectMessageRevList(Map<String, Integer> hmap);
 
-	ArrayList<MsgSenDTO> selectMessageSenList(Map<String, Integer> hmap2);
+	ArrayList<MsgDTO> selectMessageSenList(Map<String, Integer> hmap2);
 
 	void deleteRevMessage(int msg_no);
 	
@@ -27,21 +27,5 @@ public interface MsgMapper {
 	void deleteSendMessage(int msg_no);
 
 	void updateRevStatus(int msg_no);
-
-	void RevStore(Map<String, Object> sendMsg);
-
-	int selectMessageSenCount(int member_no);
-
-	void updateSenStatus(int msg_no);
-
-	void updateRevStore(int msg_no);
-
-	int selectMessagesStoreCount(int member_no);
-
-	ArrayList<MsgRevDTO> selectMessageRevStoreList(Map<String, Integer> hmap3);
-
-	void updateRevStoreDelete(int msg_no);
-
-	int getMemberNo(String Nickname);
 
 }
