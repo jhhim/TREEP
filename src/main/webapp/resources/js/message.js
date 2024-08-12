@@ -3,6 +3,7 @@ function allCheckRev() {
 
 
     console.log("전체 선택 버튼 클릭");
+    		console.log(chkCount);
     let check = document.getElementsByName('allcheck')[0].checked;
 
     const checkBoxs = document.getElementsByName('checkrev');
@@ -27,18 +28,23 @@ function allCheckSend() {
 }
 
 
-
+var chkCount = 0;
 
 function chkSelectrev() {
     //전체 선택된 상태에서 체크가 풀릴경우 전체선택 체크도 풀리는 기능
     const checkBoxs = document.getElementsByName('checkrev');
-	
+	chkCount = 0;
 	for(let i = 0; i < checkBoxs.length; i++){
+		
 		if(checkBoxs[i].checked){
-		console.log(checkBoxs[i].value);
+		// console.log(checkBoxs[i].value);
+		chkCount++;
 		}
+		
+		
 	}
 
+		console.log(chkCount);
 	
     let flag = true;
     for (let checkbox of checkBoxs) {
@@ -84,12 +90,27 @@ EmptyMessage();
 
 function storeNote() {
     // 기존 테이블과 새로운 테이블을 가져오기
-    console.log("쪽지 보관 클릭")
-    var ReceiveNoteTable = document.getElementById('receive-note-table').getElementsByTagName('tbody')[0];
+    console.log("쪽지 보관 클릭");
+/*  
+  var ReceiveNoteTable = document.getElementById('receive-note-table').getElementsByTagName('tbody')[0];
     var StoreNoteTable = document.getElementById('store-note-table').getElementsByTagName('tbody')[0];
+*/
 
-    var checkboxes = document.getElementsByName("check");
+    const checkBoxs = document.getElementsByName('checkrev');
     // 체크된 행을 새로운 테이블에 추가하기
+    
+    
+    for(let i = 0; i < checkBoxs.length; i++){
+		if(checkBoxs[i].checked){
+		 console.log(checkBoxs[i].value);
+		 location.href='RevStore?message_no=' + checkBoxs[i].value;
+		  
+		}
+	}
+    
+    
+    
+ /*   
     for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
             // 선택된 행 가져오기
@@ -122,6 +143,8 @@ function storeNote() {
         }
     }
     EmptyMessage();
+    
+    */
 }
 
 //읽음, 읽지 않음 상태 표시
@@ -171,7 +194,7 @@ function deleteSendCheck(){
 	for(let i = 0; i < checkBoxs.length; i++){
 		if(checkBoxs[i].checked){
 		
-		 location.href='deleteRev?message_no=' + checkBoxs[i].value;
+		 location.href='deleteSend?message_no=' + checkBoxs[i].value;
 		  
 		}
 	}
@@ -181,4 +204,15 @@ function deleteSendCheck(){
 
 
 
-
+function chkStoreDelete(){
+ const checkBoxs = document.getElementsByName('checkrev');
+ 
+ for(let i = 0; i < checkBoxs.length; i++){
+		if(checkBoxs[i].checked){
+		
+		 location.href='RevStoreDelete?message_no=' + checkBoxs[i].value;
+		  
+		}
+	}
+ 
+}

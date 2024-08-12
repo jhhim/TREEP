@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class MsgPage {
 
-	private ArrayList<MsgDTO> msgList = new ArrayList<MsgDTO>();
+	private ArrayList<MsgRevDTO> msgList1 = new ArrayList<MsgRevDTO>();
+	private ArrayList<MsgSenDTO> msgList2 = new ArrayList<MsgSenDTO>();
 	private int pageSize;		// 한 페이지에 보여줄 게시글 수
 	private int totalCount;		// 전체 쪽지 수
 	private int totalPage;		// 전체 페이지 수

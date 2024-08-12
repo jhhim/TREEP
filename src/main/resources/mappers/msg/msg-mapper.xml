@@ -2,30 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ss.sns.message.mapper.MsgMapper">
 
-<select id="selectMemberNo" parameterType="int" resultType="int">
+<!-- <select id="selectMemberNo" parameterType="int" resultType="int">
 	select count(*) from member where member_no = #{member_no}
+</select> -->
+
+<select id="selectMessageRevCount" parameterType="int" resultType="int">
+	select count(*) from messagerev where message_rev = #{member_no} and STORE_STATUS_YN = 'N'
 </select>
 
-<select id="selectMessageCount" parameterType="int" resultType="int">
-	select count(*) from message where message_rev = #{member_no}
+<select id="selectMessageSenCount" parameterType="int" resultType="int">
+	select count(*) from messagesen where message_sen = #{member_no}
 </select>
 
-<select id="selectMessageRevList" parameterType="map" resultType="MsgDTO">
+<select id="selectMessagesStoreCount" parameterType="int" resultType="int">
+	select count(*) from messagerev where message_rev = #{member_no} and STORE_STATUS_YN = 'Y'
+</select>
+
+
+<select id="selectMessageRevList" parameterType="map" resultType="MsgRevDTO">
 	SELECT * FROM (SELECT ROWNUM RNUM, TM.* FROM(SELECT * FROM
-	MESSAGE WHERE MESSAGE_REV = #{message_rev} ORDER BY MESSAGE_NO DESC) TM) WHERE
+	MESSAGEREV WHERE MESSAGE_REV = #{message_rev} and STORE_STATUS_YN = 'N' ORDER BY MESSAGE_NO DESC) TM) WHERE
 	RNUM BETWEEN #{startNo} and #{endNo}
 </select>
 
 
-<select id="selectMessageSenList" parameterType="map" resultType="MsgDTO">
+<select id="selectMessageSenList" parameterType="map" resultType="MsgSenDTO">
 	SELECT * FROM (SELECT ROWNUM RNUM, TM.* FROM(SELECT * FROM
-	MESSAGE WHERE MESSAGE_SEN = #{message_sen} ORDER BY MESSAGE_NO DESC) TM) WHERE
+	MESSAGESEN WHERE MESSAGE_SEN = #{message_sen} ORDER BY MESSAGE_NO DESC) TM) WHERE
 	RNUM BETWEEN #{startNo} and #{endNo}
 </select>
 
-<delete id="deleteRevMessage" parameterType="int">
-	DELETE FROM MESSAGE WHERE MESSAGE_NO = #{msg_no}
-</delete>
+<select id="selectMessageRevStoreList" parameterType="map" resultType="MsgRevDTO">
+	SELECT * FROM (SELECT ROWNUM RNUM, TM.* FROM(SELECT * FROM
+	MESSAGEREV WHERE MESSAGE_REV = #{message_rev} and STORE_STATUS_YN ='Y' ORDER BY MESSAGE_NO DESC) TM) WHERE
+	RNUM BETWEEN #{startNo} and #{endNo}
+</select>
+
 
 
 <select id="selectMsgMemberNo" parameterType="string" resultType="int">
@@ -34,18 +46,54 @@
 
 
 <insert id="SendMessage" parameterType="map">
-	INSERT INTO MESSAGE(MESSAGE_NO, MESSAGE_CONTENT, MESSAGE_SEN, MESSAGE_REV, SEND_DATE, MESSAGE_STATUS_YN)
+	INSERT INTO MESSAGESEN(MESSAGE_NO, MESSAGE_CONTENT, MESSAGE_SEN, MESSAGE_REV, SEND_DATE, MESSAGESEN_STATUS_YN)
 		VALUES (DEFAULT, #{text} ,#{message_sen} ,#{message_rev}, sysdate,'N')
+
+		
 </insert>
 
 
-<delete id="deleteSendMessage" parameterType="int">
-	DELETE FROM MESSAGE WHERE MESSAGE_NO = #{msg_no}
+<insert id="RevStore" parameterType="map">
+	INSERT INTO MESSAGEREV(MESSAGE_NO, MESSAGE_CONTENT, MESSAGE_SEN, MESSAGE_REV, SEND_DATE, MESSAGEREV_STATUS_YN, STORE_STATUS_YN)
+		VALUES (DEFAULT, #{text} ,#{message_sen} ,#{message_rev}, sysdate,'N','N')
+		
+</insert>
+
+<delete id="deleteRevMessage" parameterType="int">
+	DELETE FROM MESSAGEREV WHERE MESSAGE_NO = #{msg_no}
 </delete>
 
+<delete id="deleteSendMessage" parameterType="int">
+	DELETE FROM MESSAGESEN WHERE MESSAGE_NO = #{msg_no}
+</delete>
+
+
+
 <update id="updateRevStatus" parameterType="int">
-	UPDATE MESSAGE 
-	SET MESSAGE_STATUS_YN = 'Y'
+	UPDATE MESSAGEREV 
+	SET MESSAGEREV_STATUS_YN = 'Y'
+	WHERE
+	MESSAGE_NO = #{msg_no}
+</update>
+
+
+<update id="updateSenStatus" parameterType="int">
+	UPDATE MESSAGEREV 
+	SET MESSAGEREV_STATUS_YN = 'Y'
+	WHERE
+	MESSAGE_NO = #{msg_no}
+</update>
+
+<update id="updateRevStore" parameterType="int">
+	UPDATE MESSAGEREV 
+	SET STORE_STATUS_YN = 'Y'
+	WHERE
+	MESSAGE_NO = #{msg_no}
+</update>
+
+<update id="updateRevStoreDelete" parameterType="int">
+	UPDATE MESSAGEREV 
+	SET STORE_STATUS_YN = 'N'
 	WHERE
 	MESSAGE_NO = #{msg_no}
 </update>
