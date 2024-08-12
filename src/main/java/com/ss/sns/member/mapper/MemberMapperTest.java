@@ -22,11 +22,9 @@ public class MemberMapperTest {
 		
 		
 		
-		member.setMember_id("1244");
-		member.setMember_pw("pw");
+		String MemberID = "doun999";
 		
-		System.out.println(member.toString());
-		memberMapper.memberLogin(member);
+		memberMapper.idcheck(MemberID);
 	}
 	
 }
