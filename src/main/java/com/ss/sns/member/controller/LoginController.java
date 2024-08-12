@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ss.sns.member.dto.MemberDTO;
@@ -79,6 +81,30 @@ public class LoginController {
 		logger.info("회원가입 성공");
 		
 		return "redirect:/";
+	}
+	@PostMapping("/signinfo/memberIdChk")
+	@ResponseBody
+	public String memberIdChk(String member_id) {
+		logger.info("memberIdChk 실행");
+		int result = service.idcheck(member_id);
+		logger.info("결과 : " + result);
+		if(result != 0) {
+			return "fail";
+		}else {
+			return "success";
+		}
+	}
+	@PostMapping("/signinfo/memberNicknameChk")
+	@ResponseBody
+	public String memberNicknameChk(String member_nickname) {
+		logger.info("memberIdChk 실행");
+		int result = service.memberNicknameChk(member_nickname);
+		logger.info("결과 : " + result);
+		if(result != 0) {
+			return "fail";
+		}else {
+			return "success";
+		}
 	}
 	@RequestMapping("/searchid")
 	public String searchID() {

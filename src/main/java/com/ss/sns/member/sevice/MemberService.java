@@ -23,5 +23,20 @@ public class MemberService {
 		
 	}
 
+	public int idcheck(String member_id) {
+		
+		return membermapper.idcheck(member_id);
+	}
+
+	public int memberNicknameChk(String member_nickname) {
+		
+		return membermapper.nicknamecheck(member_nickname);
+	}
+
+	
+	
+
+	
+
 	
 }
