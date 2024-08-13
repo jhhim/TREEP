@@ -41,4 +41,7 @@
 	<select id="nicknamecheck" resultType="int">
 		select count(*) from member where member_nickname = #{member_nickname} 
 	</select>
+	<select id="emailcheck" resultType="int">
+		select count(*) from member where member_email = #{member_email} 
+	</select>
 </mapper>

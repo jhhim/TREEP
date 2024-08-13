@@ -10,6 +10,7 @@ public interface MemberMapper {
 	public MemberDTO memberLogin(MemberDTO member);
 	public int idcheck(String member_id);
 	public int nicknamecheck(String member_nickname);
+	public int emailcheck(String member_email);
 	
 
 }

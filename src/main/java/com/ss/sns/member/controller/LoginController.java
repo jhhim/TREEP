@@ -110,6 +110,7 @@ public class LoginController {
 	            logger.error("기타 예외 발생", e);
 	            return "오류가 발생했습니다.";
 	        }
+			System.out.println();
 			String num = Integer.toString(checkNum);
         return num;
     }
@@ -156,6 +157,32 @@ public class LoginController {
 		}else {
 			return "success";
 		}
+	}
+	@GetMapping("/emailcheck/memberemailChk")
+	public String memberEmailChkGet(String member_email) {
+	
+		return "/emailcheck/memberemailChk";
+		
+	}
+	@PostMapping("/emailcheck/memberemailChk")
+	@ResponseBody
+	public String memberEmailChk(String member_email) {
+		
+		
+		int result = service.memberemailChk(member_email);
+		logger.info("결과 : " + result);
+		if(result != 0) {
+			return "fail";
+		}else {
+			return "success";
+		}
+	
+	}
+	@GetMapping("/logout")
+	public String logoutGet(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		return "redirect:/";
 	}
 	@RequestMapping("/searchid")
 	public String searchID() {

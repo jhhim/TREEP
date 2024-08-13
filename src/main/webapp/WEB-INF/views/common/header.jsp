@@ -87,7 +87,7 @@
 									class="fa-solid fa-address-card icon1"></i> 마이페이지</a></li>
 							<li><a class="dropdown-item" href="message"><i
 									class="fa-solid fa-paper-plane icon1"></i> 쪽지함 </a></li>
-							<li><a class="dropdown-item" href=""> <i
+							<li><a class="dropdown-item" href="${path}/logout"> <i
 									class="fa-solid fa-id-badge icon1"></i> 로그아웃
 							</a></li>
 						</ul>

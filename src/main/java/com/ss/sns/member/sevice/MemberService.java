@@ -33,6 +33,14 @@ public class MemberService {
 		return membermapper.nicknamecheck(member_nickname);
 	}
 
+	public int memberemailChk(String member_email) {
+		
+		return membermapper.emailcheck(member_email);
+	}
+
+	
+
+
 	
 	
 
