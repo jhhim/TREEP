@@ -40,7 +40,7 @@
                 <c:forEach var="msg" items="${msgPage.msgList }">
                 	  <tr>
                         <th><input type="checkbox" name="checkrev" value="${msg.message_no }" onclick="chkSelectrev()" /></th>
-                        <th scope="row">${msg.member_nickname }</th>
+                        <th scope="row">${msg.message_sen }</th>
                         <td style="width: 40%;"><a href="#" id="note-title-click" data-bs-toggle="modal" data-bs-target="#note-title-${msg.message_no }" >
                                                                                                                   <c:choose>
     					<c:when test="${fn:length(msg.message_content) > 29 }">
@@ -67,7 +67,7 @@
                                         <div class="modal-body">
                                             <div class="note-detail-container container-md">
                                                 <div class="send-note-row">
-                                                    <span id="send-person">보낸사람</span><span id="detail-send-person">${msg.member_nickname }</span>   
+                                                    <span id="send-person">보낸사람</span><span id="detail-send-person">${msg.message_sen }</span>   
                                                 </div>
                                                 <div class="recieveDate-note-row">
                                                     <span id="receive-date">받은시간</span><span id="detail-receive-date">${msg.send_date }</span>
@@ -190,7 +190,7 @@
                 <tbody class="table-group-divider">
                 <c:forEach var="msg2" items="${msgPage2.msgList }"> 
                         <th><input type="checkbox" name="checksend" value="${msg2.message_no }" onclick="chkSelectsend()" /></th>
-                        <th scope="row">${msg2.member_nickname }</th>
+                        <th scope="row">${msg2.message_rev }</th>
                         <td style="width: 40%;">${msg2.message_content }</td>
                         <td>${msg2.send_date}</td>
                         <td>${msg2.message_status_yn}</td>
@@ -221,77 +221,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-<<<<<<< HEAD
 
-=======
-					                <c:forEach var="msg3" items="${msgPage3.msgList1 }">
-                	  <tr>
-                        <th><input type="checkbox" name="checkrev" value="${msg3.message_no }" onclick="chkSelectrev()" /></th>
-                        <th scope="row">${msg3.member_nickname }</th>
-                        <td style="width: 40%;"><a href="#" id="note-title-click" data-bs-toggle="modal" data-bs-target="#note-title-${msg3.message_no }" >
-                       <c:choose>
-    					<c:when test="${fn:length(msg3.message_content) > 29 }">
-        					${fn:substring(msg3.message_content,0,30) } ...
-    					</c:when>
-    					<c:otherwise>
-        				${msg3.message_content }
-						</c:otherwise>
-						</c:choose>
-              
-                            </a>
-                            <!-- 쪽지 상세 보기 모달 -->
-
-                            <div class="modal fade" id="note-title-${msg3.message_no }" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">자세히 보기</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close" onclick="location.href='updateRev?message_no=${msg3.message_no }'"></button>
-                                        </div>
-                                        <!-- 상세보기 내용 -->
-                                        <div class="modal-body">
-                                            <div class="note-detail-container container-md">
-                                                <div class="send-note-row">
-                                                    <span id="send-person">보낸사람</span><span id="detail-send-person">${msg3.member_nickname }</span>   
-                                                </div>
-                                                <div class="recieveDate-note-row">
-                                                    <span id="receive-date">받은시간</span><span id="detail-receive-date">${msg3.send_date }</span>
-                                                </div>
-                                                <div class="title-note-row">
-                                                    <span id="send-note-title">내용</span>
-                                                    <%-- <span id="send-note-title">${msg.message_content  }</span> --%>
-                                                </div>
-                                        
-                                                <div class="note-detail-content">
-                                               		${msg3.message_content }
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                           <!-- 보관 버튼 -->
-                                           <%--  <button type="button" class="btn" id="note-detail-store" data-bs-toggle="modal" data-bs-target="#note-detail-store" onclick="location.href='RevStoreDelete?message_no=${msg3.message_no}'">보관함에서 삭제</button> --%>
-                                              <!-- 삭제버튼 -->
-                                            <button type="button" class="btn" id="note-detail-delete" onclick="location.href='RevStoreDelete?message_no=${msg3.message_no}'">보관함에서 삭제</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td>${msg3.send_date }</td>
-                        <td> <c:choose>
-    					<c:when test="${msg3.messagerev_status_yn == 'Y' }">
-        					<span class="completeRead"></span>
-    					</c:when>
-    					<c:otherwise>
-        				<span class="noRead"></span>
-						</c:otherwise>
-						</c:choose></td>
-                    </tr>
-                </c:forEach>
->>>>>>> shim
                 </tbody>
             </table>
 
