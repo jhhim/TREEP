@@ -15,5 +15,4 @@ public class MsgSenDTO {
 	private int message_rev;              // 메세지 받은 멤버 번호
 	private LocalDateTime send_date;      // 보낸 날짜, 시간
 	private String messagesen_status_yn;     // 읽음 상태
-	private String member_nickname;				// join해서 가져올 닉네임
 }
