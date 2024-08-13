@@ -28,8 +28,7 @@ public class MsgController {
 		// session이 누군지에 따라서 보여주기(현재는 임의로 1인애 찾기)\
 		
 		MemberDTO Session = (MemberDTO)session.getAttribute("member");
-//		System.out.println("현재 세션 아이디 : " +);
-		
+	
 		// 세션에 있는 memberDTO에서 닉네임 값 받아서 디비에서 member_no값 가져오기
 		int member_no = service.getMemberNo(Session.getMember_nickname());
 		
@@ -48,6 +47,7 @@ public class MsgController {
 		
 		// map 형식의 변수를 넘겨줘서 MsgList1(RevDTO)에 디비에서 넘어온 값 모두 저장하기
 		msgPage.setMsgList1(service.selectMessageRevList(hmap));
+		System.out.println("DTOList"+msgPage.getMsgList1());
 		model.addAttribute("msgPage",msgPage);
 		
 //		보낸쪽지함
@@ -79,6 +79,7 @@ public class MsgController {
 	}
 	
 	
+	// 받은쪽지함에서 쪽지 삭제
 	@RequestMapping("/deleteRev")
 	public String DeleteRev(@RequestParam(value="message_no") int msg_no){
 		
@@ -87,7 +88,7 @@ public class MsgController {
 		return "redirect:/message";
 	}
 	
-	
+	// 보낸쪽지함에서 쪽지 삭제
 	@RequestMapping("/deleteSend")
 	public String DeleteSend(@RequestParam(value="message_no") int msg_no){
 		
@@ -97,6 +98,7 @@ public class MsgController {
 	}
 	
 	
+	// 받은쪽지함에서 쪽지상세모달 들어가면 읽음처리 & 보낸쪽지함쪽에서도 처리
 	@RequestMapping("/updateRev")
 	public String updateRev(@RequestParam(value="message_no") int msg_no){
 		
@@ -105,7 +107,7 @@ public class MsgController {
 		return "redirect:/message";
 	}
 	
-	
+	// 받은쪽지 보관함으로 이동
 	@RequestMapping("/RevStore")
 	public String RevStore(@RequestParam(value="message_no") int msg_no) {
 		service.updateRevStore(msg_no);
@@ -113,6 +115,7 @@ public class MsgController {
 		return "redirect:/message";
 	}
 	
+	// 보관함에서 삭제하여 받은쪽지로 다시 이동
 	@RequestMapping("/RevStoreDelete")
 	public String RevStoreDelete(@RequestParam(value="message_no") int msg_no) {
 		service.updateRevStoreDelete(msg_no);
@@ -120,22 +123,23 @@ public class MsgController {
 		return "redirect:/message";
 	}
 	
+	// 쪽지 보내기
 	@RequestMapping("/SendMessage")
-	public String SendMessage(@RequestParam(value="recipient_name") String id, @RequestParam(value="message_text") String msgText){
+	public String SendMessage(@RequestParam(value="recipient_name") String id, 
+							  @RequestParam(value="message_text") String msgText,
+							  HttpSession session){
 		Map<String, Object> sendMsg = new HashMap<String, Object>();
 		
-		
-//		INSERT INTO MESSAGE(MESSAGE_NO, MESSAGE_CONTENT, MESSAGE_SEN, MESSAGE_REV, SEND_DATE, MESSAGE_STATUS_YN)
-//		VALUES (DEFAULT,'안녕하세요10.',1020,1026,'2024-08-02','Y');
 
-		int temp = 1020;
-		System.out.println(id);
-		System.out.println(msgText);
+		MemberDTO Session = (MemberDTO)session.getAttribute("member");
+		
+		// 세션에 있는 memberDTO에서 닉네임 값 받아서 디비에서 member_no값 가져오기
+		int SessionMember_No = service.getMemberNo(Session.getMember_nickname());
 		
 		int member_no = service.selectMsgMemberNo(id);
 		
 		
-		sendMsg.put("message_sen", temp);
+		sendMsg.put("message_sen", SessionMember_No);
 		sendMsg.put("message_rev", member_no);
 		sendMsg.put("text",msgText);
 		

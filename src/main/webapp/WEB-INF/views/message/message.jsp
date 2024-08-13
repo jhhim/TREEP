@@ -40,7 +40,7 @@
                 <c:forEach var="msg" items="${msgPage.msgList1 }">
                 	  <tr>
                         <th><input type="checkbox" name="checkrev" value="${msg.message_no }" onclick="chkSelectrev()" /></th>
-                        <th scope="row">${msg.message_sen }</th>
+                        <th scope="row">${msg.member_nickname }</th>
                         <td style="width: 40%;"><a href="#" id="note-title-click" data-bs-toggle="modal" data-bs-target="#note-title-${msg.message_no }" >
                        <c:choose>
     					<c:when test="${fn:length(msg.message_content) > 29 }">
@@ -67,7 +67,7 @@
                                         <div class="modal-body">
                                             <div class="note-detail-container container-md">
                                                 <div class="send-note-row">
-                                                    <span id="send-person">보낸사람</span><span id="detail-send-person">${msg.message_sen }</span>   
+                                                    <span id="send-person">보낸사람</span><span id="detail-send-person">${msg.member_nickname }</span>   
                                                 </div>
                                                 <div class="recieveDate-note-row">
                                                     <span id="receive-date">받은시간</span><span id="detail-receive-date">${msg.send_date }</span>
@@ -197,7 +197,7 @@
                 <tbody class="table-group-divider">
                 <c:forEach var="msg2" items="${msgPage2.msgList2 }"> 
                         <th><input type="checkbox" name="checksend" value="${msg2.message_no }" onclick="chkSelectsend()" /></th>
-                        <th scope="row">${msg2.message_rev }</th>
+                        <th scope="row">${msg2.member_nickname }</th>
                         <td style="width: 40%;">${msg2.message_content }</td>
                         <td>${msg2.send_date}</td>
                         <td><c:choose>
@@ -238,7 +238,7 @@
 					                <c:forEach var="msg3" items="${msgPage3.msgList1 }">
                 	  <tr>
                         <th><input type="checkbox" name="checkrev" value="${msg3.message_no }" onclick="chkSelectrev()" /></th>
-                        <th scope="row">${msg3.message_sen }</th>
+                        <th scope="row">${msg3.member_nickname }</th>
                         <td style="width: 40%;"><a href="#" id="note-title-click" data-bs-toggle="modal" data-bs-target="#note-title-${msg3.message_no }" >
                        <c:choose>
     					<c:when test="${fn:length(msg3.message_content) > 29 }">
@@ -265,7 +265,7 @@
                                         <div class="modal-body">
                                             <div class="note-detail-container container-md">
                                                 <div class="send-note-row">
-                                                    <span id="send-person">보낸사람</span><span id="detail-send-person">${msg3.message_sen }</span>   
+                                                    <span id="send-person">보낸사람</span><span id="detail-send-person">${msg3.member_nickname }</span>   
                                                 </div>
                                                 <div class="recieveDate-note-row">
                                                     <span id="receive-date">받은시간</span><span id="detail-receive-date">${msg3.send_date }</span>
