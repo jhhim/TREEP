@@ -468,18 +468,57 @@
 }
 .id_check_re1,
 .nickname_check_re1,
-.correct_msg{
+.email_check_re1,
+.correct_msg,
+.pwck_input_re_1{
 	
 	font-size: 12px;
-	font-color : green;
+	color : green;
 	display: none;
 }
 .id_check_re2,
 .nickname_check_re2,
-.error_msg{
+.email_check_re2,
+.error_msg,
+.pwck_input_re_2{
 	
 	font-size: 12px;
-	font-color : red;
+	color : red;
 	display: none;
 	
+}
+.final_name_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
+.final_nickname_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
+.final_id_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
+.final_pw_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
+.final_pwchk_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
+.final_phone_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
+.final_birth_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
 }

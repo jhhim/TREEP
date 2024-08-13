@@ -340,5 +340,3 @@ function chkStoreDelete(){
 	}
 
 }
-
-

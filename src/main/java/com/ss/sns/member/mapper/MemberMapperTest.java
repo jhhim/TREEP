@@ -22,9 +22,9 @@ public class MemberMapperTest {
 		
 		
 		
-		String MemberID = "doun999";
+		String member_email = "alsehdns@naver.com";
 		
-		memberMapper.idcheck(MemberID);
+		memberMapper.emailcheck(member_email);
 	}
 	
 }
