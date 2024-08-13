@@ -21,7 +21,7 @@ import com.ss.sns.message.service.MsgService;
 public class MsgController {
 	
 	@Autowired
-	MsgService service;
+	private MsgService service;
 	
 	
 	@RequestMapping("/message")
