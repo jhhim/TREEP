@@ -22,7 +22,7 @@ public interface MsgMapper {
 	
 	void SendMessage(Map<String, Object> sendMsg);
 
-	int selectMsgMemberNo(String id);
+	Integer selectMsgMemberNo(String name);
 
 	void deleteSendMessage(int msg_no);
 

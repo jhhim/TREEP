@@ -37,12 +37,12 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                <c:forEach var="msg" items="${msgPage.msgList }">
+                <c:forEach var="msg" items="${msgPage.msgList1 }">
                 	  <tr>
                         <th><input type="checkbox" name="checkrev" value="${msg.message_no }" onclick="chkSelectrev()" /></th>
                         <th scope="row">${msg.member_nickname }</th>
                         <td style="width: 40%;"><a href="#" id="note-title-click" data-bs-toggle="modal" data-bs-target="#note-title-${msg.message_no }" >
-                                                                                                                  <c:choose>
+                       <c:choose>
     					<c:when test="${fn:length(msg.message_content) > 29 }">
         					${fn:substring(msg.message_content,0,30) } ...
     					</c:when>
@@ -54,7 +54,7 @@
                             </a>
                             <!-- 쪽지 상세 보기 모달 -->
 
-                            <div class="modal fade" id="note-title-${msg.message_no }" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            <div class="modal fade" id="note-title-${msg.message_no }" data-bs-backdrop="static" data-bs-keyboard="false"  tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
@@ -85,7 +85,7 @@
 
                                         <div class="modal-footer">
                                            <!-- 보관 버튼 -->
-                                            <button type="button" class="btn" id="note-detail-store" data-bs-toggle="modal" data-bs-target="#note-detail-store">보관</button>
+                                            <button type="button" class="btn" id="note-detail-store"  onclick="location.href='RevStore?message_no=${msg.message_no}'">보관</button>
                                               <!-- 삭제버튼 -->
                                             <button type="button" class="btn" id="note-detail-delete" onclick="location.href='deleteRev?message_no=${msg.message_no}'">삭제</button>
                                         </div>
@@ -94,24 +94,17 @@
                             </div>
                         </td>
                         <td>${msg.send_date }</td>
-                        <td>${msg.message_status_yn}</td>
+                        <td> <c:choose>
+    					<c:when test="${msg.messagerev_status_yn == 'Y' }">
+        					<span class="completeRead"></span>
+    					</c:when>
+    					<c:otherwise>
+        				<span class="noRead"></span>
+						</c:otherwise>
+						</c:choose></td>
                     </tr>
                 </c:forEach>
                   
-                   <%--  <tr>
-                        <th><input type="checkbox" name="check" value="second" onclick="chkSelect()" /></th>
-                        <th scope="row">kossds</th>
-                        <td style="width: 40%;">엄청 기이이이이이이이이이이인 제목</td>
-                        <td>2024.07.31</td>
-                        <td><span class="completeRead">${msg.message_status_yn }</span></td>
-                    </tr> --%>
-                    <!-- <tr>
-                        <th><input type="checkbox" name="check" value="third" onclick="chkSelect()" /></th>
-                        <th scope="row">sfsdfsdf</th>
-                        <td style="width: 40%;">엄청 기이이이이이이이이이이인 제목</td>
-                        <td>2024.07.31</td>
-                        <td><span class="noRead"></span></td>
-                    </tr> -->
                 </tbody>
             </table>
 
@@ -123,14 +116,14 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">쪽지 보내기</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form action="">
                                     <div class="mb-3">
-                                        <label for="recipient-name" class="col-form-label">받는 사람</label>
+                                        <label for="recipient-name" class="col-form-label">받는 사람(닉네임)</label>
                                         <input type="text" class="form-control" id="recipient-name">
                                     </div>
                                     <div class="mb-3">
@@ -146,25 +139,47 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn" id="note-delete" onclick="deleteRevCheck()">삭제</button>  <!-- onclick="deleteCheck()" -->
-                <button type="button" class="btn" id="note-store" onclick="storeNote()" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">보관</button>
+                <button type="button" class="btn  deleteRevChk" id="note-delete" data-bs-toggle="modal"  
+                data-bs-target="">삭제</button>  <!-- onclick="deleteCheck()" -->
+             
+                <button type="button" class="btn StoreRevChk" id="note-store"  data-bs-toggle="modal"
+                   data-bs-target="">보관</button>  <!-- onclick="storeNote()" -->
 
                 <!-- 쪽지 보관 모달 -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Message</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">알림</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                    aria-label="Close" onclick="storeNote()"></button>
                             </div>
                             <div class="modal-body">
-                                ? 건이 보관함에 저장되었습니다.
+                                보관함에 저장되었습니다.
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn" id="store-confirm" data-bs-dismiss="modal">확인</button>
+                                <button type="button" class="btn" id="store-confirm" data-bs-dismiss="modal" onclick="storeNote()">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">알림</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close" onclick="deleteRevCheck()"></button>
+                            </div>
+                            <div class="modal-body">
+                                삭제되었습니다.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn" id="store-confirm" data-bs-dismiss="modal" onclick="deleteRevCheck()">확인</button>
                             </div>
                         </div>
                     </div>
@@ -188,12 +203,19 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                <c:forEach var="msg2" items="${msgPage2.msgList }"> 
+                <c:forEach var="msg2" items="${msgPage2.msgList2 }"> 
                         <th><input type="checkbox" name="checksend" value="${msg2.message_no }" onclick="chkSelectsend()" /></th>
                         <th scope="row">${msg2.member_nickname }</th>
                         <td style="width: 40%;">${msg2.message_content }</td>
                         <td>${msg2.send_date}</td>
-                        <td>${msg2.message_status_yn}</td>
+                        <td><c:choose>
+    					<c:when test="${msg2.messagesen_status_yn == 'Y' }">
+        					<span class="completeRead"></span>
+    					</c:when>
+    					<c:otherwise>
+        				<span class="noRead"></span>
+						</c:otherwise>
+						</c:choose></td>
                     </tr>
                    
                 </c:forEach>
@@ -201,8 +223,30 @@
                 </tbody>
             </table>
             <span class="note-manage">
-                <button type="button" class="btn" id="note-delete" onclick="deleteSendCheck()">
-                        삭제</button>
+                <!-- <button type="button" class="btn" id="note-delete" onclick="deleteSendCheck()">삭제</button> -->
+                <button type="button" class="btn  deleteSenChk" id="note-delete" data-bs-toggle="modal"  
+                data-bs-target="">삭제</button>
+                
+                
+                 <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">알림</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close" onclick="deleteSendCheck()"></button>
+                            </div>
+                            <div class="modal-body">
+                                삭제되었습니다.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn" id="store-confirm" data-bs-dismiss="modal" onclick="deleteSendCheck()">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </span>
 
         </div>
@@ -213,7 +257,7 @@
             <table class="table" id="store-note-table">
                 <thead>
                     <tr>
-                        <th scope="col"><input type="checkbox" name="allcheck" value="all" /></th>
+                        <th scope="col"><input type="checkbox" name="allcheck" onclick="allCheckStore()" value="all" /></th>
                         <th scope="col">보낸 사람</th>
                         <th scope="col">제목</th>
                         <th scope="col">날짜</th>
@@ -221,12 +265,9 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-<<<<<<< HEAD
-
-=======
 					                <c:forEach var="msg3" items="${msgPage3.msgList1 }">
                 	  <tr>
-                        <th><input type="checkbox" name="checkrev" value="${msg3.message_no }" onclick="chkSelectrev()" /></th>
+                        <th><input type="checkbox" name="checkstore" value="${msg3.message_no }" onclick="chkSelectStore()" /></th>
                         <th scope="row">${msg3.member_nickname }</th>
                         <td style="width: 40%;"><a href="#" id="note-title-click" data-bs-toggle="modal" data-bs-target="#note-title-${msg3.message_no }" >
                        <c:choose>
@@ -271,10 +312,11 @@
                                         </div>
 
                                         <div class="modal-footer">
-                                           <!-- 보관 버튼 -->
+                                           
                                            <%--  <button type="button" class="btn" id="note-detail-store" data-bs-toggle="modal" data-bs-target="#note-detail-store" onclick="location.href='RevStoreDelete?message_no=${msg3.message_no}'">보관함에서 삭제</button> --%>
                                               <!-- 삭제버튼 -->
-                                            <button type="button" class="btn" id="note-detail-delete" onclick="location.href='RevStoreDelete?message_no=${msg3.message_no}'">보관함에서 삭제</button>
+                                            <%-- <button type="button" class="btn" id="note-detail-delete" onclick="location.href='RevStoreDelete?message_no=${msg3.message_no}'">보관함에서 삭제</button> --%>
+                                  
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +333,6 @@
 						</c:choose></td>
                     </tr>
                 </c:forEach>
->>>>>>> shim
                 </tbody>
             </table>
 
@@ -302,11 +343,37 @@
             </div>
 
             <span class="note-manage">
-                <button type="button" class="btn" id="store-delete">보관함에서 삭제</button>
+                <!-- <button type="button" class="btn" id="store-delete" onclick="chkStoreDelete();">보관함에서 삭제</button> -->
+                
+                  <button type="button" class="btn  deleteStoreChk" id="note-delete" data-bs-toggle="modal"  
+                	data-bs-target="">보관함에서 삭제</button>
+                                            
+                                            
+                                            
+                   <div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">알림</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close" onclick="chkStoreDelete()"></button>
+                            </div>
+                            <div class="modal-body">
+                                삭제되었습니다.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn" id="store-confirm" data-bs-dismiss="modal" onclick="chkStoreDelete()">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                           
+                
+                
             </span>
         </div>
     </div>
-    <nav aria-label="Page navigation example">
+     <nav aria-label="Page navigation example">
         <ul class="pagination" id="note-pagination">
             <li class="page-item">
                 <button type=button class="page-link" onclick="location.href='message?page=${msgPage.currentPage -1 }'" 
@@ -330,10 +397,10 @@
                 </button>
             </li>
         </ul>
-    </nav>
+    </nav> 
     
     
-<%--     <nav aria-label="Page navigation example">
+  <%--    <nav aria-label="Page navigation example">
         <ul class="pagination" id="note-pagination">
             <li class="page-item">
                 <button type=button class="page-link" onclick="location.href='message?page=${msgPage2.currentPage -1 }'" 
@@ -357,8 +424,14 @@
                 </button>
             </li>
         </ul>
-    </nav> --%>
+    </nav>  --%>
 </div>
 </main>
-<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
+<script th:inline="javascript">
+        var sendMessage = "${nullMsg}";
+        if (sendMessage) {
+            alert(sendMessage);
+        }
+</script>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

@@ -37,8 +37,8 @@ public class MsgService {
 		mapper.SendMessage(sendMsg);		
 	}
 
-	public int selectMsgMemberNo(String id) {
-		return mapper.selectMsgMemberNo(id);
+	public Integer selectMsgMemberNo(String name) {
+		return mapper.selectMsgMemberNo(name);
 	}
 
 	public void deleteSendMessage(int msg_no) {

@@ -24,6 +24,7 @@
 	MESSAGEREV WHERE MESSAGE_REV = #{message_rev} and STORE_STATUS_YN = 'N' ORDER BY MESSAGE_NO DESC) TM) MR 
 	JOIN MEMBER M ON (MR.MESSAGE_SEN = M.MEMBER_NO) 
 	WHERE RNUM BETWEEN #{startNo} and #{endNo}
+	ORDER BY RNUM ASC
 </select>
 
 
@@ -32,6 +33,7 @@
 	MESSAGESEN WHERE MESSAGE_SEN = #{message_sen} ORDER BY MESSAGE_NO DESC) TM) MS 
 	JOIN MEMBER M ON (MS.MESSAGE_REV = M.MEMBER_NO) 
 	WHERE RNUM BETWEEN #{startNo} and #{endNo}
+	ORDER BY RNUM ASC
 </select>
 
 <select id="selectMessageRevStoreList" parameterType="map" resultType="MsgRevDTO">
@@ -39,12 +41,13 @@
 	MESSAGEREV WHERE MESSAGE_REV = #{message_rev} and STORE_STATUS_YN ='Y' ORDER BY MESSAGE_NO DESC) TM) MR 
 	JOIN MEMBER M ON (MR.MESSAGE_SEN = M.MEMBER_NO) 
 	WHERE RNUM BETWEEN #{startNo} and #{endNo}
+	ORDER BY RNUM ASC
 </select>
 
 
 
 <select id="selectMsgMemberNo" parameterType="string" resultType="int">
-	SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID = #{id}
+	SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_NICKNAME = #{name}
 </select>
 
 

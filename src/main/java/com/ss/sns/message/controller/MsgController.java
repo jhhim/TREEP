@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ss.sns.member.dto.MemberDTO;
 import com.ss.sns.member.sevice.MemberService;
@@ -125,9 +126,10 @@ public class MsgController {
 	
 	// 쪽지 보내기
 	@RequestMapping("/SendMessage")
-	public String SendMessage(@RequestParam(value="recipient_name") String id, 
+	public String SendMessage(@RequestParam(value="recipient_name") String name, 
 							  @RequestParam(value="message_text") String msgText,
-							  HttpSession session){
+							  HttpSession session,
+							  RedirectAttributes redirectAttributes){
 		Map<String, Object> sendMsg = new HashMap<String, Object>();
 		
 
@@ -135,10 +137,14 @@ public class MsgController {
 		
 		// 세션에 있는 memberDTO에서 닉네임 값 받아서 디비에서 member_no값 가져오기
 		int SessionMember_No = service.getMemberNo(Session.getMember_nickname());
+
+		Integer member_no = service.selectMsgMemberNo(name);
 		
-		int member_no = service.selectMsgMemberNo(id);
-		
-		
+		if(member_no == null) {
+			redirectAttributes.addFlashAttribute("nullMsg","존재하지 않는 닉네임 입니다.");
+			return "redirect:/message";
+		}
+
 		sendMsg.put("message_sen", SessionMember_No);
 		sendMsg.put("message_rev", member_no);
 		sendMsg.put("text",msgText);
