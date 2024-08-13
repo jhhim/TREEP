@@ -16,4 +16,5 @@ public class MsgRevDTO {
 	private LocalDateTime send_date;      // 보낸 날짜, 시간
 	private String messagerev_status_yn;     // 읽음 상태
 	private String store_status_yn; 		// 보관상태
+	private String member_nickname;				// join해서 가져올 닉네임
 }

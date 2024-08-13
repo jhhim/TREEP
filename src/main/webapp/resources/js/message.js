@@ -10,6 +10,23 @@ function allCheckRev() {
     for (let checkbox of checkBoxs) {
         checkbox.checked = check;
     }
+    
+    for(let i = 0; i < checkBoxs.length; i++){
+    	if(checkBoxs[i].checked){
+		
+		
+		$('.deleteRevChk').attr('data-bs-target','#staticBackdrop2');
+		$('.StoreRevChk').attr('data-bs-target','#staticBackdrop');
+		break;
+
+		}else{
+		$('.deleteRevChk').removeAttr('data-bs-target');	
+		$('.StoreRevChk').removeAttr('data-bs-target');			
+		
+		}
+    
+    }
+        
 }
 
 
@@ -24,6 +41,53 @@ function allCheckSend() {
     for (let checkbox of checkBoxs) {
         checkbox.checked = check;
     }
+    
+    for(let i = 0; i < checkBoxs.length; i++){
+    	if(checkBoxs[i].checked){
+		
+		
+		$('.deleteSenChk').attr('data-bs-target','#staticBackdrop3');
+		
+		break;
+
+		}else{
+		$('.deleteSenChk').removeAttr('data-bs-target');	
+					
+		
+		}
+    
+    }
+    
+}
+
+
+
+function allCheckStore() {
+
+
+    console.log("전체 선택 버튼 클릭");
+    let check = document.getElementsByName('allcheck')[2].checked;
+
+    const checkBoxs = document.getElementsByName('checkstore');
+
+    for (let checkbox of checkBoxs) {
+        checkbox.checked = check;
+    }
+    
+    for(let i = 0; i < checkBoxs.length; i++){
+    	if(checkBoxs[i].checked){
+		
+		
+		$('.deleteStoreChk').attr('data-bs-target','#staticBackdrop4');
+		break;
+
+		}else{
+		$('.deleteStoreChk').removeAttr('data-bs-target');
+		
+		}
+    
+    }
+        
 }
 
 
@@ -35,10 +99,24 @@ function chkSelectrev() {
 	
 	for(let i = 0; i < checkBoxs.length; i++){
 		if(checkBoxs[i].checked){
-		console.log(checkBoxs[i].value);
-		}
-	}
+		
+		
+		$('.deleteRevChk').attr('data-bs-target','#staticBackdrop2');
+		$('.StoreRevChk').attr('data-bs-target','#staticBackdrop');
 
+		
+		break;
+
+		}else{
+		$('.deleteRevChk').removeAttr('data-bs-target');	
+		$('.StoreRevChk').removeAttr('data-bs-target');		
+	
+		
+		}
+		
+		
+	}
+		
 	
     let flag = true;
     for (let checkbox of checkBoxs) {
@@ -48,6 +126,7 @@ function chkSelectrev() {
     }
     document.getElementsByName('allcheck')[0].checked = flag;
 }
+
 
 function chkSelectsend() {
     //전체 선택된 상태에서 체크가 풀릴경우 전체선택 체크도 풀리는 기능
@@ -55,7 +134,19 @@ function chkSelectsend() {
 	
 
 	for(let i = 0; i < checkBoxs.length; i++){
-		console.log(checkBoxs[i]);
+		if(checkBoxs[i].checked){
+		
+		$('.deleteSenChk').attr('data-bs-target','#staticBackdrop3');
+		
+		break;
+
+		}else{
+		$('.deleteSenChk').removeAttr('data-bs-target');	
+					
+		
+		}
+		
+		
 	}
     let flag = true;
     for (let checkbox of checkBoxs) {
@@ -63,8 +154,45 @@ function chkSelectsend() {
             flag = false;
         }
     }
-    document.getElementsByName('allcheck')[0].checked = flag;
+    document.getElementsByName('allcheck')[1].checked = flag;
 }
+
+
+function chkSelectStore() {
+    //전체 선택된 상태에서 체크가 풀릴경우 전체선택 체크도 풀리는 기능
+    const checkBoxs = document.getElementsByName('checkstore');
+	
+	for(let i = 0; i < checkBoxs.length; i++){
+		if(checkBoxs[i].checked){
+		
+		
+
+		$('.deleteStoreChk').attr('data-bs-target','#staticBackdrop4');
+		
+		break;
+
+		}else{
+		
+	    $('.deleteStoreChk').removeAttr('data-bs-target');	
+		
+		}
+		
+		
+	}
+		
+	
+    let flag = true;
+    for (let checkbox of checkBoxs) {
+        if (!checkbox.checked) {
+            flag = false;
+        }
+    }
+    document.getElementsByName('allcheck')[2].checked = flag;
+}
+
+
+
+
 
 //보관함 비었습니다. 메시지
 function EmptyMessage(){
@@ -85,12 +213,26 @@ EmptyMessage();
 function storeNote() {
     // 기존 테이블과 새로운 테이블을 가져오기
     console.log("쪽지 보관 클릭")
-    var ReceiveNoteTable = document.getElementById('receive-note-table').getElementsByTagName('tbody')[0];
-    var StoreNoteTable = document.getElementById('store-note-table').getElementsByTagName('tbody')[0];
+  //  var ReceiveNoteTable = document.getElementById('receive-note-table').getElementsByTagName('tbody')[0];
+  //  var StoreNoteTable = document.getElementById('store-note-table').getElementsByTagName('tbody')[0];
 
-    var checkboxes = document.getElementsByName("check");
+//    var checkboxes = document.getElementsByName("check");
+    
+    const checkBoxs = document.getElementsByName('checkrev');
+ 
+
+
+	for(let i = 0; i < checkBoxs.length; i++){
+		if(checkBoxs[i].checked){
+		
+		 location.href='RevStore?message_no=' + checkBoxs[i].value;
+		  
+		}
+	}
+	
+	
     // 체크된 행을 새로운 테이블에 추가하기
-    for (var i = 0; i < checkboxes.length; i++) {
+/*    for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
             // 선택된 행 가져오기
             var selectedRow = checkboxes[i].parentElement.parentElement;
@@ -121,7 +263,9 @@ function storeNote() {
             }
         }
     }
-    EmptyMessage();
+
+*/
+ //   EmptyMessage();
 }
 
 //읽음, 읽지 않음 상태 표시
@@ -171,7 +315,7 @@ function deleteSendCheck(){
 	for(let i = 0; i < checkBoxs.length; i++){
 		if(checkBoxs[i].checked){
 		
-		 location.href='deleteRev?message_no=' + checkBoxs[i].value;
+		 location.href='deleteSend?message_no=' + checkBoxs[i].value;
 		  
 		}
 	}
@@ -179,6 +323,20 @@ function deleteSendCheck(){
 	
 }
 
+function chkStoreDelete(){
+ const checkBoxs = document.getElementsByName('checkstore');
 
+ for(let i = 0; i < checkBoxs.length; i++){
+		if(checkBoxs[i].checked){
+			
+		 location.href='RevStoreDelete?message_no=' + checkBoxs[i].value;
+		 		
+		
+		}
 
+		
 
+		
+	}
+
+}
