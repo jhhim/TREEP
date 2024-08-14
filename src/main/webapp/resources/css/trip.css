@@ -1,0 +1,592 @@
+@charset "UTF-8";
+
+.header-container{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+}
+
+.Plan-Total-container{
+    display: flex;
+    /* border: 1px solid black; */
+    width: 900px;
+}
+
+/* 달력과 일정상세 추가 박스 포함 */
+.Plan-Calendar-container{
+    display: flex;
+    flex-direction: column;
+  
+}
+/* =================== 달력 css =========================== */
+
+/* section calendar */
+
+
+.a-modal-custom{
+    /* margin-left: 30px; */
+    text-decoration: none;
+    color: black;
+    outline: none;
+    border: 0px;
+}
+
+
+
+.hidden{
+    visibility: hidden;
+}
+
+.sec_cal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 360px;
+    /* margin-left: 100px; */
+    margin-left: 70px;
+    font-family: "NotoSansR";
+}
+
+
+.sec_cal .cal_nav {
+    width: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 78px;
+    margin-left: 50px;
+}
+
+
+.Small-Calendar .cal_nav {
+
+    justify-content: space-around;
+ 
+}
+
+
+
+
+.sec_cal .cal_nav .year-month1 {
+    width: 300px;
+    text-align: center;
+    padding-left: 20px;
+    line-height: 1;
+    margin-right: 50px;
+}
+
+.sec_cal .cal_nav .year-month2 {
+    width: 300px;
+    text-align: center;
+    margin-left: 90px;
+    line-height: 1;
+}
+
+.sec_cal .cal_nav .year-month3 {
+    width: 50px;
+    text-align: center;
+    /* padding-left: 23px; */
+    line-height: 1;
+    /* margin-right: 25px; */
+    font-size: 14px;
+}
+
+.sec_cal .cal_nav .nav {
+    display: flex;
+    border: 1px solid #333333;
+    border-radius: 5px;
+}
+
+.sec_cal .cal_nav .go-prev,
+.sec_cal .cal_nav .go-next {
+    display: block;
+    width: 50px;
+    height: 78px;
+    font-size: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sec_cal .cal_nav .go-prev::before,
+.sec_cal .cal_nav .go-next::before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #000;
+    border-width: 3px 3px 0 0;
+    transition: border 0.1s;
+}
+
+.sec_cal .cal_nav .go-prev:hover::before,
+.sec_cal .cal_nav .go-next:hover::before {
+    border-color: #ed2a61;
+}
+
+.sec_cal .cal_nav .go-prev::before {
+    transform: rotate(-135deg);
+}
+
+.sec_cal .cal_nav .go-next::before {
+    transform: rotate(45deg);
+}
+
+
+
+.sec_cal .cal_nav .go-prev2,
+.sec_cal .cal_nav .go-next2 {
+    text-decoration: none;
+     display: block;
+     width: 50px;
+     height: 78px;
+    /* display: block; */
+    /* width: 50px; */
+    /* height: 78px; */
+    
+    font-size: 30px;
+    color: black;
+    display: flex;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+}
+
+.sec_cal .cal_nav .go-prev2::before,
+.sec_cal .cal_nav .go-next2::before {
+    
+    content: "";
+     display: block;
+     /* display: block; */
+    width: 20px;
+    height: 20px;
+     border: 3px solid #000; 
+    border-width: 3px 3px 0 0;
+    
+    /* border: 3px solid #000; */
+    /* border-width: 3px 3px 0 0; */
+    transition: border 0.1s;
+}
+
+.sec_cal .cal_nav .go-prev2:hover::before,
+.sec_cal .cal_nav .go-next2:hover::before {
+    border-color: #ed2a61;
+}
+
+.sec_cal .cal_nav .go-prev2::before {
+    transform: rotate(-135deg);
+}
+
+.sec_cal .cal_nav .go-next2::before {
+    transform: rotate(45deg);
+}
+
+
+
+
+
+
+.cal_wrap_container{
+    display: flex;
+    width: 900px;
+}
+
+
+.sec_cal .cal_wrap {
+    padding-top: 40px;
+    position: relative;
+    margin: 0 auto;
+}
+
+
+.Small-Calendar .cal_wrap {
+    padding-top: 10px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.sec_cal .cal_wrap .days {
+    display: flex;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.sec_cal .cal_wrap::after {
+    top: 368px;
+}
+
+.sec_cal .cal_wrap .day {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% / 7);
+    text-align: left;
+    color: #999;
+    font-size: 12px;
+    text-align: center;
+    border-radius:5px
+}
+
+.current.today {
+    /* border-radius: 100%; */
+    background: rgb(0, 0, 0);
+    
+}
+
+.current.todayselect {
+    /* border-radius: 100%; */
+   background:	#B0E0E6;
+    /* background: rgb(255, 190, 190); */
+    border: 2px solid white;   
+
+    
+}
+.current.todayselect:hover{
+    border: 2px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+
+.sec_cal .cal_wrap .dates1 {
+    width: 370px;
+    display: flex;
+    flex-flow: wrap;
+    height: 290px;
+}
+.sec_cal .cal_wrap .dates2{
+    width: 370px;
+    display: flex;
+    flex-flow: wrap;
+    height: 290px;
+}
+
+.sec_cal .cal_wrap .dates3{
+    width: 350px;
+    display: flex;
+    flex-flow: wrap;
+    height: 180px;
+}
+
+.sec_cal .cal_wrap .day:nth-child(7n) {
+    color: #3c6ffa;
+}
+
+.sec_cal .cal_wrap .day:nth-child(7n-6) {
+    color: #ed2a61;
+}
+
+.sec_cal .cal_wrap .day.disable {
+    color: #ddd;
+}
+
+/* ======================================================= */
+/* 모달 안 달력 컨테이너 사이즈 */
+.Calendar-container{
+    width: 900px;
+    height: 500px;
+
+}
+
+/* 달력 1개짜리 */
+.Small-Calendar{
+    width: 500px;
+    height: 350px;
+}
+
+/* 일정 작성 상자 */
+.Plan-write-container{
+   
+    display: none;
+    width: 350px;
+    min-height: 300px;
+    border: 1px solid #d2d2d2;
+    border-radius: 10px;
+    margin: 30px;
+    margin-left: 70px;
+    margin-bottom: 30px;
+    padding-bottom: 50px;
+
+  
+}
+
+/* 일정 Day 컨테이너 */
+.Plan-Write-DayTitle{
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.87);
+    color: white;
+    width: 350px;
+    height: 55px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+/* Day 제목 */
+.DayTitle{
+    width: 64px;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+    padding: 0 0 3px 9px;
+    display: flex;
+}
+.DayTitle button{
+    color: white;
+    padding-top: 2px;
+    margin-left: 2px;
+}
+
+
+/* Day옆 작은 달력날짜 표시 */
+.CalenderTitle{
+    font-size: 14px;
+    margin: 10px 10px 10px 0px;
+    padding: 6px 0 0 0;
+    color: #b3b1b1;
+}
+
+.fa-trash{
+    margin-left: 140px;
+}
+
+
+.Detail-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.Line{
+    width: 300px;
+    height: 2px;
+    margin-top: 7px;
+    background-color: rgba(0, 0, 0, 0.712);
+}
+
+.Plus-Btn-container{
+    position: relative;
+}
+/* 일정 추가 버튼 */
+.Plus-Plan{
+    /* position: relative; */
+    padding: 10px 0 10px 0;
+    margin: 7px;
+    margin-top: 10px;
+    border: 1px dashed #000000d7;
+    background-color: white;
+    border-radius: 5px;
+    width: 260px;
+    /* text-align: center; */
+    gap: 2px;
+}
+
+.PlusBtnClick{
+
+    background-color:#0000000a;
+}
+
+.Plus-Plan:hover{
+
+    background-color:#0000000a;
+}
+
+
+.fa-calendar-plus{
+    position: relative;
+    top:-px;
+}
+
+.map-container{
+    width: 800px; 
+    height:100%;
+}
+
+/* 내꺼 */
+.detail-trip{
+    
+	height: calc(100vh - 90px);
+   overflow-y:auto;
+   overflow-x:hidden;
+   padding-bottom: 150px; 
+   
+}
+#map {
+
+    width: 100%;
+    overflow-y:hidden;
+    height: calc(100vh - 90px);
+  }
+  .place-list {
+    margin-top: -15px;
+
+  }
+  .place-item {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  }
+  .place-item:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  }
+  
+  .place-item img {
+    max-width: 200px;
+    max-height: 100px;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .place-item h4 {
+    margin: 0 0 5px 0;
+  }
+  .reviews {
+    display: none;
+    margin-top: 10px;
+  }
+  #place-select-btnContainer{
+    margin-top: 10px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+  }
+  .toggle-reviews,#place-select-button,#selectPlaceCombtn {
+
+    border: 1px solid #7FD858;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  .toggle-reviews:hover,#place-select-button:hover,#selectPlaceCombtn:hover{
+      outline: none;
+      background-color: #7FD858;
+      color: white;
+    }
+  
+  .star-rating {
+    display: inline-block;
+  }
+  .star-rating .fa-star {
+    color: #ffc107;
+  }
+  .star-rating .fa-star-half-alt {
+    color: #ffc107;
+  }
+
+
+  
+
+ 
+  /* 오프캔버스 css */
+  /* .btn-close {
+    
+  } */
+  .closeOff{
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    float: right;
+  }
+
+  
+  .place-offcanvas {
+
+    position: fixed;
+    top: 0;
+    left: -10px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto; 
+
+  }
+  .place-offcanvas.show {
+    transform: translateX(0);
+  }
+  
+  .offcanvas-content {
+    padding: 20px;
+  }
+ 
+  #select-place-list{
+    padding: 2px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  #no-places-message {
+    display: none; 
+    color: #888;
+
+}
+#top-border{
+    margin-bottom: 10px;
+}
+#bottom-border {
+    margin-top: 10px; /* 경계선과 아이템 간의 여백 조정 */
+}
+  .list-group-item{
+    margin: 5px;
+    /* border-radius: 10px; */
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;  }
+  .list-group-item:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+
+/* #sortable{
+    margin-top: 5px;
+    padding: 10px;
+} */
+
+.inDayPlace{
+    display: flex;
+    margin-top: 15px;
+    justify-content: space-between;
+    padding: 15px;    
+    border-radius: 5px;
+box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    
+}
+.inDayPlace:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+#place-trash{
+color: gray;
+}
+#place-trash:hover{
+    color: red;
+ 
+}
+
+
+.final-submit-Container{
+    margin-bottom:60px;
+    margin-left:70px;
+    z-index: 500;
+}
+#final-submit{
+    border-radius: 5px;
+    width: 350px;
+    border: 1px solid #7FD858;
+    /* bottom: 20px; */
+    
+}
+#final-submit:hover{
+    background-color: #7FD858;
+    color: white;
+}
+.col-md-3,.col-md-9{
+    padding-right: 0px;
+    padding-left: 0px;
+}

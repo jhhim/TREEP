@@ -93,7 +93,7 @@
                             <span>OSAKA</span>
                             <h1>일본 오사카</h1>
                             <p>일본의 미식과 역사의 중심지, 도톤보리의 눈부신 불빛 아래, 전통적인 타코야키와 오코노미야키의 맛을 즐기세요. 오사카성에서는 일본의 고대 역사를 체험할 수 있습니다. 유니버셜 스튜디오 재팬에서는 환상적인 어트랙션을 경험할 수 있으며, 신세계의 츠텐카쿠 타워에서는 도시의 전경을 한 눈에 볼 수 있습니다. 오사카에서는 끝없는 모험과 발견이 기다립니다.</p>
-                            <button class="make-plan-btn">일정 만들기  <i class="fa-solid fa-chevron-right"></i></button>
+                            <a href="maketrip"><button class="make-plan-btn">일정 만들기  <i class="fa-solid fa-chevron-right"></i></button></a>
                         </div>
                         <div class="detail-modal-right col">
                             <img src="${path}/resources/img/mainpage/IMG_1.jpg" alt="">
