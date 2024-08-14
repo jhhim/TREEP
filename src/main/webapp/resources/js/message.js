@@ -282,8 +282,8 @@ for (no of noReads){
 
 
 function sendMessage() {
-    var recipientName = document.getElementById('recipient-name').value;
-    var messageText = document.getElementById('message-text').value;
+    var recipientName = document.getElementById('send-recipient-name').value;
+    var messageText = document.getElementById('send-message-text').value;
     location.href = 'SendMessage?recipient_name=' + recipientName + '&message_text=' + messageText;
 }
 
@@ -338,5 +338,15 @@ function chkStoreDelete(){
 
 		
 	}
+
+}
+
+
+
+function resetSendMsg(){
+console.log($('#send-recipient-name'));
+	
+	$('#send-recipient-name').val('');
+	$('#send-message-text').val('');
 
 }

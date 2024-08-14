@@ -803,10 +803,267 @@
     color: white;
 }
 
-.reply-reply-submit{
+#reply-reply-submit{
     border: 1px solid #7FD858;
 }
-.reply-reply-submit:hover{
+#reply-reply-submit:hover{
     background-color: #7FD858;
     color: white;
 }
+
+/********************************** insert board ****************************************/
+
+
+
+#write_title,
+#write-text-container,
+#write-input-img {
+    border: solid 1px #e0e0e0;
+    border-radius: 5pxx;
+}
+
+#write_title:focus,
+#write-text-container:focus,
+#write-input-img:focus {
+    box-shadow: #caf7b6 0px 0px 0px 2px;
+    border: solid 1px #caf7b6;
+}
+
+
+#free-category-select {
+    display: none;
+}
+
+/*  게시판,카테고리 선택 박스 */
+#board-select,
+#category-select,
+#free-category-select {
+    font-size: 1.1rem;
+    width: 30%;
+    height: 2.5rem;
+    border-radius: 10px;
+}
+
+/* 파일첨부 + 여행일정 */
+#upload-container {
+    display: flex;
+    align-items: center;
+
+}
+
+.write-input-img {
+    flex-grow: 1;
+    transition: flex-grow 0.5s ease; 
+}
+
+#open-WriteOffcanvas {
+    margin-left: 10px;
+    width: 38px; 
+    height: 38px; 
+    border: 1px solid #7FD858;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 10px; 
+    cursor: pointer;
+    position: relative; 
+    overflow: hidden; 
+    transition: width 0.5s ease; 
+}
+
+.trip-upload-icon {
+    display: block;
+    transition: opacity 0.5s ease; 
+}
+
+.trip-upload-text {
+    position: absolute;
+    opacity: 1;
+    transition: opacity 0.5s ease  transform 0.5s ease;
+    white-space: nowrap;
+    transform: translateX(20px); 
+    bottom: 12.2px;
+}
+
+#open-WriteOffcanvas:hover {
+    width: 110px; 
+    background-color: #7FD858;
+    color: white;
+}
+
+#open-WriteOffcanvas:hover .trip-upload-icon {
+    opacity: 0; 
+}
+
+#open-WriteOffcanvas:hover .trip-upload-text {
+    opacity: 1; 
+    transform: translateX(-33px); 
+}
+
+
+#open-WriteOffcanvas:hover ~ .write-input-img {
+    flex-grow: 0.7; 
+}
+
+/* 여행일정선택 오프캔버스  */
+  
+  .write-offcanvas-content .btn-close {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    float: right;
+}
+
+.write-offcanvas {
+    position: fixed;
+    top: 0;
+    right: -490px; 
+    width: 490px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.5s ease; 
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.write-offcanvas.show {
+    right: 0px;
+}
+
+.write-offcanvas-content {
+    padding: 20px;
+}
+
+/* 여행 공유 컨테이너 */
+.share-place-title {
+    margin-top: 10px;
+    margin-bottom: 35px;
+}
+
+#close-WriteOffcanvas {
+    margin-top: 10px;
+}
+
+.write-offcanvas {
+    background-color: #fff;
+}
+
+.trip-share-item {
+    position: relative;
+    height: 170px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+    /* 글쓰기 첨부 여행일정 사진 */
+#upload-place-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 33%;
+    height: 100%;
+    object-fit: cover;
+
+}
+.trip-uplaod-title{
+    margin-top: -8px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+.share-upload-date{
+  margin-top: 13px;
+}
+/* 글쓰기 첨부 여행일정 작성자 등급 */
+#share-writepro{
+  margin-bottom: 4px;
+  margin-left: -4px;
+  width: 22px;
+  height: 22px;
+}
+.col-8 .share-write{
+
+  margin-top: 5px;
+}
+.col-8 div #writer-name{
+  color: gray;
+}
+
+/* 일정 아이템 선택 이벤트 */
+.trip-share-item:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* 상세일정 컨테이너 */
+.detail-hidden-sch{
+    display: none;
+ 
+}
+
+.place-item{
+    margin: 12px;
+    padding: 20px;
+    border-radius: 5px;
+ 
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+.place-item:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: 1px solid #7FD858;
+}
+#tripDetailContent{
+    margin-bottom: 50px;
+}
+
+/* 글쓰기 컨테이너 */
+#write-text-container {
+    width: 100%;
+    height: 20rem;
+}
+
+/* 제출버튼 */
+
+#post-submit {
+    float: right;
+    border: 1px solid #7FD858;
+}
+
+#post-submit:hover {
+    background-color: #7FD858;
+    color: white;
+}
+
+
+
+
+/*********************************************보드디테일 리플************************************************/
+  .comment {
+        margin-bottom: 15px;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .sub-comment {
+        margin-left: 20px; /* 대댓글 들여쓰기 */
+        border-left: 2px solid #ccc; /* 대댓글 구분선 */
+        padding-left: 10px;
+    }
+    
+    .input-reply {
+        border: solid 1px #e0e0e0;
+        border-radius: 5px;
+        box-shadow: 0 0 0 2px #caf7b6;
+    }
+    
+    #reply-reply-submit {
+        border: 1px solid #7FD858;
+        background-color: #7FD858;
+        color: white;
+    }
+    
+    #reply-reply-submit:hover {
+        background-color: #6dbd44;
+    }

@@ -538,5 +538,159 @@ function appendAnswer() {
     tbody.appendChild(tr);
 }
 
+/*************************************** insertboard ******************************************************/
+// 카테고리 선택 
+document.getElementById('board-select').addEventListener('change', function (event) {
+    var selected = document.getElementById('board-select').value
+    console.log(selected);
+    if (selected == "free") {
+        document.getElementById('free-category-select').style.display = "inline";
+    }
+    else {
+        document.getElementById('free-category-select').style.display = "none";
+    }
+});
 
 
+// 오프캔버스 기능 추가
+document.addEventListener('DOMContentLoaded', function () {
+    const openBtn = document.getElementById('open-WriteOffcanvas');
+    const closeBtn = document.getElementById('close-WriteOffcanvas');
+    const offcanvas = document.getElementById('write-offcanvas');
+
+    openBtn.addEventListener('click', function () {
+        offcanvas.classList.add('show');
+
+        document.addEventListener('click', handleOutsideClick);
+    });
+
+    closeBtn.addEventListener('click', function () {
+        offcanvas.classList.remove('show');
+
+        document.removeEventListener('click', handleOutsideClick);
+    });
+    function handleOutsideClick(event) {
+        // 오프캔버스와 관련된 요소를 제외한 클릭 감지
+        if (!offcanvas.contains(event.target) && !openBtn.contains(event.target)) {
+            offcanvas.classList.remove('show');
+            document.removeEventListener('click', handleOutsideClick);
+        }
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tripShareitems = document.querySelectorAll('.trip-share-item');
+    const tripShareDetail = document.getElementById('detail-hidden-sch');
+    const tripShareContainer = document.getElementById('write-offcanvas-content');
+    const backButton = document.getElementById('backButton');
+    const tripDetailContent = document.getElementById('tripDetailContent');
+    const writeTextContainer = document.getElementById('write-text-container');
+
+    // 날짜를 나열하는 함수
+    function getDatesInRange(startDate, endDate) {
+        const date = new Date(startDate);
+        const dates = [];
+
+        while (date <= endDate) {
+            dates.push(new Date(date));
+            date.setDate(date.getDate() + 1);
+        }
+
+        return dates;
+    }
+
+    // 각 날짜에 대해 장소를 매핑하는 함수 (시간 포함된 임의의 장소 리스트)
+    function getPlacesForDate(date) {
+        const places = {
+            "2024-08-09": [
+                { time: "07:00 - 09:00", place: "에펠탑" },
+                { time: "10:00 - 12:00", place: "루브르 박물관" },
+                { time: "13:00 - 15:00", place: "노트르담 대성당" }
+            ],
+            "2024-08-10": [
+                { time: "08:00 - 10:00", place: "몽마르트 언덕" },
+                { time: "11:00 - 13:00", place: "사크레쾨르 성당" },
+                { time: "14:00 - 16:00", place: "파리 시청" }
+            ],
+            "2024-08-11": [
+                { time: "09:00 - 11:00", place: "오르세 미술관" },
+                { time: "12:00 - 14:00", place: "콩코르드 광장" },
+                { time: "15:00 - 17:00", place: "샹젤리제 거리" }
+            ],
+            "2024-08-12": [
+                { time: "07:00 - 09:00", place: "베르사유 궁전" },
+                { time: "10:00 - 12:00", place: "라데팡스" },
+                { time: "13:00 - 15:00", place: "파리 디즈니랜드" }
+            ]
+        };
+
+        const formattedDate = date.toISOString().split('T')[0];
+        return places[formattedDate] || [{ time: "시간 정보 없음", place: "장소 정보 없음" }];
+    }
+
+    // 각 trip-share-item에 클릭 이벤트 추가
+    tripShareitems.forEach(tripShareitem => {
+        tripShareitem.addEventListener('click', () => {
+            tripShareContainer.style.display = 'none';
+            tripShareDetail.style.display = 'block';
+
+            const titleElement = tripShareitem.querySelector('.trip-uplaod-title');
+            const dateElement = tripShareitem.querySelector('.share-upload-date');
+
+            if (titleElement) {
+                tripDetailContent.innerHTML = `<h4 style="margin-bottom:20px">${titleElement.textContent}</h4>`;
+            } else {
+                tripDetailContent.innerHTML = '<h4>제목 없음</h4>';
+            }
+
+            if (dateElement) {
+                const dateRange = dateElement.textContent.match(/\d{4}\.\d{2}\.\d{2}/g);
+
+                if (dateRange.length === 2) {
+                    const startDate = new Date(dateRange[0].replace(/\./g, '-'));
+                    const endDate = new Date(dateRange[1].replace(/\./g, '-'));
+
+                    const dates = getDatesInRange(startDate, endDate);
+
+                    dates.forEach(date => {
+                        const dateStr = date.toISOString().split('T')[0];
+                        const places = getPlacesForDate(date);
+
+                        const placeListHtml = places.map(place => `<li class="place-item" data-date="${dateStr}" data-time="${place.time}" data-place="${place.place}">${place.time}  ${place.place}</li>`).join('');
+                        tripDetailContent.innerHTML += `<div><strong>${dateStr}</strong><ul">${placeListHtml}</ul></div>`;
+                    });
+
+                    // 각 장소에 클릭 이벤트 추가
+                    const placeItems = tripDetailContent.querySelectorAll('.place-item');
+                    placeItems.forEach(placeItem => {
+                        placeItem.addEventListener('click', () => {
+                            const date = placeItem.getAttribute('data-date');
+                            const time = placeItem.getAttribute('data-time');
+                            const place = placeItem.getAttribute('data-place');
+
+                            // 중복 확인을 위해 현재 텍스트박스에 있는 내용을 확인
+                            const currentText = writeTextContainer.value;
+                            const newEntry = `${date} ${time} ${place}`;
+
+                            if (currentText.includes(newEntry)) {
+                                alert('이미 추가된 일정입니다.');
+                            } else {
+                                // textarea에 날짜, 시간, 장소 이름을 추가
+                                writeTextContainer.value += `${newEntry}\n`;
+                            }
+                        });
+                    });
+                }
+            }
+        });
+    });
+
+    backButton.addEventListener('click', () => {
+        tripShareDetail.style.display = 'none';
+        tripShareContainer.style.display = 'block';
+    });
+});
+
+function go(){
+    window.location.href = '/anotherPage';
+}

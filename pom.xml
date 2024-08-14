@@ -190,9 +190,9 @@
 
 		<!-- jackson-databind -->
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.12.3</version>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>2.15.2</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
 		<dependency>

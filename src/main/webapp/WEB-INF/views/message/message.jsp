@@ -118,23 +118,23 @@
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">쪽지 보내기</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                    aria-label="Close" onclick="resetSendMsg()"></button>
                             </div>
                             <div class="modal-body">
                                 <form action="">
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">받는 사람(닉네임)</label>
-                                        <input type="text" class="form-control" id="recipient-name">
+                                        <input type="text" class="form-control" id="send-recipient-name">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="message-text" class="col-form-label">Message</label>
-                                        <textarea class="form-control" id="message-text"></textarea>
+                                        <label for="message-text" class="col-form-label">내용</label>
+                                        <textarea class="form-control" id="send-message-text"></textarea>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn" data-bs-dismiss="modal" id="send-close">Close</button>
-                                <button type="button" class="btn" id="send-confirm" onclick="sendMessage()">Send message</button>
+                                <button type="button" class="btn" data-bs-dismiss="modal" id="send-close" onclick="resetSendMsg()">닫기</button>
+                                <button type="button" class="btn" id="send-confirm" onclick="sendMessage()">보내기</button>
                             </div>
                         </div>
                     </div>
@@ -428,7 +428,7 @@
 </div>
 </main>
 
-<script th:inline="javascript">
+<script>
         var sendMessage = "${nullMsg}";
         if (sendMessage) {
             alert(sendMessage);
