@@ -16,6 +16,6 @@ public class MypageController {
 		
 		MemberDTO Session = (MemberDTO)session.getAttribute("member");
 		
-		return null;
+		return "mypage/mypage";
 	}
 }
