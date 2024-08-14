@@ -73,6 +73,7 @@ public class BoardController {
 		service.updateHit(hmap);
 		BoardDTO board = service.selectByBoardNo(hmap);
 		MemberDTO writeMember = service.selectJoinBoardMember(hmap);
+		//이밑에만 날리면된다~~~
 		switch (board.getBoard_continent()) {
 	    case "c1": board.setBoard_continent("국내"); break;
 	    case "c2": board.setBoard_continent("일본"); break;

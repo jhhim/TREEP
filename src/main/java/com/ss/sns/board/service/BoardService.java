@@ -40,8 +40,7 @@ public class BoardService {
 		mapper.insertReply(insertReply);	
 	}
 
-	public ArrayList<ReplyDTO> selectReply(int board_no) {
-		
+	public ArrayList<ReplyDTO> selectReply(int board_no) {		
 	    ArrayList<ReplyDTO> replies = mapper.selectReply(board_no);
 	    for (ReplyDTO reply : replies) {
 	        ArrayList<ReplyDTO> rereplies = mapper.selectReReply(reply.getReply_no());
@@ -51,6 +50,7 @@ public class BoardService {
 	}
 
 	public boolean deleteReply(Map<String, Integer> hmap) {
+		mapper.deleteReReply(hmap);
 	    return mapper.deleteReply(hmap) > 0;
 	}
 }
