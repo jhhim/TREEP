@@ -1,3 +1,4 @@
+<%@page import="com.ss.sns.member.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -16,7 +17,8 @@
 	<div class="profile-content-container container-md">
 		<!-- 프로필 이름, 정보 관리 -->
 		<div class="profile_info container-md">
-			<div class="profile_nickname">Username</div>
+
+			<div class="profile_nickname">${nickname }</div>
 			<!-- 마이페이지 설정으로 이동 -->
 			<a href="profile" class="profile_manage"> <span>프로필 관리</span> <img
 				src="${path}/resources/img/mypage/setting.png" class="setting_icon">

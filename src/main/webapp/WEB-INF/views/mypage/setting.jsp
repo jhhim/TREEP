@@ -14,7 +14,7 @@
 
     <!-- 프로필 닉네임 -->
     <div class="profile-content-container container-md">
-        <div class="profile_nickname" >Username</div>
+        <div class="profile_nickname" >${nickname }</div>
     </div>
 
     <!-- 프로필 설정 -->
@@ -24,7 +24,8 @@
             <!-- 닉네임 입력 -->
             <div>닉네임</div>
             <div class="input-nickname">
-                <input type="text" value="Username" class="form-control" id="nickname">
+                <input type="text" value=" ${nickname}" class="form-control" id="nickname">
+               
             </div>
         </div>
         <div class="profile-setting-photo">
