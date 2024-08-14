@@ -10,6 +10,10 @@
         <div class="Plan-Total-container container-fluid w-100" style="margin: 0; padding: 0;">
         <div class="row w-100">
             <div class="detail-trip col-md-3" style="padding: 0;">
+            
+                            <div class="trip-title-input input-group mb-3" id="trip-title-input">
+                    <input type="text" class="form-control" id="trip-detail-title" placeholder="여행 제목을 입력해주세요.">
+                </div>
                 <div class="Plan-Calendar-container">
 
 
