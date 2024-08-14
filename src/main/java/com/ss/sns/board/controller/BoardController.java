@@ -90,27 +90,33 @@ public class BoardController {
 	    case "c11": board.setBoard_continent("남태평양"); break;
 	    default:board.setBoard_continent("");break;
 	}
-		model.addAttribute("board", board);
-		model.addAttribute("writeMember", writeMember);
-		
-		ArrayList<ReplyDTO>repliList= service.selectReply(no);
-		model.addAttribute("repliList",repliList);
+
+	  model.addAttribute("board", board); model.addAttribute("writeMember",
+	  writeMember);
+	  
+	 /* ArrayList<ReplyDTO>repliList= service.selectReply(no);
+	 * model.addAttribute("repliList",repliList);
+	 */
 		return "board/detail";
 	}
-	@PostMapping("/reply")
-	public String reply(String replyContent,int kind,int no,@RequestParam(value = "rereply_no", required = false) Integer rereply_no) {
-		System.out.println(rereply_no);
-		Map<String, Object> hmap = new HashMap<String, Object>();
-		hmap.put("board_no", no);
-		hmap.put("member_no", 1000);
-		hmap.put("replyContent", replyContent);
-		// 비밀글 여부 체크박스 생성 후 관련 쿼리 추가예정
-		hmap.put("rereply_no", rereply_no);
-		service.insertReply(hmap);
-	return "redirect:/detailboard?kind=" + kind + "&no=" + no;
-	}
-	@GetMapping("/writeboard")
-	public String writeboard() {
-		return "board/insertBoard";
-	}
+	/*
+	 * @PostMapping("/reply") public String reply(String replyContent,int kind,int
+	 * no,@RequestParam(value = "rereply_no", required = false) Integer rereply_no)
+	 * { Map<String, Object> hmap = new HashMap<String, Object>();
+	 * hmap.put("board_no", no); hmap.put("member_no", 1002); //로그인 세션값으로 변경 예정
+	 * hmap.put("replyContent", replyContent); // 비밀글 여부 체크박스 생성 후 관련 쿼리 추가예정
+	 * hmap.put("rereply_no", rereply_no); service.insertReply(hmap); return
+	 * "redirect:/detailboard?kind=" + kind + "&no=" + no; }
+	 * 
+	 * @GetMapping("/writeboard") public String writeboard() { return
+	 * "board/insertBoard"; }
+	 * 
+	 * @RequestMapping("/deletereply") public String deleteReply(int kind,int no,int
+	 * reply_no,Model model) { System.out.println(reply_no); Map<String,Integer>
+	 * hmap = new HashMap<String, Integer>(); hmap.put("member_no", 1000);
+	 * hmap.put("reply_no", reply_no); int deleteResult = service.deleteReply(hmap);
+	 * System.out.println(deleteResult);
+	 * model.addAttribute("deleteResult",deleteResult); return
+	 * "redirect:/detailboard?kind=" + kind + "&no=" + no; }
+	 */
 }

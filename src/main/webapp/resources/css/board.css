@@ -803,10 +803,10 @@
     color: white;
 }
 
-.reply-reply-submit{
+#reply-reply-submit{
     border: 1px solid #7FD858;
 }
-.reply-reply-submit:hover{
+#reply-reply-submit:hover{
     background-color: #7FD858;
     color: white;
 }
@@ -1058,12 +1058,12 @@
         box-shadow: 0 0 0 2px #caf7b6;
     }
     
-    .reply-reply-submit {
+    #reply-reply-submit {
         border: 1px solid #7FD858;
         background-color: #7FD858;
         color: white;
     }
     
-    .reply-reply-submit:hover {
+    #reply-reply-submit:hover {
         background-color: #6dbd44;
     }

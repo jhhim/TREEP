@@ -18,8 +18,9 @@ public interface BoardMapper {
 	public BoardDTO selectByBoardNo(Map<String, Integer> hmap);
 	public MemberDTO selectJoinBoardMember(Map<String, Integer> hmap);
 	public void updateHit(Map<String, Integer> hmap);
-	public void insertReply(Map<String, Object> hmap);
+	public void insertReply(ReplyDTO insertReply);
 	public ArrayList<ReplyDTO> selectReply(int board_no);
 	public ArrayList<ReplyDTO> selectReReply(int reply_no);
+	public int deleteReply(Map<String, Integer> hmap);
 
 }

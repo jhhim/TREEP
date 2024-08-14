@@ -36,8 +36,8 @@ public class BoardService {
 		mapper.updateHit(hmap);
 	}
 
-	public void insertReply(Map<String, Object> hmap) {
-		mapper.insertReply(hmap);	
+	public void insertReply(ReplyDTO insertReply) {
+		mapper.insertReply(insertReply);	
 	}
 
 	public ArrayList<ReplyDTO> selectReply(int board_no) {
@@ -48,6 +48,10 @@ public class BoardService {
 	        reply.setReReplyList(rereplies);
 	    }
 	    return replies;
+	}
+
+	public int deleteReply(Map<String, Integer> hmap) {
+		return mapper.deleteReply(hmap);
 	}
 }
 	

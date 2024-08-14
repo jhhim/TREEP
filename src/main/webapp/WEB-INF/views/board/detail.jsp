@@ -2,7 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
-
+<script>
+    const boardKind = "${board.board_kind}";
+    const boardNo = "${board.board_no}";
+    //const memberId = "${sessionScope.memberId}";
+    const memberId = 1000;
+    const basePath = "${path}";
+</script>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <main>
 	<!-- 게시글 컨테이너 -->
@@ -64,9 +70,7 @@
 		<br>
 	</div>
 	<br>
-	<form method="post"
-		action="reply?kind=${board.board_kind}&no=${board.board_no}"
-		class="container-md" id="reply">
+	<div class="container-md" id="reply">
 		<div class="reply_num">댓글 ${repliList.size()}</div>
 		<br>
 		<div class="post-reply input-group mb-3">
@@ -75,7 +79,7 @@
 			<button class="btn" type="submit" id="reply-submit">등록</button>
 		</div>
 		<div id="comment-container">
-			<c:forEach var="reply" items="${repliList}">
+			<%-- <c:forEach var="reply" items="${repliList}">
 				<c:if test="${reply.rereply_no == 0}">
 					<div class="comment" id="comment-${reply.reply_no}">
 						<div class="row">
@@ -89,14 +93,13 @@
 										<li><a class="dropdown-item" href="#">신고하기</a></li>
 										<li><a class="dropdown-item" href="#">쪽지보내기</a></li>
 										<li><a class="dropdown-item" href="#">수정</a></li>
-										<li><a class="dropdown-item" href="#">삭제</a></li>
+										<li><a class="dropdown-item" href="deletereply?reply_no=${reply.reply_no}&kind=${board.board_kind}&no=${board.board_no}">삭제</a></li>
 									</ul>
 								</span>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-12">
-								<span class="reply-content">${reply.reply_content}</span>
+						</div> 
+								
+						<span class="reply-content">${reply.reply_content}</span>
 							</div>
 						</div>
 						<div class="row">
@@ -106,6 +109,8 @@
 									onclick="showReplyContainer(${reply.reply_no}, '${board.board_kind}', '${board.board_no}')">↳답글쓰기</button>
 							</div>
 						</div>
+						
+	
 						<div id="replies-${reply.reply_no}" class="replies">
 							<c:forEach var="subReply" items="${reply.reReplyList}">
 								<div class="comment sub-comment">
@@ -140,9 +145,97 @@
 						</div>
 					</div>
 				</c:if>
-			</c:forEach>
+			</c:forEach> --%>
 		</div>
 		<br>
-	</form>
+	</div>
+		<script>	
+		function loadReply() {
+			  $.ajax({
+			    method: 'get',
+			    url: '${path}/reply?kind=${board.board_kind}&no=${board.board_no}',
+			    contentType: 'application/json',
+			    dataType: 'json',
+
+			success : function(replyList) {
+								$('#comment-container').empty();
+
+								replyList.forEach(function(reply) {
+							        if (reply.rereply_no === 0) {
+							            let commentHtml = 
+							                '<div class="comment" id="comment-' + reply.reply_no + '">' +
+							                    '<div class="row">' +
+							                        '<div class="col-12">' +
+							                            '<span class="reply-writer">작성자</span>' +
+							                            '<span class="reply-manage dropdown">' +
+							                                '<button class="btn dropdown-toggle no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold;">⋮</button>' +
+							                                '<ul class="dropdown-menu">' +
+							                                    '<li><a class="dropdown-item" href="#">신고하기</a></li>' +
+							                                    '<li><a class="dropdown-item" href="#">쪽지보내기</a></li>' +
+							                                    '<li><a class="dropdown-item" href="#">수정</a></li>' +
+							                                    '<li><a class="dropdown-item" href="#">삭제</a></li>' +
+							                                '</ul>' +
+							                            '</span>' +
+							                        '</div>' +
+							                    '</div>' +
+							                    '<div class="row">' +
+							                        '<div class="col-12">' +
+							                            '<span class="reply-content">' + reply.reply_content + '</span>' +
+							                        '</div>' +
+							                    '</div>' +
+							                    '<div class="row">' +
+							                        '<div class="col-12">' +
+							                            '<span style="color: gray;">' + reply.reply_date + '</span>' +
+							                            '<button type="button" class="btn btn-secondary" onclick="showReplyContainer('+reply.reply_no+')">↳답글쓰기</button>' +
+							                        '</div>' +
+							                    '</div>' +
+							                    '<div id="replies-' + reply.reply_no + '" class="replies">';
+
+							            reply.reReplyList.forEach(function(subReply) {
+							                commentHtml += 
+							                    '<div class="comment sub-comment">' +
+							                        '<div class="row">' +
+							                            '<div class="col-12">' +
+							                                '<span class="reply-writer">작성자</span>' +
+							                                '<span class="reply-manage dropdown">' +
+							                                    '<button class="btn dropdown-toggle no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold;">⋮</button>' +
+							                                    '<ul class="dropdown-menu">' +
+							                                        '<li><a class="dropdown-item" href="#">신고하기</a></li>' +
+							                                        '<li><a class="dropdown-item" href="#">쪽지보내기</a></li>' +
+							                                        '<li><a class="dropdown-item" href="#">수정</a></li>' +
+							                                        '<li><a class="dropdown-item" href="#">삭제</a></li>' +
+							                                    '</ul>' +
+							                                '</span>' +
+							                            '</div>' +
+							                        '</div>' +
+							                        '<div class="row">' +
+							                            '<div class="col-12">' +
+							                                '<span class="reply-content">' + subReply.reply_content + '</span>' +
+							                            '</div>' +
+							                        '</div>' +
+							                        '<div class="row">' +
+							                            '<div class="col-12">' +
+							                                '<span style="color: gray;">' + subReply.reply_date + '</span>' +
+							                            '</div>' +
+							                        '</div>' +
+							                    '</div>';
+							            });
+
+							            commentHtml += '</div></div>';
+							            $('#comment-container').append(commentHtml);
+							        }
+							    });
+							},
+							error : function(e) {
+								console.error(e);
+								alert('전송 실패!!');
+							}
+						});
+			}
+
+			loadReply();
+		</script>
+
+	
 </main>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
