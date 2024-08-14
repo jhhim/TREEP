@@ -1,20 +1,17 @@
 package com.ss.sns.board.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ss.sns.board.dto.BoardDTO;
 import com.ss.sns.board.dto.BoardPage;
-import com.ss.sns.board.dto.ReplyDTO;
 import com.ss.sns.board.service.BoardService;
 import com.ss.sns.member.dto.MemberDTO;
 
@@ -76,6 +73,7 @@ public class BoardController {
 		service.updateHit(hmap);
 		BoardDTO board = service.selectByBoardNo(hmap);
 		MemberDTO writeMember = service.selectJoinBoardMember(hmap);
+		//이밑에만 날리면된다~~~
 		switch (board.getBoard_continent()) {
 	    case "c1": board.setBoard_continent("국내"); break;
 	    case "c2": board.setBoard_continent("일본"); break;
