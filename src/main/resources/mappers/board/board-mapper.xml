@@ -6,27 +6,69 @@
 	</sql>
 	<!-- 보드 종류별 총 게시글 개수 -->
 	<select id="countBoard" parameterType="int" resultType="int">
-		SELECT COUNT(*) FROM BOARD WHERE board_kind = #{board_kind}
+		SELECT
+		COUNT(*) FROM BOARD WHERE board_kind = #{board_kind}
 	</select>
 	<!-- 보드 종류별 페이징 후 전부 불러오기 -->
-	<select id="selectBoardList" parameterType="map" resultType="BoardDTO">
+	<select id="selectBoardList" parameterType="map"
+		resultType="BoardDTO">
 		select * from( select rownum rNum, Tb.* from (select * from
 		board where BOARD_KIND=#{board_kind} order by BOARD_NO desc) Tb) where
 		rNum between #{startNo} and #{endNo}
 	</select>
 	<!-- 보드 종류, 보드 번호로 보드 1개 불러오기 -->
-	<select id="selectByBoardNo" parameterType="map" resultType="BoardDTO">
-		  <include refid="selectAllBoard"/> where BOARD_KIND= #{board_kind} and board_no= #{board_no}
+	<select id="selectByBoardNo" parameterType="map"
+		resultType="BoardDTO">
+		<include refid="selectAllBoard" />
+		where BOARD_KIND= #{board_kind} and board_no= #{board_no}
 	</select>
 	<!-- 보드 번호로 조인해서 보드 작성한 멤버 가져오기 -->
-	<select id="selectJoinBoardMember" parameterType="map" resultType="MemberDTO">
+	<select id="selectJoinBoardMember" parameterType="map"
+		resultType="MemberDTO">
 		SELECT m.* FROM board b JOIN member m ON b.member_no =
 		m.member_no WHERE b.BOARD_KIND = #{board_kind} AND b.board_no =
 		#{board_no}
 	</select>
 	<!-- 보드 조회수 up -->
 	<update id="updateHit" parameterType="map">
-	update board set board_hit = board_hit+1 where board_kind = #{board_kind} and board_no=#{board_no}
+		update board set board_hit
+		= board_hit+1 where board_kind = #{board_kind}
+		and board_no=#{board_no}
 	</update>
+
 	<!-- 댓글 insert -->
+	<insert id="insertReply" parameterType="map">
+		<choose>
+			<when test="rereply_no != null">
+				INSERT INTO reply
+				(rereply_no, board_no, member_no, REPLY_CONTENT, REPLY_STATUS_YN, REPLY_DATE)
+				VALUES
+				(#{rereply_no}, #{board_no}, #{member_no}, #{reply_content}, 'Y', SYSDATE)
+			</when>
+			<otherwise>
+				INSERT INTO reply
+				(BOARD_NO, MEMBER_NO, REPLY_CONTENT, REPLY_STATUS_YN, REPLY_DATE)
+				VALUES
+				(#{board_no}, #{member_no}, #{reply_content}, 'Y', SYSDATE)
+			</otherwise>
+		</choose>
+	</insert>
+	<!-- 댓글 조회 -->
+	<select id="selectReply" parameterType="int"
+		resultType="ReplyDTO">
+		select * from reply where board_no= #{board_no} order by reply_date
+	</select>
+	<!--  대댓글 조회  -->
+	<select id="selectReReply" parameterType="int"
+		resultType="ReplyDTO">
+		select * from reply where rereply_no = #{reply_no}
+	</select>
+	<!--
+	 댓글 삭제 
+	<delete id="deleteReply" parameterType="map">
+	DELETE FROM REPLY WHERE REPLY_NO = #{reply_no} AND (MEMBER_NO = #{member_no} OR EXISTS (SELECT 1 FROM MEMBER
+    WHERE MEMBER_NO = #{member_no} AND MANAGER_YN = 'Y'
+    ))
+	</delete> -->
+	
 </mapper>

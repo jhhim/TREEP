@@ -3,3 +3,6 @@
 
 # pom.properties 무시
 **/pom.properties
+
+# apikey
+**/application-API-KEY.properties

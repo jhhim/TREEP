@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ss.sns.board.dto.BoardDTO;
-import com.ss.sns.board.dto.BoardPage;
+import com.ss.sns.board.dto.ReplyDTO;
 import com.ss.sns.board.mapper.BoardMapper;
 import com.ss.sns.member.dto.MemberDTO;
 
@@ -36,11 +36,26 @@ public class BoardService {
 		mapper.updateHit(hmap);
 	}
 
-	public void insertReply(Map<String, Integer> hmap) {
-		mapper.insertReply(hmap);	
+	public void insertReply(ReplyDTO insertReply) {
+		mapper.insertReply(insertReply);	
 	}
+
+	public ArrayList<ReplyDTO> selectReply(int board_no) {
+		
+	    ArrayList<ReplyDTO> replies = mapper.selectReply(board_no);
+	    for (ReplyDTO reply : replies) {
+	        ArrayList<ReplyDTO> rereplies = mapper.selectReReply(reply.getReply_no());
+	        reply.setReReplyList(rereplies);
+	    }
+	    return replies;
+	}
+
+	public int deleteReply(Map<String, Integer> hmap) {
+		return mapper.deleteReply(hmap);
+	}
+}
 	
 
 	
 	
-}
+
