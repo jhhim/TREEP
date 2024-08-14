@@ -112,6 +112,8 @@ public class MsgController {
 	@RequestMapping("/RevStore")
 	public String RevStore(@RequestParam(value="message_no") int msg_no) {
 		service.updateRevStore(msg_no);
+		service.updateRevStatus(msg_no);
+		service.updateSenStatus(msg_no);
 		
 		return "redirect:/message";
 	}

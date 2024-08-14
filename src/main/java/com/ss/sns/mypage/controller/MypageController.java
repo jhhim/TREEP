@@ -15,7 +15,14 @@ public class MypageController {
 	public String mypage(Model model, HttpSession session) {
 		
 		MemberDTO Session = (MemberDTO)session.getAttribute("member");
-		
-		return "mypage/mypage";
+			return "mypage/mypage";
+	}
+	
+	
+
+
+	@RequestMapping("/profile")
+	public String setting() {
+		return "mypage/setting";
 	}
 }
