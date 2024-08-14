@@ -18,7 +18,7 @@ function showReplyContainer(commentId, boardKind, boardNo) {
         replyInputContainer.id = `reply-input-container-${commentId}`;
         replyInputContainer.innerHTML = `
 <div id="reply-container-${commentId}">
-    <textarea id="reply-content-${commentId}" class="form-control input-reply" placeholder="대댓글을 작성해주세요" name="replyContent"></textarea>
+    <textarea id="reply-content-${commentId}" class="form-control input-reply" placeholder="댓글을 작성해주세요" name="replyContent"></textarea>
     <button class="btn" id="reply-reply-submit" type="button">등록</button>
 </div>
         `;
@@ -54,7 +54,7 @@ function loadReply() {
 							                                    '<li><a class="dropdown-item" href="#">신고하기</a></li>' +
 							                                    '<li><a class="dropdown-item" href="#">쪽지보내기</a></li>' +
 							                                    '<li><a class="dropdown-item" href="#">수정</a></li>' +
-							                                    '<li><a class="dropdown-item" href="#">삭제</a></li>' +
+							                                    '<li><a class="dropdown-item delete-reply-btn" href="#" data-reply-no="' + reply.reply_no + '">삭제</a></li>' +
 							                                '</ul>' +
 							                            '</span>' +
 							                        '</div>' +
@@ -84,7 +84,7 @@ function loadReply() {
 							                                        '<li><a class="dropdown-item" href="#">신고하기</a></li>' +
 							                                        '<li><a class="dropdown-item" href="#">쪽지보내기</a></li>' +
 							                                        '<li><a class="dropdown-item" href="#">수정</a></li>' +
-							                                        '<li><a class="dropdown-item" href="#">삭제</a></li>' +
+							                     				     '<li><a class="dropdown-item delete-sub-reply-btn" href="#" data-reply-no="' + subReply.reply_no + '">삭제</a></li>' +
 							                                    '</ul>' +
 							                                '</span>' +
 							                            '</div>' +
@@ -129,9 +129,10 @@ $(document).ready(function() {
             data: JSON.stringify({
                 reply_content: replyContent,
                 board_no: boardNo,
-                member_no: memberId
+                member_no: memberNo
             }),
            success: function() {
+             alert('댓글이 등록되었습니다.');
                 loadReply();
                 $('#reply-content').val('');
             },
@@ -153,7 +154,7 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({           
                 board_no: boardNo,
-                member_no: memberId,
+                member_no: memberNo,
                 reply_content: reReplyContent,
                 rereply_no: commentId 
             }),
@@ -163,13 +164,72 @@ $(document).ready(function() {
                 $(`#reply-content-${commentId}`).val('');
             },
             error: function(error) {
-                console.error('대댓글 등록 실패:', error);
+                console.error('댓글 등록 실패:', error);
                 alert('댓글 등록에 실패했습니다.');
             }
         });
     });
 
+/******************************************* 댓글 삭제 ****************************************************/
+function deleteReply(replyNo) {
+    $.ajax({
+        method: 'DELETE',
+        url: `${basePath}/reply/${replyNo}`,
+        headers: {
+            'member_no': memberNo
+        },
+        success: function() {
+            alert('댓글이 삭제되었습니다.');
+            loadReply();
+        },
+               error: function(xhr, status, error) {
+            if (xhr.status === 403) {
+                alert('본인이 작성한 댓글만 삭제 가능합니다.');
+            } else {
+                console.error('댓글 삭제 실패:', error);
+                alert('댓글 삭제에 실패했습니다.');
+            }
+        }
+    });
+}
 
 
+$(document).on('click', '.delete-reply-btn', function(e) {
+    e.preventDefault();
+    const replyNo = $(this).data('reply-no'); 
+    if (confirm('이 댓글을 정말 삭제하시겠습니까?')) {
+        deleteReply(replyNo);
+    }
+});
+/******************************************* 대댓글 삭제 ****************************************************/
+function deleteSubReply(replyNo) {
+ 	const url = `${basePath}/reply/${replyNo}`;
+    console.log('Deleting sub-reply with URL:', url); // URL 로그
+    $.ajax({
+        method: 'DELETE',
+        url: `${basePath}/reply/${replyNo}`,
+        headers: {
+            'member_no': memberNo
+        },
+        success: function() {
+            alert('댓글이 삭제되었습니다.');
+            loadReply();
+        },
+        error: function(xhr, status, error) {
+            if (xhr.status === 403) {
+                alert('본인이 작성한 댓글만 삭제 가능합니다.');
+            } else {
+                console.error('댓글 삭제 실패:', error);
+                alert('댓글 삭제에 실패했습니다.');
+            }
+        }
+    });
+}
 
-
+$(document).on('click', '.delete-sub-reply-btn', function(e) {
+    e.preventDefault();
+    const replyNo = $(this).data('reply-no'); 
+    if (confirm('이 댓글을 정말 삭제하시겠습니까?')) {
+        deleteSubReply(replyNo);
+    }
+});
