@@ -22,11 +22,26 @@
 	</div>
 </footer>
 
+
 <!-- AOS -->
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
 	AOS.init();
 </script>
+<!-- 로그인 기능 -->
+<script>
+
+
+/* 로그인 버튼 클릭 메서드 */
+$(".login_btn").click(function() {
+	
+	$("#login_form").attr("action", "/sns/login");
+	$("#login_form").submit();
+	
+});
+
+</script>
+
 
 </body>
 </html>

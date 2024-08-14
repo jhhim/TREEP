@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="MemberMapperTest" project="TREEP" tests="1" started="1" failures="0" errors="1" ignored="0">
+  <testsuite name="com.ss.sns.member.mapper.MemberMapperTest" time="0.004">
+    <testcase name="memberSignup" classname="com.ss.sns.member.mapper.MemberMapperTest" time="0.004">
+      <error>org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.ss.sns.member.mapper.MemberMapper.memberSignup&#13;
+	at org.apache.ibatis.binding.MapperMethod$SqlCommand.&lt;init&gt;(MapperMethod.java:235)&#13;
+	at org.apache.ibatis.binding.MapperMethod.&lt;init&gt;(MapperMethod.java:53)&#13;
+	at org.apache.ibatis.binding.MapperProxy.lambda$cachedInvoker$0(MapperProxy.java:108)&#13;
+	at java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1705)&#13;
+	at org.apache.ibatis.util.MapUtil.computeIfAbsent(MapUtil.java:36)&#13;
+	at org.apache.ibatis.binding.MapperProxy.cachedInvoker(MapperProxy.java:95)&#13;
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)&#13;
+	at com.sun.proxy.$Proxy22.memberSignup(Unknown Source)&#13;
+	at com.ss.sns.member.mapper.MemberMapperTest.memberSignup(MemberMapperTest.java:39)&#13;
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#13;
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)&#13;
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:75)&#13;
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:86)&#13;
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:84)&#13;
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)&#13;
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:252)&#13;
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:94)&#13;
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)&#13;
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)&#13;
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)&#13;
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)&#13;
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)&#13;
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)&#13;
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)&#13;
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)&#13;
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)&#13;
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:191)&#13;
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:93)&#13;
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:40)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:529)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:756)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:452)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210)&#13;
+&#13;
+</error>
+    </testcase>
+  </testsuite>
+</testrun>

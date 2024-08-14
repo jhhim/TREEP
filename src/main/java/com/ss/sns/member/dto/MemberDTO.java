@@ -1,6 +1,9 @@
 package com.ss.sns.member.dto;
 
 import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +18,8 @@ public class MemberDTO {
 	private String member_name;
 	private String member_nickname;
 	private String member_email;
-	private LocalDate date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate member_birth;
 	private String member_gender;
 	private LocalDate member_enroll;
 	private String member_phone;

@@ -1,0 +1,27 @@
+package com.ss.sns.member.mapper;
+
+import java.time.LocalDate;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ss.sns.member.dto.MemberDTO;
+
+public class MemberMapperTest {
+	@Autowired
+	private MemberMapper memberMapper;
+	
+	public void memberSignup() throws Exception{
+		MemberDTO member = new MemberDTO();
+		
+		member.setMember_id("real");
+		member.setMember_pw("pw");
+		member.setMember_name("real");
+		member.setMember_nickname("real");
+		member.setMember_birth(LocalDate.parse("1999-03-19"));
+		member.setMember_gender("M");
+		member.setMember_phone("010-0911-5586");
+		member.setMember_type("normal");
+		
+		memberMapper.memberSignup(member);
+	}
+}

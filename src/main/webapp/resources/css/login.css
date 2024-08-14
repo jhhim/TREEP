@@ -442,3 +442,83 @@
 	box-shadow: #caf7b6 0px 0px 0px 2px;
 	border: solid 1px #caf7b6;
 }
+.login_form{
+    width: 20%;
+    margin: 10% 40% 0% 40%;
+
+}
+#login_btn{
+    width: 100%;
+}
+#login_title_main{
+    font-size: 25pt;
+}
+#login_title_sub{
+    font-size: 12pt;
+    color: #B3B1B1;
+}
+.loginWarn{
+	display: flex;
+	justify-content: center;
+	margin-top: 5px;
+	margin-bottom: 7px;
+	color: red;
+	font-size: 12px;
+	align-content: center;
+}
+.id_check_re1,
+.nickname_check_re1,
+.email_check_re1,
+.correct_msg,
+.pwck_input_re_1{
+	
+	font-size: 12px;
+	color : green;
+	display: none;
+}
+.id_check_re2,
+.nickname_check_re2,
+.email_check_re2,
+.error_msg,
+.pwck_input_re_2{
+	
+	font-size: 12px;
+	color : red;
+	display: none;
+	
+}
+.final_name_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
+.final_nickname_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
+.final_id_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
+.final_pw_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
+.final_pwchk_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
+.final_phone_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
+.final_birth_ck{
+	font-size: 12px;
+	color : red;
+	display: none;
+}
