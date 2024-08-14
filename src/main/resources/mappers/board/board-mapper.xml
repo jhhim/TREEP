@@ -63,12 +63,10 @@
 		resultType="ReplyDTO">
 		select * from reply where rereply_no = #{reply_no}
 	</select>
-	<!--
-	 댓글 삭제 
+	<!--댓글 삭제 -->
 	<delete id="deleteReply" parameterType="map">
 	DELETE FROM REPLY WHERE REPLY_NO = #{reply_no} AND (MEMBER_NO = #{member_no} OR EXISTS (SELECT 1 FROM MEMBER
-    WHERE MEMBER_NO = #{member_no} AND MANAGER_YN = 'Y'
-    ))
-	</delete> -->
+    WHERE MEMBER_NO = #{member_no} AND MANAGER_YN = 'Y'))
+	</delete>
 	
 </mapper>

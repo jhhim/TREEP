@@ -50,8 +50,8 @@ public class BoardService {
 	    return replies;
 	}
 
-	public int deleteReply(Map<String, Integer> hmap) {
-		return mapper.deleteReply(hmap);
+	public boolean deleteReply(Map<String, Integer> hmap) {
+	    return mapper.deleteReply(hmap) > 0;
 	}
 }
 	
