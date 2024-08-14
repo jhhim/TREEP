@@ -10,7 +10,7 @@
 	<!-- 프로필 배경,사진 -->
 	<div class="profile-background">
 		<div class="profile-img-container">
-			<img src="${path}/resources/img/mypage/profile2.png" class="profile-img"></img>
+			<img src="${path}/resources/img/mypage/${img}" class="profile-img"></img>
 		</div>
 	</div>
 
@@ -115,6 +115,8 @@
 						</tr>
 					</thead>
 					<tbody class="table-group-divider">
+					
+					<c:forEach var="write" item="${myPage }">
 						<tr>
 							<th><input type="checkbox" name="check" value="first"
 								onclick="chkSelect()" /></th>
@@ -124,24 +126,9 @@
 							<td>2024.07.31</td>
 							<td>10</td>
 						</tr>
-						<tr>
-							<th><input type="checkbox" name="check" value="second"
-								onclick="chkSelect()" /></th>
-							<th scope="row">2</th>
-							<td>자유게시판</td>
-							<td>글제목2</td>
-							<td>2024.07.24</td>
-							<td>22</td>
-						</tr>
-						<tr>
-							<th><input type="checkbox" name="check" value="third"
-								onclick="chkSelect()" /></th>
-							<th scope="row">3</th>
-							<td>동행게시판</td>
-							<td>글제목3</td>
-							<td>2024.08.05</td>
-							<td>25</td>
-						</tr>
+					</c:forEach>
+						
+				
 					</tbody>
 				</table>
 				<div class="activity-manage">

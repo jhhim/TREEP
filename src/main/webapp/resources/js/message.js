@@ -344,7 +344,7 @@ function chkStoreDelete(){
 
 
 function resetSendMsg(){
-console.log($('#send-recipient-name'));
+//console.log($('#send-recipient-name'));
 	
 	$('#send-recipient-name').val('');
 	$('#send-message-text').val('');
