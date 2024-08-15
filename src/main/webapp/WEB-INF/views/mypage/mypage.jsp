@@ -116,15 +116,15 @@
 					</thead>
 					<tbody class="table-group-divider">
 					
-					<c:forEach var="write" item="${myPage }">
+					<c:forEach var="write" items="${myPage.boardList }">
 						<tr>
-							<th><input type="checkbox" name="check" value="first"
+							<th><input type="checkbox" name="check" value="${write.board_no }"
 								onclick="chkSelect()" /></th>
-							<th scope="row">1</th>
-							<td>자유게시판</td>
-							<td style="width: 40%;">엄청 기이이이이이이이이이이인 제목</td>
-							<td>2024.07.31</td>
-							<td>10</td>
+							<th scope="row">${write.board_no }</th>
+							<td>${write.board_type }</td>
+							<td style="width: 40%;">${write.board_title }</td>
+							<td>${write.create_date }</td>
+							<td>${write.board_hit }</td>
 						</tr>
 					</c:forEach>
 						
@@ -135,6 +135,30 @@
 					<button type="button" class="btn" id="mypage-write">글쓰기</button>
 					<button type="button" class="btn" id="write-delete">삭제</button>
 				</div>
+				
+				
+				
+				 <nav aria-label="Page navigation example">
+        <ul class="pagination" id="note-pagination">
+            <li class="page-item">
+                <button type=button class="page-link" onclick="location.href='message?page=${myPage.currentPage -1 }'" 
+                ${myPage.currentPage == 1 ? 'disabled' : ''} aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </button>
+            </li>
+            <c:forEach var="i" begin="${myPage.startPage}" end="${myPage.endPage }">
+             <li class="page-item"><button type="button" class="page-link ${myPage.currentPage == i ? 'active' : '' }"  onclick="location.href='mypage?page=${i}'">${i}</button></li>
+            </c:forEach>
+
+
+            <li class="page-item">
+                 <button type=button class="page-link" onclick="location.href='mypage?page=${msgPage.currentPage +1 }'" 
+                ${myPage.currentPage == myPage.totalPage ? 'disabled' : ''} aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </button>
+            </li>
+        </ul>
+    </nav> 
 
 			</div>
 
@@ -156,7 +180,20 @@
 						</tr>
 					</thead>
 					<tbody class="table-group-divider">
+					
+		<%-- 			
+					<c:forEach var="Like" items="${myPage.boardList }">
 						<tr>
+							<th><input type="checkbox" name="check" value="${write.board_no }"
+								onclick="chkSelect()" /></th>
+							<th scope="row">${write.board_no }</th>
+							<td>${write.board_type }</td>
+							<td style="width: 40%;">${write.board_title }</td>
+							<td>${write.create_date }</td>
+							<td>${write.board_hit }</td>
+						</tr>
+					</c:forEach> --%>
+					<!-- 	<tr>
 							<th><input type="checkbox" name="check" value="first" /></th>
 							<th scope="row">1</th>
 							<td>자유게시판</td>
@@ -191,7 +228,7 @@
 							<td>글제목4</td>
 							<td>2024.08.05</td>
 							<td>25</td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 				<div class="activity-manage">
