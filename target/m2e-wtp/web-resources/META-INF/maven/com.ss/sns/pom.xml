@@ -22,11 +22,14 @@
 			<name>ORACLE JDBC Repository</name>
 			<url>http://maven.jahia.org/maven2</url>
 		</repository>
+<<<<<<< HEAD
 		<repository>
 			<id>central</id>
 			<name>Maven Central Repository</name>
 			<url>https://repo1.maven.org/maven2/</url>
 		</repository>
+=======
+>>>>>>> 200312a25a7857c84b258464bf45a94de90f71a7
 	</repositories>
 	<dependencies>
 		<!-- Spring -->
@@ -219,6 +222,7 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+<<<<<<< HEAD
 		<dependency>
 			<groupId>com.github.scribejava</groupId>
 			<artifactId>scribejava-core</artifactId>
@@ -241,6 +245,8 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.6</version>
 		</dependency>
+=======
+>>>>>>> 200312a25a7857c84b258464bf45a94de90f71a7
 	</dependencies>
 	<build>
 		<plugins>
