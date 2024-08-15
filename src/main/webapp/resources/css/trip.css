@@ -237,9 +237,9 @@
 }
 
 .current.todayselect {
-    /* border-radius: 100%; */
-   background:	#B0E0E6;
-    /* background: rgb(255, 190, 190); */
+    background:	#AFE1AF;
+   cursor: pointer;
+   font-weight: bold;
     border: 2px solid white;   
 
     
@@ -559,6 +559,7 @@ box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 
 }
 .inDayPlace:hover{
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+   
 
 }
 #place-trash{
@@ -589,4 +590,45 @@ color: gray;
 .col-md-3,.col-md-9{
     padding-right: 0px;
     padding-left: 0px;
+}
+
+.memo_content textarea{
+    width: 320px;
+    resize: none;
+    height: 180px;
+     border: solid 1px #e0e0e0;
+    border-radius: 5pxx;
+}
+.memo_content textarea:focus{
+	box-shadow: #caf7b6 0px 0px 0px 2px;
+    border: solid 1px #caf7b6;
+}
+
+#trip-title-input{
+    margin-left: 60px;
+    width: 370px;
+}
+#trip-detail-title{
+    width: 150px;
+    margin-top: 40px;
+    border: solid 1px #e0e0e0;
+    border-radius: 5pxx;
+}
+#trip-detail-title:focus{
+    box-shadow: #caf7b6 0px 0px 0px 2px;
+    border: solid 1px #caf7b6;
+}
+#item-number{
+    background-color: #7FD858;
+    color: white;
+    font-weight: bold;
+}
+#autocomplete{
+    margin-top: 30px;
+    border: solid 1px #e0e0e0;
+    border-radius: 5pxx;
+}
+#autocomplete:focus{
+    box-shadow: #caf7b6 0px 0px 0px 2px;
+    border: solid 1px #caf7b6;
 }

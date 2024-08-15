@@ -748,14 +748,55 @@ function renderCalender3(selectMonth3) {
     //     differenceInDays = differenceInDays * -1
     // }
 
+const submitform = document.getElementById('submittrip')
 
+function formatDate(date) {
+    // 유효성 검사
+    if (!date || isNaN(date.getTime())) {
+        console.error("Invalid date:", date);
+        return ''; // 유효하지 않은 날짜인 경우 빈 문자열 반환
+    }
+
+    // 하루 더하기
+    const nextDay = new Date(date);
+    nextDay.setDate(date.getDate() + 1); // 날짜에 1일 추가
+
+    return nextDay.toISOString().split('T')[0]; // 'YYYY-MM-DD' 형식으로 변환
+}
+
+
+ submitform.addEventListener('submit', function(event) {
+        event.preventDefault(); // 기본 폼 제출 방지
+        const trip_start = formatDate(selectMonth3); // selectMonth3의 값을 Date 객체로 변환
+                   const trip_end = formatDate(selectMonth4);   // selectMonth4의 값을 Date 객체로 변환
+    
+        const tripStartField = document.createElement('input');
+        tripStartField.type = 'hidden';
+        tripStartField.name = 'trip_start';
+        tripStartField.value = trip_start;
+    
+        const tripEndField = document.createElement('input');
+        tripEndField.type = 'hidden';
+        tripEndField.name = 'trip_end';
+        tripEndField.value = trip_end;
+    
+        // 폼에 추가
+        submitform.appendChild(tripStartField);
+        submitform.appendChild(tripEndField);
+        // 폼 제출
+        submitform.submit();
+    });
 
 
     if (month3 == month31) {
         for (let i = 0; i < tttt.length; i++) {
             tttt[i].addEventListener('click', function () {
                 // $('.Plan-write-container').css('border', '1px solid #d2d2d2');
-    
+    			                // div 요소를 선택합니다.
+                const dayElement = document.querySelector('.day.current.todayselect');
+
+                // data-date 속성 값을 가져옵니다.
+                const dateValue = dayElement.getAttribute('data-date');
                 // 모든 Plan-write-container를 숨김
                 $('.Plan-write-container').hide();
     
@@ -769,12 +810,13 @@ function renderCalender3(selectMonth3) {
                         `<div class="Plan-write-container" id="${containerId}">`
                         + '<div class="Plan-Write-DayTitle">'
                         + `<h1 class="DayTitle">Day${i + 1}</h1>`
-                        + '<p class="CalenderTitle">2024-08-06</p>'
+                        + `<p class="CalenderTitle">${dateValue}</p>`
                         + '<i class="fa-solid fa-trash"></i>'
                         + '</div>'
                         + `<div class="Detail-container" id="Detail-container${i+1}">`
                         + '<div class="Line"></div>'
                         + `<ul class="sortable container md" id="sortable${i + 1}"></ul>` // Day별 고유한 ID
+                        + `<div class="memo_content"><textarea placeholder="메모를 입력해 주세요." name="schedule_content" id="write-memo-container${i + 1}" class="form-control"></textarea></div> `
                         + '<div class="Plus-Btn-container">'
                         + `<button class="Plus-Plan openOffcanvas" type="button" id="openOffcanvas${i + 1}"><i class="fa-regular fa-calendar-plus"></i>`
                         + '일정 추가</button>'
@@ -853,6 +895,7 @@ function renderCalender3(selectMonth3) {
                             + `<div class="Detail-container" id="Detail-container${i+1}">`
                             + '<div class="Line"></div>'
                             + `<ul class="sortable container md" id="sortable${i + 1}"></ul>` // Day별 고유한 ID
+                            + `<div class="memo_content"><textarea placeholder="메모를 입력해 주세요." id="write-memo-container${i + 1}" class="form-control"></textarea></div> `                  
                             + '<div class="Plus-Btn-container">'
                             + `<button class="Plus-Plan openOffcanvas" type="button" id="openOffcanvas${i + 1}"><i class="fa-regular fa-calendar-plus"></i>`
                             + '일정 추가</button>'
@@ -933,6 +976,7 @@ function renderCalender3(selectMonth3) {
                             + `<div class="Detail-container" id="Detail-container${i+storei+2}">`
                             + '<div class="Line"></div>'
                             + `<ul class="sortable container md" id="sortable${i + storei+2}"></ul>` // Day별 고유한 ID
+                            + `<div class="memo_content"><textarea placeholder="메모를 입력해 주세요." id="write-memo-container${i  + storei+2}" class="form-control"></textarea></div> `
                             + '<div class="Plus-Btn-container">'
                             + `<button class="Plus-Plan openOffcanvas" type="button" id="openOffcanvas${i + storei+2}"><i class="fa-regular fa-calendar-plus"></i>`
                             + '일정 추가</button>'
@@ -1272,7 +1316,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!isDuplicate) { // 중복이 아닌 경우에만 추가
                 const liElement = document.createElement('li');
                 liElement.className = `inDayPlace`;
-                liElement.innerHTML = `${ulElement.children().length + 1}. ${item} <i class="fa-solid fa-trash" id="place-trash"></i>`;
+                    liElement.innerHTML = `<span id="item-number">${ulElement.children().length + 1}</span>. ${item} <i class="fa-solid fa-trash" id="place-trash"></i>`;
                 ulElement.append(liElement);
                     // 삭제 버튼 이벤트 리스너 추가
                     ulElement.on("click", ".fa-trash", function () {

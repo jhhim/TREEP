@@ -6,10 +6,14 @@
  
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <main>
-
+	<form action="${path}/submittrip" method="post" id="submittrip">
         <div class="Plan-Total-container container-fluid w-100" style="margin: 0; padding: 0;">
         <div class="row w-100">
             <div class="detail-trip col-md-3" style="padding: 0;">
+            
+                            <div class="trip-title-input input-group mb-3" name="trip_title" id="trip-title-input">
+                    <input type="text" class="form-control" id="trip-detail-title" placeholder="여행 제목을 입력해주세요.">
+                </div>
                 <div class="Plan-Calendar-container">
 
 
@@ -97,7 +101,7 @@
                 </div>
                 
                 <div class="final-submit-Container" style="display: none;">
-                    <button type="button" class="btn fixed-button" id="final-submit">저장</button>
+                    <input type="submit" class="btn fixed-button" id="final-submit"></input>
                 </div>
             </div>
 
@@ -107,7 +111,7 @@
             <!-- 오프캔버스 -->
             <div class="place-offcanvas" style="width: 470px;">
                 <div class="offcanvas-content">
-                    <button class="btn-close closeOff"></button>
+                    <button type="button" class="btn-close closeOff"></button>
                     <div class="p-3">
                         <h4>장소 검색</h4>
                         <input type="text" id="autocomplete" class="form-control" placeholder="장소 입력" />
@@ -159,4 +163,5 @@
             </div>
         </div>
     </div>
+    </form>
 </main>
