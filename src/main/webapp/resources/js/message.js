@@ -16,7 +16,7 @@ function allCheckRev() {
 		
 		
 		$('.deleteRevChk').attr('data-bs-target','#staticBackdrop2');
-		$('.StoreRevChk').attr('data-bs-target','#staticBackdrop');
+		$('.StoreRevChk').attr('data-bs-target','#staticBackdropST');
 		break;
 
 		}else{
@@ -102,7 +102,7 @@ function chkSelectrev() {
 		
 		
 		$('.deleteRevChk').attr('data-bs-target','#staticBackdrop2');
-		$('.StoreRevChk').attr('data-bs-target','#staticBackdrop');
+		$('.StoreRevChk').attr('data-bs-target','#staticBackdropST');
 
 		
 		break;
