@@ -53,7 +53,7 @@ function loadReply() {
 							                                '<ul class="dropdown-menu">' +
 							                                    '<li><a class="dropdown-item" href="#">신고하기</a></li>' +
 							                                    '<li><a class="dropdown-item" href="#">쪽지보내기</a></li>' +
-							                                    '<li><a class="dropdown-item" href="#">수정</a></li>' +
+							                                    '<li><a class="dropdown-item update-reply-btn" href="#">수정</a></li>' +
 							                                    '<li><a class="dropdown-item delete-reply-btn" href="#" data-reply-no="' + reply.reply_no + '">삭제</a></li>' +
 							                                '</ul>' +
 							                            '</span>' +
@@ -64,6 +64,10 @@ function loadReply() {
 							                            '<span class="reply-content">' + reply.reply_content + '</span>' +
 							                        '</div>' +
 							                    '</div>' +
+							                     '<div id="edit-section-' + reply.reply_no + '" class="edit-section" style="display: none;">' +
+                                '<textarea id="reply-textarea-' + reply.reply_no + '">' + reply.reply_content + '</textarea>' +
+                                '<button id="save-btn-' + reply.reply_no + '">저장</button>' +
+                            '</div>' +
 							                    '<div class="row">' +
 							                        '<div class="col-12">' +
 							                            '<span style="color: gray;">' + reply.reply_date + '</span>' +
@@ -202,34 +206,56 @@ $(document).on('click', '.delete-reply-btn', function(e) {
     }
 });
 /******************************************* 대댓글 삭제 ****************************************************/
-function deleteSubReply(replyNo) {
- 	const url = `${basePath}/reply/${replyNo}`;
-    console.log('Deleting sub-reply with URL:', url); // URL 로그
-    $.ajax({
-        method: 'DELETE',
-        url: `${basePath}/reply/${replyNo}`,
-        headers: {
-            'member_no': memberNo
-        },
-        success: function() {
-            alert('댓글이 삭제되었습니다.');
-            loadReply();
-        },
-        error: function(xhr, status, error) {
-            if (xhr.status === 403) {
-                alert('본인이 작성한 댓글만 삭제 가능합니다.');
-            } else {
-                console.error('댓글 삭제 실패:', error);
-                alert('댓글 삭제에 실패했습니다.');
-            }
-        }
-    });
-}
-
 $(document).on('click', '.delete-sub-reply-btn', function(e) {
     e.preventDefault();
     const replyNo = $(this).data('reply-no'); 
     if (confirm('이 댓글을 정말 삭제하시겠습니까?')) {
-        deleteSubReply(replyNo);
+        deleteReply(replyNo);
     }
+});
+/************************************* 댓글 수정 *******************************************/
+$(document).on('click', '.update-reply-btn', function() {
+event.preventDefault();
+    const replyNo = $(this).closest('.comment').attr('id').split('-').pop();
+    const commentContent = $(`#comment-${replyNo} .reply-content`).text();
+ 	const replyContentElement = $(`#comment-${replyNo} .reply-content`);
+ 	replyContentElement.css('display', 'none');
+    $(`#edit-section-${replyNo}`).show();
+    $(`#reply-textarea-${replyNo}`).val(commentContent);
+	
+});
+$(document).on('click', `[id^="save-btn-"]`, function() {
+    const replyNo = $(this).attr('id').split('-').pop();
+    const updatedContent = $(`#reply-textarea-${replyNo}`).val();
+
+    $.ajax({
+        method: 'PUT',
+        url: `${basePath}/reply/${replyNo}`,
+        headers: {
+            'member_no': memberNo // 댓글 수정 권한을 확인하기 위한 헤더
+        },
+        contentType: 'application/json',
+        data: JSON.stringify({
+            reply_content: updatedContent
+        }),
+        success: function() {
+            alert('댓글이 수정되었습니다.');
+            loadReply(); // 댓글 목록 갱신
+        },
+        error: function(xhr, status, error) {
+            if (xhr.status === 403) {
+                alert('본인이 작성한 댓글만 수정 가능합니다.');
+            } else {
+                console.error('댓글 수정 실패:', error);
+                alert('댓글 수정에 실패했습니다.');
+            }
+        }
+    });
+
+    // 수정된 내용을 표시하고 편집 영역 숨기기
+    const replyContentElement = $(`#comment-${replyNo} .reply-content`);
+    replyContentElement.text(updatedContent).css('display', 'block');
+    
+    const editSection = $(`#edit-section-${replyNo}`);
+    editSection.css('display', 'none');
 });
