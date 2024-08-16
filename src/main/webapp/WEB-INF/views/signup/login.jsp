@@ -42,9 +42,12 @@
 						<div class="hr-sect">소셜 로그인</div>
 						 <div class="m-3" id="login_button_container">
                             <button class="login_button" type="button" id="kakao_login_button" 
-                            onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=4ada7278049d9ab1223678ec2945b83f&redirect_uri=http://localhost:8080/sns/kakao/login&response_type=code'">
-                            <img src="${path}/resources/img/login/kakao_btn_logo.png" /></button>
-                            <button class="login_button" type="button" id="naver_login_button">
+                            onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=${apiKeys.kakaoClientId}&redirect_uri=${apiKeys.kakaoRedirectUri}&response_type=code'">
+                            <img src="${path}/resources/img/login/kakao_btn_logo.png" />
+   
+                            </button>
+                            <button class="login_button" type="button" id="naver_login_button"
+                             onclick="location.href='https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${apiKeys.naverClientId}&state=1234&redirect_uri=${apiKeys.naverCallback}'">
                             <img  src="${path}/resources/img/login/btnG_아이콘사각.png"/></button>
                             <button class="login_button" type="button" id="google_login_button">
                             <img src="${path}/resources/img/login/web_light_sq_na@2x.png"/></button>

@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -28,7 +29,25 @@ public class MemberService {
 	String kakao_client_id;
 	@Value("${kakao-client-secret}")
 	String kakao_client_secret;
-
+	@Value("${kakao_redirect_uri}")
+	String kakao_redirect_uri;
+	@Value("${naver-client-id}")
+	String naver_client_id;
+	@Value("${naver_secret}")
+	String naver_secret;
+	@Value("${naver_callback}")
+	String naver_callback;
+	public Map<String, String> getApiKeys() {
+        Map<String, String> apiKeys = new HashMap<>();
+        apiKeys.put("kakaoClientId", kakao_client_id);
+        apiKeys.put("kakaoClientSecret", kakao_client_secret);
+        apiKeys.put("kakaoRedirectUri", kakao_redirect_uri);
+        apiKeys.put("naverClientId", naver_client_id);
+        apiKeys.put("naverSecret", naver_secret);
+        apiKeys.put("naverCallback", naver_callback);
+        return apiKeys;
+    }
+	
 	public void memberSignup(MemberDTO member) throws Exception {
 		membermapper.memberSignup(member);
 	}
@@ -57,7 +76,10 @@ public class MemberService {
 	public String kakaoGetToken(String code, Model model) {
 		String host = "https://kauth.kakao.com/oauth/token";
 		String token = "";
-
+		model.addAttribute("kakao_client_id", kakao_client_id);
+		model.addAttribute("kakao_redirect_uri", kakao_redirect_uri);
+		model.addAttribute("client_secret", kakao_client_secret);
+		
 		try {
 			URL url = new URL(host);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -67,7 +89,7 @@ public class MemberService {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=" + kakao_client_id);
-			sb.append("&redirect_uri=http://localhost:8080/sns/kakao/login");
+			sb.append("&redirect_uri=" + kakao_redirect_uri);
 			sb.append("&code=" + code);
 			sb.append("&client_secret=" + kakao_client_secret);
 
@@ -133,8 +155,16 @@ public class MemberService {
 				JSONObject obj = (JSONObject) parser.parse(result);
 				JSONObject pro = (JSONObject) obj.get("properties");
 				JSONObject kakaoAcount = (JSONObject) obj.get("kakao_account");
+				System.out.println(pro);
+				System.out.println(kakaoAcount);
 				userInfo.put("nickname", pro.get("nickname").toString());
 				userInfo.put("email", kakaoAcount.get("email").toString());
+				userInfo.put("birthday", kakaoAcount.get("birthday").toString());
+				userInfo.put("birthyear", kakaoAcount.get("birthyear").toString());
+				userInfo.put("gender", kakaoAcount.get("gender").toString());
+				userInfo.put("name", kakaoAcount.get("name").toString());
+				userInfo.put("phone_number", kakaoAcount.get("phone_number").toString());
+
 			}
 
 		} catch (Exception e) {
@@ -178,5 +208,110 @@ public void kakaoSignup(MemberDTO member) {
 		}
 
 	}
+	public String naverGetToken(String code, Model model) {
+		String host = "https://nid.naver.com/oauth2.0/token";
+		String token = "";
 
+		try {
+			URL url = new URL(host);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			StringBuilder sb = new StringBuilder();
+			sb.append("grant_type=authorization_code");
+			sb.append("&client_id=" + naver_client_id);
+			sb.append("&client_secret=" + naver_secret);
+			sb.append("&code=" + code);
+			sb.append("&state=1234");
+			
+			
+			
+
+			// System.out.println(sb.toString());
+			bw.write(sb.toString());
+			bw.flush();
+			int responseCode = conn.getResponseCode();
+			System.out.println("응답 : " + responseCode);
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+			String line = "";
+			String result = "";
+
+			while ((line = br.readLine()) != null) {
+				result += line;
+			}
+
+			// System.out.println("Result :" +result);
+			JSONParser parser = new JSONParser();
+			JSONObject elements = (JSONObject) parser.parse(result);
+			
+			String access_token = elements.get("access_token").toString();
+			token = access_token;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+	public HashMap<String, String> getNaverUserInfo(String token) {
+
+		System.out.println("getUserInfo()");
+		HashMap<String, String> userInfo = new HashMap<String, String>();
+		String host = "https://openapi.naver.com/v1/nid/me";
+		String nickname = "";
+		try {
+
+			URL url = new URL(host);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Authorization", "Bearer " + token);
+
+			int responseCode = con.getResponseCode();
+			System.out.println("응답코드:" + responseCode);
+			System.out.println(con.getResponseMessage());
+
+			if (responseCode == 200) {
+				// json parsing
+
+				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+				String line = "";
+				String result = "";
+
+				while ((line = br.readLine()) != null) {
+					result += line;
+
+				}
+
+				System.out.println("result2:" + result);
+
+				JSONParser parser = new JSONParser();
+				JSONObject obj = (JSONObject) parser.parse(result);
+				JSONObject res = (JSONObject) obj.get("response");
+				System.out.println(res);
+				
+			
+				userInfo.put("id", res.get("id").toString());
+				userInfo.put("nickname", res.get("nickname").toString());
+				userInfo.put("gender", res.get("gender").toString());
+				userInfo.put("email", res.get("email").toString());
+				userInfo.put("mobile", res.get("mobile").toString());
+				userInfo.put("name", res.get("name").toString());
+				userInfo.put("birthday", res.get("birthday").toString());
+				userInfo.put("birthyear", res.get("birthyear").toString());
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return userInfo;
+	}
+	public void naverSignup(MemberDTO member) {
+		membermapper.naverSignup(member);
+	}
+
+	
 }
