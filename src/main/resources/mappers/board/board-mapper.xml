@@ -73,4 +73,10 @@
 	<delete id="deleteReReply" parameterType="map">
 	delete from reply where rereply_no = #{reply_no}
 	</delete>
+	
+	<!-- 	댓글 수정 -->
+	<update id="updateReply" parameterType="map">
+	update reply set reply_content = #{reply_content} where reply_no = #{reply_no} and member_no=#{member_no}
+	</update>
+	
 </mapper>

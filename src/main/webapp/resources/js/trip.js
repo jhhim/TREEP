@@ -748,7 +748,44 @@ function renderCalender3(selectMonth3) {
     //     differenceInDays = differenceInDays * -1
     // }
 
+const submitform = document.getElementById('submittrip')
 
+function formatDate(date) {
+    // 유효성 검사
+    if (!date || isNaN(date.getTime())) {
+        console.error("Invalid date:", date);
+        return ''; // 유효하지 않은 날짜인 경우 빈 문자열 반환
+    }
+
+    // 하루 더하기
+    const nextDay = new Date(date);
+    nextDay.setDate(date.getDate() + 1); // 날짜에 1일 추가
+
+    return nextDay.toISOString().split('T')[0]; // 'YYYY-MM-DD' 형식으로 변환
+}
+
+
+ submitform.addEventListener('submit', function(event) {
+        event.preventDefault(); // 기본 폼 제출 방지
+        const trip_start = formatDate(selectMonth3); // selectMonth3의 값을 Date 객체로 변환
+                   const trip_end = formatDate(selectMonth4);   // selectMonth4의 값을 Date 객체로 변환
+    
+        const tripStartField = document.createElement('input');
+        tripStartField.type = 'hidden';
+        tripStartField.name = 'trip_start';
+        tripStartField.value = trip_start;
+    
+        const tripEndField = document.createElement('input');
+        tripEndField.type = 'hidden';
+        tripEndField.name = 'trip_end';
+        tripEndField.value = trip_end;
+    
+        // 폼에 추가
+        submitform.appendChild(tripStartField);
+        submitform.appendChild(tripEndField);
+        // 폼 제출
+        submitform.submit();
+    });
 
 
     if (month3 == month31) {
@@ -779,7 +816,7 @@ function renderCalender3(selectMonth3) {
                         + `<div class="Detail-container" id="Detail-container${i+1}">`
                         + '<div class="Line"></div>'
                         + `<ul class="sortable container md" id="sortable${i + 1}"></ul>` // Day별 고유한 ID
-                        + `<div class="memo_content"><textarea placeholder="메모를 입력해 주세요." id="write-memo-container${i + 1}" class="form-control"></textarea></div> `
+                        + `<div class="memo_content"><textarea placeholder="메모를 입력해 주세요." name="schedule_content" id="write-memo-container${i + 1}" class="form-control"></textarea></div> `
                         + '<div class="Plus-Btn-container">'
                         + `<button class="Plus-Plan openOffcanvas" type="button" id="openOffcanvas${i + 1}"><i class="fa-regular fa-calendar-plus"></i>`
                         + '일정 추가</button>'
@@ -1281,6 +1318,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 liElement.className = `inDayPlace`;
                     liElement.innerHTML = `<span id="item-number">${ulElement.children().length + 1}</span>. ${item} <i class="fa-solid fa-trash" id="place-trash"></i>`;
                 ulElement.append(liElement);
+                
+                 // 숨겨진 입력 필드 추가
+                addHiddenField(item);
+                
                     // 삭제 버튼 이벤트 리스너 추가
                     ulElement.on("click", ".fa-trash", function () {
 
@@ -1288,6 +1329,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         updateIndexes(reformgetid); // 아이템 삭제 후 인덱스 업데이트
 
                         updateSubmitButtonVisibility(); // 아이템 삭제 후 버튼 상태 업데이트
+                                            removeHiddenField(item); // 숨겨진 필드 제거
+                        
 
                     });
                 }
@@ -1315,7 +1358,23 @@ document.addEventListener('DOMContentLoaded', function () {
     initialize();
 });
 
+// 숨겨진 입력 필드 추가 함수
+function addHiddenField(placeName) {
+    const hiddenField = document.createElement('input');
+    hiddenField.type = 'hidden';
+    hiddenField.name = 'place_name'; // 같은 이름으로 설정
+    hiddenField.value = placeName; // 선택한 장소의 이름
+    hiddenField.setAttribute('data-date', reformgetid); // 날짜 정보를 data-attribute로 저장
+    document.querySelector('form').appendChild(hiddenField); // 폼에 추가
+}
 
+// 숨겨진 입력 필드 제거 함수
+function removeHiddenField(placeName) {
+    const hiddenInput = document.querySelector(`input[name="place_name"][value="${placeName}"]`);
+    if (hiddenInput) {
+        hiddenInput.remove();
+    }
+}
 
 
 

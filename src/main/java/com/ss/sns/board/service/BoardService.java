@@ -53,6 +53,10 @@ public class BoardService {
 		mapper.deleteReReply(hmap);
 	    return mapper.deleteReply(hmap) > 0;
 	}
+
+	public boolean updateReply(Map<String, Object> hmap) {
+		return mapper.updateReply(hmap) > 0;
+	}
 }
 	
 
