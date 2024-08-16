@@ -748,14 +748,52 @@ function renderCalender3(selectMonth3) {
     //     differenceInDays = differenceInDays * -1
     // }
 
+const submitform = document.getElementById('submittrip')
 
+function formatDate(date) {
+    // 유효성 검사
+    if (!date || isNaN(date.getTime())) {
+        console.error("Invalid date:", date);
+        return ''; // 유효하지 않은 날짜인 경우 빈 문자열 반환
+    }
+
+    // 하루 더하기
+    const nextDay = new Date(date);
+    nextDay.setDate(date.getDate() + 1); // 날짜에 1일 추가
+
+    return nextDay.toISOString().split('T')[0]; // 'YYYY-MM-DD' 형식으로 변환
+}
+
+const trip_start = formatDate(selectMonth3); // selectMonth3의 값을 Date 객체로 변환
+                   const trip_end = formatDate(selectMonth4);   // selectMonth4의 값을 Date 객체로 변환
+    
+        const tripStartField = document.createElement('input');
+        tripStartField.type = 'hidden';
+        tripStartField.name = 'trip_start';
+        tripStartField.value = trip_start;
+    
+        const tripEndField = document.createElement('input');
+        tripEndField.type = 'hidden';
+        tripEndField.name = 'trip_end';
+        tripEndField.value = trip_end;
+ submitform.addEventListener('submit', function(event) {
+        event.preventDefault(); // 기본 폼 제출 방지
+        
+    
+        // 폼에 추가
+        submitform.appendChild(tripStartField);
+        submitform.appendChild(tripEndField);
+        // 폼 제출
+        submitform.submit();
+    });
 
 
     if (month3 == month31) {
         for (let i = 0; i < tttt.length; i++) {
             tttt[i].addEventListener('click', function () {
                 // $('.Plan-write-container').css('border', '1px solid #d2d2d2');
-    
+    			                // div 요소를 선택합니다.
+
                 // 모든 Plan-write-container를 숨김
                 $('.Plan-write-container').hide();
     
@@ -764,17 +802,40 @@ function renderCalender3(selectMonth3) {
     
                 // 해당 Day의 Plan-write-container가 이미 있는지 확인
                 if (!$(`#${containerId}`).length) {
+                
+                
+                
+                const startDate= new Date(trip_start);
+                
+                
+                // i일을 더한 날짜를 계산합니다.
+                const newDate = new Date(startDate);
+                newDate.setDate(startDate.getDate() + i); // i일을 더합니다.
+
+                // yyyy-mm-dd 형식으로 변환합니다.
+                const yyyy = newDate.getFullYear();
+                const mm = String(newDate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+                const dd = String(newDate.getDate()).padStart(2, '0');
+                const calculatedDate = `${yyyy}-${mm}-${dd}`;
+                				  
+        const calculatedDateField = document.createElement('input');
+        calculatedDateField.type = 'hidden';
+        calculatedDateField.name = `schedules[${i}].schedule_date`;
+        calculatedDateField.value = calculatedDate;    
+         submitform.appendChild(calculatedDateField); // 폼에 추가
+                				                
                     // Plan-write-container가 없으면 새로 생성
                     var PlanCardAppend =
                         `<div class="Plan-write-container" id="${containerId}">`
                         + '<div class="Plan-Write-DayTitle">'
                         + `<h1 class="DayTitle">Day${i + 1}</h1>`
-                        + '<p class="CalenderTitle">2024-08-06</p>'
+                        + `<p class="CalenderTitle">${calculatedDate}</p>`
                         + '<i class="fa-solid fa-trash"></i>'
                         + '</div>'
                         + `<div class="Detail-container" id="Detail-container${i+1}">`
                         + '<div class="Line"></div>'
                         + `<ul class="sortable container md" id="sortable${i + 1}"></ul>` // Day별 고유한 ID
+                        + `<div class="memo_content"><textarea placeholder="메모를 입력해 주세요." name="schedules[${i}].schedule_content" id="write-memo-container${i + 1}" class="form-control"></textarea></div> `
                         + '<div class="Plus-Btn-container">'
                         + `<button class="Plus-Plan openOffcanvas" type="button" id="openOffcanvas${i + 1}"><i class="fa-regular fa-calendar-plus"></i>`
                         + '일정 추가</button>'
@@ -853,6 +914,7 @@ function renderCalender3(selectMonth3) {
                             + `<div class="Detail-container" id="Detail-container${i+1}">`
                             + '<div class="Line"></div>'
                             + `<ul class="sortable container md" id="sortable${i + 1}"></ul>` // Day별 고유한 ID
+                            + `<div class="memo_content"><textarea placeholder="메모를 입력해 주세요." id="write-memo-container${i + 1}" class="form-control"></textarea></div> `                  
                             + '<div class="Plus-Btn-container">'
                             + `<button class="Plus-Plan openOffcanvas" type="button" id="openOffcanvas${i + 1}"><i class="fa-regular fa-calendar-plus"></i>`
                             + '일정 추가</button>'
@@ -933,6 +995,7 @@ function renderCalender3(selectMonth3) {
                             + `<div class="Detail-container" id="Detail-container${i+storei+2}">`
                             + '<div class="Line"></div>'
                             + `<ul class="sortable container md" id="sortable${i + storei+2}"></ul>` // Day별 고유한 ID
+                            + `<div class="memo_content"><textarea placeholder="메모를 입력해 주세요." id="write-memo-container${i  + storei+2}" class="form-control"></textarea></div> `
                             + '<div class="Plus-Btn-container">'
                             + `<button class="Plus-Plan openOffcanvas" type="button" id="openOffcanvas${i + storei+2}"><i class="fa-regular fa-calendar-plus"></i>`
                             + '일정 추가</button>'
@@ -1258,9 +1321,32 @@ document.addEventListener('DOMContentLoaded', function () {
                     $('.final-submit-Container').hide();
                 }
             }
+            const dayTitleElement = document.querySelector('.DayTitle');
+
+            
+                const dayText = dayTitleElement.textContent;
+                const daynum = dayText.substring(3);
+  // 숨겨진 입력 필드를 추가하는 함수
+    function addHiddenField(item, index) {
+        const hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = `schedules[${reformgetid-1}].places[${index}].place_name`;
+        hiddenField.value = item;
+        document.querySelector('form').appendChild(hiddenField);
+    }
+
+    // 숨겨진 입력 필드를 제거하는 함수
+    function removeHiddenField(item) {
+        const fields = document.querySelectorAll('input[type="hidden"]');
+        fields.forEach(field => {
+            if (field.value === item) {
+                field.remove();
+            }
+        });
+    }
 
             // 각 항목을 <li> 태그로 감싸서 <ul>에 추가
-            items.forEach((item) => {
+            items.forEach((item, index) => {
                 if (item) {
                      // 중복 확인: ulElement 안의 li 요소들 중에 item과 동일한 텍스트가 있는지 확인
             const isDuplicate = ulElement.children('li').toArray().some(li => $(li).text().trim().includes(item));
@@ -1272,8 +1358,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!isDuplicate) { // 중복이 아닌 경우에만 추가
                 const liElement = document.createElement('li');
                 liElement.className = `inDayPlace`;
-                liElement.innerHTML = `${ulElement.children().length + 1}. ${item} <i class="fa-solid fa-trash" id="place-trash"></i>`;
+                    liElement.innerHTML = `<span id="item-number">${ulElement.children().length + 1}</span>. ${item} <i class="fa-solid fa-trash" id="place-trash"></i>`;
                 ulElement.append(liElement);
+                 // 숨겨진 입력 필드 추가
+                addHiddenField(item, index);
+                
                     // 삭제 버튼 이벤트 리스너 추가
                     ulElement.on("click", ".fa-trash", function () {
 
@@ -1281,6 +1370,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         updateIndexes(reformgetid); // 아이템 삭제 후 인덱스 업데이트
 
                         updateSubmitButtonVisibility(); // 아이템 삭제 후 버튼 상태 업데이트
+                                            removeHiddenField(item); // 숨겨진 필드 제거
+                        
 
                     });
                 }
@@ -1307,8 +1398,6 @@ document.addEventListener('DOMContentLoaded', function () {
     updateNoPlacesMessage();
     initialize();
 });
-
-
 
 
 
