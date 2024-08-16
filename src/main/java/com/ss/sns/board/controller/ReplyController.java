@@ -57,7 +57,8 @@ public class ReplyController {
 		}
 	}
 	@PutMapping("/{reply_no}")
-	public ResponseEntity<Void> updateReply(@PathVariable("reply_no")int reply_no, @RequestHeader("member_no") int memberNo,@RequestBody String replyContent){
+	public ResponseEntity<Void> updateReply(@PathVariable("reply_no")int reply_no, @RequestHeader("member_no") int memberNo, @RequestBody Map<String, Object> requestBody){
+		String replyContent = (String) requestBody.get("reply_content");
 		Map<String, Object>hmap = new HashMap<String, Object>();
 		hmap.put("reply_no", reply_no);
 		hmap.put("member_no", memberNo);

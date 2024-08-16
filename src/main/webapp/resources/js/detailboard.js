@@ -232,7 +232,7 @@ $(document).on('click', `[id^="save-btn-"]`, function() {
         method: 'PUT',
         url: `${basePath}/reply/${replyNo}`,
         headers: {
-            'member_no': memberNo // 댓글 수정 권한을 확인하기 위한 헤더
+            'member_no': memberNo
         },
         contentType: 'application/json',
         data: JSON.stringify({
@@ -240,7 +240,7 @@ $(document).on('click', `[id^="save-btn-"]`, function() {
         }),
         success: function() {
             alert('댓글이 수정되었습니다.');
-            loadReply(); // 댓글 목록 갱신
+            loadReply();
         },
         error: function(xhr, status, error) {
             if (xhr.status === 403) {
@@ -251,8 +251,6 @@ $(document).on('click', `[id^="save-btn-"]`, function() {
             }
         }
     });
-
-    // 수정된 내용을 표시하고 편집 영역 숨기기
     const replyContentElement = $(`#comment-${replyNo} .reply-content`);
     replyContentElement.text(updatedContent).css('display', 'block');
     
