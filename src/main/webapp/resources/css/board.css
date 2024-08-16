@@ -731,7 +731,10 @@
     cursor: pointer;
     margin-top: -3.6px;
 }
-
+.reply-count{
+	display: inline-block;
+	margin-left: 5px;
+}
 /* sns 컨테이너 */
 .sns-container{
     float: right;

@@ -76,35 +76,39 @@ function loadReply() {
 							                    '</div>' +
 							                    '<div id="replies-' + reply.reply_no + '" class="replies">';
 
-							            reply.reReplyList.forEach(function(subReply) {
-							                commentHtml += 
-							                    '<div class="comment sub-comment">' +
-							                        '<div class="row">' +
-							                            '<div class="col-12">' +
-							                                '<span class="reply-writer">작성자</span>' +
-							                                '<span class="reply-manage dropdown">' +
-							                                    '<button class="btn dropdown-toggle no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold;">⋮</button>' +
-							                                    '<ul class="dropdown-menu">' +
-							                                        '<li><a class="dropdown-item" href="#">신고하기</a></li>' +
-							                                        '<li><a class="dropdown-item" href="#">쪽지보내기</a></li>' +
-							                                        '<li><a class="dropdown-item" href="#">수정</a></li>' +
-							                     				     '<li><a class="dropdown-item delete-sub-reply-btn" href="#" data-reply-no="' + subReply.reply_no + '">삭제</a></li>' +
-							                                    '</ul>' +
-							                                '</span>' +
-							                            '</div>' +
-							                        '</div>' +
-							                        '<div class="row">' +
-							                            '<div class="col-12">' +
-							                                '<span class="reply-content">' + subReply.reply_content + '</span>' +
-							                            '</div>' +
-							                        '</div>' +
-							                        '<div class="row">' +
-							                            '<div class="col-12">' +
-							                                '<span style="color: gray;">' + subReply.reply_date + '</span>' +
-							                            '</div>' +
-							                        '</div>' +
-							                    '</div>';
-							            });
+							           reply.reReplyList.forEach(function(subReply) {
+    commentHtml += 
+        '<div class="comment sub-comment">' +
+            '<div class="row">' +
+                '<div class="col-12">' +
+                    '<span class="reply-writer">작성자</span>' +
+                    '<span class="reply-manage dropdown">' +
+                        '<button class="btn dropdown-toggle no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold;">⋮</button>' +
+                        '<ul class="dropdown-menu">' +
+                            '<li><a class="dropdown-item" href="#">신고하기</a></li>' +
+                            '<li><a class="dropdown-item" href="#">쪽지보내기</a></li>' +
+                            '<li><a class="dropdown-item update-sub-reply-btn" href="#">수정</a></li>' +
+                            '<li><a class="dropdown-item delete-sub-reply-btn" href="#" data-reply-no="' + subReply.reply_no + '">삭제</a></li>' +
+                        '</ul>' +
+                    '</span>' +
+                '</div>' +
+            '</div>' +
+            '<div id="edit-sub-section-' + subReply.reply_no + '" class="edit-section" style="display: none;">' +
+                '<textarea id="sub-reply-textarea-' + subReply.reply_no + '">' + subReply.reply_content + '</textarea>' +
+                '<button id="save-sub-btn-' + subReply.reply_no + '">저장</button>' +
+            '</div>' +
+            '<div class="row">' +
+                '<div class="col-12">' +
+                    '<span class="reply-content">' + subReply.reply_content + '</span>' +
+                '</div>' +
+            '</div>' +
+            '<div class="row">' +
+                '<div class="col-12">' +
+                    '<span style="color: gray;">' + subReply.reply_date + '</span>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+});
 
 							            commentHtml += '</div></div>';
 							            $('#comment-container').append(commentHtml);
@@ -119,13 +123,17 @@ function loadReply() {
 			}
 
 
-$(document).ready(function() {
+
     loadReply();
-});
+
 
 /****************************************** 댓글 추가 *************************************************/
-  $('#reply-submit').click(function() {
-        const replyContent = $('#reply-content').val();
+ $('#reply-submit').click(function() {
+    const replyContent = $('#reply-content').val().trim();
+    if (!replyContent) {
+        alert('댓글 내용을 입력해주세요.');
+        return;
+    }
         $.ajax({
             url: `${basePath}/reply`,
             type: 'POST',
@@ -150,8 +158,11 @@ $(document).ready(function() {
      $(document).on('click', '#reply-reply-submit', function() {
 
         commentId = $(this).closest('[id^="reply-input-container-"]').attr('id').split('-').pop();
-        const reReplyContent = $(`#reply-content-${commentId}`).val();
-
+        const reReplyContent = $(`#reply-content-${commentId}`).val().trim();
+ if (!reReplyContent) {
+        alert('댓글 내용을 입력해주세요.');
+        return;
+    }
         $.ajax({
             method: 'POST',
           	 url: `${basePath}/reply/reply`,
@@ -215,7 +226,7 @@ $(document).on('click', '.delete-sub-reply-btn', function(e) {
 });
 /************************************* 댓글 수정 *******************************************/
 $(document).on('click', '.update-reply-btn', function() {
-event.preventDefault();
+	event.preventDefault();
     const replyNo = $(this).closest('.comment').attr('id').split('-').pop();
     const commentContent = $(`#comment-${replyNo} .reply-content`).text();
  	const replyContentElement = $(`#comment-${replyNo} .reply-content`);
@@ -257,3 +268,82 @@ $(document).on('click', `[id^="save-btn-"]`, function() {
     const editSection = $(`#edit-section-${replyNo}`);
     editSection.css('display', 'none');
 });
+
+/******************************대댓글 수정***************************************/
+$(document).on('click', '.update-sub-reply-btn', function(event) {
+    event.preventDefault();
+
+    const commentElement = $(this).closest('.sub-comment');
+    const editSectionId = commentElement.find('.edit-section').attr('id');
+    
+    if (editSectionId) {
+        const replyNo = editSectionId.split('-').pop();
+        const editSection = commentElement.find(`#edit-sub-section-${replyNo}`);
+        editSection.show();     
+        const replyContentElement = commentElement.find('.reply-content');
+        $(`#sub-reply-textarea-${replyNo}`).val(replyContentElement.text());
+        replyContentElement.hide();
+    } else {
+        console.error('대댓글 ID를 찾을 수 없습니다.');
+    }
+});
+$(document).on('click', '[id^="save-sub-btn-"]', function() {
+    const replyNo = $(this).attr('id').split('-').pop();
+    const updatedContent = $(`#sub-reply-textarea-${replyNo}`).val();
+
+    $.ajax({
+        method: 'PUT',
+        url: `${basePath}/reply/${replyNo}`,
+        headers: {
+            'member_no': memberNo
+        },
+        contentType: 'application/json',
+        data: JSON.stringify({
+            reply_content: updatedContent
+        }),
+        success: function() {
+            alert('댓글이 수정되었습니다.');
+            loadReply();
+        },
+        error: function(xhr, status, error) {
+            if (xhr.status === 403) {
+                alert('본인이 작성한 댓글만 수정 가능합니다.');
+            } else {
+                console.error('대댓글 수정 실패:', error);
+                alert('댓글 수정에 실패했습니다.');
+            }
+        }
+    });
+    const commentElement = $(`#edit-sub-section-${replyNo}`).closest('.sub-comment');
+    commentElement.find('.reply-content').text(updatedContent).show();
+    commentElement.find(`#edit-sub-section-${replyNo}`).hide();
+});
+
+
+/**************************** 댓글 수 불러오기 ***************************/
+function loadReplyCount() {
+    $.ajax({
+        method: 'GET',
+        url: `${basePath}/reply/count`,
+        data: {
+            kind: boardKind,
+            no: boardNo
+        },
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(response) {
+            const replyCount = response || 0;
+            $('.reply-count').text(replyCount);
+        },
+        error: function(xhr, status, error) {
+            console.error('댓글 수 조회 실패:', error);
+            // 오류 발생 시, 기본값 설정 또는 사용자에게 알림
+            $('.reply-count').text('댓글 수를 불러오는 데 실패했습니다.');
+        }
+    });
+}
+
+
+
+ loadReplyCount();
+
