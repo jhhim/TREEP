@@ -69,4 +69,10 @@ public class ReplyController {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		}
 	}
+	@GetMapping("/count")
+	public ResponseEntity<Integer> selectReplyCount(@RequestParam("kind") int kind, @RequestParam("no") int no) {
+	    List<ReplyDTO> replyList = service.selectReply(no);
+	    int replyCount = replyList.size();
+	    return ResponseEntity.status(HttpStatus.OK).body(replyCount);
+	}
 }
