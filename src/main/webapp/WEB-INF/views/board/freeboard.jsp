@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <%
 LocalDate today = LocalDate.now();
@@ -50,40 +50,50 @@ pageContext.setAttribute("today", today.toString());
 		<div
 			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content">
-				<form class="MyModal">
+
+				<form class="MyModal" action="freefilterboard" method="post">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5 modal-title-custom"
 							id="exampleModalLabel">TREEP 필터</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close" onclick="resetModal()"></button>
 					</div>
-
-
-
 					<div class="modal-body">
 						<div class="mb-3">
 							<div style="padding: 10px;">
 								<h3>게시물 종류</h3>
 								<!-- <p style="color: #9c9c9c;">최대 3개 선택 가능해요</p> -->
 							</div>
-							<input type="button" class="locationBtn" value="잡담"> <input
-								type="button" class="locationBtn" value="정보"> <input
-								type="button" class="locationBtn" value="후기"> <input
-								type="button" class="locationBtn" value="공지사항">
+							<input type="checkbox" id="checkboard1" name="postType"
+								value="잡담" class="locationBtn"> <label for="checkboard1"
+								class="locationBtn">잡담</label> <input type="checkbox"
+								id="checkboard2" name="postType" value="정보" class="locationBtn">
+							<label for="checkboard2" class="locationBtn">정보</label> <input
+								type="checkbox" id="checkboard3" name="postType" value="후기"
+								class="locationBtn"> <label for="checkboard3"
+								class="locationBtn">후기</label> <input type="checkbox"
+								id="checkboard4" name="postType" value="공지사항"
+								class="locationBtn"> <label for="checkboard4"
+								class="locationBtn">공지사항</label>
 						</div>
 						<div>
 							<div style="padding: 10px;">
 								<h3>정렬</h3>
 							</div>
-							<input type="button" class="lineupBtn" value="최신순"> <input
-								type="button" class="lineupBtn" value="조회순"> <input
-								type="button" class="lineupBtn" value="좋아요순">
+							<input type="radio" id="checkline1" class="lineupBtn" name="line"
+								value="최신순"> <label for="checkline1" class="lineupBtn">최신순</label>
+
+							<input type="radio" id="checkline2" class="lineupBtn" name="line"
+								value="조회순"> <label for="checkline2" class="lineupBtn">조회순</label>
+
+							<input type="radio" id="checkline3" class="lineupBtn" name="line"
+								value="좋아요순"> <label for="checkline3" class="lineupBtn">좋아요순</label>
 						</div>
 
 						<div class="search-container">
-							<input type="text" class="searchbar" placeholder="검색어를 입력하세요">
+							<input type="text" id="searchText" class="searchbar"
+								name="searchText" placeholder="검색어를 입력하세요">
 							<div class="searchicon-container">
-
 								<i class="fa-solid fa-magnifying-glass searchicon"></i>
 							</div>
 						</div>
@@ -93,11 +103,9 @@ pageContext.setAttribute("today", today.toString());
 							<img src="${path}/resources/img/board/reset.png" class="resetImg"
 								alt="">초기화
 						</button>
-						<button type="button" class="filter-submitBtn"
-							data-bs-dismiss="modal" onclick="">필터 적용하기</button>
+						<button type="submit" class="filter-submitBtn"
+							data-bs-dismiss="modal">필터 적용하기</button>
 					</div>
-
-
 				</form>
 			</div>
 		</div>
@@ -142,14 +150,16 @@ pageContext.setAttribute("today", today.toString());
 						<div class="card-footer">
 							<small class="text-body-secondary d-flex justify-content-between">
 								<p class="mb-0">
-						     <c:choose>
-                            <c:when test="${fn:substring(board.create_date, 0, 10) eq today}">
-                               <span>new</span><p class="mb-0">${fn:substring(board.create_date, 11, 16)}</p>
-                            </c:when>
-                            <c:otherwise>
-                                <p class="mb-0">${fn:substring(board.create_date, 0, 10)}</p>
-                            </c:otherwise>
-                        </c:choose>
+									<c:choose>
+										<c:when
+											test="${fn:substring(board.create_date, 0, 10) eq today}">
+											<span>new</span>
+											<p class="mb-0">${fn:substring(board.create_date, 11, 16)}</p>
+										</c:when>
+										<c:otherwise>
+											<p class="mb-0">${fn:substring(board.create_date, 0, 10)}</p>
+										</c:otherwise>
+									</c:choose>
 								</p>
 								<p class="mb-0">조회수 : ${board.board_hit}</p>
 								<p class="mb-0">LIKE : ${board.board_like}</p>
