@@ -14,4 +14,6 @@ import lombok.NoArgsConstructor;
 public class TripPlaceDTO {
     private int place_no;
     private String place_name;
+    private int schedule_no; 
+
 }
