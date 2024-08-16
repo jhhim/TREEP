@@ -27,4 +27,8 @@ public class MemberDTO {
 	private String member_img;
 	private String member_grade;
 	private String manager_yn;
+	
+	
+	
+	
 }
