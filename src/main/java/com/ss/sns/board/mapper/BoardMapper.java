@@ -23,5 +23,6 @@ public interface BoardMapper {
 	public ArrayList<ReplyDTO> selectReReply(int reply_no);
 	public int deleteReply(Map<String, Integer> hmap);
 	public void deleteReReply(Map<String, Integer> hmap);
+	public int updateReply(Map<String, Object> hmap);
 
 }
