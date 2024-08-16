@@ -1,10 +1,15 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-
+<%
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+%>
 
 <main>
    
@@ -72,7 +77,7 @@
                                                     <span id="send-person">보낸사람</span><span id="detail-send-person">${msg.member_nickname }</span>   
                                                 </div>
                                                 <div class="recieveDate-note-row">
-                                                    <span id="receive-date">받은시간</span><span id="detail-receive-date">${msg.send_date }</span>
+                                                    <span id="receive-date">받은시간</span><span id="detail-receive-date">${msg.send_date.format(formatter) }</span>
                                                 </div>
                                                 <div class="title-note-row">
                                                     <span id="send-note-title">내용</span>
@@ -95,7 +100,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>${msg.send_date }</td>
+                        <td>${msg.send_date.format(formatter) }</td>
                         <td> <c:choose>
     					<c:when test="${msg.messagerev_status_yn == 'Y' }">
         					<span class="completeRead"></span>
@@ -208,7 +213,7 @@
                         <th><input type="checkbox" name="checksend" value="${msg2.message_no }" onclick="chkSelectsend()" /></th>
                         <th scope="row">${msg2.member_nickname }</th>
                         <td style="width: 40%;">${msg2.message_content }</td>
-                        <td>${msg2.send_date}</td>
+                        <td>${msg2.send_date.format(formatter)}</td>
                         <td><c:choose>
     					<c:when test="${msg2.messagesen_status_yn == 'Y' }">
         					<span class="completeRead"></span>
@@ -299,7 +304,7 @@
                                                     <span id="send-person">보낸사람</span><span id="detail-send-person">${msg3.member_nickname }</span>   
                                                 </div>
                                                 <div class="recieveDate-note-row">
-                                                    <span id="receive-date">받은시간</span><span id="detail-receive-date">${msg3.send_date }</span>
+                                                    <span id="receive-date">받은시간</span><span id="detail-receive-date">${msg3.send_date.format(formatter) }</span>
                                                 </div>
                                                 <div class="title-note-row">
                                                     <span id="send-note-title">내용</span>
@@ -323,7 +328,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>${msg3.send_date }</td>
+                        <td>${msg3.send_date.format(formatter) }</td>
                         <td> <c:choose>
     					<c:when test="${msg3.messagerev_status_yn == 'Y' }">
         					<span class="completeRead"></span>

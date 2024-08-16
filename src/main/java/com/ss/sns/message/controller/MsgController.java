@@ -54,6 +54,7 @@ public class MsgController {
 //		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //		 DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //		 String formattedDate = null;
+//		 
 //		for (int i = 0; i < msgPage.getMsgList1().size(); i++) {
 //			LocalDateTime send_date = msgPage.getMsgList1().get(i).getSend_date();
 //			formattedDate = send_date.format(formatter);
