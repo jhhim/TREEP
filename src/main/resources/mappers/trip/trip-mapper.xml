@@ -3,20 +3,31 @@
 
 <mapper namespace="com.ss.sns.mypage.mapper.TripMapper">
     
-<insert id="insertTrip" parameterType="TripDTO" useGeneratedKeys="true" keyProperty="trip_no">
-    INSERT INTO TRIP (trip_title, trip_start, trip_end)
-    VALUES (#{trip_title}, #{trip_start}, #{trip_end})
-</insert>
+    <!-- 기존 insertTrip -->
+    <insert id="insertTrip" parameterType="TripDTO" useGeneratedKeys="true" keyProperty="trip_no">
+        INSERT INTO TRIP (trip_title, trip_start, trip_end)
+        VALUES (#{trip_title}, #{trip_start}, #{trip_end})
+    </insert>
 
-<insert id="insertSchedule" parameterType="ScheduleDTO" useGeneratedKeys="true" keyProperty="schedule_no">
-    INSERT INTO SCHEDULE (trip_no, schedule_date, schedule_content)
-    VALUES (#{trip_no}, #{schedule_date}, #{schedule_content})
-</insert>
+    <!-- 기존 insertSchedule -->
+    <insert id="insertSchedule" parameterType="ScheduleDTO" useGeneratedKeys="true" keyProperty="schedule_no">
+        INSERT INTO SCHEDULE (trip_no, schedule_date, schedule_content)
+        VALUES (#{trip_no}, 
+                #{schedule_date, jdbcType=DATE}, 
+                #{schedule_content, jdbcType=VARCHAR})
+    </insert>
 
-<insert id="insertPlace" parameterType="TripPlaceDTO">
-    INSERT INTO TRIP_PLACE (place_name, schedule_no)
-    VALUES (#{place_name}, #{schedule_no})
-</insert>
+    <!-- 기존 insertPlace -->
+    <insert id="insertPlace" parameterType="TripPlaceDTO">
+        INSERT INTO TRIP_PLACE (place_name, schedule_no)
+        VALUES (#{place_name}, #{schedule_no})
+    </insert>
+
+ <insert id="insertMemberTrip" parameterType="map">
+        INSERT INTO member_trip (member_no, trip_no)
+        VALUES (#{member_no}, #{trip_no})
+    </insert>
+
 
 
 </mapper>
