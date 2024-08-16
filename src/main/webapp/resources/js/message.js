@@ -352,35 +352,4 @@ function resetSendMsg(){
 }
 
 
-/*  ajax 처리  */
 
-
-$('#receive-tab').click(()=>{
-
-	$.ajax({
-		url:`${basePath}/RevList`,
-		type:'get',
-		data:{},
-		success:function(data){
-		// alert(data.msgList1.message_no);
-		$.each(data,function(index,value){
-		
-			alert(data.totalPage);
-		
-		})
-		
-		},
-		error:function(){
-			alert("error");
-		}
-		
-		
-	
-	
-	
-	});
-
-
-
-
-});

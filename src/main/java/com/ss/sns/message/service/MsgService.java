@@ -1,6 +1,7 @@
 package com.ss.sns.message.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,8 +82,8 @@ public class MsgService {
 	}
 
 	public int getMemberNo(String Nickname) {
-		// TODO Auto-generated method stub
 		return mapper.getMemberNo(Nickname);
 	}
+
 
 }

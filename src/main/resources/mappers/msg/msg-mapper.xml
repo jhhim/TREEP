@@ -104,4 +104,9 @@
 	MESSAGE_NO = #{msg_no}
 </update>
 
+
+<select id="selectRev" parameterType="int" resultType="MsgRevDTO">
+select * from messagerev where message_rev = #{member_no}
+</select>
+
 </mapper>

@@ -36,6 +36,7 @@ public class BoardController {
 		model.addAttribute("boardPage", boardPage);
 		return "board/freeboard";
 	}
+	
 	@RequestMapping("/joinboard")
 	public String joinboard(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
 		int board_kind = 2;
