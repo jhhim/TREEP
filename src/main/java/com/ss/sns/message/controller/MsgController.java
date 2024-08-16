@@ -1,5 +1,7 @@
 package com.ss.sns.message.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ss.sns.member.dto.MemberDTO;
-import com.ss.sns.member.sevice.MemberService;
 import com.ss.sns.message.dto.MsgPage;
 import com.ss.sns.message.service.MsgService;
 
@@ -26,7 +27,7 @@ public class MsgController {
 	
 	@RequestMapping("/message")
 	public String message(@RequestParam(value="page", defaultValue = "1") int currentPage, Model model, HttpSession session) {
-		// session이 누군지에 따라서 보여주기(현재는 임의로 1인애 찾기)\
+		// session이 누군지
 		
 		MemberDTO Session = (MemberDTO)session.getAttribute("member");
 	
@@ -48,7 +49,19 @@ public class MsgController {
 		
 		// map 형식의 변수를 넘겨줘서 MsgList1(RevDTO)에 디비에서 넘어온 값 모두 저장하기
 		msgPage.setMsgList1(service.selectMessageRevList(hmap));
-		System.out.println("DTOList"+msgPage.getMsgList1());
+//		System.out.println("DTOList"+msgPage.getMsgList1());
+		
+//		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//		 DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//		 String formattedDate = null;
+//		for (int i = 0; i < msgPage.getMsgList1().size(); i++) {
+//			LocalDateTime send_date = msgPage.getMsgList1().get(i).getSend_date();
+//			formattedDate = send_date.format(formatter);
+//			LocalDateTime parsedDate = LocalDateTime.parse(formattedDate, parseFormatter);
+//			msgPage.getMsgList1().get(i).setSend_date(parsedDate);
+//		}
+		
+		System.out.println(msgPage.getMsgList1());
 		model.addAttribute("msgPage",msgPage);
 		
 //		보낸쪽지함
@@ -78,6 +91,8 @@ public class MsgController {
 		
 		return "message/message";
 	}
+	
+
 	
 	
 	// 받은쪽지함에서 쪽지 삭제
@@ -112,6 +127,8 @@ public class MsgController {
 	@RequestMapping("/RevStore")
 	public String RevStore(@RequestParam(value="message_no") int msg_no) {
 		service.updateRevStore(msg_no);
+		service.updateRevStatus(msg_no);
+		service.updateSenStatus(msg_no);
 		
 		return "redirect:/message";
 	}

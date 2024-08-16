@@ -1,3 +1,4 @@
+<%@page import="com.ss.sns.member.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -9,14 +10,15 @@
 	<!-- 프로필 배경,사진 -->
 	<div class="profile-background">
 		<div class="profile-img-container">
-			<img src="${path}/resources/img/mypage/profile2.png" class="profile-img"></img>
+			<img src="${path}/resources/img/mypage/${img}" class="profile-img"></img>
 		</div>
 	</div>
 
 	<div class="profile-content-container container-md">
 		<!-- 프로필 이름, 정보 관리 -->
 		<div class="profile_info container-md">
-			<div class="profile_nickname">Username</div>
+
+			<div class="profile_nickname">${nickname }</div>
 			<!-- 마이페이지 설정으로 이동 -->
 			<a href="profile" class="profile_manage"> <span>프로필 관리</span> <img
 				src="${path}/resources/img/mypage/setting.png" class="setting_icon">
@@ -113,39 +115,50 @@
 						</tr>
 					</thead>
 					<tbody class="table-group-divider">
+					
+					<c:forEach var="write" items="${myPage.boardList }">
 						<tr>
-							<th><input type="checkbox" name="check" value="first"
+							<th><input type="checkbox" name="check" value="${write.board_no }"
 								onclick="chkSelect()" /></th>
-							<th scope="row">1</th>
-							<td>자유게시판</td>
-							<td style="width: 40%;">엄청 기이이이이이이이이이이인 제목</td>
-							<td>2024.07.31</td>
-							<td>10</td>
+							<th scope="row">${write.board_no }</th>
+							<td>${write.board_type }</td>
+							<td style="width: 40%;">${write.board_title }</td>
+							<td>${write.create_date }</td>
+							<td>${write.board_hit }</td>
 						</tr>
-						<tr>
-							<th><input type="checkbox" name="check" value="second"
-								onclick="chkSelect()" /></th>
-							<th scope="row">2</th>
-							<td>자유게시판</td>
-							<td>글제목2</td>
-							<td>2024.07.24</td>
-							<td>22</td>
-						</tr>
-						<tr>
-							<th><input type="checkbox" name="check" value="third"
-								onclick="chkSelect()" /></th>
-							<th scope="row">3</th>
-							<td>동행게시판</td>
-							<td>글제목3</td>
-							<td>2024.08.05</td>
-							<td>25</td>
-						</tr>
+					</c:forEach>
+						
+				
 					</tbody>
 				</table>
 				<div class="activity-manage">
 					<button type="button" class="btn" id="mypage-write">글쓰기</button>
 					<button type="button" class="btn" id="write-delete">삭제</button>
 				</div>
+				
+				
+				
+				 <nav aria-label="Page navigation example">
+        <ul class="pagination" id="note-pagination">
+            <li class="page-item">
+                <button type=button class="page-link" onclick="location.href='message?page=${myPage.currentPage -1 }'" 
+                ${myPage.currentPage == 1 ? 'disabled' : ''} aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </button>
+            </li>
+            <c:forEach var="i" begin="${myPage.startPage}" end="${myPage.endPage }">
+             <li class="page-item"><button type="button" class="page-link ${myPage.currentPage == i ? 'active' : '' }"  onclick="location.href='mypage?page=${i}'">${i}</button></li>
+            </c:forEach>
+
+
+            <li class="page-item">
+                 <button type=button class="page-link" onclick="location.href='mypage?page=${msgPage.currentPage +1 }'" 
+                ${myPage.currentPage == myPage.totalPage ? 'disabled' : ''} aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </button>
+            </li>
+        </ul>
+    </nav> 
 
 			</div>
 
@@ -167,7 +180,20 @@
 						</tr>
 					</thead>
 					<tbody class="table-group-divider">
+					
+		<%-- 			
+					<c:forEach var="Like" items="${myPage.boardList }">
 						<tr>
+							<th><input type="checkbox" name="check" value="${write.board_no }"
+								onclick="chkSelect()" /></th>
+							<th scope="row">${write.board_no }</th>
+							<td>${write.board_type }</td>
+							<td style="width: 40%;">${write.board_title }</td>
+							<td>${write.create_date }</td>
+							<td>${write.board_hit }</td>
+						</tr>
+					</c:forEach> --%>
+					<!-- 	<tr>
 							<th><input type="checkbox" name="check" value="first" /></th>
 							<th scope="row">1</th>
 							<td>자유게시판</td>
@@ -202,7 +228,7 @@
 							<td>글제목4</td>
 							<td>2024.08.05</td>
 							<td>25</td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 				<div class="activity-manage">

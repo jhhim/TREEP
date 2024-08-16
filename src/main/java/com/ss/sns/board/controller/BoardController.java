@@ -122,6 +122,7 @@ public class BoardController {
 		return "board/detail";
 	}
 
+<<<<<<< HEAD
 	@PostMapping("/freefilterboard")
 	public String filterboard(@RequestParam(value = "postType", required = false) List<String> postTypes,
 			@RequestParam(value = "sortOrder", required = false) String sortOrder,
@@ -162,3 +163,6 @@ public class BoardController {
 	}
 
 }
+=======
+}
+>>>>>>> 66b340840d04803e49072ab31812cd3315636cf4
