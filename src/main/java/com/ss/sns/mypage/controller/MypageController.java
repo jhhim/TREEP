@@ -42,6 +42,7 @@ public class MypageController {
 		int member_no = Session.getMember_no();
 		int BoardTotalCount = service.selectBoardTotalCount(member_no);
 		int pageSize = 2;
+		
 		MypagePage mypage = new MypagePage(pageSize, BoardTotalCount, currentPage);
 		Map<String, Integer> myBmap = new HashMap<String,Integer>();
 		myBmap.put("startNo", mypage.getStartNo());
@@ -49,8 +50,22 @@ public class MypageController {
 		myBmap.put("member_no", member_no);
 		
 		mypage.setBoardList(service.selectMyBoardList(myBmap));
+		model.addAttribute("myPage", mypage);
 		
-			return "mypage/mypage";
+//		
+//		MypagePage mypageLike = new MypagePage(pageSize, BoardTotalCount, currentPage);
+//		Map<String, Integer> myBLmap = new HashMap<String,Integer>();
+//		myBLmap.put("startNo", mypageLike.getStartNo());
+//		myBLmap.put("endNo", mypageLike.getEndNo());
+//		myBLmap.put("member_no", member_no);
+//		
+//		mypageLike.setBoardList(service.selectMyBoardList(myBLmap));
+//		model.addAttribute("myPageLike", mypageLike);
+		
+		
+		
+		
+		return "mypage/mypage";
 	}
 	
 	

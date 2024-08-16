@@ -4,6 +4,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+
+<script>
+   /*  const boardKind = "${board.board_kind}";
+    const boardNo = "${board.board_no}";
+    //const memberId = "${sessionScope.memberId}";
+    const memberId = 1000; */
+    const basePath = "${path}";
+</script>
 <main>
    
 <!-- 쪽지함-->
