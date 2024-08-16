@@ -2,5 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ss.sns.mypage.mapper.MypageMapper">
 
+<update id="profileModify" parameterType="map">
+	UPDATE MEMBER
+	SET MEMBER_NICKNAME = #{nickname},
+	MEMBER_IMG = #{img}
+	WHERE MEMBER_EMAIL = #{email}
+</update>
+
+<select id="selectBoardTotalCount" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM BOARD WHERE MEMBER_NO = #{member_no}
+</select>
+
+<select id="selectMyBoardList" parameterType="map" resultType="MyBoardDTO">
+	SELECT MBP.BOARD_NO, MBP.BOARD_TYPE, MBP.BOARD_TITLE, MBP.CREATE_DATE, MBP.BOARD_HIT
+	FROM (SELECT ROWNUM RNUM, BM.* 
+	FROM (SELECT * FROM BOARD WHERE MEMBER_NO = #{member_no} ORDER BY CREATE_DATE) BM )MBP
+	WHERE RNUM BETWEEN #{startNo} and #{endNo}
+
+</select>
 
 </mapper>
