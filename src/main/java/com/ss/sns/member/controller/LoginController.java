@@ -2,32 +2,38 @@ package com.ss.sns.member.controller;
 
 
 
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
-import javax.inject.Inject;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.logging.Log;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ss.sns.member.dto.MemberDTO;
+import com.ss.sns.member.dto.kakaoDTO;
 import com.ss.sns.member.sevice.MemberService;
 
 @Controller
@@ -70,6 +76,62 @@ public class LoginController {
     public String signup() {
         return "signup/email";
     }
+	@RequestMapping("kakao/login")
+	public String kakaoLogin(String code,Model model) throws Exception {
+		String token = service.kakaoGetToken(code,model);
+		
+		 System.out.println("컨트롤러 토큰:" + token);
+		 
+		 // 사용자 정보 받아오기!
+		 // 위에 받아온 access_token값을
+		 // 이용해서 정보 받기 위해 매개변수로 
+		 // 넘겨준다.
+		 HashMap<String, String> userinfo = service.getUserInfo(token);
+		 String nickname = userinfo.get("nickname");
+		 String email = userinfo.get("email");
+		 MemberDTO member = new MemberDTO();
+		 member.setMember_email(email);
+		 member.setMember_nickname(nickname);
+		 System.out.println(member.toString());
+		 model.addAttribute("nickname", nickname);
+		 int result = service.kakaocheck(email);
+		 System.out.println(result);
+		 if (result == 0) {
+			 service.kakaoSignup(member);
+			 System.out.println("회원가입은 됐어유");
+			 return "redirect:/kako/login";
+		 }else {
+			 return "redirect:/login/end";
+		 }
+		 
+		 //System.out.println("닉네임:" + nickname);
+		 
+		 // 받아온 정보를 jsp 전송
+ 
+	}
+	
+	@RequestMapping("/login/end")
+	public String loginend(HttpServletRequest request,MemberDTO member,RedirectAttributes attr) throws Exception {
+		
+//		System.out.println("login");
+//		System.out.println("value" + member);
+		HttpSession session = request.getSession();
+		MemberDTO nowMem = service.memberLogin(member);
+		System.out.println(nowMem);
+		 if(nowMem == null) {                                // 일치하지 않는 아이디, 비밀번호 입력 경우
+	            
+	            int result = 0;
+	            attr.addFlashAttribute("result", result);
+	            return "redirect:/login";
+	            
+	        }
+	        
+	        session.setAttribute("member", nowMem);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
+	        
+	        return "redirect:/"; 
+	}
+			
+			
 	
 	@GetMapping("/emailchk")
 	@ResponseBody
@@ -132,7 +194,7 @@ public class LoginController {
 		
 		logger.info("회원가입 성공");
 		
-		return "redirect:/";
+		return "redirect:/login";
 	}
 	@PostMapping("/signinfo/memberIdChk")
 	@ResponseBody
