@@ -47,3 +47,35 @@ document.getElementById('delete').addEventListener('click',function(event){
     const imagePreview = document.getElementById('image-preview');
     imagePreview.src = defaultimage;
 });
+
+
+
+/*
+$('#save').click(()=>{
+	let name = $('#nickname').val();
+	let img = $('#profile-upload-img').val();
+
+  $.ajax({
+  	method:'post',
+  	url:'${path}/profileModify/',
+  	contentType: 'application/json',
+  	dateType: 'json',
+  	data: JSON.stringify({name,img}),
+  	success:(result)=>{
+  	alert("전송 성공");
+  	$('#save').html(JSON.stringify(result));
+  	},
+  	error:(e) => {alert("전송 실패");
+  	
+  	
+  	}
+  	
+  });
+
+
+
+
+});
+
+*/
+
