@@ -1318,6 +1318,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 liElement.className = `inDayPlace`;
                     liElement.innerHTML = `<span id="item-number">${ulElement.children().length + 1}</span>. ${item} <i class="fa-solid fa-trash" id="place-trash"></i>`;
                 ulElement.append(liElement);
+                
+                 // 숨겨진 입력 필드 추가
+                addHiddenField(item);
+                
                     // 삭제 버튼 이벤트 리스너 추가
                     ulElement.on("click", ".fa-trash", function () {
 
@@ -1325,6 +1329,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         updateIndexes(reformgetid); // 아이템 삭제 후 인덱스 업데이트
 
                         updateSubmitButtonVisibility(); // 아이템 삭제 후 버튼 상태 업데이트
+                                            removeHiddenField(item); // 숨겨진 필드 제거
+                        
 
                     });
                 }
@@ -1352,7 +1358,23 @@ document.addEventListener('DOMContentLoaded', function () {
     initialize();
 });
 
+// 숨겨진 입력 필드 추가 함수
+function addHiddenField(placeName) {
+    const hiddenField = document.createElement('input');
+    hiddenField.type = 'hidden';
+    hiddenField.name = 'place_name'; // 같은 이름으로 설정
+    hiddenField.value = placeName; // 선택한 장소의 이름
+    hiddenField.setAttribute('data-date', reformgetid); // 날짜 정보를 data-attribute로 저장
+    document.querySelector('form').appendChild(hiddenField); // 폼에 추가
+}
 
+// 숨겨진 입력 필드 제거 함수
+function removeHiddenField(placeName) {
+    const hiddenInput = document.querySelector(`input[name="place_name"][value="${placeName}"]`);
+    if (hiddenInput) {
+        hiddenInput.remove();
+    }
+}
 
 
 

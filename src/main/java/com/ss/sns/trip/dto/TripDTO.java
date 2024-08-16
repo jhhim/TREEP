@@ -1,6 +1,7 @@
 package com.ss.sns.trip.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,4 +21,7 @@ public class TripDTO {
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate trip_end;
+    
+    private List<ScheduleDTO> schedules; // 여행 일자별 스케줄 리스트
+
 }
