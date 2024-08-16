@@ -1,6 +1,7 @@
 package com.ss.sns.message.mapper;
 
 import java.util.ArrayList;
+
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
