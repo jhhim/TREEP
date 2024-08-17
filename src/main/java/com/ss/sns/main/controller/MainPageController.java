@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ss.sns.main.dto.CityDTO;
@@ -15,11 +16,17 @@ public class MainPageController {
 	@Autowired
 	MainPageService service;
 
-	/*
-	 * @GetMapping("/searchcity") public ResponseEntity<List<CityDTO>>searchCity(){
-	 * 
-	 * }
-	 */
+	@GetMapping("/searchcity")
+	public ResponseEntity<List<CityDTO>> searchCity(@RequestParam(value = "searchText", defaultValue = "") String searchText) {
 	
+	    List<CityDTO> cityList;
+	    
+	    if (searchText == null || searchText.trim().isEmpty()) {
+	        cityList = service.selectAllCity();
+	    } else {
+	        cityList = service.searchCity(searchText);
+	    }
+	    return ResponseEntity.ok(cityList);
+	}
 	
 }

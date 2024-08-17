@@ -151,7 +151,7 @@
 
 #detail-modal .modal-content {
 	height: 500px;
-	width: 1050px;
+	width: 1100px;
 }
 
 .modal-dialog-scrollable .detail-modal-content {
@@ -162,13 +162,14 @@
 .detail-modal-header {
 	border: none;
 }
-
+#modal-city-country{
+	padding-left: 2px;
+}
 .detail-modal-body {
 	margin-bottom: 20PX;
 	max-height: calc(100vh - 120px);
 	overflow-y: auto;
 	overflow-x: hidden;
-	margin-top: 35px;
 }
 
 .detail-modal-body::-webkit-scrollbar {
@@ -198,6 +199,7 @@
 
 .detail-modal-left span {
 	color: darkgray;
+	font-size: 22px;
 }
 
 .detail-modal-left h1 {
@@ -211,12 +213,13 @@
 }
 
 .detail-modal-right img {
-	width: 300px;
-	height: 300px;
+	width: 380px;
+	height: 380px;
 	border-radius: 10px;
-	margin-bottom: 22px;
 }
-
+.detail-modal-right {
+	margin-left: 40px;
+}
 .make-plan-btn {
 	border: #7FD858 solid 2px;
 	padding: 13px 30px 8px 30px;

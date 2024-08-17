@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class CityDTO {
 	private int city_no;
-	private String city_kor;
+	private String city_country;
 	private String city_name;
 	private String city_img;
 	private String city_info;

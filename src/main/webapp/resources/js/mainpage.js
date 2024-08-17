@@ -112,49 +112,68 @@ window.addEventListener('scroll', handleScroll);
 
 /********************************* searchbox *****************************************/
 
- const searchInput = $('.search-place-nav');
- const searchResultsContainer = $('.search-place-scroll');
+fetchCities("");
 
-    searchInput.on('input', function() {
-        const searchText = $(this).val();
 
-        if (searchText.length > 0) {
-            $.ajax({
-                url: '/searchcity',
-                type: 'GET',
-                data: { searchText: searchText },
-                success: function(data) {
-                    searchResultsContainer.empty();
+const searchInput = $('.search-place-nav');
+const searchResultsContainer = $('.search-place-scroll');
 
-                    data.forEach(item => {
-                        const anchor = $('<a>', {
-                            href: '#',
-                            class: 'search-box-wrap',
-                            'data-bs-toggle': 'modal',
-                            'data-bs-target': '#detail-modal'
-                        });
+searchInput.on('input', function() {
+    const searchText = $(this).val() || "";
+    fetchCities(searchText);
+});
 
-                        const icon = $('<i>', {
-                            class: 'fa-solid fa-location-dot'
-                        });
-
-                        const leftDiv = $('<div>', {
-                            class: 'search-left'
-                        });
-
-                        const heading = $('<h5>').text(item.name);
-                        const span = $('<span>').text(item.country);
-
-                        leftDiv.append(heading).append(span);
-                        anchor.append(icon).append(leftDiv);
-                        searchResultsContainer.append(anchor);
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                }
-            });
-        } else {
+function fetchCities(searchText) {
+    $.ajax({
+        url: `${basePath}/searchcity`,
+        type: 'GET',
+        data: { searchText: searchText },
+        success: function(data) {
             searchResultsContainer.empty();
+            
+            let cityHtml = '';
+            data.forEach(item => {
+                // 조건에 따라 city_country 값을 변환
+                let countryName = item.city_country;
+                if (countryName === '국내') {
+                    countryName = '대한민국';
+                }
+
+                // HTML 생성
+                cityHtml += '<a href="#" class="search-box-wrap" data-bs-toggle="modal" data-bs-target="#detail-modal" data-city=\'' + JSON.stringify(item) + '\'>';
+                cityHtml += '<i class="fa-solid fa-location-dot"></i>';
+                cityHtml += '<div class="search-left">';
+                cityHtml += '<h5>' + item.city_name + '</h5>';
+                cityHtml += '<span>' + countryName + '</span>';
+                cityHtml += '</div></a>';
+            });
+
+            searchResultsContainer.html(cityHtml);
+        },
+        error: function(xhr, status, error) {
+            console.error('오류:', error);
         }
     });
+}
+/********************************* 모달 *****************************************/
+$(document).on('click', '.search-box-wrap', function() {
+    const cityData = $(this).attr('data-city');
+    
+    const decodedCityData = cityData.replace(/&quot;/g, '"');
+    
+    try {
+        const city = JSON.parse(decodedCityData);
+        console.log('Parsed City:', city);
+		let countryName = city.city_country;
+        if (countryName === '국내') {
+            countryName = '대한민국';
+        }
+
+        $('#modal-city-name').text(city.city_name);
+        $('#modal-city-info').text(city.city_info);
+        $('#modal-city-country').text(countryName);
+        $('#modal-city-image').attr('src', `${basePath}/resources/img/city/${city.city_img}`);
+    } catch (error) {
+        console.error('Error parsing city data:', error);
+    }
+});
