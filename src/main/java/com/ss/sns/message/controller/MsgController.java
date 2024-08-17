@@ -62,7 +62,7 @@ public class MsgController {
 //			msgPage.getMsgList1().get(i).setSend_date(parsedDate);
 //		}
 		
-		System.out.println(msgPage.getMsgList1());
+//		System.out.println(msgPage.getMsgList1());
 		model.addAttribute("msgPage",msgPage);
 		
 //		보낸쪽지함
