@@ -49,7 +49,7 @@
                             <button class="login_button" type="button" id="naver_login_button"
                              onclick="location.href='https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${apiKeys.naverClientId}&state=1234&redirect_uri=${apiKeys.naverCallback}'">
                             <img  src="${path}/resources/img/login/btnG_아이콘사각.png"/></button>
-                            <button class="login_button" type="button" id="google_login_button">
+                            <button class="login_button" type="button" id="google_login_button" onclick="location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id=${apiKeys.googleClientId}&redirect_uri=${apiKeys.googleCallback}&response_type=code&scope=email%20profile%20openid&access_type=offline'">
                             <img src="${path}/resources/img/login/web_light_sq_na@2x.png"/></button>
                         
 

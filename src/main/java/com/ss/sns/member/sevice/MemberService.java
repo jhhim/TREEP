@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,12 @@ public class MemberService {
 	String naver_secret;
 	@Value("${naver_callback}")
 	String naver_callback;
+	@Value("${google-client-id}")
+	String google_client_id;
+	@Value("${google-secret}")
+	String google_secret;
+	@Value("${google-redirect-uri}")
+	String google_callback;
 	public Map<String, String> getApiKeys() {
         Map<String, String> apiKeys = new HashMap<>();
         apiKeys.put("kakaoClientId", kakao_client_id);
@@ -45,6 +52,9 @@ public class MemberService {
         apiKeys.put("naverClientId", naver_client_id);
         apiKeys.put("naverSecret", naver_secret);
         apiKeys.put("naverCallback", naver_callback);
+        apiKeys.put("googleClientId", google_client_id);
+        apiKeys.put("googleSecret", google_secret);
+        apiKeys.put("googleCallback", google_callback);
         return apiKeys;
     }
 	
@@ -228,7 +238,7 @@ public void kakaoSignup(MemberDTO member) {
 			
 			
 
-			// System.out.println(sb.toString());
+			System.out.println(sb.toString());
 			bw.write(sb.toString());
 			bw.flush();
 			int responseCode = conn.getResponseCode();
@@ -312,6 +322,127 @@ public void kakaoSignup(MemberDTO member) {
 	public void naverSignup(MemberDTO member) {
 		membermapper.naverSignup(member);
 	}
+	public String googleGetToken(String code, Model model) {
+		String host = "https://oauth2.googleapis.com/token";
+		String token = "";
 
-	
+		try {
+			URL url = new URL(host);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			StringBuilder sb = new StringBuilder();
+			sb.append("code=" + code);
+			sb.append("&client_id=" + google_client_id);
+			sb.append("&client_secret=" + google_secret);
+			sb.append("&grant_type=authorization_code");
+			sb.append("&redirect_uri="+ google_callback);
+			
+			
+			
+
+			//System.out.println(sb.toString());
+			bw.write(sb.toString());
+			bw.flush();
+			int responseCode = conn.getResponseCode();
+			System.out.println("응답 : " + responseCode);
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+			String line = "";
+			String result = "";
+
+			while ((line = br.readLine()) != null) {
+				result += line;
+			}
+
+			//System.out.println("Result :" +result);
+			JSONParser parser = new JSONParser();
+			JSONObject elements = (JSONObject) parser.parse(result);
+			
+			String access_token = elements.get("access_token").toString();
+			token = access_token;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return token;
+	}
+	public HashMap<String, String> getGoogleUserInfo(String token) {
+
+		System.out.println("getUserInfo()");
+		HashMap<String, String> userInfo = new HashMap<String, String>();
+		String host = "https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses,phoneNumbers";
+		try {
+
+			URL url = new URL(host);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Authorization", "Bearer " + token);
+			
+			int responseCode = con.getResponseCode();
+			System.out.println("응답코드:" + responseCode);
+			System.out.println(con.getResponseMessage());
+
+			if (responseCode == 200) {
+				// json parsing
+
+				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+				String line = "";
+				String result = "";
+
+				while ((line = br.readLine()) != null) {
+					result += line;
+
+				}
+
+				System.out.println("result2:" + result);
+
+				JSONParser parser = new JSONParser();
+	            JSONObject obj = (JSONObject) parser.parse(result.toString());
+
+	            // Parse emailAddresses
+	            JSONArray emailAddresses = (JSONArray) obj.get("emailAddresses");
+	            if (emailAddresses != null && !emailAddresses.isEmpty()) {
+	                JSONObject emailObject = (JSONObject) emailAddresses.get(0);
+	                userInfo.put("email",emailObject.get("value").toString());
+	                
+	            }
+
+	            // Parse names
+	            JSONArray names = (JSONArray) obj.get("names");
+	            if (names != null && !names.isEmpty()) {
+	                JSONObject nameObject = (JSONObject) names.get(0);
+	                
+	                userInfo.put("name", nameObject.get("displayName").toString());
+	               
+	            }
+	            
+	            userInfo.put("id", obj.get("resourceName").toString().substring(7));
+				
+				
+			
+				
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return userInfo;
+	}
+
+	public void googleSignup(MemberDTO member) {
+		membermapper.googleSignup(member);
+		
+	}
+	private static String extractIdFromResourceName(String resourceName) {
+        // resourceName은 "people/102154258379430784130" 형식입니다.
+        // "/"로 나누어 ID를 추출합니다.
+        String[] parts = resourceName.split("/");
+        return parts.length > 1 ? parts[1] : null;
+    }
 }
