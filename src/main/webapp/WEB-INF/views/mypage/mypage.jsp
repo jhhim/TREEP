@@ -138,7 +138,7 @@
 					</tbody>
 				</table>
 				<div class="activity-manage">
-					<button type="button" class="btn" id="mypage-write">글쓰기</button>
+					<a href="${path}/writeboard"><button type="button" class="btn" id="mypage-write">글쓰기</button></a>
 					<button type="button" class="btn" id="write-delete">삭제</button>
 				</div>
 
@@ -246,7 +246,7 @@
 					</tbody>
 				</table>
 				<div class="activity-manage">
-					<button type="button" class="btn" id="mypage-write">글쓰기</button>
+					<a href="${path}/writeboard"><button type="button" class="btn" id="mypage-write">글쓰기</button></a>
 					<button type="button" class="btn" id="write-delete">삭제</button>
 				</div>
 			</div>

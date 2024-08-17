@@ -1173,6 +1173,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 const photo = place.photos && place.photos.length > 0
                     ? `<img src="${place.photos[0].getUrl({ maxWidth: 200, maxHeight: 100 })}" alt="${place.name}">`
                     : '';
+                const photoSave = place.photos && place.photos.length > 0
+                    ? `<img src="${place.photos[0].getUrl()}" alt="${place.name}">`
+                    : '';
                 const reviews = place.reviews && place.reviews.length > 0
                     ? place.reviews.map(review => `<p>${review.text}</p>`).join('')
                     : '<p>No reviews available</p>';
@@ -1193,6 +1196,7 @@ document.addEventListener('DOMContentLoaded', function () {
               ${photo}
               <button class="toggle-reviews" id="review-show-btn">리뷰 보기</button>
               <div class="reviews">${reviews}</div>
+              <div class="photoSave" style="display:none">${photoSave}</div>
             `;
 
                 placeList.appendChild(placeItem);
@@ -1253,7 +1257,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const placeName = placeItem.querySelector('.select-place-name').textContent;
             console.log("선택한 장소: " + placeName);
 
-			let placeImg = document.querySelector('.place-item img');
+			let placeImg = document.querySelector('.photoSave img');
 			let imgSrc = placeImg.getAttribute('src');
 			console.log("!!!"+placeName+ " "+imgSrc);
 			placeItemsWithImgSrc.push({
