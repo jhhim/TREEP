@@ -94,6 +94,37 @@
 	'1F',
 	 'N')
 	</insert>
+	<insert id="googleSignup">
+	INSERT INTO MEMBER(MEMBER_NO,
+	MEMBER_ID,
+	MEMBER_PW,
+	MEMBER_NAME,
+	MEMBER_NICKNAME,
+	MEMBER_EMAIL,
+	MEMBER_BIRTH,
+	MEMBER_GENDER,
+	MEMBER_ENROLL,
+	MEMBER_PHONE,
+	MEMBER_TYPE,
+	MEMBER_IMG,
+	MEMBER_GRADE,
+	MANAGER_YN)
+	VALUES (
+	DEFAULT,
+	#{member_id},
+	#{member_id},
+	#{member_name},
+	#{member_nickname},
+	#{member_email},
+	null,
+	null,
+	sysdate,
+	null,
+	'google',
+	'001.png',
+	'1F',
+	 'N')
+	</insert>
 	 <select id="kakaocheck" resultType="int">
 	 select count(*) from member where member_email = #{kakao_email}
 	</select>

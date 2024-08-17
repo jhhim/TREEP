@@ -346,3 +346,40 @@ function loadReplyCount() {
 
  loadReplyCount();
 
+
+
+/**************************** 신고처리 ***************************/
+
+
+function MoveBoard(){
+
+const queryString = window.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+
+
+const kind = urlParams.get('kind');
+const no = urlParams.get('no');
+
+ location.href='MoveBoard?kind=' + kind + '&no=' + no;
+
+
+}
+
+/**************************** 게시물 삭제처리 ***************************/
+
+
+function DeleteBoard(){
+
+const queryString = window.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+
+
+const kind = urlParams.get('kind');
+const no = urlParams.get('no');
+
+ location.href='deleteBoard?kind=' + kind + '&no=' + no;
+
+
+}

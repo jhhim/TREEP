@@ -29,5 +29,12 @@ public interface BoardMapper {
 	public int totalCountFreeFilter(Map<String, Object> countParams);
 	public int totalCountJoinFilter(Map<String, Object> countParams);
 	public List<BoardDTO> selectFilterJoinBoardList(Map<String, Object> listParams);
+	public void boardStatusUpdate(Map<String, Object> singoMap);
+	public ArrayList<BoardDTO> selectBoardListAll(Map<String, Integer> hmap);
+	public void boardDelete(Map<String, Object> deleteMap);
+	public List<BoardDTO> selectFilterFreeBoardListMG(Map<String, Object> listParams);
+	public List<BoardDTO> selectFilterJoinBoardListMG(Map<String, Object> listParams);
+	public int totalCountFreeFilterMG(Map<String, Object> countParams);
+	public int totalCountJoinFilterMG(Map<String, Object> countParams);
 
 }

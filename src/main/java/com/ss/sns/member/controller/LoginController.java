@@ -205,9 +205,36 @@ public class LoginController {
 	            return "오류가 발생했습니다.";
 	        }
 			System.out.println();
-			String num = Integer.toString(checkNum);
+					String num = Integer.toString(checkNum);
         return num;
     }
+	@RequestMapping("/login/google/callback")
+	public String googleLogin(String code, Model model,HttpSession session) {
+		System.out.println(code);
+		String token = service.googleGetToken(code, model);
+		HashMap<String, String> userinfo;
+		userinfo = service.getGoogleUserInfo(token);
+		MemberDTO member = new MemberDTO();
+		member.setMember_id(userinfo.get("id"));
+		member.setMember_nickname(userinfo.get("name")+"_google");
+		member.setMember_email(userinfo.get("email"));
+		member.setMember_name(userinfo.get("name"));
+		System.out.println(member);
+		int result = service.memberemailChk(userinfo.get("email"));
+		 System.out.println(result);
+		 if (result == 0) {
+		        System.out.println("회원가입은 됐어유");
+		        service.googleSignup(member);
+		        
+		        // 회원 정보를 세션에 저장
+		        session.setAttribute("member", member);
+		        return "redirect:/";
+		    } else {
+		        // 회원 정보를 세션에 저장
+		        session.setAttribute("member", member);
+		        return "redirect:/";
+		    }
+	}
 	@GetMapping("/signupinfo")
 	public String signupInfoGET(){
 		logger.info("회원가입 입력 페이지 get");
@@ -220,7 +247,7 @@ public class LoginController {
 	@PostMapping("/signupinfo")
 	public String signupInfo(MemberDTO member) throws Exception {
 		logger.info("회원가입 입력 페이지 post");
-		System.out.println(member.toString());
+		//System.out.println(member.toString());
 		service.memberSignup(member);
 		
 		
