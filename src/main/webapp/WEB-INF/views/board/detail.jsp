@@ -45,6 +45,16 @@
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdropDelete">삭제</a></li>
 					</ul>
     					</c:when>
+    					<c:when test="${Member_No eq 1000}">
+        						
+					<ul class="dropdown-menu">
+						<!-- 게시글 신고,쪽지,수정,삭제 페이지 이동-->
+						<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdropPolice">신고하기</a></li>
+						<li><a class="dropdown-item" href="#">쪽지보내기</a></li>
+						<li><a class="dropdown-item" href="#">수정</a></li>
+						<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdropDelete">삭제</a></li>
+					</ul>
+    					</c:when>
     					<c:otherwise>
         				<ul class="dropdown-menu">
 						<!-- 게시글 신고,쪽지,수정,삭제 페이지 이동-->
