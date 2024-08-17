@@ -88,14 +88,14 @@ public class BoardService {
 			int currentPage, int pageSize) {
 		 Map<String, Object> countParams = new HashMap<>();
 		    countParams.put("board_kind", board_kind);
-		    countParams.put("postTypes", locations);
+		    countParams.put("locations", locations);
 		    countParams.put("sortOrder", sortOrder);
 		    countParams.put("searchText", searchText);
 		    int totalCount = mapper.totalCountJoinFilter(countParams);
-
+		  
 		    Map<String, Object> listParams = new HashMap<>();
 		    listParams.put("board_kind", board_kind);
-		    listParams.put("postTypes", locations);
+		    listParams.put("locations", locations);
 		    listParams.put("sortOrder", sortOrder);
 		    listParams.put("searchText", searchText);
 		    listParams.put("startNo", (currentPage - 1) * pageSize + 1);

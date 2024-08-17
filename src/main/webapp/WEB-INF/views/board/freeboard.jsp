@@ -108,84 +108,80 @@ pageContext.setAttribute("today", today.toString());
 			</div>
 		</div>
 	</div>
-
-	<!-- <div class="search-container">
-        <input type="text" class="searchbar" placeholder="검색어를 입력하세요">
-        <div class="searchicon-container">
-
-            <i class="fa-solid fa-magnifying-glass searchicon"></i>
-        </div>
-    </div>
-
-    <div class="continent-container">
-        <input type="button" value="아시아" class="continent select_continent_outline">
-        <input type="button" value="남아메리카" class="continent">
-        <input type="button" value="북아메리카" class="continent">
-        <input type="button" value="유럽" class="continent">
-        <input type="button" value="오세아니아" class="continent">
-        <input type="button" value="아프리카" class="continent">
-    </div> -->
-
-	<div
-		class="row row-cols-1 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 g-4 cardForm">
-		<!-- 카드 자리 -->
-		<c:forEach var="board" items="${boardPage.boardList}">
-			<div class="col card-query">
-				<a href="detailboard?kind=${board.board_kind}&no=${board.board_no}">
-					<div class="card h-100 card-custom">
-						<div class="card-body h-50 ratio" style="-bs-aspect-ratio: 50%;">
-							<img src="${path}/resources/img/board/${board.board_img}"
-								class="card-img-top boardImg"
-								onerror="this.src='/sns/resources/img/board/car1.png'" alt="">
-						</div>
-						<h5 class="card-title p-3">${board.board_title}</h5>
-						<div
-							class="col plus-custom d-flex align-self-end align-item-center m-4">
-							<div class="pi">
-								<i class="plusicon-custom fa-solid fa-plus"></i>
-							</div>
-						</div>
-						<div class="card-footer">
-							<small class="text-body-secondary d-flex justify-content-between">
-								<p class="mb-0">
-									<c:choose>
-										<c:when
-											test="${fn:substring(board.create_date, 0, 10) eq today}">
-											<span>new</span>
-											<p class="mb-0">${fn:substring(board.create_date, 11, 16)}</p>
-										</c:when>
-										<c:otherwise>
-											<p class="mb-0">${fn:substring(board.create_date, 0, 10)}</p>
-										</c:otherwise>
-									</c:choose>
-								</p>
-								<p class="mb-0">조회수 : ${board.board_hit}</p>
-								<p class="mb-0">LIKE : ${board.board_like}</p>
-							</small>
-						</div>
-					</div>
-				</a>
+	<c:choose>
+		<c:when test="${empty boardPage.boardList}">
+			<div class="col-12 text-center board-noboard">
+				<h2>검색 결과가 존재하지 않습니다.</h2>
 			</div>
-		</c:forEach>
+		</c:when>
+		<c:otherwise>
+			<div
+				class="row row-cols-1 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 g-4 cardForm">
+				<!-- 카드 자리 -->
+				<c:forEach var="board" items="${boardPage.boardList}">
+					<div class="col card-query">
+						<a
+							href="detailboard?kind=${board.board_kind}&no=${board.board_no}">
+							<div class="card h-100 card-custom">
+								<div class="card-body h-50 ratio" style="-bs-aspect-ratio: 50%;">
+									<img src="${path}/resources/img/board/${board.board_img}"
+										class="card-img-top boardImg"
+										onerror="this.src='/sns/resources/img/board/car1.png'" alt="">
+								</div>
+								<h5 class="card-title p-3">${board.board_title}</h5>
+								<div
+									class="col plus-custom d-flex align-self-end align-item-center m-4">
+									<div class="pi">
+										<i class="plusicon-custom fa-solid fa-plus"></i>
+									</div>
+								</div>
+								<div class="card-footer">
+									<small
+										class="text-body-secondary d-flex justify-content-between">
+										<p class="mb-0">
+											<c:choose>
+												<c:when
+													test="${fn:substring(board.create_date, 0, 10) eq today}">
+													<span>new</span>
+													<p class="mb-0">${fn:substring(board.create_date, 11, 16)}</p>
+												</c:when>
+												<c:otherwise>
+													<p class="mb-0">${fn:substring(board.create_date, 0, 10)}</p>
+												</c:otherwise>
+											</c:choose>
+										</p>
+										<p class="mb-0">조회수 : ${board.board_hit}</p>
+										<p class="mb-0">LIKE : ${board.board_like}</p>
+									</small>
+								</div>
+							</div>
+						</a>
+					</div>
+				</c:forEach>
 
-	</div>
-	<div class="pagination-container">
-		<div class="pagination">
-			<button type="button"
-				onclick="location.href='freeboard?page=${boardPage.currentPage - 1}'"
-				${boardPage.currentPage == 1 ? 'disabled' : ''}>«</button>
-			<c:forEach var="i" begin="${boardPage.startPage}"
-				end="${boardPage.endPage}">
-				<button type="button" onclick="location.href='freeboard?page=${i}'"
-					class="${boardPage.currentPage == i ? 'active' : ''}">
-					${i}</button>
-			</c:forEach>
-			<button type="button"
-				onclick="location.href='freeboard?page=${boardPage.currentPage + 1}'"
-				${boardPage.currentPage == boardPage.totalPage ? 'disabled' : ''}>
-				»</button>
-		</div>
-	</div>
+			</div>
+			<div class="pagination-container">
+				<div class="pagination">
+					<button type="button"
+						onclick="location.href='freeboard?page=${boardPage.currentPage - 1}'"
+						${boardPage.currentPage == 1 ? 'disabled' : ''}>«</button>
+					<c:forEach var="i" begin="${boardPage.startPage}"
+						end="${boardPage.endPage}">
+						<button type="button"
+							onclick="location.href='freeboard?page=${i}'"
+							class="${boardPage.currentPage == i ? 'active' : ''}">
+							${i}</button>
+					</c:forEach>
+					<button type="button"
+						onclick="location.href='freeboard?page=${boardPage.currentPage + 1}'"
+						${boardPage.currentPage == boardPage.totalPage ? 'disabled' : ''}>
+						»</button>
+				</div>
+			</div>
+
+		</c:otherwise>
+	</c:choose>
+
 	<!-- 	<div class="pagenation-container">
 		<div class="pagenation">
 

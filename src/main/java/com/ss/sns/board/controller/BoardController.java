@@ -127,9 +127,6 @@ public class BoardController {
 			@RequestParam(value = "sortOrder", required = false) String sortOrder,
 			@RequestParam(value = "searchText", required = false) String searchText,
 			@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
-		System.out.println(postTypes);
-		System.out.println(sortOrder);
-		System.out.println(searchText);
 
 		int boardKind = 1;
 		int pageSize = 8;
@@ -140,29 +137,22 @@ public class BoardController {
 		return "board/freeboard";
 	}
 
-	/*
-	 * @PostMapping("/joinfilterboard") public String
-	 * joinfilterboard(@RequestParam(value = "location", required = false)
-	 * List<String> locations,
-	 * 
-	 * @RequestParam(value = "sortOrder", required = false) String sortOrder,
-	 * 
-	 * @RequestParam(value = "searchText", required = false) String searchText,
-	 * 
-	 * @RequestParam(value = "page", defaultValue = "1") int currentPage, Model
-	 * model) {
-	 * 
-	 * int boardKind = 2; int pageSize = 8;
-	 * 
-	 * System.out.println(locations); System.out.println(sortOrder);
-	 * System.out.println(searchText);
-	 * 
-	 * 
-	 * BoardPage boardPage = service.filteredjoinPage(boardKind, locations,
-	 * sortOrder, searchText, currentPage, pageSize);
-	 * 
-	 * model.addAttribute("boardPage", boardPage); return "board/joinboard"; }
-	 */
+	
+	@PostMapping("/joinfilterboard")
+	public String joinfilterboard(@RequestParam(value = "location", required = false) List<String> locations,
+			@RequestParam(value = "sortOrder", required = false) String sortOrder,
+			@RequestParam(value = "searchText", required = false) String searchText,
+			@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
+
+		int boardKind = 2;
+		int pageSize = 8;
+		BoardPage boardPage = service.filteredjoinPage(boardKind, locations, sortOrder, searchText, currentPage,
+				pageSize);
+
+		model.addAttribute("boardPage", boardPage);
+		return "board/joinboard";
+	}
+	 
 
 }
 

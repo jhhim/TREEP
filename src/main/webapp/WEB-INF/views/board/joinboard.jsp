@@ -114,7 +114,8 @@ pageContext.setAttribute("today", today.toString());
 						</div>
 
 						<div class="search-containerfd">
-							<input type="text" class="searchbarfd" name="searchText" placeholder="검색어를 입력하세요">
+							<input type="text" class="searchbarfd" name="searchText"
+								placeholder="검색어를 입력하세요">
 							<div class="searchicon-containerfd">
 
 								<i class="fa-solid fa-magnifying-glass searchiconfd"></i>
@@ -133,47 +134,58 @@ pageContext.setAttribute("today", today.toString());
 			</div>
 		</div>
 	</div>
-	<div
-		class="row row-cols-1 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 g-4 cardFormfd">
-		<c:forEach var="board" items="${boardPage.boardList}">
-			<div class="col card-queryfd">
-				<a href="detailboard?kind=${board.board_kind}&no=${board.board_no}">
-					<div class="card h-100 card-customfd">
-						<div class="card-body h-50 ratio" style="-bs-aspect-ratio: 50%;">
-							<img src="${path}/resources/img/board/${board.board_img}"
-								class="card-img-top boardImgfd"
-								onerror="this.src='/sns/resources/img/board/car1.png'" alt="">
-						</div>
-						<h5 class="card-titlefd p-3">${board.board_title}</h5>
-						<div
-							class="col plus-customfd d-flex align-self-end align-item-center m-4">
-							<div class="pifd">
-								<i class="plusicon-customfd fa-solid fa-plus"></i>
-							</div>
-						</div>
-						<div class="card-footer">
-							<small class="text-body-secondary d-flex justify-content-between">
-								<p class="mb-0">
-									<c:choose>
-										<c:when
-											test="${fn:substring(board.create_date, 0, 10) eq today}">
-											<p class="mb-0">${fn:substring(board.create_date, 11, 16)}</p>
-										</c:when>
-										<c:otherwise>
-											<p class="mb-0">${fn:substring(board.create_date, 0, 10)}</p>
-										</c:otherwise>
-									</c:choose>
-								</p>
 
-								<p class="mb-0">조회수 : ${board.board_hit}</p>
-								<p class="mb-0">LIKE : ${board.board_like}</p>
-							</small>
-						</div>
-					</div>
-				</a>
+	<c:choose>
+		<c:when test="${empty boardPage.boardList}">
+			<div class="col-12 text-center board-noboard">
+				<h2>검색 결과가 존재하지 않습니다.</h2>
 			</div>
-		</c:forEach>
-	</div>
+		</c:when>
+		<c:otherwise>
+			<div
+				class="row row-cols-1 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 g-4 cardFormfd">
+				<c:forEach var="board" items="${boardPage.boardList}">
+					<div class="col card-queryfd">
+						<a
+							href="detailboard?kind=${board.board_kind}&no=${board.board_no}">
+							<div class="card h-100 card-customfd">
+								<div class="card-body h-50 ratio" style="-bs-aspect-ratio: 50%;">
+									<img src="${path}/resources/img/board/${board.board_img}"
+										class="card-img-top boardImgfd"
+										onerror="this.src='/sns/resources/img/board/car1.png'" alt="">
+								</div>
+								<h5 class="card-titlefd p-3">${board.board_title}</h5>
+								<div
+									class="col plus-customfd d-flex align-self-end align-item-center m-4">
+									<div class="pifd">
+										<i class="plusicon-customfd fa-solid fa-plus"></i>
+									</div>
+								</div>
+								<div class="card-footer">
+									<small
+										class="text-body-secondary d-flex justify-content-between">
+										<p class="mb-0">
+											<c:choose>
+												<c:when
+													test="${fn:substring(board.create_date, 0, 10) eq today}">
+													<p class="mb-0">${fn:substring(board.create_date, 11, 16)}</p>
+												</c:when>
+												<c:otherwise>
+													<p class="mb-0">${fn:substring(board.create_date, 0, 10)}</p>
+												</c:otherwise>
+											</c:choose>
+										</p>
+
+										<p class="mb-0">조회수 : ${board.board_hit}</p>
+										<p class="mb-0">LIKE : ${board.board_like}</p>
+									</small>
+								</div>
+							</div>
+						</a>
+					</div>
+				</c:forEach>
+			</div>
+
 
 	<div class="pagination-container">
 		<div class="pagination">
@@ -192,7 +204,8 @@ pageContext.setAttribute("today", today.toString());
 				»</button>
 		</div>
 	</div>
-
+		</c:otherwise>
+	</c:choose>
 
 </main>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

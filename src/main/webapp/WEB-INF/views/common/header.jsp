@@ -69,7 +69,7 @@
 				<div class="navbar-menu-container">
 
 					<ul class="nav justify-content-end">
-						<li class="nav-item br"><a class="nav-item" href="">커뮤니티</a></li>
+						<li class="nav-item br"><a class="nav-item" href="freeboard">커뮤니티</a></li>
 					</ul>
 
 					<ul class="nav justify-content-end">

@@ -50,7 +50,16 @@
 	/* margin-top: 20px;
     margin-right: 94px; */
 }
-
+.board-noboard h2{
+	
+	margin: 180px 0;
+	color:darkgray;
+	
+}
+.board-noboard{
+	padding-bottom: 80px;
+	
+}
 /* 필터 모달 제목 */
 .modal-title-custom {
 	position: relative;
