@@ -76,7 +76,7 @@
 			</div>
 		</div>
 	</div>
-
+	
 	<!-- 나의 활동(작성한 게시글)-->
 	<div class="activity container-md">
 		<h4 style="text-align: center;">
@@ -91,13 +91,13 @@
 			</li>
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="like-tab" data-bs-toggle="tab"
-					data-bs-target="#like" type="button" role="tab"
-					aria-controls="like" aria-selected="false">좋아요한 글</button>
+					data-bs-target="#likePost" type="button" role="tab"
+					aria-controls="liketab" aria-selected="false">좋아요한 글</button>
 			</li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
 			<!-- 작성글 테이블 -->
-			<div class="tab-pane fade show active" id="write" role="tabpanel"
+			<div class="tab-pane fade show active" id="write" role="tab"
 				aria-labelledby="write-tab">
 				<br>
 				<table class="table">
@@ -149,8 +149,8 @@
 
 			</div>
 
-			<div class="tab-pane fade" id="like" role="like"
-				aria-labelledby="like-tab">
+			<div class="tab-pane fade" id="likePost" role="tabpanel"
+				aria-labelledby="like-p">
 
 				<br>
 				<table class="table">
