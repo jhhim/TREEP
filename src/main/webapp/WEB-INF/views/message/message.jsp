@@ -4,6 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+
+
 <main>
    
 <!-- 쪽지함-->
@@ -11,7 +13,7 @@
     <h4 style="text-align: center;">쪽지함 <i class="fa-regular fa-envelope"></i></h4><br>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="receive-tab" data-bs-toggle="tab" data-bs-target="#receive"
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#receive"
                 type="button" role="tab" aria-controls="receive" aria-selected="true">받은 쪽지</button>
         </li>
         <li class="nav-item" role="presentation">
@@ -36,9 +38,9 @@
                         <th scope="col">읽음 상태</th>
                     </tr>
                 </thead>
-                <tbody class="table-group-divider">
-                <c:forEach var="msg" items="${msgPage.msgList1 }">
-                	  <tr>
+                <tbody class="table-group-divider" id="receive_tbody">
+       				 <c:forEach var="msg" items="${msgPage.msgList1 }">
+                  	  <tr>
                         <th><input type="checkbox" name="checkrev" value="${msg.message_no }" onclick="chkSelectrev()" /></th>
                         <th scope="row">${msg.member_nickname }</th>
                         <td style="width: 40%;"><a href="#" id="note-title-click" data-bs-toggle="modal" data-bs-target="#note-title-${msg.message_no }" >
@@ -103,8 +105,7 @@
 						</c:otherwise>
 						</c:choose></td>
                     </tr>
-                </c:forEach>
-                  
+                    </c:forEach>
                 </tbody>
             </table>
 
@@ -146,7 +147,7 @@
                    data-bs-target="">보관</button>  <!-- onclick="storeNote()" -->
 
                 <!-- 쪽지 보관 모달 -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                <div class="modal fade" id="staticBackdropST" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">

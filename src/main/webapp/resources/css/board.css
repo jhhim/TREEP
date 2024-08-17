@@ -108,6 +108,8 @@
 	font-size: 15px;
 	border: none;
 	outline: none;
+	text-align: center;
+	cursor: pointer;
 }
 
 /* 등급 버튼 */
@@ -135,6 +137,8 @@
 	font-size: 15px;
 	border: none;
 	outline: none;
+	text-align: center;
+	cursor: pointer;
 }
 /* 필터에서 해당 버튼 클릭 시 추가할 클래스 */
 .clickBtn {
@@ -281,6 +285,24 @@
 }
 
 /*********************** join board *******************************/
+input[type="checkbox"]{
+	display: none;
+}
+.locationBtnfdChk{
+    background-color: #dfdfdf;
+    color: black;
+    width: 105px;
+    padding: 9px 10px 6px 10px;
+    border-radius: 25px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+ }
+
 .MyTabfd {
 	display: flex;
 	justify-content: space-around;
@@ -417,6 +439,8 @@
 	font-size: 15px;
 	border: none;
 	outline: none;
+	text-align:center;
+	cursor: pointer;
 }
 
 /* 필터에서 해당 버튼 클릭 시 추가할 클래스 */

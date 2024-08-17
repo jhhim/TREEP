@@ -1,6 +1,7 @@
 package com.ss.sns.board.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -24,5 +25,9 @@ public interface BoardMapper {
 	public int deleteReply(Map<String, Integer> hmap);
 	public void deleteReReply(Map<String, Integer> hmap);
 	public int updateReply(Map<String, Object> hmap);
+	public ArrayList<BoardDTO> selectFilterFreeBoardList(Map<String, Object> hmap);
+	public int totalCountFreeFilter(Map<String, Object> countParams);
+	public int totalCountJoinFilter(Map<String, Object> countParams);
+	public List<BoardDTO> selectFilterJoinBoardList(Map<String, Object> listParams);
 
 }

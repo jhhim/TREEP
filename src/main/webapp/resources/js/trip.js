@@ -27,6 +27,7 @@ for (let i = 0; i < PlusBtn.length; i++) {
     });
 }
 
+     const submitform = document.getElementById('submittrip')
 
 
 
@@ -202,6 +203,7 @@ function appendSmallCalendar() {
 
         }
     });
+    
 
 
 }
@@ -748,7 +750,6 @@ function renderCalender3(selectMonth3) {
     //     differenceInDays = differenceInDays * -1
     // }
 
-const submitform = document.getElementById('submittrip')
 
 function formatDate(date) {
     // 유효성 검사
@@ -763,8 +764,8 @@ function formatDate(date) {
 
     return nextDay.toISOString().split('T')[0]; // 'YYYY-MM-DD' 형식으로 변환
 }
-
-const trip_start = formatDate(selectMonth3); // selectMonth3의 값을 Date 객체로 변환
+       
+        	const trip_start = formatDate(selectMonth3); // selectMonth3의 값을 Date 객체로 변환
                    const trip_end = formatDate(selectMonth4);   // selectMonth4의 값을 Date 객체로 변환
     
         const tripStartField = document.createElement('input');
@@ -776,8 +777,9 @@ const trip_start = formatDate(selectMonth3); // selectMonth3의 값을 Date 객�
         tripEndField.type = 'hidden';
         tripEndField.name = 'trip_end';
         tripEndField.value = trip_end;
+  
  submitform.addEventListener('submit', function(event) {
-        event.preventDefault(); // 기본 폼 제출 방지
+
         
     
         // 폼에 추가
