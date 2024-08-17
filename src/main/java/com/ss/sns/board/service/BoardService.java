@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,13 +63,13 @@ public class BoardService {
 		return mapper.updateReply(hmap) > 0;
 	}
 
-	public BoardPage filteredFreePage(int board_kind, List<String> postTypes, String sortOrder, String searchText, int currentPage, int pageSize) {
+	public BoardPage filteredFreePage(int board_kind, List<String> postTypes, String sortOrder, String searchText, int currentPage, int pageSize, HttpSession session) {
 		 Map<String, Object> countParams = new HashMap<>();
 		    countParams.put("board_kind", board_kind);
 		    countParams.put("postTypes", postTypes);
 		    countParams.put("sortOrder", sortOrder);
 		    countParams.put("searchText", searchText);
-		    int totalCount = mapper.totalCountFreeFilter(countParams);
+		    int totalCount = 0;
 
 		    Map<String, Object> listParams = new HashMap<>();
 		    listParams.put("board_kind", board_kind);
@@ -77,7 +79,21 @@ public class BoardService {
 		    listParams.put("startNo", (currentPage - 1) * pageSize + 1);
 		    listParams.put("endNo", currentPage * pageSize);
 
-		    List<BoardDTO> boardList = mapper.selectFilterFreeBoardList(listParams);
+		    
+	
+			MemberDTO Session = (MemberDTO)session.getAttribute("member");
+			String manager_yn = Session.getManager_yn();
+			List<BoardDTO> boardList = null;
+			
+			if(manager_yn.equals("Y")) {
+				totalCount = mapper.totalCountFreeFilterMG(countParams);
+				boardList = mapper.selectFilterFreeBoardListMG(listParams);
+
+			}else {
+				
+				totalCount = mapper.totalCountFreeFilter(countParams);
+				boardList = mapper.selectFilterFreeBoardList(listParams);
+			}
 
         BoardPage boardPage = new BoardPage(pageSize, totalCount, currentPage);
         boardPage.setBoardList(new ArrayList<>(boardList));
@@ -85,13 +101,13 @@ public class BoardService {
     }
 
 	public BoardPage filteredjoinPage(int board_kind, List<String> locations, String sortOrder, String searchText,
-			int currentPage, int pageSize) {
+			int currentPage, int pageSize, HttpSession session) {
 		 Map<String, Object> countParams = new HashMap<>();
 		    countParams.put("board_kind", board_kind);
 		    countParams.put("locations", locations);
 		    countParams.put("sortOrder", sortOrder);
 		    countParams.put("searchText", searchText);
-		    int totalCount = mapper.totalCountJoinFilter(countParams);
+		    int totalCount = 0;
 		  
 		    Map<String, Object> listParams = new HashMap<>();
 		    listParams.put("board_kind", board_kind);
@@ -101,7 +117,20 @@ public class BoardService {
 		    listParams.put("startNo", (currentPage - 1) * pageSize + 1);
 		    listParams.put("endNo", currentPage * pageSize);
 
-		    List<BoardDTO> boardList = mapper.selectFilterJoinBoardList(listParams);
+		    
+		    
+			MemberDTO Session = (MemberDTO)session.getAttribute("member");
+			String manager_yn = Session.getManager_yn();
+			List<BoardDTO> boardList = null;
+			
+			if(manager_yn.equals("Y")) {
+				totalCount = mapper.totalCountJoinFilterMG(countParams);
+				boardList = mapper.selectFilterJoinBoardListMG(listParams);
+
+			}else {
+				totalCount = mapper.totalCountJoinFilter(countParams);
+				boardList = mapper.selectFilterJoinBoardList(listParams);
+			}
 
      BoardPage boardPage = new BoardPage(pageSize, totalCount, currentPage);
      boardPage.setBoardList(new ArrayList<>(boardList));

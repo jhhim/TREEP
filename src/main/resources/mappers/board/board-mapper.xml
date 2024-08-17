@@ -72,7 +72,7 @@
         FROM (
             SELECT * 
             FROM board
-            WHERE 1=1
+            WHERE 1=1 AND BOARD_STATUS = 'Y'
             <if test="board_kind != null">
                 AND BOARD_KIND = #{board_kind}
             </if>
@@ -108,7 +108,7 @@
 <select id="totalCountFreeFilter" parameterType="map" resultType="int">
     SELECT COUNT(*)
     FROM board
-    WHERE 1=1
+    WHERE 1=1 AND BOARD_STATUS = 'Y'
     <if test="board_kind != null">
         AND BOARD_KIND = #{board_kind}
     </if>
@@ -126,7 +126,7 @@
 <select id="totalCountJoinFilter" parameterType="map" resultType="int">
     SELECT COUNT(*)
     FROM board
-    WHERE 1=1
+    WHERE 1=1 AND BOARD_STATUS = 'Y'
     <if test="board_kind != null">
         AND BOARD_KIND = #{board_kind}
     </if>
@@ -147,7 +147,7 @@
         FROM (
             SELECT * 
             FROM board
-            WHERE 1=1
+            WHERE 1=1 AND BOARD_STATUS = 'Y'
             <if test="board_kind != null">
                 AND BOARD_KIND = #{board_kind}
             </if>
@@ -179,6 +179,125 @@
     ) 
     WHERE rNum BETWEEN #{startNo} AND #{endNo}
 </select>
+
+<!-- ********************************************* 매니저 필터 ************************************************* -->
+
+	<!-- 필터링 셀렉트 -->
+	<select id="selectFilterFreeBoardListMG" parameterType="map" resultType="BoardDTO">
+    SELECT * FROM (
+        SELECT rownum rNum, Tb.*
+        FROM (
+            SELECT * 
+            FROM board
+            WHERE 1=1 
+            <if test="board_kind != null">
+                AND BOARD_KIND = #{board_kind}
+            </if>
+            <if test="postTypes != null and postTypes.size() > 0">
+                AND board_type IN
+                <foreach item="type" collection="postTypes" open="(" close=")" separator=",">
+                    #{type}
+                </foreach>
+            </if>
+            <if test="searchText != null and searchText.trim() != ''">
+                AND (board_content LIKE '%' || #{searchText} || '%' 
+                     OR board_title LIKE '%' || #{searchText} || '%')
+            </if>
+            <choose>
+                <when test="sortOrder == '최신순'">
+                    ORDER BY create_date DESC
+                </when>
+                <when test="sortOrder == '조회순'">
+                    ORDER BY board_hit DESC
+                </when>
+                <when test="sortOrder == '좋아요순'">
+                    ORDER BY board_like DESC
+                </when>
+                <otherwise>
+                    ORDER BY create_date DESC
+                </otherwise>
+            </choose>
+        ) Tb
+    ) 
+    WHERE rNum BETWEEN #{startNo} AND #{endNo}
+</select>
+
+<select id="totalCountFreeFilterMG" parameterType="map" resultType="int">
+    SELECT COUNT(*)
+    FROM board
+    WHERE 1=1 
+    <if test="board_kind != null">
+        AND BOARD_KIND = #{board_kind}
+    </if>
+    <if test="postTypes != null and postTypes.size() > 0">
+        AND board_type IN
+        <foreach item="type" collection="postTypes" open="(" close=")" separator=",">
+            #{type}
+        </foreach>
+    </if>
+    <if test="searchText != null and searchText.trim() != ''">
+        AND board_content LIKE '%' || #{searchText} || '%'
+    </if>
+</select>
+
+<select id="totalCountJoinFilterMG" parameterType="map" resultType="int">
+    SELECT COUNT(*)
+    FROM board
+    WHERE 1=1 
+    <if test="board_kind != null">
+        AND BOARD_KIND = #{board_kind}
+    </if>
+    <if test="locations != null and locations.size() > 0">
+        AND board_continent IN
+        <foreach item="location" collection="locations" open="(" close=")" separator=",">
+            #{location}
+        </foreach>
+    </if>
+    <if test="searchText != null and searchText.trim() != ''">
+        AND board_content LIKE '%' || #{searchText} || '%'
+    </if>
+</select>
+
+<select id="selectFilterJoinBoardListMG" parameterType="map" resultType="BoardDTO">
+    SELECT * FROM (
+        SELECT rownum rNum, Tb.*
+        FROM (
+            SELECT * 
+            FROM board
+            WHERE 1=1 
+            <if test="board_kind != null">
+                AND BOARD_KIND = #{board_kind}
+            </if>
+            <if test="locations != null and locations.size() > 0">
+                AND board_continent IN
+                <foreach item="location" collection="locations" open="(" close=")" separator=",">
+                    #{location}
+                </foreach>
+            </if>
+            <if test="searchText != null and searchText.trim() != ''">
+                AND (board_content LIKE '%' || #{searchText} || '%' 
+                     OR board_title LIKE '%' || #{searchText} || '%')
+            </if>
+            <choose>
+                <when test="sortOrder == '최신순'">
+                    ORDER BY create_date DESC
+                </when>
+                <when test="sortOrder == '조회순'">
+                    ORDER BY board_hit DESC
+                </when>
+                <when test="sortOrder == '좋아요순'">
+                    ORDER BY board_like DESC
+                </when>
+                <otherwise>
+                    ORDER BY create_date DESC
+                </otherwise>
+            </choose>
+        ) Tb
+    ) 
+    WHERE rNum BETWEEN #{startNo} AND #{endNo}
+</select>
+
+
 <!-- ********************************************* 댓글 ************************************************* -->
 	<!-- 댓글 insert -->
 	<insert id="insertReply" parameterType="map">

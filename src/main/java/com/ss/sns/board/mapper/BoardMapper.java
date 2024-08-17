@@ -32,5 +32,9 @@ public interface BoardMapper {
 	public void boardStatusUpdate(Map<String, Object> singoMap);
 	public ArrayList<BoardDTO> selectBoardListAll(Map<String, Integer> hmap);
 	public void boardDelete(Map<String, Object> deleteMap);
+	public List<BoardDTO> selectFilterFreeBoardListMG(Map<String, Object> listParams);
+	public List<BoardDTO> selectFilterJoinBoardListMG(Map<String, Object> listParams);
+	public int totalCountFreeFilterMG(Map<String, Object> countParams);
+	public int totalCountJoinFilterMG(Map<String, Object> countParams);
 
 }

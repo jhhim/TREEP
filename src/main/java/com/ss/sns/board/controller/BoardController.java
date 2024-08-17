@@ -171,13 +171,12 @@ public class BoardController {
 	public String filterboard(@RequestParam(value = "postType", required = false) List<String> postTypes,
 			@RequestParam(value = "sortOrder", required = false) String sortOrder,
 			@RequestParam(value = "searchText", required = false) String searchText,
-			@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
+			@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model,HttpSession session) {
 
 		int boardKind = 1;
 		int pageSize = 8;
 
-		BoardPage boardPage = service.filteredFreePage(boardKind, postTypes, sortOrder, searchText, currentPage,
-				pageSize);
+		BoardPage boardPage = service.filteredFreePage(boardKind, postTypes, sortOrder, searchText, currentPage, pageSize, session);
 		model.addAttribute("boardPage", boardPage);
 		return "board/freeboard";
 	}
@@ -187,12 +186,11 @@ public class BoardController {
 	public String joinfilterboard(@RequestParam(value = "location", required = false) List<String> locations,
 			@RequestParam(value = "sortOrder", required = false) String sortOrder,
 			@RequestParam(value = "searchText", required = false) String searchText,
-			@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
+			@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model, HttpSession session) {
 
 		int boardKind = 2;
 		int pageSize = 8;
-		BoardPage boardPage = service.filteredjoinPage(boardKind, locations, sortOrder, searchText, currentPage,
-				pageSize);
+		BoardPage boardPage = service.filteredjoinPage(boardKind, locations, sortOrder, searchText, currentPage, pageSize, session);
 
 		model.addAttribute("boardPage", boardPage);
 		return "board/joinboard";
