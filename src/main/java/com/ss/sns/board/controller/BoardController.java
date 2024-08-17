@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,37 +25,79 @@ public class BoardController {
 	BoardService service;
 
 	@RequestMapping("/freeboard")
-	public String freeboard(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
+	public String freeboard(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model, HttpSession session) {
+		
+		// session이 누군지
+		MemberDTO Session = (MemberDTO)session.getAttribute("member");
+		
+		
 		int board_kind = 1;
 		int freeTotalCount = service.countBoard(board_kind);
 		int pageSize = 8;
 		BoardPage boardPage = new BoardPage(pageSize, freeTotalCount, currentPage);
+		
+		// 세션에 있는 memberDTO에서 manager_yn값 가져오기
+		String manager_yn = Session.getManager_yn();
 		Map<String, Integer> hmap = new HashMap<String, Integer>();
-		hmap.put("startNo", boardPage.getStartNo());
-		hmap.put("endNo", boardPage.getEndNo());
-		hmap.put("board_kind", board_kind);
-		boardPage.setBoardList(service.selectBoardList(hmap));
-		model.addAttribute("boardPage", boardPage);
+		
+		if(manager_yn.equals("Y")) {
+			hmap.put("startNo", boardPage.getStartNo());
+			hmap.put("endNo", boardPage.getEndNo());
+			hmap.put("board_kind", board_kind);
+			
+			boardPage.setBoardList(service.selectBoardListAll(hmap));
+			model.addAttribute("boardPage", boardPage);
+		}else {
+
+			hmap.put("startNo", boardPage.getStartNo());
+			hmap.put("endNo", boardPage.getEndNo());
+			hmap.put("board_kind", board_kind);
+			
+			boardPage.setBoardList(service.selectBoardList(hmap));
+			model.addAttribute("boardPage", boardPage);
+		}
+		
 		return "board/freeboard";
 	}
 
 	@RequestMapping("/joinboard")
-	public String joinboard(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
+	public String joinboard(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model, HttpSession session) {
+		
+		// session이 누군지
+		MemberDTO Session = (MemberDTO)session.getAttribute("member");
+		// 세션에 있는 memberDTO에서 manager_yn값 가져오기
+		String manager_yn = Session.getManager_yn();
+		
+		
 		int board_kind = 2;
 		int freeTotalCount = service.countBoard(board_kind);
 		int pageSize = 8;
 		BoardPage boardPage = new BoardPage(pageSize, freeTotalCount, currentPage);
 		Map<String, Integer> hmap = new HashMap<String, Integer>();
-		hmap.put("startNo", boardPage.getStartNo());
-		hmap.put("endNo", boardPage.getEndNo());
-		hmap.put("board_kind", board_kind);
-		boardPage.setBoardList(service.selectBoardList(hmap));
-		model.addAttribute("boardPage", boardPage);
+		
+		if(manager_yn.equals("Y")) {
+			hmap.put("startNo", boardPage.getStartNo());
+			hmap.put("endNo", boardPage.getEndNo());
+			hmap.put("board_kind", board_kind);
+			boardPage.setBoardList(service.selectBoardListAll(hmap));
+			model.addAttribute("boardPage", boardPage);
+			
+			boardPage.setBoardList(service.selectBoardListAll(hmap));
+			model.addAttribute("boardPage", boardPage);
+		}else {
+			hmap.put("startNo", boardPage.getStartNo());
+			hmap.put("endNo", boardPage.getEndNo());
+			hmap.put("board_kind", board_kind);
+			boardPage.setBoardList(service.selectBoardList(hmap));
+			model.addAttribute("boardPage", boardPage);
+		}
+
+		
 		return "board/joinboard";
 	}
 
 	@RequestMapping("/askboard")
-	public String askboard(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
+	public String askboard(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model, HttpSession session) {
 		int board_kind = 3;
 		int freeTotalCount = service.countBoard(board_kind);
 		int pageSize = 10;
@@ -115,7 +159,8 @@ public class BoardController {
 			board.setBoard_continent("");
 			break;
 		}
-
+		
+		System.out.println("board넘버 : " + board.getMember_no());
 		model.addAttribute("board", board);
 		model.addAttribute("writeMember", writeMember);
 
@@ -154,5 +199,37 @@ public class BoardController {
 	}
 	 
 
+	
+	
+	@RequestMapping("/MoveBoard")
+	public String MoveBoard(@RequestParam(value = "kind") int kind, @RequestParam(value = "no")int boardNo) {
+		
+		Map<String, Object> singoMap = new HashMap<String, Object>();
+		singoMap.put("kind", kind);
+		singoMap.put("no", boardNo);
+		service.boardStatusUpdate(singoMap);
+		
+		if(kind == 1) {
+			return "redirect:/freeboard";
+		}else {
+			return "redirect:/joinboard";
+		}
+	}
+
+	
+	@RequestMapping("/deleteBoard")
+	public String deleteBoard(@RequestParam(value = "kind") int kind, @RequestParam(value = "no")int boardNo) {
+		Map<String, Object> DeleteMap = new HashMap<String, Object>();
+		DeleteMap.put("kind", kind);
+		DeleteMap.put("no", boardNo);
+		service.boardDelete(DeleteMap);
+		
+		if(kind == 1) {
+			return "redirect:/freeboard";
+		}else {
+			return "redirect:/joinboard";
+		}
+	}
+	
 }
 

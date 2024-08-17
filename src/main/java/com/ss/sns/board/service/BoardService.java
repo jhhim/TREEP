@@ -107,6 +107,18 @@ public class BoardService {
      boardPage.setBoardList(new ArrayList<>(boardList));
      return boardPage;
 	}
+
+	public void boardStatusUpdate(Map<String, Object> singoMap) {
+		mapper.boardStatusUpdate(singoMap);
+	}
+
+	public ArrayList<BoardDTO> selectBoardListAll(Map<String, Integer> hmap) {
+		return mapper.selectBoardListAll(hmap);
+	}
+
+	public void boardDelete(Map<String, Object> deleteMap) {
+		mapper.boardDelete(deleteMap);
+	}
 }
 	
 
