@@ -121,48 +121,4 @@ public class BoardController {
 
 		return "board/detail";
 	}
-
-<<<<<<< HEAD
-	@PostMapping("/freefilterboard")
-	public String filterboard(@RequestParam(value = "postType", required = false) List<String> postTypes,
-			@RequestParam(value = "sortOrder", required = false) String sortOrder,
-			@RequestParam(value = "searchText", required = false) String searchText,
-			@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
-		
-		System.out.println(sortOrder);
-		System.out.println(searchText);
-
-		int boardKind = 1;
-		int pageSize = 8;
-
-		BoardPage boardPage = service.filteredFreePage(boardKind, postTypes, sortOrder, searchText, currentPage,
-				pageSize);
-		model.addAttribute("boardPage", boardPage);
-		return "board/freeboard";
-	}
-
-	@PostMapping("/joinfilterboard")
-	public String joinfilterboard(@RequestParam(value = "location", required = false) List<String> locations,
-			@RequestParam(value = "sortOrder", required = false) String sortOrder,
-			@RequestParam(value = "searchText", required = false) String searchText,
-			@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
-
-		int boardKind = 2;
-		int pageSize = 8;
-
-		System.out.println(locations);
-		System.out.println(sortOrder);
-		System.out.println(searchText);
-
-		
-		 BoardPage boardPage = service.filteredjoinPage(boardKind, locations,
-		 sortOrder, searchText, currentPage, pageSize);
-
-		 model.addAttribute("boardPage", boardPage);
-		return "board/joinboard";
-	}
-
 }
-=======
-}
->>>>>>> 66b340840d04803e49072ab31812cd3315636cf4
