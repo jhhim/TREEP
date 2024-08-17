@@ -792,20 +792,8 @@ function formatDate(date) {
 
     if (month3 == month31) {
         for (let i = 0; i < tttt.length; i++) {
-            tttt[i].addEventListener('click', function () {
-                // $('.Plan-write-container').css('border', '1px solid #d2d2d2');
-    			                // div 요소를 선택합니다.
-
-                // 모든 Plan-write-container를 숨김
-                $('.Plan-write-container').hide();
-    
-                // 고유한 Plan-write-container ID 생성
-                var containerId = `Plan-write-container${i + 1}`;
-    
-                // 해당 Day의 Plan-write-container가 이미 있는지 확인
-                if (!$(`#${containerId}`).length) {
-                
-                
+        
+            
                 
                 const startDate= new Date(trip_start);
                 
@@ -824,7 +812,22 @@ function formatDate(date) {
         calculatedDateField.type = 'hidden';
         calculatedDateField.name = `schedules[${i}].schedule_date`;
         calculatedDateField.value = calculatedDate;    
-         submitform.appendChild(calculatedDateField); // 폼에 추가
+         submitform.appendChild(calculatedDateField); // 폼에 추가 
+        
+            tttt[i].addEventListener('click', function () {
+                // $('.Plan-write-container').css('border', '1px solid #d2d2d2');
+    			                // div 요소를 선택합니다.
+
+                // 모든 Plan-write-container를 숨김
+                $('.Plan-write-container').hide();
+    
+                // 고유한 Plan-write-container ID 생성
+                var containerId = `Plan-write-container${i + 1}`;
+    
+                // 해당 Day의 Plan-write-container가 이미 있는지 확인
+                if (!$(`#${containerId}`).length) {
+                
+            
                 				                
                     // Plan-write-container가 없으면 새로 생성
                     var PlanCardAppend =
@@ -1173,6 +1176,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 const photo = place.photos && place.photos.length > 0
                     ? `<img src="${place.photos[0].getUrl({ maxWidth: 200, maxHeight: 100 })}" alt="${place.name}">`
                     : '';
+                const photoSave = place.photos && place.photos.length > 0
+                    ? `<img src="${place.photos[0].getUrl()}" alt="${place.name}">`
+                    : '';
                 const reviews = place.reviews && place.reviews.length > 0
                     ? place.reviews.map(review => `<p>${review.text}</p>`).join('')
                     : '<p>No reviews available</p>';
@@ -1193,6 +1199,7 @@ document.addEventListener('DOMContentLoaded', function () {
               ${photo}
               <button class="toggle-reviews" id="review-show-btn">리뷰 보기</button>
               <div class="reviews">${reviews}</div>
+              <div class="photoSave" style="display:none">${photoSave}</div>
             `;
 
                 placeList.appendChild(placeItem);
@@ -1253,7 +1260,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const placeName = placeItem.querySelector('.select-place-name').textContent;
             console.log("선택한 장소: " + placeName);
 
-			let placeImg = document.querySelector('.place-item img');
+			let placeImg = document.querySelector('.photoSave img');
 			let imgSrc = placeImg.getAttribute('src');
 			console.log("!!!"+placeName+ " "+imgSrc);
 			placeItemsWithImgSrc.push({

@@ -24,6 +24,5 @@ public class HomeController {
 	public String home2(Locale locale, Model model) {		
 		return "home/homepage";
 	}
-
 	
 }

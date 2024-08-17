@@ -146,6 +146,12 @@ public class MypageController {
 		
 		return "redirect:/mypage";
 	}
+	@RequestMapping("/writeboard")
+	public String writeboard(Model model, HttpSession session) {
+		
+
+		return "board/writeboard";
+	}
 	
 	
 }

@@ -849,8 +849,6 @@ input[type="checkbox"]{
 
 /********************************** insert board ****************************************/
 
-
-
 #write_title,
 #write-text-container,
 #write-input-img {
@@ -864,7 +862,9 @@ input[type="checkbox"]{
     box-shadow: #caf7b6 0px 0px 0px 2px;
     border: solid 1px #caf7b6;
 }
-
+#writeboard-container{
+	margin-top:80px;
+}
 
 #free-category-select {
     display: none;
@@ -1071,6 +1071,58 @@ input[type="checkbox"]{
     background-color: #7FD858;
     color: white;
 }
+
+#tripDetailDisplayContainer {
+    padding: 10px;
+    border: 3px solid #7FD858;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    border-radius: 15px;
+    padding-bottom: 30px;
+}
+
+.MadeCal{
+    text-align: center;
+    margin: 30px;
+}
+.trip-detail-entry {
+    margin-bottom: 5px;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    text-align: left;
+}
+
+.trip-detail-entry strong {
+    color: #333;
+    margin-right: 5px; 
+
+}
+.trip-detail-text {
+    text-align: left; 
+}
+
+
+.remove-select-item-btn {
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #7FD858;
+    font-size: 1rem;
+    padding: 5px;
+
+}
+#WriteSelectRemoveBtn{
+    float: right;
+}
+.remove-select-item-btn:hover {
+    background-color: #7FD858;
+    color: white;
+}
+
+
 
 
 

@@ -13,7 +13,7 @@
                     <div class="search-place">
                         <div class="search-place-wrap">
                             <i class="fa-solid fa-magnifying-glass"></i>
-                            <input class="search-place-nav" type="text" placeholder="집에 가고 싶다 ♥">
+                            <input class="search-place-nav" type="text" placeholder="여행지를 선택해주세요.">
                         </div>
                         <div class="search-place-box">
                             <div class="search-place-scroll">
