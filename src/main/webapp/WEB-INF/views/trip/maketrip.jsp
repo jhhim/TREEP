@@ -99,6 +99,7 @@
 
                    
                 </div>
+                <input type="hidden" id="selected-photo-url" name="place_photo_url"/>
                 
                 <div class="final-submit-Container" style="display: none;">
                     <input type="submit" class="btn fixed-button" id="final-submit"></input>

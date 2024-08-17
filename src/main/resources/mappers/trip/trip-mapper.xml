@@ -5,8 +5,8 @@
     
     <!-- 기존 insertTrip -->
     <insert id="insertTrip" parameterType="TripDTO" useGeneratedKeys="true" keyProperty="trip_no">
-        INSERT INTO TRIP (trip_title, trip_start, trip_end)
-        VALUES (#{trip_title}, #{trip_start}, #{trip_end})
+        INSERT INTO TRIP (TRIP_TITLE, TRIP_START, TRIP_END, PLACE_PHOTO_URL)
+    VALUES (#{trip_title}, #{trip_start}, #{trip_end}, #{place_photo_url})
     </insert>
 
     <!-- 기존 insertSchedule -->

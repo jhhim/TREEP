@@ -14,7 +14,7 @@ import com.ss.sns.trip.dto.TripPlaceDTO;
 @Mapper
 public interface TripMapper {
     
-	@Insert("INSERT INTO TRIP (trip_title, trip_start, trip_end) VALUES (#{trip_title}, #{trip_start}, #{trip_end})")
+	@Insert("INSERT INTO TRIP (trip_title, trip_start, trip_end, place_photo_url) VALUES (#{trip_title}, #{trip_start}, #{trip_end}, #{place_photo_url})")
     @Options(useGeneratedKeys = true, keyColumn = "trip_no", keyProperty = "trip_no")
     void insertTrip(TripDTO trip);
 	

@@ -21,4 +21,13 @@
 
 </select>
 
+
+    <select id="selectTripsByMemberNo" resultType="TripDTO">
+        SELECT t.trip_no, t.trip_title, t.trip_start, t.trip_end, t.place_photo_url
+        FROM member m
+        JOIN member_trip mt ON m.member_no = mt.member_no
+        JOIN trip t ON mt.trip_no = t.trip_no
+        WHERE m.member_no = #{memberNo}
+    </select>
+
 </mapper>

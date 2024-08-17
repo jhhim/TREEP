@@ -1180,7 +1180,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const starRating = getStarRating(place.rating || 0);
 
                 const placeItem = document.createElement('div');
-
+                
+				
                 placeList.id = `placeList`
                 placeItem.classList.add(`place-item`);
                 placeItem.innerHTML = `
@@ -1195,6 +1196,7 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
 
                 placeList.appendChild(placeItem);
+
 
                 const toggleButton = placeItem.querySelector('.toggle-reviews');
                 const reviewsDiv = placeItem.querySelector('.reviews');
@@ -1241,15 +1243,23 @@ document.addEventListener('DOMContentLoaded', function () {
             infowindow.open(map, this);
         });
     }
-
+	let placeItemsWithImgSrc = [];
     // 장소 리스트에서 선택!
-    placeList.addEventListener('click', function (event) {
+    placeList.addEventListener('click', function (event) {    	
         const placeItem = event.target.closest(`.place-item`);
         if (placeItem) {
 
+			
             const placeName = placeItem.querySelector('.select-place-name').textContent;
             console.log("선택한 장소: " + placeName);
 
+			let placeImg = document.querySelector('.place-item img');
+			let imgSrc = placeImg.getAttribute('src');
+			console.log("!!!"+placeName+ " "+imgSrc);
+			placeItemsWithImgSrc.push({
+        		placeName: placeName,
+        		imgSrc: imgSrc
+    		});
 
             // 기존 아이템들에서 placeName이 포함된 항목이 있는지 확인
             const existingItems = selectPlaceList.querySelectorAll('.selected-place-item');
@@ -1376,6 +1386,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         
 
                     });
+                    
+                    // item과 placeItemsWithImgSrc를 비교하여 imgSrc를 설정
+            placeItemsWithImgSrc.forEach(placeItemData => {
+                if (placeItemData.placeName === item) {
+                    if (placeItemData.imgSrc) {
+                        document.getElementById('selected-photo-url').value = placeItemData.imgSrc;
+                    }
+                }
+            });
+                    
                 }
             }
             });
@@ -1396,11 +1416,21 @@ document.addEventListener('DOMContentLoaded', function () {
         selectPlaceList.innerHTML = ``;
         updateNoPlacesMessage();
     })
-
+    
     updateNoPlacesMessage();
     initialize();
 });
 
 
-
+    document.addEventListener("DOMContentLoaded", function() {
+        const today = new Date();
+        document.querySelectorAll('.schedule-DDay').forEach(function(dDayElement) {
+            const tripStartDate = new Date(dDayElement.getAttribute('data-start'));
+            const timeDiff = today-tripStartDate;
+            const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            
+            // Set D-Day value
+            dDayElement.textContent = `D-${daysDiff}`;
+        });
+    });
 

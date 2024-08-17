@@ -1,6 +1,7 @@
 package com.ss.sns.mypage.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ss.sns.mypage.dto.MyBoardDTO;
 import com.ss.sns.mypage.mapper.MypageMapper;
+import com.ss.sns.trip.dto.TripDTO;
 
 @Service
 public class MypageService {
@@ -31,4 +33,7 @@ public class MypageService {
 		return mapper.selectMyBoardList(myBmap);
 	}
 
+	public List<TripDTO> getTripsByMemberNo(int memberNo) {
+        return mapper.selectTripsByMemberNo(memberNo);
+    }
 }

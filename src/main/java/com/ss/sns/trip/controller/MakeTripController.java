@@ -45,7 +45,7 @@ public class MakeTripController {
     	System.out.println("TripDTO : "+tripdto);
     	tripService.saveTrip(tripdto, loggedInMember);
     	
-        return "mypage/mypage"; 
+        return "redirect:/mypage";
     }
 
 	@RequestMapping("/editTrip")
