@@ -27,6 +27,7 @@ for (let i = 0; i < PlusBtn.length; i++) {
     });
 }
 
+     const submitform = document.getElementById('submittrip')
 
 
 
@@ -202,6 +203,7 @@ function appendSmallCalendar() {
 
         }
     });
+    
 
 
 }
@@ -748,7 +750,6 @@ function renderCalender3(selectMonth3) {
     //     differenceInDays = differenceInDays * -1
     // }
 
-const submitform = document.getElementById('submittrip')
 
 function formatDate(date) {
     // 유효성 검사
@@ -763,8 +764,8 @@ function formatDate(date) {
 
     return nextDay.toISOString().split('T')[0]; // 'YYYY-MM-DD' 형식으로 변환
 }
-
-const trip_start = formatDate(selectMonth3); // selectMonth3의 값을 Date 객체로 변환
+       
+        	const trip_start = formatDate(selectMonth3); // selectMonth3의 값을 Date 객체로 변환
                    const trip_end = formatDate(selectMonth4);   // selectMonth4의 값을 Date 객체로 변환
     
         const tripStartField = document.createElement('input');
@@ -776,8 +777,9 @@ const trip_start = formatDate(selectMonth3); // selectMonth3의 값을 Date 객�
         tripEndField.type = 'hidden';
         tripEndField.name = 'trip_end';
         tripEndField.value = trip_end;
+  
  submitform.addEventListener('submit', function(event) {
-        event.preventDefault(); // 기본 폼 제출 방지
+
         
     
         // 폼에 추가
@@ -1178,7 +1180,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const starRating = getStarRating(place.rating || 0);
 
                 const placeItem = document.createElement('div');
-
+                
+				
                 placeList.id = `placeList`
                 placeItem.classList.add(`place-item`);
                 placeItem.innerHTML = `
@@ -1193,6 +1196,7 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
 
                 placeList.appendChild(placeItem);
+
 
                 const toggleButton = placeItem.querySelector('.toggle-reviews');
                 const reviewsDiv = placeItem.querySelector('.reviews');
@@ -1239,15 +1243,23 @@ document.addEventListener('DOMContentLoaded', function () {
             infowindow.open(map, this);
         });
     }
-
+	let placeItemsWithImgSrc = [];
     // 장소 리스트에서 선택!
-    placeList.addEventListener('click', function (event) {
+    placeList.addEventListener('click', function (event) {    	
         const placeItem = event.target.closest(`.place-item`);
         if (placeItem) {
 
+			
             const placeName = placeItem.querySelector('.select-place-name').textContent;
             console.log("선택한 장소: " + placeName);
 
+			let placeImg = document.querySelector('.place-item img');
+			let imgSrc = placeImg.getAttribute('src');
+			console.log("!!!"+placeName+ " "+imgSrc);
+			placeItemsWithImgSrc.push({
+        		placeName: placeName,
+        		imgSrc: imgSrc
+    		});
 
             // 기존 아이템들에서 placeName이 포함된 항목이 있는지 확인
             const existingItems = selectPlaceList.querySelectorAll('.selected-place-item');
@@ -1374,6 +1386,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         
 
                     });
+                    
+                    // item과 placeItemsWithImgSrc를 비교하여 imgSrc를 설정
+            placeItemsWithImgSrc.forEach(placeItemData => {
+                if (placeItemData.placeName === item) {
+                    if (placeItemData.imgSrc) {
+                        document.getElementById('selected-photo-url').value = placeItemData.imgSrc;
+                    }
+                }
+            });
+                    
                 }
             }
             });
@@ -1394,11 +1416,21 @@ document.addEventListener('DOMContentLoaded', function () {
         selectPlaceList.innerHTML = ``;
         updateNoPlacesMessage();
     })
-
+    
     updateNoPlacesMessage();
     initialize();
 });
 
 
-
+    document.addEventListener("DOMContentLoaded", function() {
+        const today = new Date();
+        document.querySelectorAll('.schedule-DDay').forEach(function(dDayElement) {
+            const tripStartDate = new Date(dDayElement.getAttribute('data-start'));
+            const timeDiff = today-tripStartDate;
+            const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            
+            // Set D-Day value
+            dDayElement.textContent = `D-${daysDiff}`;
+        });
+    });
 

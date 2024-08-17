@@ -337,7 +337,6 @@ function loadReplyCount() {
         },
         error: function(xhr, status, error) {
             console.error('댓글 수 조회 실패:', error);
-            // 오류 발생 시, 기본값 설정 또는 사용자에게 알림
             $('.reply-count').text('댓글 수를 불러오는 데 실패했습니다.');
         }
     });

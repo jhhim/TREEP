@@ -3,6 +3,8 @@ package com.ss.sns.member.controller;
 
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -27,7 +29,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -47,8 +49,11 @@ public class LoginController {
 	
 	
 	@GetMapping("/login")
-	public String loginGET(){
+	public String loginGET(Model model){
 		
+	        // 프로퍼티 값을 모델에 추가
+	        model.addAttribute("apiKeys", service.getApiKeys());
+	        
 		return "signup/login";
 	}
 	@PostMapping("/login")
@@ -76,10 +81,10 @@ public class LoginController {
     public String signup() {
         return "signup/email";
     }
-	@RequestMapping("kakao/login")
-	public String kakaoLogin(String code,Model model) throws Exception {
+	@RequestMapping("/kakao/login")
+	public String kakaoLogin(String code,Model model,HttpSession session) throws Exception {
 		String token = service.kakaoGetToken(code,model);
-		
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		 System.out.println("컨트롤러 토큰:" + token);
 		 
 		 // 사용자 정보 받아오기!
@@ -90,19 +95,36 @@ public class LoginController {
 		 String nickname = userinfo.get("nickname");
 		 String email = userinfo.get("email");
 		 MemberDTO member = new MemberDTO();
-		 member.setMember_email(email);
-		 member.setMember_nickname(nickname);
+		 
+		 member.setMember_email(userinfo.get("email"));
+		 member.setMember_nickname(nickname+"_kakao");
+		 member.setMember_name(userinfo.get("name"));
+		 if(userinfo.get("gender").equals("male")) {
+			member.setMember_gender("M");
+		 }else {
+			member.setMember_gender("F");
+		 }
+		 member.setMember_birth(LocalDate.parse((userinfo.get("birthyear")+"-"+userinfo.get("birthday").substring(0,2)+"-"+userinfo.get("birthday").substring(2,4)),format));
+		 member.setMember_phone(userinfo.get("phone_number"));
+		 
+		 
+		 
 		 System.out.println(member.toString());
-		 model.addAttribute("nickname", nickname);
-		 int result = service.kakaocheck(email);
+		 
+		 int result = service.memberemailChk(userinfo.get("email"));
 		 System.out.println(result);
 		 if (result == 0) {
-			 service.kakaoSignup(member);
-			 System.out.println("회원가입은 됐어유");
-			 return "redirect:/kako/login";
-		 }else {
-			 return "redirect:/login/end";
-		 }
+		        System.out.println("회원가입은 됐어유");
+		        service.kakaoSignup(member);
+		        
+		        // 회원 정보를 세션에 저장
+		        session.setAttribute("member", member);
+		        return "redirect:/";
+		    } else {
+		        // 회원 정보를 세션에 저장
+		        session.setAttribute("member", member);
+		        return "redirect:/";
+		    }
 		 
 		 //System.out.println("닉네임:" + nickname);
 		 
@@ -110,27 +132,37 @@ public class LoginController {
  
 	}
 	
-	@RequestMapping("/login/end")
-	public String loginend(HttpServletRequest request,MemberDTO member,RedirectAttributes attr) throws Exception {
-		
-//		System.out.println("login");
-//		System.out.println("value" + member);
-		HttpSession session = request.getSession();
-		MemberDTO nowMem = service.memberLogin(member);
-		System.out.println(nowMem);
-		 if(nowMem == null) {                                // 일치하지 않는 아이디, 비밀번호 입력 경우
-	            
-	            int result = 0;
-	            attr.addFlashAttribute("result", result);
-	            return "redirect:/login";
-	            
-	        }
-	        
-	        session.setAttribute("member", nowMem);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-	        
-	        return "redirect:/"; 
-	}
-			
+	
+	@RequestMapping("/callback")
+	public String naverLogin(@RequestParam("code") String code,Model model,HttpSession session){
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String token = service.naverGetToken(code,model);
+		HashMap<String, String> userinfo;
+		userinfo = service.getNaverUserInfo(token);
+		MemberDTO member = new MemberDTO();
+		member.setMember_id(userinfo.get("id"));
+		member.setMember_nickname(userinfo.get("nickname")+"_naver");
+		member.setMember_gender(userinfo.get("gender"));
+		member.setMember_email(userinfo.get("email"));
+		member.setMember_phone(userinfo.get("mobile"));
+		member.setMember_name(userinfo.get("name"));
+		member.setMember_birth(LocalDate.parse((userinfo.get("birthyear") + "-" + userinfo.get("birthday")),format));
+		int result = service.memberemailChk(userinfo.get("email"));
+		 System.out.println(result);
+		 if (result == 0) {
+		        System.out.println("회원가입은 됐어유");
+		        service.naverSignup(member);
+		        
+		        // 회원 정보를 세션에 저장
+		        session.setAttribute("member", member);
+		        return "redirect:/";
+		    } else {
+		        // 회원 정보를 세션에 저장
+		        session.setAttribute("member", member);
+		        return "redirect:/";
+		    }
+	
+		}		
 			
 	
 	@GetMapping("/emailchk")

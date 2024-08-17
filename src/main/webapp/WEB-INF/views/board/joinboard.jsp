@@ -4,7 +4,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <%
 LocalDate today = LocalDate.now();
@@ -54,7 +54,7 @@ pageContext.setAttribute("today", today.toString());
 		<div
 			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content">
-				<form class="MyModalfd">
+				<form class="MyModalfd" method="post" action="joinfilterboard">
 					<div class="modal-header">
 						<h1 class="modal-title fs-5 modal-title-customfd"
 							id="exampleModalLabel">TREEP 필터</h1>
@@ -62,27 +62,41 @@ pageContext.setAttribute("today", today.toString());
 							aria-label="Close" onclick="resetModalfd()"></button>
 					</div>
 
-
-
 					<div class="modal-body">
 						<div class="mb-3 m-2">
 							<div style="padding: 15px;">
 								<h3>여행 지역을 선택해주세요</h3>
 								<p style="color: #9c9c9c;">최대 3개 선택 가능해요</p>
 							</div>
-							<input type="button" class="locationBtnfd" value="국내"> <input
-								type="button" class="locationBtnfd" value="일본"> <input
-								type="button" class="locationBtnfd" value="중국"> <input
-								type="button" class="locationBtnfd" value="아시아">
-							<!-- <input type="button" class="locationBtn" value="미국&캐나다"> -->
-							<input type="button" class="locationBtnfd" value="미국"> <input
-								type="button" class="locationBtnfd" value="캐나다"> <input
-								type="button" class="locationBtnfd" value="중남미"> <input
-								type="button" class="locationBtnfd" value="유럽">
-							<!-- <input type="button" class="locationBtn" value="중동&아프리카"> -->
-							<input type="button" class="locationBtnfd" value="중동"> <input
-								type="button" class="locationBtnfd" value="아프리카"> <input
-								type="button" class="locationBtnfd" value="남태평양">
+							<input type="checkbox" class="locationBtnfd" id="domestic"
+								name="location" value="국내" /> <label for="domestic"
+								class="locationBtnfdChk">국내</label> <input type="checkbox"
+								class="locationBtnfd" id="japan" name="location" value="일본" />
+							<label for="japan" class="locationBtnfdChk">일본</label> <input
+								type="checkbox" class="locationBtnfd" id="china" name="location"
+								value="중국" /> <label for="china" class="locationBtnfdChk">중국</label>
+
+							<input type="checkbox" class="locationBtnfd" id="asia"
+								name="location" value="아시아" /> <label for="asia"
+								class="locationBtnfdChk">아시아</label> <input type="checkbox"
+								class="locationBtnfd" id="usa" name="location" value="미국" /> <label
+								for="usa" class="locationBtnfdChk">미국</label> <input
+								type="checkbox" class="locationBtnfd" id="canada"
+								name="location" value="캐나다" /> <label for="canada"
+								class="locationBtnfdChk">캐나다</label> <input type="checkbox"
+								class="locationBtnfd" id="latinAmerica" name="location"
+								value="중남미" /> <label for="latinAmerica"
+								class="locationBtnfdChk">중남미</label> <input type="checkbox"
+								class="locationBtnfd" id="europe" name="location" value="유럽" />
+							<label for="europe" class="locationBtnfdChk">유럽</label> <input
+								type="checkbox" class="locationBtnfd" id="middleEast"
+								name="location" value="중동" /> <label for="middleEast"
+								class="locationBtnfdChk">중동</label> <input type="checkbox"
+								class="locationBtnfd" id="africa" name="location" value="아프리카" />
+							<label for="africa" class="locationBtnfdChk">아프리카</label> <input
+								type="checkbox" class="locationBtnfd" id="pacific"
+								name="location" value="남태평양" /> <label for="pacific"
+								class="locationBtnfdChk">남태평양</label>
 						</div>
 
 
@@ -90,13 +104,18 @@ pageContext.setAttribute("today", today.toString());
 							<div style="padding: 15px;">
 								<h3>정렬</h3>
 							</div>
-							<input type="button" class="lineupBtnfd" value="최신순"> <input
-								type="button" class="lineupBtnfd" value="조회순"> <input
-								type="button" class="lineupBtnfd" value="좋아요순">
+							<input type="radio" class="lineupBtnfd" id="latest"
+								name="sortOrder" value="최신순" /> <label for="latest"
+								class="lineupBtnfd">최신순</label> <input type="radio"
+								class="lineupBtnfd" id="viewCount" name="sortOrder" value="조회순" />
+							<label for="viewCount" class="lineupBtnfd">조회순</label> <input
+								type="radio" class="lineupBtnfd" id="likes" name="sortOrder"
+								value="좋아요순" /> <label for="likes" class="lineupBtnfd">좋아요순</label>
 						</div>
 
 						<div class="search-containerfd">
-							<input type="text" class="searchbarfd" placeholder="검색어를 입력하세요">
+							<input type="text" class="searchbarfd" name="searchText"
+								placeholder="검색어를 입력하세요">
 							<div class="searchicon-containerfd">
 
 								<i class="fa-solid fa-magnifying-glass searchiconfd"></i>
@@ -108,54 +127,65 @@ pageContext.setAttribute("today", today.toString());
 							<img src="${path}/resources/img/board/reset.png"
 								class="resetImgfd" alt="">초기화
 						</button>
-						<button type="button" class="filter-submitBtnfd"
+						<button type="submit" class="filter-submitBtnfd"
 							data-bs-dismiss="modal" onclick="">필터 적용하기</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	<div
-		class="row row-cols-1 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 g-4 cardFormfd">
-		<c:forEach var="board" items="${boardPage.boardList}">
-			<div class="col card-queryfd">
-				<a href="detailboard?kind=${board.board_kind}&no=${board.board_no}">
-					<div class="card h-100 card-customfd">
-						<div class="card-body h-50 ratio" style="-bs-aspect-ratio: 50%;">
-							<img src="${path}/resources/img/board/${board.board_img}"
-								class="card-img-top boardImgfd"
-								onerror="this.src='/sns/resources/img/board/car1.png'" alt="">
-						</div>
-						<h5 class="card-titlefd p-3">${board.board_title}</h5>
-						<div
-							class="col plus-customfd d-flex align-self-end align-item-center m-4">
-							<div class="pifd">
-								<i class="plusicon-customfd fa-solid fa-plus"></i>
-							</div>
-						</div>
-						<div class="card-footer">
-							<small class="text-body-secondary d-flex justify-content-between">
-								<p class="mb-0">
-									<c:choose>
-										<c:when
-											test="${fn:substring(board.create_date, 0, 10) eq today}">
-											<p class="mb-0">${fn:substring(board.create_date, 11, 16)}</p>
-										</c:when>
-										<c:otherwise>
-											<p class="mb-0">${fn:substring(board.create_date, 0, 10)}</p>
-										</c:otherwise>
-									</c:choose>
-								</p>
 
-								<p class="mb-0">조회수 : ${board.board_hit}</p>
-								<p class="mb-0">LIKE : ${board.board_like}</p>
-							</small>
-						</div>
-					</div>
-				</a>
+	<c:choose>
+		<c:when test="${empty boardPage.boardList}">
+			<div class="col-12 text-center board-noboard">
+				<h2>검색 결과가 존재하지 않습니다.</h2>
 			</div>
-		</c:forEach>
-	</div>
+		</c:when>
+		<c:otherwise>
+			<div
+				class="row row-cols-1 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 g-4 cardFormfd">
+				<c:forEach var="board" items="${boardPage.boardList}">
+					<div class="col card-queryfd">
+						<a
+							href="detailboard?kind=${board.board_kind}&no=${board.board_no}">
+							<div class="card h-100 card-customfd">
+								<div class="card-body h-50 ratio" style="-bs-aspect-ratio: 50%;">
+									<img src="${path}/resources/img/board/${board.board_img}"
+										class="card-img-top boardImgfd"
+										onerror="this.src='/sns/resources/img/board/car1.png'" alt="">
+								</div>
+								<h5 class="card-titlefd p-3">${board.board_title}</h5>
+								<div
+									class="col plus-customfd d-flex align-self-end align-item-center m-4">
+									<div class="pifd">
+										<i class="plusicon-customfd fa-solid fa-plus"></i>
+									</div>
+								</div>
+								<div class="card-footer">
+									<small
+										class="text-body-secondary d-flex justify-content-between">
+										<p class="mb-0">
+											<c:choose>
+												<c:when
+													test="${fn:substring(board.create_date, 0, 10) eq today}">
+													<p class="mb-0">${fn:substring(board.create_date, 11, 16)}</p>
+												</c:when>
+												<c:otherwise>
+													<p class="mb-0">${fn:substring(board.create_date, 0, 10)}</p>
+												</c:otherwise>
+											</c:choose>
+										</p>
+
+										<p class="mb-0">조회수 : ${board.board_hit}</p>
+										<p class="mb-0">LIKE : ${board.board_like}</p>
+									</small>
+								</div>
+							</div>
+						</a>
+					</div>
+				</c:forEach>
+			</div>
+
 
 	<div class="pagination-container">
 		<div class="pagination">
@@ -174,7 +204,8 @@ pageContext.setAttribute("today", today.toString());
 				»</button>
 		</div>
 	</div>
-
+		</c:otherwise>
+	</c:choose>
 
 </main>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

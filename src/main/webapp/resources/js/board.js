@@ -93,40 +93,40 @@ for(let i = 0; i < locationBtn.length; i++){
 // 정렬 버튼 클릭 시 스타일 변경
 for(let i = 0; i < lineupBtn.length; i++){
 
-lineupBtn[i].addEventListener('click',function(){
-for(let j = 0; j < lineupBtn.length; j++){
-        if(i != j){
-            
-            lineupBtn[j].classList.remove('clickBtn');
-        }
-    }
-    if(lineupBtn[i].classList.contains("clickBtn")){
-        lineupBtn[i].classList.remove('clickBtn');
-        
-        if(LineupCount!=0){
-            --LineupCount;
-           if(LocationCount==0 & LineupCount==0 & GradeCount == 0){
-            const d = document.querySelector('.filter-submitBtn');
-            d.classList.remove('filter-submitBtn-Click');
+    lineupBtn[i].addEventListener('click',function(){
+    for(let j = 0; j < lineupBtn.length; j++){
+            if(i != j){
+                
+                lineupBtn[j].classList.remove('clickBtn');
+                LineupCount=0;
             }
         }
-        
-        console.log(LineupCount);
-    }else{
-       
-            lineupBtn[i].classList.add('clickBtn');
-            const d = document.querySelector('.filter-submitBtn');
-            d.classList.remove('filter-submitBtn-nonClick');
-            d.classList.add('filter-submitBtn-Click');
-
-            LineupCount++;
+        if(lineupBtn[i].classList.contains("clickBtn")){
+            lineupBtn[i].classList.remove('clickBtn');
+            
+            if(LineupCount!=0){
+                --LineupCount;
+               if(LocationCount==0 & LineupCount==0 & GradeCount == 0){
+                const d = document.querySelector('.filter-submitBtn');
+                d.classList.remove('filter-submitBtn-Click');
+                }
+            }
+            
             console.log(LineupCount);
-        
+        }else{
+           
+                lineupBtn[i].classList.add('clickBtn');
+                const d = document.querySelector('.filter-submitBtn');
+                d.classList.remove('filter-submitBtn-nonClick');
+                d.classList.add('filter-submitBtn-Click');
+    
+                LineupCount++;
+                console.log(LineupCount);
+            
+        }
+    })
+    
     }
-})
-
-}
-
 
 // 등급버튼 클릭시 스타일 변경 및 최대 3개 넘길 시 alert 창
 for(let i = 0; i < gradeBtn.length; i++){
@@ -193,6 +193,8 @@ for(let i = 0; i < gradeBtn.length; i++){
          
          
 }
+
+/*************************************************************************************/
 
 /*********************** join board *******************************/
 // 카드 추가 함수
@@ -297,6 +299,7 @@ cardfd1.forEach((a, index) => {
 const locationBtnfd = document.querySelectorAll('.locationBtnfd');
 const lineupBtnfd = document.querySelectorAll('.lineupBtnfd');
 const gradeBtnfd = document.querySelectorAll('.gradeBtnfd');
+const locationBtnfdChk = document.querySelectorAll('.locationBtnfdChk');
 
 let LocationCountfd = 0;
 let LineupCountfd = 0;
@@ -305,8 +308,8 @@ for(let i = 0; i < locationBtnfd.length; i++){
    
     locationBtnfd[i].addEventListener('click',function(){
 
-        if(locationBtnfd[i].classList.contains("clickBtnfd")){
-            locationBtnfd[i].classList.remove('clickBtnfd');
+        if(locationBtnfdChk[i].classList.contains("clickBtnfd")){
+            locationBtnfdChk[i].classList.remove('clickBtnfd');
             
             if(LocationCountfd!=0){
                 --LocationCountfd;
@@ -321,7 +324,7 @@ for(let i = 0; i < locationBtnfd.length; i++){
             if(LocationCountfd >= 3){
                 alert('최대 3개까지 선택 가능합니다.');
             }else{
-                locationBtnfd[i].classList.add('clickBtnfd');
+                locationBtnfdChk[i].classList.add('clickBtnfd');
                 const dfd = document.querySelector('.filter-submitBtnfd');
                 dfd.classList.remove('filter-submitBtn-nonClickfd');
                 dfd.classList.add('filter-submitBtn-Clickfd');
@@ -342,6 +345,7 @@ for(let j = 0; j < lineupBtnfd.length; j++){
         if(i != j){
             
             lineupBtnfd[j].classList.remove('clickBtnfd');
+            LineupCountfd=0;
         }
     }
     if(lineupBtnfd[i].classList.contains("clickBtnfd")){
@@ -407,18 +411,7 @@ for(let i = 0; i < gradeBtnfd.length; i++){
     
 }
 
-// 초기화 버튼 클릭시 눌리는 것처럼 보이기
-const resetBtnfd = document.querySelector('.resetBtnfd');
-resetBtnfd.addEventListener('mousedown', function(){
-   
-        resetBtnfd.classList.add('resetBtnClickfd');
-    });
-    
-resetBtnfd.addEventListener('mouseup', function(){
-        
-        resetBtnfd.classList.remove('resetBtnClickfd');
-        
-    });
+
     
     
     

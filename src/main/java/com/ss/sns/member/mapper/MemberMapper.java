@@ -14,5 +14,6 @@ public interface MemberMapper {
 	public int emailcheck(String member_email);
 	public int kakaocheck(String kakao_email);
 	public void kakaoSignup(MemberDTO member) ;
-
+	public void naverSignup(MemberDTO member) ;
+	
 }
