@@ -23,5 +23,7 @@ public class TripDTO {
     private LocalDate trip_end;
     
     private List<ScheduleDTO> schedules; // 여행 일자별 스케줄 리스트
+    
+    private String place_photo_url; // 장소 사진 URL을 저장하는 필드
 
 }

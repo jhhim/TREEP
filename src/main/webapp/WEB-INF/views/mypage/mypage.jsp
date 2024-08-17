@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 
 <title>마이 페이지</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -45,32 +45,38 @@
 				</li>
 			</ul>
 			<br>
+
+
 			<div class="tab-content" id="myTabContent">
 				<!-- 전체 일정-->
 				<div class="tab-pane fade show active" id="home" role="tabpanel"
 					aria-labelledby="home-tab">
-					<div class="row list-schedule">
-						<!--전체 일정 사진 -->
-						<div class="col-4 list-schedule-img-container">
-							<img src="${path}/resources/img/mypage/paris.jpg" class="img-fluid list-schedule-img">
+					<c:forEach var="trip" items="${trips}">
+						<div class="row list-schedule">
+							<!--전체 일정 사진 -->
+							<div class="col-3 list-schedule-img-container">
+								<img src="${trip.place_photo_url}"
+									class="img-fluid list-schedule-img">
+							</div>
+							<!--전체 일정 세부사항-->
+							<div class="col-9 list-schedule-content">
+           <div> <span class="schedule-DDay" data-start="${trip.trip_start}" id="d-day-${trip.trip_no}">
+									
+								</span> <span class="schedule-title"> ${trip.trip_title}</span> </div>
+								<span
+									class="schedule-manage dropdown">
+									<button class="btn dropdown-toggle no-arrow" type="button"
+										data-bs-toggle="dropdown" aria-expanded="false">⋮</button>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="#">공유</a></li>
+										<li><a class="dropdown-item" href="#">수정</a></li>
+										<li><a class="dropdown-item" href="#">삭제</a></li>
+									</ul>
+								</span>								
+								<div class="schedule-period">${trip.trip_start}~${trip.trip_end}</div>
+							</div>
 						</div>
-						<!--전체 일정 세부사항-->
-						<div class="col-8 list-schedule-content">
-							<span class="schedule-DDay">D-21</span> <span
-								class="schedule-place"> 파리</span> <span
-								class="schedule-manage dropdown">
-								<button class="btn dropdown-toggle no-arrow" type="button"
-									data-bs-toggle="dropdown" aria-expanded="false">⋮</button>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">공유</a></li>
-									<li><a class="dropdown-item" href="#">수정</a></li>
-									<li><a class="dropdown-item" href="#">삭제</a></li>
-								</ul>
-							</span>
-							<div class="schedule-title">여행 이름</div>
-							<div class="schedule-period">2024-07-30~2024-08-15</div>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 				<!-- 공유된 일정 -->
 				<div class="tab-pane fade" id="profile" role="tabpanel"
@@ -78,7 +84,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 나의 활동(작성한 게시글)-->
 	<div class="activity container-md">
 		<h4 style="text-align: center;">
@@ -115,50 +121,57 @@
 						</tr>
 					</thead>
 					<tbody class="table-group-divider">
-					
-					<c:forEach var="write" items="${myPage.boardList }">
-						<tr>
-							<th><input type="checkbox" name="check" value="${write.board_no }"
-								onclick="chkSelect()" /></th>
-							<th scope="row">${write.board_no }</th>
-							<td>${write.board_type }</td>
-							<td style="width: 40%;">${write.board_title }</td>
-							<td>${write.create_date }</td>
-							<td>${write.board_hit }</td>
-						</tr>
-					</c:forEach>
-						
-				
+
+						<c:forEach var="write" items="${myPage.boardList }">
+							<tr>
+								<th><input type="checkbox" name="check"
+									value="${write.board_no }" onclick="chkSelect()" /></th>
+								<th scope="row">${write.board_no }</th>
+								<td>${write.board_type }</td>
+								<td style="width: 40%;">${write.board_title }</td>
+								<td>${write.create_date }</td>
+								<td>${write.board_hit }</td>
+							</tr>
+						</c:forEach>
+
+
 					</tbody>
 				</table>
 				<div class="activity-manage">
 					<button type="button" class="btn" id="mypage-write">글쓰기</button>
 					<button type="button" class="btn" id="write-delete">삭제</button>
 				</div>
-				
-				
-				
-				 <nav aria-label="Page navigation example">
-        <ul class="pagination" id="note-pagination">
-            <li class="page-item">
-                <button type=button class="page-link" onclick="location.href='message?page=${myPage.currentPage -1 }'" 
-                ${myPage.currentPage == 1 ? 'disabled' : ''} aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </button>
-            </li>
-            <c:forEach var="i" begin="${myPage.startPage}" end="${myPage.endPage }">
-             <li class="page-item"><button type="button" class="page-link ${myPage.currentPage == i ? 'active' : '' }"  onclick="location.href='mypage?page=${i}'">${i}</button></li>
-            </c:forEach>
 
 
-            <li class="page-item">
-                 <button type=button class="page-link" onclick="location.href='mypage?page=${msgPage.currentPage +1 }'" 
-                ${myPage.currentPage == myPage.totalPage ? 'disabled' : ''} aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </button>
-            </li>
-        </ul>
-    </nav> 
+
+				<nav aria-label="Page navigation example">
+					<ul class="pagination" id="note-pagination">
+						<li class="page-item">
+							<button type=button class="page-link"
+								onclick="location.href='message?page=${myPage.currentPage -1 }'"
+								${myPage.currentPage == 1 ? 'disabled' : ''}
+								aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</button>
+						</li>
+						<c:forEach var="i" begin="${myPage.startPage}"
+							end="${myPage.endPage }">
+							<li class="page-item"><button type="button"
+									class="page-link ${myPage.currentPage == i ? 'active' : '' }"
+									onclick="location.href='mypage?page=${i}'">${i}</button></li>
+						</c:forEach>
+
+
+						<li class="page-item">
+							<button type=button class="page-link"
+								onclick="location.href='mypage?page=${msgPage.currentPage +1 }'"
+								${myPage.currentPage == myPage.totalPage ? 'disabled' : ''}
+								aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</button>
+						</li>
+					</ul>
+				</nav>
 
 			</div>
 
@@ -180,8 +193,8 @@
 						</tr>
 					</thead>
 					<tbody class="table-group-divider">
-					
-		<%-- 			
+
+						<%-- 			
 					<c:forEach var="Like" items="${myPage.boardList }">
 						<tr>
 							<th><input type="checkbox" name="check" value="${write.board_no }"
@@ -193,7 +206,7 @@
 							<td>${write.board_hit }</td>
 						</tr>
 					</c:forEach> --%>
-					<!-- 	<tr>
+						<!-- 	<tr>
 							<th><input type="checkbox" name="check" value="first" /></th>
 							<th scope="row">1</th>
 							<td>자유게시판</td>
@@ -229,17 +242,18 @@
 							<td>2024.08.05</td>
 							<td>25</td>
 						</tr> -->
+						
 					</tbody>
 				</table>
 				<div class="activity-manage">
 					<button type="button" class="btn" id="mypage-write">글쓰기</button>
-					<button type="button" class="btn" id="write-delete">
-						삭제
-					</button>
+					<button type="button" class="btn" id="write-delete">삭제</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
 </main>
+
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

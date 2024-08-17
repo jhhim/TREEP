@@ -2,6 +2,7 @@ package com.ss.sns.mypage.controller;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ss.sns.member.dto.MemberDTO;
 import com.ss.sns.mypage.dto.MypagePage;
 import com.ss.sns.mypage.service.MypageService;
+import com.ss.sns.trip.dto.TripDTO;
 
 
 @Controller
@@ -62,9 +64,11 @@ public class MypageController {
 //		mypageLike.setBoardList(service.selectMyBoardList(myBLmap));
 //		model.addAttribute("myPageLike", mypageLike);
 		
+		List<TripDTO> trips = service.getTripsByMemberNo(member_no);
 		
+        model.addAttribute("trips", trips);
 		
-		
+        System.out.println("마이페이지로 가능 trips: "+trips);
 		return "mypage/mypage";
 	}
 	
@@ -142,9 +146,6 @@ public class MypageController {
 		
 		return "redirect:/mypage";
 	}
-	
-	
-	
 	
 	
 }
