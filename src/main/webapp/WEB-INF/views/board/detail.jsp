@@ -28,11 +28,86 @@
 				style="font-weight: bold;">⋮</button>
 			<ul class="dropdown-menu">
 				<!-- 게시글 신고,쪽지,수정,삭제 페이지 이동-->
-				<li><a class="dropdown-item" href="#">신고하기</a></li>
+				<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdropPolice">신고하기</a></li>
 				<li><a class="dropdown-item" href="#">쪽지보내기</a></li>
 				<li><a class="dropdown-item" href="#">수정</a></li>
 				<li><a class="dropdown-item" href="#">삭제</a></li>
 			</ul>
+	
+	
+		<!-- 신고하기 모달 -->
+			
+			 <div class="modal fade" id="staticBackdropPolice" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel"> <img src="${path}/resources/img/detailboard/singo.png" id="singo"></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          신고하시겠습니까?<br><br>
+          허위신고시 불이익이 발생할 수 있습니다.
+          
+          <!-- <div class="mb-3">
+            <label for="message-text" class="col-form-label">신고내용 :</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div> -->
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+          <button type="button" class="SingoBtn" href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#staticBackdropPoliceAlarm" onclick="singocheoli()">신고하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="modal fade" id="staticBackdropPoliceAlarm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        
+        <div class="modal-body singoAlarmCustom">
+        
+           <img src="${path}/resources/img/detailboard/singoAlarm.png" id="singoAlarm"><br>
+              신고가 정상적으로 처리되었습니다!
+ 
+          
+      
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		</span>
 		<div class="post_response">
 			<span style="color: gray;">${board.create_date }</span> <i

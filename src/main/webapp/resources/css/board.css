@@ -1103,3 +1103,36 @@ input[type="checkbox"]{
     #reply-reply-submit:hover {
         background-color: #6dbd44;
     }
+    
+    
+    
+/*********************************************신고************************************************/
+.SingoBtn{
+   background-color: #fad271;
+   border: none;
+   border-radius: 5px;
+   padding: 7px 12px 7px 12px;
+}
+
+.SingoBtn:hover{
+    background-color: #fac853;
+}
+
+
+#singo{
+    width: 25px;
+}
+
+
+#singoAlarm{
+    width: 100px;
+}
+
+
+.singoAlarmCustom{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
