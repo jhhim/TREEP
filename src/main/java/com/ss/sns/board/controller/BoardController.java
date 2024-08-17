@@ -199,11 +199,6 @@ public class BoardController {
 	}
 	 
 
-//	@RequestMapping("/Singohagi")
-//	public void Singohagi() {
-//		
-//	
-//	}
 	
 	
 	@RequestMapping("/MoveBoard")
@@ -224,6 +219,11 @@ public class BoardController {
 	
 	@RequestMapping("/deleteBoard")
 	public String deleteBoard(@RequestParam(value = "kind") int kind, @RequestParam(value = "no")int boardNo) {
+		Map<String, Object> DeleteMap = new HashMap<String, Object>();
+		DeleteMap.put("kind", kind);
+		DeleteMap.put("no", boardNo);
+		service.boardDelete(DeleteMap);
+		
 		if(kind == 1) {
 			return "redirect:/freeboard";
 		}else {

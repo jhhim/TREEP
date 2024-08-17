@@ -115,6 +115,10 @@ public class BoardService {
 	public ArrayList<BoardDTO> selectBoardListAll(Map<String, Integer> hmap) {
 		return mapper.selectBoardListAll(hmap);
 	}
+
+	public void boardDelete(Map<String, Object> deleteMap) {
+		mapper.boardDelete(deleteMap);
+	}
 }
 	
 

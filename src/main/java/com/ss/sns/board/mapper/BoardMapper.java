@@ -31,5 +31,6 @@ public interface BoardMapper {
 	public List<BoardDTO> selectFilterJoinBoardList(Map<String, Object> listParams);
 	public void boardStatusUpdate(Map<String, Object> singoMap);
 	public ArrayList<BoardDTO> selectBoardListAll(Map<String, Integer> hmap);
+	public void boardDelete(Map<String, Object> deleteMap);
 
 }

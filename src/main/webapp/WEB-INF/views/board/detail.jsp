@@ -42,7 +42,7 @@
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdropPolice">신고하기</a></li>
 						<li><a class="dropdown-item" href="#">쪽지보내기</a></li>
 						<li><a class="dropdown-item" href="#">수정</a></li>
-						<li><a class="dropdown-item" href="#">삭제</a></li>
+						<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdropDelete">삭제</a></li>
 					</ul>
     					</c:when>
     					<c:otherwise>
@@ -55,9 +55,7 @@
 						</c:otherwise>
 						</c:choose>
               
-				
-			
-	
+
 	
 		<!-- 신고하기 모달 -->
 			
@@ -72,10 +70,6 @@
           신고하시겠습니까?<br><br>
           허위신고시 불이익이 발생할 수 있습니다.
           
-          <!-- <div class="mb-3">
-            <label for="message-text" class="col-form-label">신고내용 :</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div> -->
           </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -84,8 +78,6 @@
       </div>
     </div>
   </div>
-
-
 
 
   <div class="modal fade" id="staticBackdropPoliceAlarm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -109,13 +101,52 @@
   </div>
 			
 			
-			
-			
-			
-			
-			
-			
-			
+	<!-- 삭제 모달 -->
+
+		  <div class="modal fade" id="staticBackdropDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel"><img src="${path}/resources/img/detailboard/trash.png" id="trash"></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         정말로 삭제하시겠습니까?
+          <!-- <div class="mb-3">
+            <label for="message-text" class="col-form-label">신고내용 :</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div> -->
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+          <button type="button" class="DeleteBoardBtn" href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#staticBackdropDeleteAlarm">삭제하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="modal fade" id="staticBackdropDeleteAlarm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        
+        <div class="modal-body deleteAlarmCustom">
+        
+           <img src="${path}/resources/img/detailboard/deleteconfirm.png" id="deleteAlarm"><br>
+  				 <p style="margin-bottom: 10px;">삭제되었습니다.</p>
+ 
+          
+      
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="DeleteBoard()">닫기</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>	
 			
 			
 			

@@ -229,4 +229,10 @@
 	</update>
 	
 	
+	
+	<!-- 게시물 삭제 -->
+	<delete id="boardDelete">
+		DELETE FROM BOARD 
+		WHERE BOARD_KIND = #{kind} AND BOARD_NO = #{no}
+	</delete>	
 </mapper>

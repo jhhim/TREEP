@@ -1136,3 +1136,39 @@ input[type="checkbox"]{
     justify-content: center;
     align-items: center;
 }
+
+
+/*********************************************삭제************************************************/
+
+.DeleteBoardBtn{
+   background-color: #dc3545;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   padding: 7px 12px 7px 12px;
+}
+
+.DeleteBoardBtn:hover{
+    background-color: #bb2e3c;
+}
+
+
+#trash{
+    width: 25px;
+}
+
+
+#deleteAlarm{
+    width: 80px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+
+.deleteAlarmCustom{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
