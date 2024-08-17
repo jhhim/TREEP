@@ -54,6 +54,7 @@ public class MsgController {
 //		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //		 DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //		 String formattedDate = null;
+//		 
 //		for (int i = 0; i < msgPage.getMsgList1().size(); i++) {
 //			LocalDateTime send_date = msgPage.getMsgList1().get(i).getSend_date();
 //			formattedDate = send_date.format(formatter);
@@ -61,7 +62,7 @@ public class MsgController {
 //			msgPage.getMsgList1().get(i).setSend_date(parsedDate);
 //		}
 		
-		System.out.println(msgPage.getMsgList1());
+//		System.out.println(msgPage.getMsgList1());
 		model.addAttribute("msgPage",msgPage);
 		
 //		보낸쪽지함
