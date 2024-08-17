@@ -578,6 +578,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const backButton = document.getElementById('backButton');
     const tripDetailContent = document.getElementById('tripDetailContent');
     const writeTextContainer = document.getElementById('write-text-container');
+    const tripDetailDisplayContainer = document.getElementById('tripDetailDisplayContainer'); // 새 공간
+    const tripItemsList = document.getElementById('trip-items-list');
 
     // 날짜를 나열하는 함수
     function getDatesInRange(startDate, endDate) {
@@ -592,33 +594,42 @@ document.addEventListener('DOMContentLoaded', () => {
         return dates;
     }
 
-    // 각 날짜에 대해 장소를 매핑하는 함수 (시간 포함된 임의의 장소 리스트)
+    // 각 날짜에 대해 장소를 매핑하는 함수 
     function getPlacesForDate(date) {
         const places = {
             "2024-08-09": [
-                { time: "07:00 - 09:00", place: "에펠탑" },
-                { time: "10:00 - 12:00", place: "루브르 박물관" },
-                { time: "13:00 - 15:00", place: "노트르담 대성당" }
+                { place: "에펠탑" },
+                { place: "루브르 박물관" },
+                { place: "노트르담 대성당" }
             ],
             "2024-08-10": [
-                { time: "08:00 - 10:00", place: "몽마르트 언덕" },
-                { time: "11:00 - 13:00", place: "사크레쾨르 성당" },
-                { time: "14:00 - 16:00", place: "파리 시청" }
+                { place: "몽마르트 언덕" },
+                { place: "사크레쾨르 성당" },
+                { place: "파리 시청" }
             ],
             "2024-08-11": [
-                { time: "09:00 - 11:00", place: "오르세 미술관" },
-                { time: "12:00 - 14:00", place: "콩코르드 광장" },
-                { time: "15:00 - 17:00", place: "샹젤리제 거리" }
+                { place: "오르세 미술관" },
+                { place: "콩코르드 광장" },
+                { place: "샹젤리제 거리" }
             ],
             "2024-08-12": [
-                { time: "07:00 - 09:00", place: "베르사유 궁전" },
-                { time: "10:00 - 12:00", place: "라데팡스" },
-                { time: "13:00 - 15:00", place: "파리 디즈니랜드" }
+                { place: "베르사유 궁전" },
+                { place: "라데팡스" },
+                { place: "파리 디즈니랜드" }
             ]
         };
 
         const formattedDate = date.toISOString().split('T')[0];
-        return places[formattedDate] || [{ time: "시간 정보 없음", place: "장소 정보 없음" }];
+        return places[formattedDate] || [{ place: "장소 정보 없음" }];
+    }
+
+    // 컨테이너의 표시 상태를 업데이트하는 함수
+    function updateContainerVisibility() {
+        if (tripItemsList.children.length > 0) {
+            tripDetailDisplayContainer.style.display = 'block';
+        } else {
+            tripDetailDisplayContainer.style.display = 'none';
+        }
     }
 
     // 각 trip-share-item에 클릭 이벤트 추가
@@ -643,13 +654,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     const startDate = new Date(dateRange[0].replace(/\./g, '-'));
                     const endDate = new Date(dateRange[1].replace(/\./g, '-'));
 
+                    // 시작일 끝일 넣기
                     const dates = getDatesInRange(startDate, endDate);
 
                     dates.forEach(date => {
                         const dateStr = date.toISOString().split('T')[0];
                         const places = getPlacesForDate(date);
 
-                        const placeListHtml = places.map(place => `<li class="place-item" data-date="${dateStr}" data-time="${place.time}" data-place="${place.place}">${place.time}  ${place.place}</li>`).join('');
+                        const placeListHtml = places.map(place => `<li class="place-item" data-date="${dateStr}"  data-place="${place.place}"> ${place.place}</li>`).join('');
                         tripDetailContent.innerHTML += `<div><strong>${dateStr}</strong><ul">${placeListHtml}</ul></div>`;
                     });
 
@@ -658,21 +670,45 @@ document.addEventListener('DOMContentLoaded', () => {
                     placeItems.forEach(placeItem => {
                         placeItem.addEventListener('click', () => {
                             const date = placeItem.getAttribute('data-date');
-                            const time = placeItem.getAttribute('data-time');
                             const place = placeItem.getAttribute('data-place');
 
-                            // 중복 확인을 위해 현재 텍스트박스에 있는 내용을 확인
                             const currentText = writeTextContainer.value;
-                            const newEntry = `${date} ${time} ${place}`;
+                            const newEntry = `${date} ${place}`;
 
                             if (currentText.includes(newEntry)) {
                                 alert('이미 추가된 일정입니다.');
                             } else {
-                                // textarea에 날짜, 시간, 장소 이름을 추가
-                                writeTextContainer.value += `${newEntry}\n`;
+
+                                // 새로운 공간에 날짜와 장소를 표시, 그리고 삭제 버튼 추가
+                                const detailEntry = document.createElement('div');
+                                detailEntry.className = 'trip-detail-entry';
+                                detailEntry.innerHTML = `
+                                    <span><strong>${date}  </strong> - ${place}</span>
+                                    <button class="remove-select-item-btn">삭제</button>
+                                `;
+  
+                                tripItemsList.appendChild(detailEntry);
+
+                                // 삭제 버튼에 이벤트 추가
+                                const removeButton = detailEntry.querySelector('.remove-select-item-btn');
+                                removeButton.addEventListener('click', () => {
+                                    tripItemsList.removeChild(detailEntry);
+
+                                    // textarea에서 해당 항목도 제거
+                                    writeTextContainer.value = writeTextContainer.value.replace(`${newEntry}\n`, '');
+
+                                    // 컨테이너 표시 상태 업데이트
+                                    updateContainerVisibility();
+                                });
+
+                                // 컨테이너 표시 상태 업데이트
+                                updateContainerVisibility();
                             }
                         });
                     });
+
+                    // 초기 컨테이너 표시 상태 업데이트
+                    updateContainerVisibility();
                 }
             }
         });
@@ -684,6 +720,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function go(){
-    window.location.href = '/anotherPage';
-}
