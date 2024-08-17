@@ -108,3 +108,53 @@ function handleScroll() {
 }
 
 window.addEventListener('scroll', handleScroll);
+
+
+/********************************* searchbox *****************************************/
+
+ const searchInput = $('.search-place-nav');
+ const searchResultsContainer = $('.search-place-scroll');
+
+    searchInput.on('input', function() {
+        const searchText = $(this).val();
+
+        if (searchText.length > 0) {
+            $.ajax({
+                url: '/searchcity',
+                type: 'GET',
+                data: { searchText: searchText },
+                success: function(data) {
+                    searchResultsContainer.empty();
+
+                    data.forEach(item => {
+                        const anchor = $('<a>', {
+                            href: '#',
+                            class: 'search-box-wrap',
+                            'data-bs-toggle': 'modal',
+                            'data-bs-target': '#detail-modal'
+                        });
+
+                        const icon = $('<i>', {
+                            class: 'fa-solid fa-location-dot'
+                        });
+
+                        const leftDiv = $('<div>', {
+                            class: 'search-left'
+                        });
+
+                        const heading = $('<h5>').text(item.name);
+                        const span = $('<span>').text(item.country);
+
+                        leftDiv.append(heading).append(span);
+                        anchor.append(icon).append(leftDiv);
+                        searchResultsContainer.append(anchor);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        } else {
+            searchResultsContainer.empty();
+        }
+    });
