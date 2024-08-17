@@ -80,16 +80,14 @@ pageContext.setAttribute("today", today.toString());
 							<div style="padding: 10px;">
 								<h3>정렬</h3>
 							</div>
-							<input type="radio" id="checkline1" class="lineupBtn" name="line"
-								value="최신순"> <label for="checkline1" class="lineupBtn">최신순</label>
-
-							<input type="radio" id="checkline2" class="lineupBtn" name="line"
-								value="조회순"> <label for="checkline2" class="lineupBtn">조회순</label>
-
-							<input type="radio" id="checkline3" class="lineupBtn" name="line"
+							<input type="radio" id="checkline1" class="lineupBtn"
+								name="sortOrder" value="최신순"> <label for="checkline1"
+								class="lineupBtn">최신순</label> <input type="radio"
+								id="checkline2" class="lineupBtn" name="sortOrder" value="조회순">
+							<label for="checkline2" class="lineupBtn">조회순</label> <input
+								type="radio" id="checkline3" class="lineupBtn" name="sortOrder"
 								value="좋아요순"> <label for="checkline3" class="lineupBtn">좋아요순</label>
 						</div>
-
 						<div class="search-container">
 							<input type="text" id="searchText" class="searchbar"
 								name="searchText" placeholder="검색어를 입력하세요">

@@ -13,7 +13,7 @@
 	<select id="selectBoardList" parameterType="map"
 		resultType="BoardDTO">
 		select * from( select rownum rNum, Tb.* from (select * from
-		board where BOARD_KIND=#{board_kind} order by BOARD_NO desc) Tb) where
+		board where BOARD_KIND=#{board_kind}  ORDER BY create_date DESC) Tb) where
 		rNum between #{startNo} and #{endNo}
 	</select>
 	<!-- 보드 종류, 보드 번호로 보드 1개 불러오기 -->

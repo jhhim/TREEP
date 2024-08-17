@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -69,6 +70,7 @@ public class ReplyController {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		}
 	}
+	@CacheEvict
 	@GetMapping("/count")
 	public ResponseEntity<Integer> selectReplyCount(@RequestParam("kind") int kind, @RequestParam("no") int no) {
 	    List<ReplyDTO> replyList = service.selectReply(no);
