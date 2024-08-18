@@ -618,11 +618,7 @@ color: gray;
     box-shadow: #caf7b6 0px 0px 0px 2px;
     border: solid 1px #caf7b6;
 }
-#item-number{
-    background-color: #7FD858;
-    color: white;
-    font-weight: bold;
-}
+
 #autocomplete{
     margin-top: 30px;
     border: solid 1px #e0e0e0;

@@ -76,7 +76,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="calclick"
                                         onclick="appendSmallCalendar()">선택</button>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
 
                    
                 </div>
-                <input type="hidden" id="selected-photo-url" name="place_photo_url"/>
+                <input id="selected-photo-url" name="place_photo_url" style="display: none;"/>
                 
                 <div class="final-submit-Container" style="display: none;">
                     <input type="submit" class="btn fixed-button" id="final-submit"></input>
