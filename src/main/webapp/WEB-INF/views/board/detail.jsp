@@ -6,8 +6,7 @@
 <script>
     const boardKind = "${board.board_kind}";
     const boardNo = "${board.board_no}";
-    //const memberNo = "${sessionScope.memberId}";
-    const memberNo = 1000;
+    const memberNo = "${sessionScope.member.member_no}";
     const basePath = "${path}";
 </script>
 
@@ -36,7 +35,7 @@
 			</c:choose>
 			> ${board.board_continent}
 		</div>
-		<br> <span class="post-writer">${writeMember.member_nickname }</span>
+		<br> <span class="post-writer">${writeMember.member_nickname } </span>
 		
 				
 	 					<c:choose>
