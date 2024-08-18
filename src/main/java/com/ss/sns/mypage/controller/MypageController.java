@@ -45,6 +45,7 @@ public class MypageController {
 		int BoardTotalCount = service.selectBoardTotalCount(member_no);
 		int pageSize = 2;
 		
+		// 내가 작성한 글
 		MypagePage mypage = new MypagePage(pageSize, BoardTotalCount, currentPage);
 		Map<String, Integer> myBmap = new HashMap<String,Integer>();
 		myBmap.put("startNo", mypage.getStartNo());
@@ -54,15 +55,15 @@ public class MypageController {
 		mypage.setBoardList(service.selectMyBoardList(myBmap));
 		model.addAttribute("myPage", mypage);
 		
-//		
-//		MypagePage mypageLike = new MypagePage(pageSize, BoardTotalCount, currentPage);
-//		Map<String, Integer> myBLmap = new HashMap<String,Integer>();
-//		myBLmap.put("startNo", mypageLike.getStartNo());
-//		myBLmap.put("endNo", mypageLike.getEndNo());
-//		myBLmap.put("member_no", member_no);
-//		
-//		mypageLike.setBoardList(service.selectMyBoardList(myBLmap));
-//		model.addAttribute("myPageLike", mypageLike);
+//		내가 좋아요 한 글
+		MypagePage mypageLike = new MypagePage(pageSize, BoardTotalCount, currentPage);
+		Map<String, Integer> myBLmap = new HashMap<String,Integer>();
+		myBLmap.put("startNo", mypageLike.getStartNo());
+		myBLmap.put("endNo", mypageLike.getEndNo());
+		myBLmap.put("member_no", member_no);
+		
+		mypageLike.setBoardList(service.selectMyLikeBoardList(myBLmap));
+		model.addAttribute("myPageLike", mypageLike);
 		
 		List<TripDTO> trips = service.getTripsByMemberNo(member_no);
 		
@@ -152,6 +153,15 @@ public class MypageController {
 
 		return "board/writeboard";
 	}
+	
+	
+	
+	
+	@RequestMapping("/MyLikeBoard")
+	public String MyLikeBoard() {
+		return null;
+	}
+	
 	
 	
 }

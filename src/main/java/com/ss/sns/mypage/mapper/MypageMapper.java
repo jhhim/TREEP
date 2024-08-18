@@ -22,5 +22,7 @@ public interface MypageMapper {
 	
     List<TripDTO> selectTripsByMemberNo(int memberNo);
 
+	ArrayList<MyBoardDTO> selectMyLikeBoardList(Map<String, Integer> myBLmap);
+
 
 }

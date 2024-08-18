@@ -36,4 +36,9 @@ public class MypageService {
 	public List<TripDTO> getTripsByMemberNo(int memberNo) {
         return mapper.selectTripsByMemberNo(memberNo);
     }
+
+	public ArrayList<MyBoardDTO> selectMyLikeBoardList(Map<String, Integer> myBLmap) {
+		// TODO Auto-generated method stub
+		return mapper.selectMyLikeBoardList(myBLmap);
+	}
 }
