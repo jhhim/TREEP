@@ -189,6 +189,48 @@ public class MemberService {
 		
 		return result;
 	}
+	public void getkakaofirends(String token) {
+		JSONObject resultObj;
+		System.out.println("getkakaofirends()");
+		String host = "https://kapi.kakao.com/v1/api/talk/friends";
+		try {
+
+			URL url = new URL(host);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Authorization", "Bearer " + token);
+
+			int responseCode = con.getResponseCode();
+			System.out.println("응답코드:" + responseCode);
+			System.out.println(con.getResponseMessage());
+
+			if (responseCode == 200) {
+				// json parsing
+
+				BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+				String line = "";
+				String result = "";
+
+				while ((line = br.readLine()) != null) {
+					result += line;
+
+				}
+
+				System.out.println("result2:" + result);
+
+				JSONParser parser = new JSONParser();
+				JSONObject obj = (JSONObject) parser.parse(result);
+				System.out.println(obj);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+	}
 public void kakaoSignup(MemberDTO member) {
 	membermapper.kakaoSignup(member);
 }
@@ -218,6 +260,7 @@ public void kakaoSignup(MemberDTO member) {
 		}
 
 	}
+	
 	public String naverGetToken(String code, Model model) {
 		String host = "https://nid.naver.com/oauth2.0/token";
 		String token = "";

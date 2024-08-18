@@ -18,7 +18,9 @@
 			&copy; <span class="this-year"></span> TREEP Company. All Rights
 			Reseved.
 		</p>
-
+		<form action="${pageContext.request.contextPath}/kakao/share" method="post">
+    <button class="login_button" type="submit" id="kakao_share_button">대충 카카오 공유 버튼</button>
+</form>
 	</div>
 </footer>
 
