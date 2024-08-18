@@ -1,8 +1,16 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="com.ss.sns.member.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
+<%
+	LocalDate today = LocalDate.now();
+	pageContext.setAttribute("today", today.toString());
+%>
+
 
 <title>마이 페이지</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -122,14 +130,27 @@
 					</thead>
 					<tbody class="table-group-divider">
 
-						<c:forEach var="write" items="${myPage.boardList }">
+					<c:forEach var="write" items="${myPage.boardList }">
 							<tr>
 								<th><input type="checkbox" name="check"
 									value="${write.board_no }" onclick="chkSelect()" /></th>
 								<th scope="row">${write.board_no }</th>
 								<td>${write.board_type }</td>
 								<td style="width: 40%;">${write.board_title }</td>
-								<td>${write.create_date }</td>
+								
+								<td>
+									<c:choose>
+										<c:when
+											test="${fn:substring(write.create_date, 0, 10) eq today}">
+											<fmt:parseDate value="${write.create_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+											 <fmt:formatDate pattern="HH:mm" value="${parsedDateTime}"/>
+										</c:when>
+										<c:otherwise>
+											 <fmt:parseDate value="${write.create_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+											 <fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/>
+										</c:otherwise>
+									</c:choose>
+								</td>
 								<td>${write.board_hit }</td>
 							</tr>
 						</c:forEach>
@@ -148,7 +169,7 @@
 					<ul class="pagination" id="note-pagination">
 						<li class="page-item">
 							<button type=button class="page-link"
-								onclick="location.href='message?page=${myPage.currentPage -1 }'"
+								onclick="location.href='mypage?page=${myPage.currentPage -1 }'"
 								${myPage.currentPage == 1 ? 'disabled' : ''}
 								aria-label="Previous">
 								<span aria-hidden="true">&laquo;</span>
@@ -164,7 +185,7 @@
 
 						<li class="page-item">
 							<button type=button class="page-link"
-								onclick="location.href='mypage?page=${msgPage.currentPage +1 }'"
+								onclick="location.href='mypage?page=${myPage.currentPage +1 }'"
 								${myPage.currentPage == myPage.totalPage ? 'disabled' : ''}
 								aria-label="Next">
 								<span aria-hidden="true">&raquo;</span>
@@ -174,6 +195,9 @@
 				</nav>
 
 			</div>
+
+
+<!-- 내가 좋아요 누른 글 -->
 
 			<div class="tab-pane fade" id="likePost" role="tabpanel"
 				aria-labelledby="like-p">
@@ -197,51 +221,28 @@
 									
 					<c:forEach var="Like" items="${myPageLike.boardList }">
 						<tr>
-							<th><input type="checkbox" name="check" value="${write.board_no }"
+							<th><input type="checkbox" name="check" value="${Like.board_no }"
 								onclick="chkSelect()" /></th>
-							<th scope="row">${write.board_no }</th>
-							<td>${write.board_type }</td>
-							<td style="width: 40%;">${write.board_title }</td>
-							<td>${write.create_date }</td>
-							<td>${write.board_hit }</td>
+							<th scope="row">${Like.board_no }</th>
+							<td>${Like.board_type }</td>
+							<td>${Like.member_nickname }</td>
+							<td style="width: 40%;">${Like.board_title }</td>
+							<td>
+									<c:choose>
+										<c:when
+											test="${fn:substring(Like.create_date, 0, 10) eq today}">
+											<fmt:parseDate value="${Like.create_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+											 <fmt:formatDate pattern="HH:mm" value="${parsedDateTime}"/>
+										</c:when>
+										<c:otherwise>
+											 <fmt:parseDate value="${Like.create_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+											 <fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/>
+										</c:otherwise>
+									</c:choose>
+								</td>
+							<td>${Like.board_hit }</td>
 						</tr>
 					</c:forEach> 
-						<!-- 	<tr>
-							<th><input type="checkbox" name="check" value="first" /></th>
-							<th scope="row">1</th>
-							<td>자유게시판</td>
-							<td>James</td>
-							<td style="width: 40%;">엄청 기이이이이이이이이이이인 제목</td>
-							<td>2024.07.31</td>
-							<td>10</td>
-						</tr>
-						<tr>
-							<th><input type="checkbox" name="check" value="second" /></th>
-							<th scope="row">2</th>
-							<td>자유게시판</td>
-							<td>Sara</td>
-							<td>글제목2</td>
-							<td>2024.07.24</td>
-							<td>22</td>
-						</tr>
-						<tr>
-							<th><input type="checkbox" name="check" value="third" /></th>
-							<th scope="row">3</th>
-							<td>동행게시판</td>
-							<td>Peter</td>
-							<td>글제목3</td>
-							<td>2024.08.05</td>
-							<td>25</td>
-						</tr>
-						<tr>
-							<th><input type="checkbox" name="check" value="third" /></th>
-							<th scope="row">3</th>
-							<td>동행게시판</td>
-							<td>Mao</td>
-							<td>글제목4</td>
-							<td>2024.08.05</td>
-							<td>25</td>
-						</tr> -->
 						
 					</tbody>
 				</table>
@@ -249,6 +250,36 @@
 					<a href="${path}/writeboard"><button type="button" class="btn" id="mypage-write">글쓰기</button></a>
 					<button type="button" class="btn" id="write-delete">삭제</button>
 				</div>
+				
+				<nav aria-label="Page navigation example">
+					<ul class="pagination" id="note-pagination">
+						<li class="page-item">
+							<button type=button class="page-link"
+								onclick="location.href='mypage?page2=${myPageLike.currentPage -1 }'"
+								${myPageLike.currentPage == 1 ? 'disabled' : ''}
+								aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</button>
+						</li>
+						<c:forEach var="i" begin="${myPageLike.startPage}"
+							end="${myPageLike.endPage }">
+							<li class="page-item"><button type="button"
+									class="page-link ${myPageLike.currentPage == i ? 'active' : '' }"
+									onclick="location.href='mypage?page2=${i}'">${i}</button></li>
+						</c:forEach>
+
+
+						<li class="page-item">
+							<button type=button class="page-link"
+								onclick="location.href='mypage?page2=${myPageLike.currentPage +1 }'"
+								${myPageLike.currentPage == myPageLike.totalPage ? 'disabled' : ''}
+								aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</button>
+						</li>
+					</ul>
+				</nav>
+				
 			</div>
 		</div>
 	</div>
