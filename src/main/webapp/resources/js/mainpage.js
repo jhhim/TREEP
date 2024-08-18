@@ -13,65 +13,127 @@ $(document).on('click', function (event) {
   }
 });
 /*************** TREEP PICK 분류 선택 ***************/
+function loadArticles(filter) {
+    $.ajax({
+        url: basePath + '/filtercategory',
+        type: 'GET',
+        data: { category: filter },
+        dataType: 'json',
+        success: function(data) {
+            console.log('Loaded data:', data); // 데이터 확인
+
+            // 슬릭 슬라이더 제거
+            if ($('.responsive').hasClass('slick-initialized')) {
+                $('.responsive').slick('unslick'); // 기존 슬릭 제거
+            }
+
+            // 카드 내용 비우기
+            $('.card-wrap').empty();
+
+            // 데이터가 없는 경우 처리
+            if (data.length === 0) {
+                $('.card-wrap').html('<h2>도시가 존재하지 않습니다.</h2>');
+                $('.recommend-prev-btn').hide();
+                $('.recommend-next-btn').hide();
+                return;
+            }
+
+            // 카드 생성
+            data.forEach(function(article) {
+                var card = '<article class="main-card">' +
+                    '<a href="#">' + 
+                        '<img src="' + basePath + '/resources/img/city/' + article.city_img + '" alt="' + article.city_name + '">' +
+                        '<div class="main-card-content">' +
+                            '<h3>' + article.city_name + '</h3>' +
+                            '<span>' + article.city_country + '</span>' +
+                        '</div>' +
+                    '</a>' +
+                '</article>';
+
+                $('.card-wrap').append(card);
+            });
+
+            // 슬릭 슬라이더 초기화
+            $('.responsive').slick({
+                infinite: false,
+                speed: 300,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                arrows: false,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            }).on('init', updateNavButtons)
+              .on('beforeChange', updateNavButtons)
+              .on('afterChange', updateNavButtons);
+
+            // 슬릭 슬라이더 버튼 기능 재설정
+            $('.recommend-prev-btn').off('click').on('click', function () {
+                $('.responsive').slick('slickPrev');
+            });
+            $('.recommend-next-btn').off('click').on('click', function () {
+                $('.responsive').slick('slickNext');
+            });
+
+            // 슬릭 슬라이더 버튼 보이기/숨기기 기능
+            function updateNavButtons() {
+                var slick = $('.responsive').slick('getSlick');
+                var currentSlide = slick.currentSlide;
+                var slideCount = slick.slideCount;
+                var slidesToShow = slick.options.slidesToShow;
+
+                if (currentSlide === 0) {
+                    $('.recommend-prev-btn').hide();
+                } else {
+                    $('.recommend-prev-btn').show();
+                }
+
+                if (currentSlide >= slideCount - slidesToShow) {
+                    $('.recommend-next-btn').hide();
+                } else {
+                    $('.recommend-next-btn').show();
+                }
+            }
+
+            // 초기 상태 설정
+            updateNavButtons();
+        },
+        error: function(error) {
+            console.error('오류:', error);
+        }
+    });
+}
+
+// 페이지 로드 시 초기화
+loadArticles('all');
+
 $('.place-category').on('click', function () {
-  $('.place-category').removeClass('category-selected');
-  $(this).addClass('category-selected');
+    let filter = $(this).text();
+    $('.place-category').removeClass('category-selected');
+    $(this).addClass('category-selected');
+    loadArticles(filter);
 });
-/*************** TREEP PICK 슬라이더 ***************/
-$('.responsive').slick({
-  infinite: false,
-  speed: 300,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  arrows: false,
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        infinite: true,
-      }
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2
-      }
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    }
-  ]
-
-});
-$('.recommend-prev-btn').on('click', function () {
-  $('.recommend').slick('slickPrev');
-});
-$('.recommend-next-btn').on('click', function () {
-  $('.recommend').slick('slickNext');
-});
-$('.recommend-prev-btn').hide();
-$('.recommend').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-
-  if (nextSlide === 0) {
-    $('.recommend-prev-btn').hide();
-  } else {
-    $('.recommend-prev-btn').show();
-  }
-  var slideCount = slick.slideCount;
-  if (nextSlide === slideCount - 4) {
-    $('.recommend-next-btn').hide();
-  } else {
-    $('.recommend-next-btn').show();
-  }
-});
-
 
 
 

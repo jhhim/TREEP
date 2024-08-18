@@ -71,76 +71,7 @@
 		<div style="width: 85%; margin: auto;">
 			<div class="card-wrap responsive recommend">
 				<article class="main-card">
-					<a href=""> <img src="${path}/resources/img/mainpage/IMG_1.jpg"
-						alt="">
-						<div class="main-card-content">
-							<h3>OSAKA</h3>
-							<span>일본 오사카</span>
-						</div>
-					</a>
-				</article>
-				<article class="main-card">
-					<a href=""> <img src="${path}/resources/img/mainpage/IMG_2.jpg"
-						alt="">
-						<div class="main-card-content">
-							<h3>JEONJU</h3>
-							<span>대한민국 전주</span>
-						</div>
-					</a>
-				</article>
-				<article class="main-card">
-					<a href=""> <img src="${path}/resources/img/mainpage/IMG_3.png"
-						alt="">
-						<div class="main-card-content">
-							<h3>Ha Long Bay</h3>
-							<span>베트남 하롱베이</span>
-						</div>
-					</a>
-				</article>
-				<article class="main-card">
-					<a href=""> <img src="${path}/resources/img/mainpage/IMG_4.jpg"
-						alt="">
-						<div class="main-card-content">
-							<h3>KOTA KINABALU</h3>
-							<span>말레이시아 코타키나발루</span>
-						</div>
-					</a>
-				</article>
-				<article class="main-card">
-					<a href=""> <img src="${path}/resources/img/mainpage/IMG_5.jpg"
-						alt="">
-						<div class="main-card-content">
-							<h3>BORACAY</h3>
-							<span>필리핀 보라카이</span>
-						</div>
-					</a>
-				</article>
-				<article class="main-card">
-					<a href=""> <img src="${path}/resources/img/mainpage/IMG_1.jpg"
-						alt="">
-						<div class="main-card-content">
-							<h3>OSAKA</h3>
-							<span>일본 오사카1</span>
-						</div>
-					</a>
-				</article>
-				<article class="main-card">
-					<a href=""> <img src="${path}/resources/img/mainpage/IMG_7.jpg"
-						alt="">
-						<div class="main-card-content">
-							<h3>SAPPORO</h3>
-							<span>일본 삿포로</span>
-						</div>
-					</a>
-				</article>
-				<article class="main-card">
-					<a href=""> <img src="${path}/resources/img/mainpage/IMG_1.jpg"
-						alt="">
-						<div class="main-card-content">
-							<h3>OSAKA</h3>
-							<span>일본 오사카1</span>
-						</div>
-					</a>
+
 				</article>
 			</div>
 			<div class="section-btn">

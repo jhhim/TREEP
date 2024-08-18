@@ -269,7 +269,11 @@
 .card-wrap {
 	margin-top: 35px;
 }
-
+.card-wrap h2{
+	color:darkgray;
+	margin: 100px 0;
+	
+}
 .slick-track {
 	padding-top: 15px;
 }

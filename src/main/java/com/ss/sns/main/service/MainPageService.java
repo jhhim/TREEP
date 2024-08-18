@@ -20,6 +20,10 @@ public class MainPageService {
 	public List<CityDTO> selectAllCity() {
 		return mapper.selectAllCity();
 	}
+
+	public List<CityDTO> FilterCity(String category) {
+		return mapper.FilterCity(category);
+	}
 	
 	
 }

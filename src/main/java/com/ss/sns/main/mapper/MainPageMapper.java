@@ -11,5 +11,6 @@ public interface MainPageMapper {
 
 	List<CityDTO> searchCity(String searchText);
 	List<CityDTO> selectAllCity();
+	List<CityDTO> FilterCity(String category);
 
 }

@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ss.sns.main.mapper.MainPageMapper">
-	<select id="searchCity" parameterType="string" resultType="CityDTO">
-		select * from city where city_name LIKE '%' || #{searchText} || '%'
+	<sql id="selectCity">
+		select * from city
+	</sql>
+	<select id="searchCity" parameterType="string"
+		resultType="CityDTO">
+		<include refid="selectCity" />
+		where city_name LIKE '%' || #{searchText} || '%'
 	</select>
 	<select id="selectAllCity" resultType="CityDTO">
-	select * from city
+		<include refid="selectCity" />
+	</select>
+
+	<select id="FilterCity" parameterType="String" resultType="CityDTO">
+		<include refid="selectCity" />
+		<where>
+			<if test="category == '국내'">
+				city_country = '국내'
+			</if>
+			<if test="category != '국내'">
+				city_country != '국내'
+			</if>
+		</where>
 	</select>
 </mapper>

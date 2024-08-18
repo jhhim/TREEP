@@ -28,5 +28,20 @@ public class MainPageController {
 	    }
 	    return ResponseEntity.ok(cityList);
 	}
+	@GetMapping("/filtercategory")
+	public ResponseEntity<List<CityDTO>>filterCity(@RequestParam String category){
+		List<CityDTO> cityList;
+	    if ("all".equalsIgnoreCase(category)) {
+	        category = "전체";
+	    }
+	    
+	    if("전체".equalsIgnoreCase(category)) {
+	    	cityList = service.selectAllCity();
+	    }else {
+	    	cityList = service.FilterCity(category);
+	    }
+	    return ResponseEntity.ok(cityList);
+		
+	}
 	
 }
