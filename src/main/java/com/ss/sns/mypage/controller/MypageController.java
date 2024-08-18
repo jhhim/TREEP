@@ -159,12 +159,4 @@ public class MypageController {
 	
 	
 	
-	
-	@RequestMapping("/MyLikeBoard")
-	public String MyLikeBoard() {
-		return null;
-	}
-	
-	
-	
 }
