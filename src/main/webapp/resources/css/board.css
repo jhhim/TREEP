@@ -294,7 +294,7 @@
 }
 
 /*********************** join board *******************************/
-input[type="checkbox"]{
+.modal-body input[type="checkbox"]{
 	display: none;
 }
 .locationBtnfdChk{
