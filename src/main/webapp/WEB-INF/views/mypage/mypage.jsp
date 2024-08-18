@@ -194,8 +194,8 @@
 					</thead>
 					<tbody class="table-group-divider">
 
-						<%-- 			
-					<c:forEach var="Like" items="${myPage.boardList }">
+									
+					<c:forEach var="Like" items="${myPageLike.boardList }">
 						<tr>
 							<th><input type="checkbox" name="check" value="${write.board_no }"
 								onclick="chkSelect()" /></th>
@@ -205,7 +205,7 @@
 							<td>${write.create_date }</td>
 							<td>${write.board_hit }</td>
 						</tr>
-					</c:forEach> --%>
+					</c:forEach> 
 						<!-- 	<tr>
 							<th><input type="checkbox" name="check" value="first" /></th>
 							<th scope="row">1</th>

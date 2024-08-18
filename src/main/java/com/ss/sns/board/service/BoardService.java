@@ -82,19 +82,28 @@ public class BoardService {
 		    
 	
 			MemberDTO Session = (MemberDTO)session.getAttribute("member");
-			String manager_yn = Session.getManager_yn();
+			String manager_yn = null;
 			List<BoardDTO> boardList = null;
 			
-			if(manager_yn.equals("Y")) {
-				totalCount = mapper.totalCountFreeFilterMG(countParams);
-				boardList = mapper.selectFilterFreeBoardListMG(listParams);
-
-			}else {
-				
+			if(Session == null) {
 				totalCount = mapper.totalCountFreeFilter(countParams);
 				boardList = mapper.selectFilterFreeBoardList(listParams);
-			}
+			}else {
+				
+				manager_yn = Session.getManager_yn();
+				
+				if(manager_yn.equals("Y")) {
+					totalCount = mapper.totalCountFreeFilterMG(countParams);
+					boardList = mapper.selectFilterFreeBoardListMG(listParams);
 
+				}else {
+					
+					
+				}
+
+			}
+			
+		
         BoardPage boardPage = new BoardPage(pageSize, totalCount, currentPage);
         boardPage.setBoardList(new ArrayList<>(boardList));
         return boardPage;
@@ -120,17 +129,26 @@ public class BoardService {
 		    
 		    
 			MemberDTO Session = (MemberDTO)session.getAttribute("member");
-			String manager_yn = Session.getManager_yn();
+			String manager_yn = null;
 			List<BoardDTO> boardList = null;
 			
-			if(manager_yn.equals("Y")) {
-				totalCount = mapper.totalCountJoinFilterMG(countParams);
-				boardList = mapper.selectFilterJoinBoardListMG(listParams);
-
-			}else {
+			if(Session == null) {
 				totalCount = mapper.totalCountJoinFilter(countParams);
 				boardList = mapper.selectFilterJoinBoardList(listParams);
+			}else {
+				
+				manager_yn = Session.getManager_yn();
+				
+				if(manager_yn.equals("Y")) {
+					totalCount = mapper.totalCountJoinFilterMG(countParams);
+					boardList = mapper.selectFilterJoinBoardListMG(listParams);
+
+				}else {
+					totalCount = mapper.totalCountJoinFilter(countParams);
+					boardList = mapper.selectFilterJoinBoardList(listParams);
+				}
 			}
+			
 
      BoardPage boardPage = new BoardPage(pageSize, totalCount, currentPage);
      boardPage.setBoardList(new ArrayList<>(boardList));

@@ -30,4 +30,16 @@
         WHERE m.member_no = #{memberNo}
     </select>
 
+
+<select id="selectMyLikeBoardList" parameterType="map" resultType="MyBoardDTO">
+	SELECT * FROM (SELECT ROWNUM RNUM, BM.* 
+	FROM (SELECT * FROM BOARD B
+	JOIN LIKE2 L ON (B.BOARD_NO = L.BOARD_NO)
+	JOIN MEMBER M ON (M.MEMBER_NO = L.MEMBER_NO)
+	WHERE L.MEMBER_NO = #{member_no} ORDER BY CREATE_DATE) BM )MBL
+	WHERE RNUM BETWEEN #{startNo} and #{endNo}
+</select>
+
+
+
 </mapper>

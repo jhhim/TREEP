@@ -13,7 +13,15 @@
 
 <%
 	MemberDTO dto = (MemberDTO)session.getAttribute("member");
-	int Member_No = dto.getMember_no();
+	
+	int Member_No = 0;
+	
+	if(dto == null){
+		Member_No = 0;
+	}else{
+		
+		Member_No = dto.getMember_no();
+	}
 	 request.setAttribute("Member_No", Member_No);
 %>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -29,13 +37,18 @@
 			> ${board.board_continent}
 		</div>
 		<br> <span class="post-writer">${writeMember.member_nickname }</span>
-		<span class="post-manage dropdown">
+		
+				
+	 					<c:choose>
+	 					
+	 					 	
+        		
+        						<c:when test="${Member_No eq board.member_no}">
+        						
+        	<span class="post-manage dropdown">
 			<button class="btn dropdown-toggle no-arrow" type="button"
 				data-bs-toggle="dropdown" aria-expanded="false"
 				style="font-weight: bold;">⋮</button>
-				
-	 					<c:choose>
-    					<c:when test="${Member_No eq board.member_no}">
         						
 					<ul class="dropdown-menu">
 						<!-- 게시글 신고,쪽지,수정,삭제 페이지 이동-->
@@ -46,6 +59,12 @@
 					</ul>
     					</c:when>
     					<c:when test="${Member_No eq 1000}">
+    					
+    					
+    		<span class="post-manage dropdown">
+			<button class="btn dropdown-toggle no-arrow" type="button"
+				data-bs-toggle="dropdown" aria-expanded="false"
+				style="font-weight: bold;">⋮</button>	
         						
 					<ul class="dropdown-menu">
 						<!-- 게시글 신고,쪽지,수정,삭제 페이지 이동-->
@@ -55,14 +74,32 @@
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdropDelete">삭제</a></li>
 					</ul>
     					</c:when>
+    					
+    					
+    					<c:when test="${Member_No eq 0}">
+        						
+					
+    					</c:when>
+    					
+    					
+    					
     					<c:otherwise>
-        				<ul class="dropdown-menu">
-						<!-- 게시글 신고,쪽지,수정,삭제 페이지 이동-->
+    					
+    		<span class="post-manage dropdown">
+			<button class="btn dropdown-toggle no-arrow" type="button"
+				data-bs-toggle="dropdown" aria-expanded="false"
+				style="font-weight: bold;">⋮</button>
+        						
+						<ul class="dropdown-menu">
+						<!-- 게시글 신고,쪽지 페이지 이동-->
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdropPolice">신고하기</a></li>
 						<li><a class="dropdown-item" href="#">쪽지보내기</a></li>
 						
-					</ul>
-						</c:otherwise>
+						</ul>
+    					</c:otherwise>	
+       					
+    				
+	 					
 						</c:choose>
               
 
