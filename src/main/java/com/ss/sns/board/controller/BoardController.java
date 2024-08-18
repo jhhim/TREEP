@@ -146,47 +146,7 @@ public class BoardController {
 		service.updateHit(hmap);
 		BoardDTO board = service.selectByBoardNo(hmap);
 		MemberDTO writeMember = service.selectJoinBoardMember(hmap);
-		// 이밑에만 날리면된다~~~
-		switch (board.getBoard_continent()) {
-		case "c1":
-			board.setBoard_continent("국내");
-			break;
-		case "c2":
-			board.setBoard_continent("일본");
-			break;
-		case "c3":
-			board.setBoard_continent("중국");
-			break;
-		case "c4":
-			board.setBoard_continent("아시아");
-			break;
-		case "c5":
-			board.setBoard_continent("미국");
-			break;
-		case "c6":
-			board.setBoard_continent("캐나다");
-			break;
-		case "c7":
-			board.setBoard_continent("중남미");
-			break;
-		case "c8":
-			board.setBoard_continent("유럽");
-			break;
-		case "c9":
-			board.setBoard_continent("중동");
-			break;
-		case "c10":
-			board.setBoard_continent("아프리카");
-			break;
-		case "c11":
-			board.setBoard_continent("남태평양");
-			break;
-		default:
-			board.setBoard_continent("");
-			break;
-		}
 
-		System.out.println("board넘버 : " + board.getMember_no());
 		model.addAttribute("board", board);
 		model.addAttribute("writeMember", writeMember);
 
