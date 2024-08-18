@@ -21,4 +21,5 @@ public class MyBoardDTO {
 	private int board_kind;         // 게시글 분류 1-자유게시판 2-동행게시판 3-문의게시판
 	private String board_status;    // 문의 게시판에서 게시글 상태 (답변대기,답변완료)
 	private String board_continent; // 대륙 코드
+	private String member_nickname; 
 }

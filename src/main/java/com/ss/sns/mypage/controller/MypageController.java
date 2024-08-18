@@ -30,7 +30,9 @@ public class MypageController {
 	
 	@CacheEvict
 	@RequestMapping("/mypage")
-	public String mypage(@RequestParam(value="page", defaultValue = "1") int currentPage,Model model, HttpSession session) {
+	public String mypage(@RequestParam(value="page", defaultValue = "1") int currentPage, 
+						 @RequestParam(value="page2", defaultValue = "1") int currentPage2,
+						 Model model, HttpSession session) {
 		
 		MemberDTO Session = (MemberDTO)session.getAttribute("member");
 		
@@ -56,7 +58,7 @@ public class MypageController {
 		model.addAttribute("myPage", mypage);
 		
 //		내가 좋아요 한 글
-		MypagePage mypageLike = new MypagePage(pageSize, BoardTotalCount, currentPage);
+		MypagePage mypageLike = new MypagePage(pageSize, BoardTotalCount, currentPage2);
 		Map<String, Integer> myBLmap = new HashMap<String,Integer>();
 		myBLmap.put("startNo", mypageLike.getStartNo());
 		myBLmap.put("endNo", mypageLike.getEndNo());
@@ -70,6 +72,7 @@ public class MypageController {
         model.addAttribute("trips", trips);
 		
         System.out.println("마이페이지로 가능 trips: "+trips);
+        
 		return "mypage/mypage";
 	}
 	
@@ -152,14 +155,6 @@ public class MypageController {
 		
 
 		return "board/writeboard";
-	}
-	
-	
-	
-	
-	@RequestMapping("/MyLikeBoard")
-	public String MyLikeBoard() {
-		return null;
 	}
 	
 	
