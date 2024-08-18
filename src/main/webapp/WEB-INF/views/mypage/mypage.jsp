@@ -136,7 +136,7 @@
 									value="${write.board_no }" onclick="chkSelect()" /></th>
 								<th scope="row">${write.board_no }</th>
 								<td>${write.board_type }</td>
-								<td style="width: 40%;">${write.board_title }</td>
+								<td style="width: 40%;"><a href="detailboard?kind=${write.board_type}&no=${write.board_no}" >${write.board_title }</a></td>
 								
 								<td>
 									<c:choose>
