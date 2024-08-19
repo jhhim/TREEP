@@ -9,7 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ss.sns.member.dto.MemberDTO;
 import com.ss.sns.trip.dto.TripDTO;
@@ -17,6 +20,7 @@ import com.ss.sns.trip.dto.TripDTO;
 import com.ss.sns.trip.service.TripService;
 
 @Controller
+@SessionAttributes("tripData")
 public class MakeTripController {
 		
     
@@ -28,25 +32,24 @@ public class MakeTripController {
 		return "trip/maketrip";
 	}
 	
-	@RequestMapping("/submittrip")
-    public String submittrip(@ModelAttribute TripDTO tripdto,
-    					HttpSession session
-    						) {
-	
-		// 세션에서 현재 로그인한 멤버 정보를 가져옴
-        MemberDTO loggedInMember = (MemberDTO) session.getAttribute("member");
-        
-        if (loggedInMember == null) {
-            // 만약 로그인이 안 되어 있다면 로그인 페이지로 리다이렉트
-            return "redirect:/login";
-        }
-        session.setAttribute("tripData", tripdto);
 
-    	System.out.println("TripDTO : "+tripdto);
-    	tripService.saveTrip(tripdto, loggedInMember);
-    	
-        return "redirect:/mypage";
-    }
+
+	    @PostMapping("/submittrip")
+	    @ResponseBody
+	    public String submittrip(@ModelAttribute TripDTO tripdto, HttpSession session) {
+	        MemberDTO loggedInMember = (MemberDTO) session.getAttribute("member");
+
+	        if (loggedInMember == null) {
+	            return "redirect:/login";
+	        }
+
+	        session.setAttribute("tripData", tripdto);
+	        System.out.println("TripDTO : " + tripdto);
+	        tripService.saveTrip(tripdto, loggedInMember);
+
+	        return "mypage/mypage"; // Respond with a success message or status
+	    }
+	
 
 	@RequestMapping("/editTrip")
 	public String editTrip(HttpSession session, Model model) {

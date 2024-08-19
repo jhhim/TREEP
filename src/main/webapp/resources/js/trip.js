@@ -1,13 +1,3 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Bootstrap modal instance
-    var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
-        keyboard: false
-    });
-
-    myModal.show();
-});
-
-
 
 
 // 플러스 버튼 호버 효과
@@ -161,13 +151,13 @@ function appendSmallCalendar() {
 
         + '<div class="cal_wrap" >'
         + '<div class="days">'
-        + '<div class="day">SUN</div>'
-        + '<div class="day">MON</div>'
-        + '<div class="day">TUE</div>'
-        + '<div class="day">WED</div>'
-        + '<div class="day">THU</div>'
-        + '<div class="day">FRI</div>'
-        + '<div class="day">SAT</div>'
+        + '<div class="day">일</div>'
+        + '<div class="day">월</div>'
+        + '<div class="day">화</div>'
+        + '<div class="day">수</div>'
+        + '<div class="day">목</div>'
+        + '<div class="day">금</div>'
+        + '<div class="day">토</div>'
         + '</div>'
         + '<div class="dates3"></div>'
         + '</div>'
@@ -284,8 +274,8 @@ function calendarInit() {
         // console.log(prevDate1, prevDay1, nextDate1, nextDay1);
         // console.log(prevDate2, prevDay2, nextDate2, nextDay2);
         // 현재 월 표기
-        $('.year-month1').text(currentYear1 + '.' + (currentMonth1 + 1));
-        $('.year-month2').text(currentYear2 + '.' + (currentMonth2 + 1));
+        $('.year-month1').text(currentYear1 + '년 ' + (currentMonth1 + 1) + '월');
+        $('.year-month2').text(currentYear2 + '년 ' + (currentMonth2 + 1) + '월');
 
         // 렌더링 html 요소 생성
         calendar1 = document.querySelector('.dates1')
@@ -664,7 +654,7 @@ function renderCalender3(selectMonth3) {
 
     // console.log(prevDate1, prevDay1, nextDate1, nextDay1);
     // 현재 월 표기
-    $('.year-month3 a').text(currentYear3 + '.' + (currentMonth3 + 1));
+    $('.year-month3 a').text(currentYear3 + '년 ' + (currentMonth3 + 1) + '월');
     // $('.year-month3 a').on('click',function(){
     //     selectMonth3.setMonth() = -1
     //     selectMonth4.setMonth() = -1
@@ -781,12 +771,14 @@ function renderCalender3(selectMonth3) {
     const tripStartField = document.createElement('input');
     tripStartField.type = 'hidden';
     tripStartField.name = 'trip_start';
+    tripStartField.id = 'trip_start';
     tripStartField.value = trip_start;
 
     const tripEndField = document.createElement('input');
     tripEndField.type = 'hidden';
     tripEndField.name = 'trip_end';
     tripEndField.value = trip_end;
+     tripEndField.id = 'trip_end';
   submitform.appendChild(tripStartField);
         submitform.appendChild(tripEndField);
 
@@ -1438,6 +1430,95 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Set D-Day value
         dDayElement.textContent = `D-${daysDiff}`;
+    });
+});
+
+function getFormState() {
+    var formData = $("#submittrip").serializeArray();
+    var formObject = {};
+
+    $.each(formData, function(index, field) {
+        formObject[field.name] = field.value;
+    });
+
+    return JSON.stringify(formObject);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // URL에서 쿼리 파라미터를 추출하는 함수
+    function getQueryParams() {
+        var params = {};
+        var queryString = window.location.search.substring(1); // '?' 제거
+        if (queryString) {
+            var queryArray = queryString.split("&");
+            queryArray.forEach(function(param) {
+                var pair = param.split("=");
+                var key = decodeURIComponent(pair[0]);
+                var value = pair.length > 1 ? decodeURIComponent(pair[1]) : '';
+                params[key] = value;
+            });
+        }
+        return params;
+    }
+
+    function getFormState() {
+        var formData = {};
+        $("input, textarea, select").each(function() {
+            if (this.name) {
+                formData[this.name] = $(this).val();
+            }
+        });
+        return formData;
+    }
+
+    function saveStateToURL() {
+        var formState = getFormState();
+        var encodedState = encodeURIComponent(JSON.stringify(formState));
+        var newUrl = window.location.pathname + '?formState=' + encodedState + '&showModal=false';
+        history.replaceState(null, '', newUrl);
+        console.log('Updated URL:', window.location.href);
+    }
+
+    function restoreFormState() {
+        var params = getQueryParams();
+        var formState = params['formState'];
+        var showModal = params['showModal'];
+
+        if (formState) {
+            var decodedState = decodeURIComponent(formState);
+            var stateObject = JSON.parse(decodedState);
+
+            for (var key in stateObject) {
+                if (stateObject.hasOwnProperty(key)) {
+                    var input = $("input[name='" + key + "'], textarea[name='" + key + "'], select[name='" + key + "']");
+                    if (input.length > 0) {
+                        input.val(stateObject[key]);
+                    }
+                }
+            }
+        }
+
+        // 모달 표시 여부 제어
+        if (showModal === undefined || showModal === '' || showModal === 'true') {
+            var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
+                keyboard: false
+            });
+            myModal.show();
+        } else {
+            var modalElement = document.getElementById('staticBackdrop');
+            if (modalElement) {
+                modalElement.style.display = 'none'; // 모달 숨기기
+            }
+        }
+    }
+
+    // 페이지 로드 시 상태 복원
+    restoreFormState();
+
+    // 제출 버튼 클릭 시 상태를 URL에 저장
+    $("#final-submit").click(function() {
+        console.log("제출버튼 클릭");
+        saveStateToURL();
     });
 });
 
