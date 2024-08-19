@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Bootstrap modal instance
+    var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
+        keyboard: false
+    });
+    
+    myModal.show();
+});
 
 
 // 플러스 버튼 호버 효과
@@ -1433,92 +1441,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-function getFormState() {
-    var formData = $("#submittrip").serializeArray();
-    var formObject = {};
-
-    $.each(formData, function(index, field) {
-        formObject[field.name] = field.value;
-    });
-
-    return JSON.stringify(formObject);
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    // URL에서 쿼리 파라미터를 추출하는 함수
-    function getQueryParams() {
-        var params = {};
-        var queryString = window.location.search.substring(1); // '?' 제거
-        if (queryString) {
-            var queryArray = queryString.split("&");
-            queryArray.forEach(function(param) {
-                var pair = param.split("=");
-                var key = decodeURIComponent(pair[0]);
-                var value = pair.length > 1 ? decodeURIComponent(pair[1]) : '';
-                params[key] = value;
-            });
-        }
-        return params;
-    }
-
-    function getFormState() {
-        var formData = {};
-        $("input, textarea, select").each(function() {
-            if (this.name) {
-                formData[this.name] = $(this).val();
-            }
-        });
-        return formData;
-    }
-
-    function saveStateToURL() {
-        var formState = getFormState();
-        var encodedState = encodeURIComponent(JSON.stringify(formState));
-        var newUrl = window.location.pathname + '?formState=' + encodedState + '&showModal=false';
-        history.replaceState(null, '', newUrl);
-        console.log('Updated URL:', window.location.href);
-    }
-
-    function restoreFormState() {
-        var params = getQueryParams();
-        var formState = params['formState'];
-        var showModal = params['showModal'];
-
-        if (formState) {
-            var decodedState = decodeURIComponent(formState);
-            var stateObject = JSON.parse(decodedState);
-
-            for (var key in stateObject) {
-                if (stateObject.hasOwnProperty(key)) {
-                    var input = $("input[name='" + key + "'], textarea[name='" + key + "'], select[name='" + key + "']");
-                    if (input.length > 0) {
-                        input.val(stateObject[key]);
-                    }
-                }
-            }
-        }
-
-        // 모달 표시 여부 제어
-        if (showModal === undefined || showModal === '' || showModal === 'true') {
-            var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
-                keyboard: false
-            });
-            myModal.show();
-        } else {
-            var modalElement = document.getElementById('staticBackdrop');
-            if (modalElement) {
-                modalElement.style.display = 'none'; // 모달 숨기기
-            }
-        }
-    }
-
-    // 페이지 로드 시 상태 복원
-    restoreFormState();
-
-    // 제출 버튼 클릭 시 상태를 URL에 저장
-    $("#final-submit").click(function() {
-        console.log("제출버튼 클릭");
-        saveStateToURL();
-    });
-});
 

@@ -131,7 +131,7 @@
             </div>
     
             <div class="write_content">
-                <textarea placeholder="내용을 입력해 주세요." id="write-text-container" name="write-text-container"
+                <textarea placeholder="내용을 입력해 주세요." id="write-text-container"
                     class="form-control" name="content"></textarea>
             </div>
     
