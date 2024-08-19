@@ -16,9 +16,9 @@ public interface BoardMapper {
 
 	public int countBoard(int board_kind);
 	public ArrayList<BoardDTO> selectBoardList(Map<String, Integer> hmap);
-	public BoardDTO selectByBoardNo(Map<String, Integer> hmap);
-	public MemberDTO selectJoinBoardMember(Map<String, Integer> hmap);
-	public void updateHit(Map<String, Integer> hmap);
+	public BoardDTO selectByBoardNo(int board_no);
+	public MemberDTO selectJoinBoardMember(int board_no);
+	public void updateHit(int board_no);
 	public void insertReply(ReplyDTO insertReply);
 	public ArrayList<ReplyDTO> selectReply(int board_no);
 	public ArrayList<ReplyDTO> selectReReply(int reply_no);
@@ -37,5 +37,7 @@ public interface BoardMapper {
 	public int totalCountFreeFilterMG(Map<String, Object> countParams);
 	public int totalCountJoinFilterMG(Map<String, Object> countParams);
 	public void insertBoard(Map<String, Object> hmap);
+	public void updateBoard(Map<String, Object> hmap);
+
 
 }

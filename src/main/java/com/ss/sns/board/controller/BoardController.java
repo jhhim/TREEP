@@ -142,14 +142,12 @@ public class BoardController {
 	}
 
 	@RequestMapping("/detailboard")
-	public String detailboard(int kind, int no, Model model) {
+	public String detailboard(int no, Model model) {
 
-		Map<String, Integer> hmap = new HashMap<String, Integer>();
-		hmap.put("board_kind", kind);
-		hmap.put("board_no", no);
-		service.updateHit(hmap);
-		BoardDTO board = service.selectByBoardNo(hmap);
-		MemberDTO writeMember = service.selectJoinBoardMember(hmap);
+		
+		service.updateHit(no);
+		BoardDTO board = service.selectByBoardNo(no);
+		MemberDTO writeMember = service.selectJoinBoardMember(no);
 
 		model.addAttribute("board", board);
 		model.addAttribute("writeMember", writeMember);
@@ -255,17 +253,7 @@ public class BoardController {
 	            e.printStackTrace();
 	        }
 	    }
-	    
-	    System.out.println("board_kind"+board_kind);
-	    System.out.println("member_no"+member_no);
-	    System.out.println("board_type"+freeCategory);
-	    System.out.println("board_title"+title);
-	    System.out.println("board_content"+content);
-	    System.out.println("board_img"+fileReadName);
-	    System.out.println("board_content"+joinCategory);
-	    
-	    
-	    
+	       
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("board_kind", board_kind);
 		hmap.put("member_no", member_no);
@@ -274,9 +262,60 @@ public class BoardController {
 		hmap.put("board_content", content);
 		hmap.put("board_img", fileReadName);
 		hmap.put("board_continent", joinCategory);
-		
 		service.insertBoard(hmap);
-		return "redirect:" + (board_kind == 1 ? "/freeboard" : "/joinboard");
+		return "redirect:" + (board_kind == 2 ? "/joinboard" : "/freeboard");
 	}
+	@GetMapping("/updateboard")
+	public String updateboard(int no, Model model) {
 
+		BoardDTO board = service.selectByBoardNo(no);
+		model.addAttribute("board", board);
+		return "board/updateboard";
+	}
+	@PostMapping("/updateboard")
+	public String updateBoard(int no,@RequestParam("board") String board,
+			@RequestParam(value = "free-category", required = false) String freeCategory,
+			@RequestParam(value = "join-category", required = false) String joinCategory,		
+			@RequestParam("write_title") String title, @RequestParam("content") String content,
+			@RequestParam(value = "files", required = false) MultipartFile file, HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		int member_no = member.getMember_no();
+		int board_kind = "free".equals(board) ? 1 : 2;
+		String fileReadName = null;
+		
+	    if (file != null && !file.isEmpty()) {
+
+	        String originalFilename = file.getOriginalFilename();
+	        String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+	        String newFilename = UUID.randomUUID().toString() + extension;
+
+	        String uploadFolder = context.getRealPath("/resources/img/board");
+	        File uploadDir = new File(uploadFolder);
+	        if (!uploadDir.exists()) {
+	            uploadDir.mkdirs();
+	        }
+	        File saveFile = new File(uploadFolder + File.separator + newFilename);
+
+	        try {
+	            file.transferTo(saveFile);
+	            fileReadName = newFilename;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("board_kind", board_kind);
+		hmap.put("member_no", member_no);
+		hmap.put("board_type", freeCategory);
+		hmap.put("board_title", title);
+		hmap.put("board_content", content);
+		hmap.put("board_img", fileReadName);
+		hmap.put("board_continent", joinCategory);
+		hmap.put("board_no", no);
+		service.updateBoard(hmap);
+
+		
+		
+		return "redirect:detailboard?no="+no;
+	}
 }

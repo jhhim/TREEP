@@ -31,23 +31,21 @@
 		where rNum between #{startNo} and #{endNo}
 	</select>
 	<!-- 보드 종류, 보드 번호로 보드 1개 불러오기 -->
-	<select id="selectByBoardNo" parameterType="map"
+	<select id="selectByBoardNo" parameterType="int"
 		resultType="BoardDTO">
 		<include refid="selectAllBoard" />
-		where BOARD_KIND= #{board_kind} and board_no= #{board_no}
+		where board_no= #{board_no}
 	</select>
 	<!-- 보드 번호로 조인해서 보드 작성한 멤버 가져오기 -->
-	<select id="selectJoinBoardMember" parameterType="map"
+	<select id="selectJoinBoardMember" parameterType="int"
 		resultType="MemberDTO">
 		SELECT m.* FROM board b JOIN member m ON b.member_no =
-		m.member_no WHERE b.BOARD_KIND = #{board_kind} AND b.board_no =
-		#{board_no}
+		m.member_no WHERE b.board_no = #{board_no}
 	</select>
 	<!-- 보드 조회수 up -->
-	<update id="updateHit" parameterType="map">
+	<update id="updateHit" parameterType="int">
 		update board set board_hit
-		= board_hit+1 where board_kind = #{board_kind}
-		and board_no=#{board_no}
+		= board_hit+1 where board_no=#{board_no}
 	</update>
 	<sql id="sortOrder">
     <choose>
@@ -196,6 +194,26 @@
 		</otherwise>
 	 </choose>
 	</insert>
+
+<!-- ******************************** 보드 업데이트 ********************************* -->
+	<update id="updateBoard" parameterType="map">
+		<choose>
+			<when test="board_kind == 1">
+				UPDATE BOARD SET BOARD_TITLE = #{board_title},BOARD_TYPE=#{board_type},
+				BOARD_CONTENT = #{board_content},BOARD_IMG = #{board_img},BOARD_KIND=#{board_kind}
+				WHERE BOARD_NO = #{board_no}
+			</when>
+	<otherwise>
+		UPDATE BOARD SET BOARD_TITLE = #{board_title},BOARD_CONTENT = #{board_content},
+		BOARD_IMG = #{board_img},BOARD_KIND = #{board_kind},BOARD_CONTINENT = #{board_continent}
+		WHERE BOARD_NO = #{board_no}
+	</otherwise>
+
+		</choose>
+	</update>
+
+
+
 
 
 <!-- ********************************************* 매니저 필터 ************************************************* -->
