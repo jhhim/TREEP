@@ -119,8 +119,7 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th scope="col"><input type="checkbox" name="allcheck"
-								value="all" onclick="allCheck()" /></th>
+					
 							<th scope="col">글번호</th>
 							<th scope="col">게시판</th>
 							<th scope="col">제목</th>
@@ -132,11 +131,10 @@
 
 					<c:forEach var="write" items="${myPage.boardList }">
 							<tr>
-								<th><input type="checkbox" name="check"
-									value="${write.board_no }" onclick="chkSelect()" /></th>
+								
 								<th scope="row">${write.board_no }</th>
 								<td>${write.board_type }</td>
-								<td style="width: 40%;"><a href="detailboard?kind=${write.board_type}&no=${write.board_no}" >${write.board_title }</a></td>
+								<td style="width: 40%;"><a href="detailboard?kind=${write.board_kind}&no=${write.board_no}" >${write.board_title }</a></td>
 								
 								<td>
 									<c:choose>
@@ -160,7 +158,7 @@
 				</table>
 				<div class="activity-manage">
 					<a href="${path}/writeboard"><button type="button" class="btn" id="mypage-write">글쓰기</button></a>
-					<button type="button" class="btn" id="write-delete">삭제</button>
+					
 				</div>
 
 
@@ -206,8 +204,7 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th scope="col"><input type="checkbox" name="allcheck"
-								value="all" /></th>
+							
 							<th scope="col">글번호</th>
 							<th scope="col">게시판</th>
 							<th scope="col">작성자</th>
@@ -221,12 +218,11 @@
 									
 					<c:forEach var="Like" items="${myPageLike.boardList }">
 						<tr>
-							<th><input type="checkbox" name="check" value="${Like.board_no }"
-								onclick="chkSelect()" /></th>
+							
 							<th scope="row">${Like.board_no }</th>
 							<td>${Like.board_type }</td>
 							<td>${Like.member_nickname }</td>
-							<td style="width: 40%;">${Like.board_title }</td>
+							<td style="width: 40%;"><a href="detailboard?kind=${Like.board_kind}&no=${Like.board_no}" >${Like.board_title }</a></td>
 							<td>
 									<c:choose>
 										<c:when
@@ -248,7 +244,7 @@
 				</table>
 				<div class="activity-manage">
 					<a href="${path}/writeboard"><button type="button" class="btn" id="mypage-write">글쓰기</button></a>
-					<button type="button" class="btn" id="write-delete">삭제</button>
+				
 				</div>
 				
 				<nav aria-label="Page navigation example">
