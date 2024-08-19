@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -156,6 +157,14 @@ public class MypageController {
 
 		return "board/writeboard";
 	}
+	
+	@GetMapping("/tripDetail")
+    public String getTripDetail(@RequestParam("trip_no") int tripNo, Model model) {
+        TripDTO trip = service.getTripDetails(tripNo);
+        model.addAttribute("trip", trip);
+        System.out.println("getTrip컨트로로");
+        return "mypage/tripDetail";  
+    }
 	
 	
 	

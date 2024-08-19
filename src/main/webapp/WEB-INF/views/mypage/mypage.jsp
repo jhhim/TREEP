@@ -79,7 +79,8 @@ const MypageBasePath = "${path}";
 									class="schedule-manage dropdown">
 									<button class="btn dropdown-toggle no-arrow" type="button"
 										data-bs-toggle="dropdown" aria-expanded="false">⋮</button>
-									<ul class="dropdown-menu">
+									<ul class="dropdown-menu">									
+										<li><a class="dropdown-item" href="tripDetail?trip_no=${trip.trip_no}">상세보기</a></li>
 										<li><a class="dropdown-item" href="#">공유</a></li>
 										<li><a class="dropdown-item" href="#">수정</a></li>
 										<li><a class="dropdown-item" href="#">삭제</a></li>
