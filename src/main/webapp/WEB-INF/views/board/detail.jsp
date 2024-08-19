@@ -8,6 +8,43 @@
 	const boardNo = "${board.board_no}";
 	const memberNo = "${sessionScope.member.member_no}";
 	const basePath = "${path}";
+	document.addEventListener('DOMContentLoaded', function() {
+	    // Kakao 객체가 존재하는지 확인
+	    if (typeof Kakao !== 'undefined') {
+	        console.log('Kakao SDK가 로드되었습니다.');
+	        Kakao.init('f5be83671ab1fd039f403cdb875c42a3');  // 여기에 실제 앱 키를 입력하세요
+	    } else {
+	        console.error('Kakao SDK가 로드되지 않았습니다.');
+	    }
+	});
+
+	    /*<![CDATA[*/
+	  function sendLinkDefaultBoard() {
+	    Kakao.Link.sendDefault({
+	    	
+	      objectType: 'feed',
+	      content: {
+	        title: '${board.board_title}',
+	        description: 'TREEP과 함께 여행을 시작해보세요!',
+	        imageUrl:
+	          'https://ibb.co/pJHk10N',
+	        link: {
+	            mobileWebUrl: 'http://localhost:8080/sns/detailboard?kind=1&no=${board.board_no}',
+	            webUrl: 'http://localhost:8080/sns/detailboard?kind=1&no=${board.board_no}',
+	        },
+	      },
+	      buttons: [
+	        {
+	          title: '웹으로 보기',
+	          link: {
+	            mobileWebUrl: 'http://localhost:8080/sns/detailboard?kind=1&no=${board.board_no}',
+	            webUrl: 'http://localhost:8080/sns/detailboard?kind=1&no=${board.board_no}',
+	          },
+	        },
+	      ],
+	    })
+	  };
+	window.kakaoDemoCallback && window.kakaoDemoCallback();
 </script>
 
 <%
@@ -231,7 +268,7 @@ request.setAttribute("Member_No", Member_No);
 				id="like"> <span>${board.board_like } </span> <i
 				class="fa-regular fa-message"></i><span class="reply-count"></span>
 			<span class="sns-container"> <span class="social"> <!-- <span class="share-text">공유하기</span> -->
-					<span class="social-links"> <!-- sns 공유 --> <a href="#"><img
+					<span class="social-links"> <!-- sns 공유 --> <a href="javascript:sendLinkDefaultBoard();"><img
 							src="${path}/resources/img/detailboard/kakao.png" class="sns_img"
 							alt="kakao"></a> <a href="#"><img
 							src="${path}/resources/img/detailboard/naver.png" class="sns_img"
