@@ -1,6 +1,7 @@
 package com.ss.sns.board.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ss.sns.board.dto.BoardDTO;
 import com.ss.sns.board.dto.BoardPage;
+import com.ss.sns.board.dto.ReplyDTO;
 import com.ss.sns.board.service.BoardService;
 import com.ss.sns.member.dto.MemberDTO;
 
@@ -137,9 +139,32 @@ public class BoardController {
 		hmap.put("endNo", boardPage.getEndNo());
 		hmap.put("board_kind", board_kind);
 		boardPage.setBoardList(service.selectBoardList(hmap));
-		model.addAttribute("boardPage", boardPage);
-		return "board/askboard";
+		
+		List<Integer> boardNo = new ArrayList<>();
+	    for (BoardDTO board : boardPage.getBoardList()) {
+	        boardNo.add(board.getBoard_no());
+	    }
+
+	    List<ReplyDTO> replyList = service.selectReplyList(boardNo);
+
+	    Map<Integer, List<ReplyDTO>> boardReplyMap = new HashMap<>();
+	    for (ReplyDTO reply : replyList) {
+	        Integer board_no = reply.getBoard_no();
+	        List<ReplyDTO> repliesForBoard = boardReplyMap.get(board_no);
+	        if (repliesForBoard == null) {
+	            repliesForBoard = new ArrayList<>();
+	            boardReplyMap.put(board_no, repliesForBoard);
+	        }
+	        repliesForBoard.add(reply);
+	    }
+
+	    model.addAttribute("boardPage", boardPage);
+	    model.addAttribute("boardReplyMap", boardReplyMap);
+
+	    return "board/askboard";
 	}
+		
+		
 
 	@RequestMapping("/detailboard")
 	public String detailboard(int no, Model model) {

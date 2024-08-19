@@ -177,6 +177,10 @@ public class BoardService {
 		mapper.updateBoard(hmap);		
 	}
 
+	public List<ReplyDTO> selectReplyList(List<Integer> boardNo) {
+		return mapper.selectReplyList(boardNo);
+	}
+
 
 }
 	

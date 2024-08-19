@@ -104,40 +104,45 @@
 	<div class="table-container">
 
 		<table class="table">
+            <tbody class="table-group-divider asktable" style="border-top-color: #264653">
+                <c:forEach var="board" items="${boardPage.boardList}">
+                    <tr>
+                        <th scope="row" style="width: 80px; vertical-align: top;">
+                            <p class="ask">문의</p>
+                        </th>
+                        <td class="askText" style="vertical-align: middle;">
+                            제목 : ${board.board_title}<br>${board.board_content}
+                        </td>
+                        <c:choose>
+                            <c:when test="${sessionScope.member.manager_yn eq 'Y'}">
+                                <td style="text-align: right;">
+                                    <input type="button" value="삭제" class="btn btn-danger" onclick="deleteWrite(${board.board_no})">
+                                    <br><br>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#answerAsk">답변</button>
+                                </td>
+                            </c:when>
+                        </c:choose>
+                    </tr>
+                    
 
-			<tbody class="table-group-divider asktable"
-				style="border-top-color: #264653">
-				<c:forEach var="board" items="${boardPage.boardList}">
-				<tr>
-					<th scope="row"
-						style="width: 80px; vertical-align: top; align-items: center;">
-						<p class="ask">문의</p>
-					</th>
-					<td class="askText" style="vertical-align: middle;">제목 : ${board.board_title }<br> ${board.board_content }
-					</td>
-					<td style="text-align: right;"><input type="button" value="삭제"
-						class="btn btn-danger" onclick="deleteWrite()"><br>
-					<br>
-						<button type="button" class="btn btn-primary"
-							data-bs-toggle="modal" data-bs-target="#answerAsk">답변</button></td>
-				</tr>
-				<tr>
-					<th scope="row"
-						style="width: 80px; vertical-align: top; position: relative;">
-						<i class="fa-solid fa-arrow-turn-up arrow"></i>
-						<div class="answer"
-							style="background: #e76f51; width: 40px; height: 20px; text-align: center;">
-							<p style="position: relative; right: 2px;">&nbsp;답변</p>
-						</div>
-					</th>
-					<!-- 댓글로 널아니면 보이게 -->
-					<td colspan="2">
-						<p></p>
-					</td>
-				</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+                    <c:if test="${boardReplyMap[board.board_no] != null}">
+                        <c:forEach var="reply" items="${boardReplyMap[board.board_no]}">
+                            <tr>
+                                <th scope="row" style="width: 80px; vertical-align: top;">
+                                    <i class="fa-solid fa-arrow-turn-up arrow"></i>
+                                    <div class="answer" style="background: #e76f51; width: 40px; height: 20px; text-align: center;">
+                                        <p style="position: relative; right: 2px;">답변</p>
+                                    </div>
+                                </th>
+                                <td colspan="2">
+                                    <p>${reply.reply_content}</p>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
+                </c:forEach>
+            </tbody>
+        </table>
 
 		<div class="pagenation-container">
 			<div class="pagenation">

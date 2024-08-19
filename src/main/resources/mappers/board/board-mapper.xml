@@ -44,6 +44,19 @@
 		SELECT m.* FROM board b JOIN member m ON b.member_no =
 		m.member_no WHERE b.board_no = #{board_no}
 	</select>
+	
+	
+	<!-- ask 보드 답변 -->
+
+<select id="selectReplyList" parameterType="list" resultType="ReplyDTO">
+    SELECT * 
+    FROM REPLY 
+    WHERE BOARD_NO IN
+    <foreach item="boardNo" index="index" collection="list" open="(" close=")" separator=",">
+        #{boardNo}
+    </foreach>
+</select>
+	
 	<!-- 보드 조회수 up -->
 	<update id="updateHit" parameterType="int">
 		update board set board_hit

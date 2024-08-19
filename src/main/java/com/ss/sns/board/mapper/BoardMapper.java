@@ -38,6 +38,7 @@ public interface BoardMapper {
 	public int totalCountJoinFilterMG(Map<String, Object> countParams);
 	public void insertBoard(Map<String, Object> hmap);
 	public void updateBoard(Map<String, Object> hmap);
+	public List<ReplyDTO> selectReplyList(List<Integer> boardNo);
 
 
 }
