@@ -869,6 +869,9 @@
 #free-category-select {
     display: none;
 }
+#category-select {
+    display: none;
+}
 
 /*  게시판,카테고리 선택 박스 */
 #board-select,

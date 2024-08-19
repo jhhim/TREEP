@@ -537,10 +537,12 @@ document.getElementById('board-select').addEventListener('change', function (eve
     var selected = document.getElementById('board-select').value
     console.log(selected);
     if (selected == "free") {
+        document.getElementById('category-select').style.display = "none";
         document.getElementById('free-category-select').style.display = "inline";
     }
     else {
         document.getElementById('free-category-select').style.display = "none";
+        document.getElementById('category-select').style.display = "inline";
     }
 });
 

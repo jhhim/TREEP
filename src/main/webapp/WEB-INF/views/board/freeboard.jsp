@@ -33,8 +33,9 @@ pageContext.setAttribute("today", today.toString());
 	<div class="title-container">
 		<h1 class="title">자유게시판</h1>
 	</div>
-
+	
 	<div class="filter-container">
+		<button type="button" onclick="location.href='writeboard'">글 쓰기</button>
 		<button type="button" class="btn filterBtn" data-bs-toggle="modal"
 			data-bs-target="#filter">
 			<img src="${path}/resources/img/board/filter.png" class="filterImg"
