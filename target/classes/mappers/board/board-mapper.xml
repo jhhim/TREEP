@@ -182,7 +182,7 @@
 <!-- ******************************** 보드 인서트 ********************************* -->
 	<insert id="insertBoard" parameterType="map">
 	 <choose>
-		<when test="board_continent == null">
+		<when test="board_kind == 1">
 			INSERT INTO BOARD(MEMBER_NO,BOARD_TYPE,CREATE_DATE,BOARD_TITLE,BOARD_CONTENT,BOARD_IMG,
 			BOARD_HIT,BOARD_LIKE,BOARD_KIND,BOARD_STATUS) VALUES (
 			#{member_no}, #{board_type},SYSDATE,#{board_title},#{board_content},#{board_img},
