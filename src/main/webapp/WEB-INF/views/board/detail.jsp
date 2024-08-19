@@ -55,9 +55,9 @@ request.setAttribute("Member_No", Member_No);
 					</ul>
 			</c:when>
 			<c:when test="${Member_No eq 0}">
-                          
-               
-            </c:when>
+
+
+			</c:when>
 			<c:otherwise>
 
 				<span class="post-manage dropdown">
@@ -95,8 +95,7 @@ request.setAttribute("Member_No", Member_No);
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						신고하시겠습니까?<br>
-						<br> 허위신고시 불이익이 발생할 수 있습니다.
+						신고하시겠습니까?<br> <br> 허위신고시 불이익이 발생할 수 있습니다.
 
 					</div>
 					<div class="modal-footer">
@@ -217,10 +216,12 @@ request.setAttribute("Member_No", Member_No);
 		</div>
 		<br>
 		<div class="post-content">
-			<div class="img">
-				<img src="${path}/resources/img/board/${board.board_img }"
-					class="post-content-img" alt="...">
-			</div>
+			<c:if test="${not empty board.board_img}">
+				<div class="img">
+					<img src="${path}/resources/img/board/${board.board_img}"
+						class="post-content-img" alt="...">
+				</div>
+			</c:if>
 			<br>
 			<div class="text">${board.board_content}</div>
 		</div>

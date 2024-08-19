@@ -97,8 +97,8 @@ public class BoardService {
 					boardList = mapper.selectFilterFreeBoardListMG(listParams);
 
 				}else {
-					
-					
+					totalCount = mapper.totalCountFreeFilter(countParams);
+					boardList = mapper.selectFilterFreeBoardList(listParams);
 				}
 
 			}
@@ -165,6 +165,11 @@ public class BoardService {
 
 	public void boardDelete(Map<String, Object> deleteMap) {
 		mapper.boardDelete(deleteMap);
+	}
+
+	public void insertBoard(Map<String, Object> hmap) {
+		mapper.insertBoard(hmap);
+		
 	}
 }
 	
