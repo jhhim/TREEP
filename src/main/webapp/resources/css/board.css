@@ -848,32 +848,34 @@
 }
 
 /********************************** insert board ****************************************/
-
-#write_title,
-#write-text-container,
-#write-input-img {
+.form-control[name="write_title"] ,
+.form-control[name="write-text-container"],
+.form-control[name="files"] {
     border: solid 1px #e0e0e0;
     border-radius: 5pxx;
 }
 
-#write_title:focus,
-#write-text-container:focus,
-#write-input-img:focus {
+.form-control[name="write_title"]:focus,
+.form-control[name="write-text-container"]:focus,
+.form-control[name="files"]:focus {
     box-shadow: #caf7b6 0px 0px 0px 2px;
     border: solid 1px #caf7b6;
 }
-#writeboard-container{
+.container-md[name="write-container"]{
 	margin-top:80px;
 }
 
-#free-category-select {
+.free-category-select {
+    display: none;
+}
+.category-select {
     display: none;
 }
 
 /*  게시판,카테고리 선택 박스 */
-#board-select,
-#category-select,
-#free-category-select {
+.board-select,
+.category-select,
+.free-category-select {
     font-size: 1.1rem;
     width: 30%;
     height: 2.5rem;
@@ -881,7 +883,7 @@
 }
 
 /* 파일첨부 + 여행일정 */
-#upload-container {
+.input-group[name="upload-container"]{
     display: flex;
     align-items: center;
 
@@ -892,7 +894,7 @@
     transition: flex-grow 0.5s ease; 
 }
 
-#open-WriteOffcanvas {
+.btn[name="open-WriteOffcanvas"]{
     margin-left: 10px;
     width: 38px; 
     height: 38px; 
@@ -920,23 +922,23 @@
     bottom: 12.2px;
 }
 
-#open-WriteOffcanvas:hover {
+.btn[name="open-WriteOffcanvas"]:hover {
     width: 110px; 
     background-color: #7FD858;
     color: white;
 }
 
-#open-WriteOffcanvas:hover .trip-upload-icon {
+.btn[name="open-WriteOffcanvas"]:hover .trip-upload-icon {
     opacity: 0; 
 }
 
-#open-WriteOffcanvas:hover .trip-upload-text {
+.btn[name="open-WriteOffcanvas"]:hover .trip-upload-text {
     opacity: 1; 
     transform: translateX(-33px); 
 }
 
 
-#open-WriteOffcanvas:hover ~ .write-input-img {
+.btn[name="open-WriteOffcanvas"]:hover ~ .write-input-img {
     flex-grow: 0.7; 
 }
 
@@ -977,7 +979,7 @@
     margin-bottom: 35px;
 }
 
-#close-WriteOffcanvas {
+.btn-close[name="close-WriteOffcanvas"] {
     margin-top: 10px;
 }
 
@@ -995,7 +997,7 @@
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
     /* 글쓰기 첨부 여행일정 사진 */
-#upload-place-img {
+.upload-place-img {
     position: absolute;
     top: 0;
     left: 0;
@@ -1014,7 +1016,7 @@
   margin-top: 13px;
 }
 /* 글쓰기 첨부 여행일정 작성자 등급 */
-#share-writepro{
+.share-writepro{
   margin-bottom: 4px;
   margin-left: -4px;
   width: 22px;
@@ -1024,7 +1026,7 @@
 
   margin-top: 5px;
 }
-.col-8 div #writer-name{
+.col-8 div .writer-name-in{
   color: gray;
 }
 
@@ -1050,29 +1052,29 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border: 1px solid #7FD858;
 }
-#tripDetailContent{
+.container-md[name="tripDetailContent"]{
     margin-bottom: 50px;
 }
 
 /* 글쓰기 컨테이너 */
-#write-text-container {
+.form-control[name="write-text-container"] {
     width: 100%;
     height: 20rem;
 }
 
 /* 제출버튼 */
 
-#post-submit {
+.btn[name="post-submit"] {
     float: right;
     border: 1px solid #7FD858;
 }
 
-#post-submit:hover {
+.btn[name="post-submit"]:hover {
     background-color: #7FD858;
     color: white;
 }
 
-#tripDetailDisplayContainer {
+.tripDetailDisplayContainer {
     padding: 10px;
     border: 3px solid #7FD858;
     margin-bottom: 15px;
@@ -1114,14 +1116,11 @@
     padding: 5px;
 
 }
-#WriteSelectRemoveBtn{
-    float: right;
-}
+
 .remove-select-item-btn:hover {
     background-color: #7FD858;
     color: white;
 }
-
 
 
 
