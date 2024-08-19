@@ -20,17 +20,14 @@ function loadArticles(filter) {
         data: { category: filter },
         dataType: 'json',
         success: function(data) {
-            console.log('Loaded data:', data); // 데이터 확인
+            console.log('Loaded data:', data);
 
-            // 슬릭 슬라이더 제거
             if ($('.responsive').hasClass('slick-initialized')) {
-                $('.responsive').slick('unslick'); // 기존 슬릭 제거
+                $('.responsive').slick('unslick');
             }
 
-            // 카드 내용 비우기
             $('.card-wrap').empty();
 
-            // 데이터가 없는 경우 처리
             if (data.length === 0) {
                 $('.card-wrap').html('<h2>도시가 존재하지 않습니다.</h2>');
                 $('.recommend-prev-btn').hide();
@@ -38,10 +35,9 @@ function loadArticles(filter) {
                 return;
             }
 
-            // 카드 생성
             data.forEach(function(article) {
                 var card = '<article class="main-card">' +
-                    '<a href="#">' + 
+                     '<a href="#" class="card-link" data-bs-toggle="modal" data-bs-target="#detail-modal" data-city=\'' + JSON.stringify(article) + '\'>' +
                         '<img src="' + basePath + '/resources/img/city/' + article.city_img + '" alt="' + article.city_name + '">' +
                         '<div class="main-card-content">' +
                             '<h3>' + article.city_name + '</h3>' +
@@ -52,7 +48,15 @@ function loadArticles(filter) {
 
                 $('.card-wrap').append(card);
             });
+ $('.card-link').on('click', function() {
+                var article = $(this).data('city');
+                
 
+                $('#modal-city-name').text(article.city_name);
+                $('#modal-city-info').text(article.city_info || '정보 없음');
+                $('#modal-city-country').text(article.city_country);
+                $('#modal-city-image').attr('src', `${basePath}/resources/img/city/${article.city_img}`);
+            });
             // 슬릭 슬라이더 초기화
             $('.responsive').slick({
                 infinite: false,
@@ -88,7 +92,6 @@ function loadArticles(filter) {
               .on('beforeChange', updateNavButtons)
               .on('afterChange', updateNavButtons);
 
-            // 슬릭 슬라이더 버튼 기능 재설정
             $('.recommend-prev-btn').off('click').on('click', function () {
                 $('.responsive').slick('slickPrev');
             });
@@ -96,7 +99,6 @@ function loadArticles(filter) {
                 $('.responsive').slick('slickNext');
             });
 
-            // 슬릭 슬라이더 버튼 보이기/숨기기 기능
             function updateNavButtons() {
                 var slick = $('.responsive').slick('getSlick');
                 var currentSlide = slick.currentSlide;
@@ -116,7 +118,6 @@ function loadArticles(filter) {
                 }
             }
 
-            // 초기 상태 설정
             updateNavButtons();
         },
         error: function(error) {
@@ -125,7 +126,6 @@ function loadArticles(filter) {
     });
 }
 
-// 페이지 로드 시 초기화
 loadArticles('all');
 
 $('.place-category').on('click', function () {

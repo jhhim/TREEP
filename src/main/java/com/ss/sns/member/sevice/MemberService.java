@@ -191,6 +191,7 @@ public class MemberService {
 	}
 	public void getkakaofirends(String token) {
 		JSONObject resultObj;
+		
 		System.out.println("getkakaofirends()");
 		String host = "https://kapi.kakao.com/v1/api/talk/friends";
 		try {
@@ -482,10 +483,14 @@ public void kakaoSignup(MemberDTO member) {
 		membermapper.googleSignup(member);
 		
 	}
-	private static String extractIdFromResourceName(String resourceName) {
-        // resourceName은 "people/102154258379430784130" 형식입니다.
-        // "/"로 나누어 ID를 추출합니다.
-        String[] parts = resourceName.split("/");
-        return parts.length > 1 ? parts[1] : null;
-    }
+	public MemberDTO kakaomemberCheck(MemberDTO member) {
+		return	membermapper.kakaomemberCheck(member);	
+		}
+	public MemberDTO navermemberCheck(MemberDTO member) {
+		return	membermapper.navermemberCheck(member);	
+		}
+	public MemberDTO googlememberCheck(MemberDTO member) {
+		return	membermapper.googlememberCheck(member);	
+		}
+	
 }

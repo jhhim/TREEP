@@ -147,7 +147,7 @@ pageContext.setAttribute("today", today.toString());
 				<c:forEach var="board" items="${boardPage.boardList}">
 					<div class="col card-queryfd">
 						<a
-							href="detailboard?kind=${board.board_kind}&no=${board.board_no}">
+							href="detailboard?no=${board.board_no}">
 							<div class="card h-100 card-customfd">
 								<div class="card-body h-50 ratio" style="-bs-aspect-ratio: 50%;">
 									<img src="${path}/resources/img/board/${board.board_img}"

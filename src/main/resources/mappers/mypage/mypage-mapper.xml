@@ -46,7 +46,56 @@ SELECT MBL.BOARD_NO,MBL.BOARD_TYPE, MBL.MEMBER_NICKNAME, MBL.BOARD_TITLE,MBL.CRE
 	WHERE RNUM BETWEEN #{startNo} and #{endNo}
 	
 </select>
+    <!-- 여행 상세 정보와 관련된 스케줄을 가져오는 쿼리 -->
+    <select id="getTripDetails" parameterType="int" resultMap="tripResultMap">
+        SELECT t.trip_no, t.trip_title, t.trip_start, t.trip_end, t.place_photo_url
+        FROM trip t
+        WHERE t.trip_no = #{tripNo}
+    </select>
 
+    <!-- 스케줄을 가져오는 쿼리 -->
+    <select id="getSchedulesByTripNo" parameterType="int" resultMap="scheduleResultMap">
+        SELECT s.schedule_no, s.trip_no, s.schedule_date, s.schedule_content
+        FROM schedule s
+        WHERE s.trip_no = #{tripNo}
+    </select>
+
+    <!-- 장소를 가져오는 쿼리 -->
+    <select id="getPlacesByScheduleNo" parameterType="int" resultType="TripPlaceDTO">
+        SELECT tp.place_no, tp.place_name, tp.schedule_no
+        FROM trip_place tp
+        WHERE tp.schedule_no = #{scheduleNo}
+    </select>
+
+    <!-- ResultMap 정의 -->
+    <resultMap id="tripResultMap" type="TripDTO">
+        <id property="trip_no" column="trip_no"/>
+        <result property="trip_title" column="trip_title"/>
+        <result property="trip_start" column="trip_start"/>
+        <result property="trip_end" column="trip_end"/>
+        <result property="place_photo_url" column="place_photo_url"/>
+        <!-- List of schedules (One-to-Many relationship) -->
+        <collection property="schedules" ofType="ScheduleDTO">
+            <id property="schedule_no" column="schedule_no"/>
+            <result property="trip_no" column="trip_no"/>
+            <result property="schedule_date" column="schedule_date"/>
+            <result property="schedule_content" column="schedule_content"/>
+            <!-- List of places (One-to-Many relationship) -->
+            <collection property="places" ofType="TripPlaceDTO">
+                <id property="place_no" column="place_no"/>
+                <result property="place_name" column="place_name"/>
+                <result property="schedule_no" column="schedule_no"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <!-- ResultMap 정의 -->
+    <resultMap id="scheduleResultMap" type="ScheduleDTO">
+        <id property="schedule_no" column="schedule_no"/>
+        <result property="trip_no" column="trip_no"/>
+        <result property="schedule_date" column="schedule_date"/>
+        <result property="schedule_content" column="schedule_content"/>
+    </resultMap>
 
 
 </mapper>

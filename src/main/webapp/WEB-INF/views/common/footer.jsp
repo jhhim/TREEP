@@ -18,9 +18,9 @@
 			&copy; <span class="this-year"></span> TREEP Company. All Rights
 			Reseved.
 		</p>
-		<form action="${pageContext.request.contextPath}/kakao/share" method="post">
-    <button class="login_button" type="submit" id="kakao_share_button">대충 카카오 공유 버튼</button>
-</form>
+	
+    <button class="login_button" type="submit" id="createDefaultButton" onclick="sendLinkDefault()" value="Default">대충 카카오 공유 버튼</button>
+
 	</div>
 </footer>
 
@@ -31,9 +31,51 @@
 	AOS.init();
 </script>
 <!-- 로그인 기능 -->
+<script  type='text/javascript'>
+document.addEventListener('DOMContentLoaded', function() {
+    // Kakao 객체가 존재하는지 확인
+    if (typeof Kakao !== 'undefined') {
+        console.log('Kakao SDK가 로드되었습니다.');
+        Kakao.init('f5be83671ab1fd039f403cdb875c42a3');  // 여기에 실제 앱 키를 입력하세요
+    } else {
+        console.error('Kakao SDK가 로드되지 않았습니다.');
+    }
+});
+try {
+    /*<![CDATA[*/
+  function sendLinkDefault() {
+    Kakao.Link.sendDefault({
+    	
+      objectType: 'feed',
+      content: {
+        title: 'TREEP',
+        description: 'TREEP과 함께 여행을 시작해보세요!',
+        imageUrl:
+          '원하는 이미지',
+        link: {
+            mobileWebUrl: 'http://localhost:8080/sns/',
+            webUrl: 'http://localhost:8080/sns/',
+        },
+      },
+      buttons: [
+        {
+          title: '웹으로 보기',
+          link: {
+            mobileWebUrl: 'http://localhost:8080/sns/',
+            webUrl: 'http://localhost:8080/sns/',
+          },
+        },
+      ],
+    })
+  }
+;
+window.kakaoDemoCallback && window.kakaoDemoCallback();
+/*]]>*/}
+catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) 
+	}
+	
+</script>
 <script>
-
-
 /* 로그인 버튼 클릭 메서드 */
 $(".login_btn").click(function() {
 	

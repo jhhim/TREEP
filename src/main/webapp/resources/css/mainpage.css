@@ -322,19 +322,19 @@
 }
 
 .section-btn button {
-	font-size: 50px;
+	font-size: 55px;
 	color: #f4a261;
 	font-weight: bold;
 }
 
 .recommend-prev-btn {
 	position: relative;
-	right: 700px;
+	right: 750px;
 }
 
 .recommend-next-btn {
 	position: relative;
-	left: 700px;
+	left: 750px;
 }
 
 /* ***************************** main-ad ********************************** */

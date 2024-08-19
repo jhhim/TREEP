@@ -16,6 +16,10 @@ public interface MemberMapper {
 	public void kakaoSignup(MemberDTO member) ;
 	public void naverSignup(MemberDTO member) ;
 	public void googleSignup(MemberDTO member);
+	public MemberDTO kakaomemberCheck(MemberDTO member);
+	public MemberDTO navermemberCheck(MemberDTO member);
+	public MemberDTO googlememberCheck(MemberDTO member);
+	
 	
 	
 }
