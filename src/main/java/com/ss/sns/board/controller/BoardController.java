@@ -165,25 +165,10 @@ public class BoardController {
 	}
 
 	@RequestMapping("/detailboard")
-<<<<<<< HEAD
-	public String detailboard(int kind, int no, Model model,HttpSession session) {
-
-		Map<String, Integer> hmap = new HashMap<String, Integer>();
-		hmap.put("board_kind", kind);
-		hmap.put("board_no", no);
-		service.updateHit(hmap);
-		BoardDTO board = service.selectByBoardNo(hmap);
-		
-		MemberDTO writeMember = service.selectJoinBoardMember(hmap);
-	
-=======
 	public String detailboard(int no, Model model) {
-
 		service.updateHit(no);
 		BoardDTO board = service.selectByBoardNo(no);
 		MemberDTO writeMember = service.selectJoinBoardMember(no);
-
->>>>>>> b3fa48fb98931c6039d42208c2fa3eedb31ca077
 		model.addAttribute("board", board);
 		model.addAttribute("writeMember", writeMember);
 
