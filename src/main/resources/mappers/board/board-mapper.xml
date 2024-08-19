@@ -21,15 +21,17 @@
 	</select>
 	
 	<!-- 보드 종류별 페이징 후 전부 불러오기 -->
-	<select id="selectBoardList" parameterType="map"
-		resultType="BoardDTO">
-		select * from( select rownum rNum, Tb.* from (select * from
-		board 
-		JOIN MEMBER USING (MEMBER_NO)
-		where BOARD_KIND=#{board_kind} AND BOARD_STATUS = 'Y'
-		ORDER BY create_date DESC) Tb) 
-		where rNum between #{startNo} and #{endNo}
-	</select>
+<select id="selectBoardList" parameterType="map"
+	resultType="BoardDTO">
+	SELECT * FROM ( SELECT rownum rNum, Tb.* FROM (SELECT * FROM board JOIN MEMBER USING (MEMBER_NO)
+	WHERE BOARD_KIND = #{board_kind}
+	<if test="board_kind != 3">
+		AND BOARD_STATUS = 'Y'
+	</if>
+	ORDER BY create_date DESC
+	) Tb)WHERE rNum BETWEEN #{startNo} AND #{endNo}
+</select>
+
 	<!-- 보드 종류, 보드 번호로 보드 1개 불러오기 -->
 	<select id="selectByBoardNo" parameterType="int"
 		resultType="BoardDTO">

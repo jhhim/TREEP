@@ -130,7 +130,7 @@ public class BoardController {
 			HttpSession session) {
 		int board_kind = 3;
 		int freeTotalCount = service.countBoard(board_kind);
-		int pageSize = 10;
+		int pageSize = 8;
 		BoardPage boardPage = new BoardPage(pageSize, freeTotalCount, currentPage);
 		Map<String, Integer> hmap = new HashMap<String, Integer>();
 		hmap.put("startNo", boardPage.getStartNo());
