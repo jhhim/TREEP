@@ -21,6 +21,7 @@ public class BoardService {
 	
 	@Autowired
 	private BoardMapper mapper;
+	public Object updateBoard;
 	
 	public int countBoard(int board_kind) {
 		return mapper.countBoard(board_kind);
@@ -30,15 +31,15 @@ public class BoardService {
 		return mapper.selectBoardList(hmap);
 	}
 
-	public BoardDTO selectByBoardNo(Map<String, Integer> hmap) {
-		return mapper.selectByBoardNo(hmap);
+	public BoardDTO selectByBoardNo(int board_no) {
+		return mapper.selectByBoardNo(board_no);
 	}
-	public MemberDTO selectJoinBoardMember(Map<String, Integer> hmap) {
-		return mapper.selectJoinBoardMember(hmap);
+	public MemberDTO selectJoinBoardMember(int board_no) {
+		return mapper.selectJoinBoardMember(board_no);
 	}
 
-	public void updateHit(Map<String, Integer> hmap) {
-		mapper.updateHit(hmap);
+	public void updateHit(int board_no) {
+		mapper.updateHit(board_no);
 	}
 
 	public void insertReply(ReplyDTO insertReply) {
@@ -171,6 +172,39 @@ public class BoardService {
 		mapper.insertBoard(hmap);
 		
 	}
+
+	public void updateBoard(Map<String, Object> hmap) {
+		mapper.updateBoard(hmap);		
+	}
+
+	public List<ReplyDTO> selectReplyList(List<Integer> boardNo) {
+		return mapper.selectReplyList(boardNo);
+	}
+
+	public void insertAskBoard(Map<String, Object> hmap) {
+		mapper.insertAskBoard(hmap);
+		
+	}
+
+	public void updateAskBoard(Map<String, Object> hmap) {
+		mapper.updateAskBoard(hmap);
+	}
+
+	public void deleteAsk(int no) {
+		mapper.deleteAsk(no);
+		
+	}
+
+	public void insertAnswer(Map<String, Object> hmap) {
+		mapper.insertAnswer(hmap);
+		
+	}
+
+	public void updateAnswer(Map<String, Object> hmap) {
+		mapper.updateAnswer(hmap);	
+	}
+
+
 }
 	
 

@@ -531,20 +531,81 @@ function appendAnswer() {
     tbody.appendChild(tr);
 }
 
+  $('#updateAsk').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); 
+    var info = button.data('info'); 
+    var newAction = 'askupdate?no=' + encodeURIComponent(info);
+    $('#updateForm').attr('action', newAction);
+  });
+  $('#answerAsk').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); 
+    var info = button.data('info'); 
+    var newAction = 'askanswer?no=' + encodeURIComponent(info);
+    $('#answerForm').attr('action', newAction);
+  });
+    $('#updateAnswer').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); 
+    var info = button.data('info'); 
+    var newAction = 'updateanswer?no=' + encodeURIComponent(info);
+    $('#updateAnswerForm').attr('action', newAction);
+  });
+  
 /*************************************** insertboard ******************************************************/
 // 카테고리 선택 
-document.getElementById('board-select').addEventListener('change', function (event) {
-    var selected = document.getElementById('board-select').value
-    console.log(selected);
-    if (selected == "free") {
-        document.getElementById('category-select').style.display = "none";
-        document.getElementById('free-category-select').style.display = "inline";
-    }
-    else {
-        document.getElementById('free-category-select').style.display = "none";
-        document.getElementById('category-select').style.display = "inline";
+document.addEventListener('DOMContentLoaded', function () {
+    // 페이지 로드 시 초기 상태 설정
+    var selected = document.getElementById('board-select').value;
+    updateCategoryDisplay(selected);
+
+    // 선택이 변경될 때 상태 업데이트
+    document.getElementById('board-select').addEventListener('change', function (event) {
+        var selected = document.getElementById('board-select').value;
+        updateCategoryDisplay(selected);
+    });
+
+    function updateCategoryDisplay(selected) {
+        if (selected == "free") {
+            document.getElementById('category-select').style.display = "none";
+            document.getElementById('free-category-select').style.display = "inline";
+        } else if (selected == "join") {
+            document.getElementById('free-category-select').style.display = "none";
+            document.getElementById('category-select').style.display = "inline";
+        } else {
+            document.getElementById('category-select').style.display = "none";
+            document.getElementById('free-category-select').style.display = "none";
+        }
     }
 });
+// 인풋 값 없을 시 처리
+   $('#insert-board-form').on('submit', function(event) {
+        let boardSelect = $('#board-select').val();
+        let freeCategorySelect = $('#free-category-select').length ? $('#free-category-select').val() : null;
+        let categorySelect = $('#category-select').length ? $('#category-select').val() : null;
+ 		let writeTitle = $('#write_title').val().trim();
+        if (boardSelect === 'default') {
+            alert('게시판을 선택해 주세요.');
+            event.preventDefault();
+            return false;
+        }
+        
+        if (boardSelect === 'free' && freeCategorySelect === 'default') {
+            alert('카테고리를 선택해 주세요.');
+            event.preventDefault();
+            return false;
+        }
+        
+        if (boardSelect === 'join' && categorySelect === 'default') {
+            alert('카테고리를 선택해 주세요.');
+            event.preventDefault();
+            return false;
+            }
+            
+            if (writeTitle === '') {
+            alert('제목을 입력해 주세요.');
+            event.preventDefault();
+            return false;
+        
+        }});
 
 
 // 오프캔버스 기능 추가

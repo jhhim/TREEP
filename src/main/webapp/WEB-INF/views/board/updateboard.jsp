@@ -2,44 +2,44 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
-<title>게시글 작성</title>
+<title>게시글 수정</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <main>
 
-    <form method="post" enctype="multipart/form-data" action="${path}/insertboard" id="insert-board-form">
+    <form method="post" enctype="multipart/form-data" action="${path}/updateboard?no=${board.board_no}" id="insert-board-form">
         <div class="write-container container-md" id="writeboard-container" name="write-container">
-            <h4>게시글 작성</h4>
+            <h4>게시글 수정</h4>
             <hr>
             <div class="option">
                 <span class="board"> <select id="board-select" class="board-select" name="board">
                         <option value="default">게시판을 선택해 주세요</option>
-                        <option value="free">자유게시판</option>
-                        <option value="join">동행게시판</option>
+                        <option value="free" <c:if test="${board.board_kind == 1}">selected</c:if>>자유게시판</option>
+                        <option value="join" <c:if test="${board.board_kind == 2}">selected</c:if>>동행게시판</option>
                 </select>
                 </span> <span class="free-category"> <select class="free-category-select"
                     id="free-category-select" name="free-category">
                         <option value="default">카테고리를 선택해 주세요</option>
-                        <option value="잡담">잡담</option>
-                        <option value="정보">정보</option>
-                        <option value="후기">후기</option>
+                        <option value="잡담" <c:if test="${board.board_type == '잡담'}">selected</c:if>>잡담</option>
+                        <option value="정보" <c:if test="${board.board_type == '정보'}">selected</c:if>>정보</option>
+                        <option value="후기" <c:if test="${board.board_type == '후기'}">selected</c:if>>후기</option>
                 </select>
                 </span>
                 <span class="category">
                     <select id="category-select" class="category-select" name="join-category">
                         <option value="default">카테고리를 선택해 주세요</option>
-                        <option value="아시아">아시아</option>
-                        <option value="유럽">유럽</option>
-                        <option value="북아메리카">북아메리카</option>
-                        <option value="남아메리카">남아메리카</option>
-                        <option value="아프리카">아프리카</option>
-                        <option value="오세아니아">오세아니아</option>
+                        <option value="아시아" <c:if test="${board.board_continent == '아시아'}">selected</c:if>>아시아</option>
+                        <option value="유럽" <c:if test="${board.board_continent == '유럽'}">selected</c:if>>유럽</option>
+                        <option value="북아메리카" <c:if test="${board.board_continent == '북아메리카'}">selected</c:if>>북아메리카</option>
+                        <option value="남아메리카" <c:if test="${board.board_continent == '남아메리카'}">selected</c:if>>남아메리카</option>
+                        <option value="아프리카" <c:if test="${board.board_continent == '아프리카'}">selected</c:if>>아프리카</option>
+                        <option value="오세아니아" <c:if test="${board.board_continent == '오세아니아'}">selected</c:if>>오세아니아</option>
                     </select>
                 </span>
             </div>
             <br>
             <div class="write-title input-group mb-3">
                 <input type="text" class="write_title form-control" id="write_title" name="write_title"
-                    placeholder="제목을 입력해주세요.">
+                    placeholder="제목을 입력해주세요." value="${board.board_title}">
             </div>
             <div class="input-group mb-3" id="upload-container" name="upload-container">
                 <input type="file" name="files" class="form-control write-input-img" id="write-input-img" >
@@ -132,7 +132,7 @@
     
             <div class="write_content">
                 <textarea placeholder="내용을 입력해 주세요." id="write-text-container"
-                    class="form-control" name="content"></textarea>
+                    class="form-control" name="content">${board.board_content}</textarea>
             </div>
     
             <br>
