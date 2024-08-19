@@ -181,6 +181,29 @@ public class BoardService {
 		return mapper.selectReplyList(boardNo);
 	}
 
+	public void insertAskBoard(Map<String, Object> hmap) {
+		mapper.insertAskBoard(hmap);
+		
+	}
+
+	public void updateAskBoard(Map<String, Object> hmap) {
+		mapper.updateAskBoard(hmap);
+	}
+
+	public void deleteAsk(int no) {
+		mapper.deleteAsk(no);
+		
+	}
+
+	public void insertAnswer(Map<String, Object> hmap) {
+		mapper.insertAnswer(hmap);
+		
+	}
+
+	public void updateAnswer(Map<String, Object> hmap) {
+		mapper.updateAnswer(hmap);	
+	}
+
 
 }
 	

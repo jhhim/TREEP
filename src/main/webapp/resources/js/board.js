@@ -531,6 +531,25 @@ function appendAnswer() {
     tbody.appendChild(tr);
 }
 
+  $('#updateAsk').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); 
+    var info = button.data('info'); 
+    var newAction = 'askupdate?no=' + encodeURIComponent(info);
+    $('#updateForm').attr('action', newAction);
+  });
+  $('#answerAsk').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); 
+    var info = button.data('info'); 
+    var newAction = 'askanswer?no=' + encodeURIComponent(info);
+    $('#answerForm').attr('action', newAction);
+  });
+    $('#updateAnswer').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); 
+    var info = button.data('info'); 
+    var newAction = 'updateanswer?no=' + encodeURIComponent(info);
+    $('#updateAnswerForm').attr('action', newAction);
+  });
+  
 /*************************************** insertboard ******************************************************/
 // 카테고리 선택 
 document.addEventListener('DOMContentLoaded', function () {
