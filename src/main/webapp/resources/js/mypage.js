@@ -51,6 +51,7 @@ document.getElementById('delete').addEventListener('click',function(event){
 
 
 /*
+
 $('#save').click(()=>{
 	let name = $('#nickname').val();
 	let img = $('#profile-upload-img').val();
@@ -76,6 +77,85 @@ $('#save').click(()=>{
 
 
 });
+
+*/
+
+
+$(document).ready(function(){
+	loadWrite();
+
+});
+
+
+/*
+
+function loadWrite(){
+
+	$.ajax({
+		method:'get',
+		url:`${MypageBasePath}/MyWrite`,
+		contentType: 'application/json',
+		dataType: 'json',
+		success :function(WriteList){
+			
+			
+			$('#writeTbody').empty();
+		
+	
+			WriteList.forEach(function(write) {
+			
+			var boardList = write.MyWriteBoard;			
+			var startNo = write.startNo;
+			var endNo = write.endNo;
+			
+			
+			
+
+
+			
+			const td = document.createElement('td');
+			td.innerHTML = '<td>' + write.MyWriteBoard.board_type + '</td>';
+			
+						
+						<tr>
+								
+								<td>${write.board_type }</td>
+								<td>${write.board_type }</td>
+								<td style="width: 40%;"><a href="detailboard?kind=${write.board_kind}&no=${write.board_no}" >${write.board_title }</a></td>
+								
+								<td>
+									<c:choose>
+										<c:when
+											test="${fn:substring(write.create_date, 0, 10) eq today}">
+											<fmt:parseDate value="${write.create_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+											 <fmt:formatDate pattern="HH:mm" value="${parsedDateTime}"/>
+										</c:when>
+										<c:otherwise>
+											 <fmt:parseDate value="${write.create_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+											 <fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/>
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td>${write.board_hit }</td>
+							</tr>
+							
+			
+				$('#writeTbody').appendChild(td);
+			});
+		
+		
+		
+			
+			
+		
+		}, error : function(){
+			alert("에러");
+		}
+	
+	});
+
+
+}
 
 */
 

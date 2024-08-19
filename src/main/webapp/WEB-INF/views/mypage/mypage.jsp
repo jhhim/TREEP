@@ -11,6 +11,10 @@
 	pageContext.setAttribute("today", today.toString());
 %>
 
+<script>
+const MypageBasePath = "${path}";
+</script>
+
 
 <title>마이 페이지</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -127,9 +131,9 @@
 							<th scope="col">조회수</th>
 						</tr>
 					</thead>
-					<tbody class="table-group-divider">
+					<tbody class="table-group-divider" id="writeTbody">
 
-					<c:forEach var="write" items="${myPage.boardList }">
+					<%-- <c:forEach var="write" items="${myPage.boardList }">
 							<tr>
 								
 								<th scope="row">${write.board_no }</th>
@@ -151,7 +155,7 @@
 								</td>
 								<td>${write.board_hit }</td>
 							</tr>
-						</c:forEach>
+						</c:forEach> --%>
 
 
 					</tbody>
