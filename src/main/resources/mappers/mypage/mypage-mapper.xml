@@ -98,4 +98,26 @@ SELECT MBL.BOARD_NO,MBL.BOARD_TYPE, MBL.MEMBER_NICKNAME, MBL.BOARD_TITLE,MBL.CRE
     </resultMap>
 
 
+
+<!-- 내가 작성한 글 갯수 받아오기 -->
+<select id="getMyBoardCount" parameterType="int" resultType="int">
+	SELECT COUNT(*)
+	FROM 
+	BOARD
+	WHERE MEMBER_NO = #{member_no} AND (BOARD_KIND = 1 OR BOARD_KIND = 2)
+	
+</select>
+
+
+<update id="UpdateGrade" parameterType="map">
+	UPDATE MEMBER
+	SET MEMBER_GRADE = #{genderGrade}
+	WHERE MEMBER_NO = #{member_no}
+</update>
+
+<!-- 등급 테이블에서 이미지 가져오기 -->
+<select id="selectGradeImg" parameterType="string" resultType="string">
+	SELECT GRADE_IMG FROM GRADE WHERE GRADE = #{genderGrade}
+</select>
+
 </mapper>
