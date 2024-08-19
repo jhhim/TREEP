@@ -39,6 +39,7 @@ document.getElementById('profile-upload-img').addEventListener('change', functio
         reader.readAsDataURL(file);
     }
 });
+
 const defaultimage = './img/mypage/profile2.png'; 
 
 //삭제 버튼 클릭시 기본 이미지로 돌아옴
