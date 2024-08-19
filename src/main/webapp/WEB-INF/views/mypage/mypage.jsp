@@ -133,7 +133,7 @@ const MypageBasePath = "${path}";
 					</thead>
 					<tbody class="table-group-divider" id="writeTbody">
 
-					<%-- <c:forEach var="write" items="${myPage.boardList }">
+					<c:forEach var="write" items="${myPage.boardList }">
 							<tr>
 								
 								<th scope="row">${write.board_no }</th>
@@ -155,7 +155,7 @@ const MypageBasePath = "${path}";
 								</td>
 								<td>${write.board_hit }</td>
 							</tr>
-						</c:forEach> --%>
+						</c:forEach>
 
 
 					</tbody>
