@@ -38,6 +38,8 @@ import com.ss.sns.member.dto.MemberDTO;
 import com.ss.sns.member.dto.kakaoDTO;
 import com.ss.sns.member.sevice.MemberService;
 
+import oracle.jdbc.proxy.annotation.Post;
+
 @Controller
 public class LoginController {
 	@Autowired
@@ -84,6 +86,7 @@ public class LoginController {
 	@RequestMapping("/kakao/login")
 	public String kakaoLogin(String code,Model model,HttpSession session) throws Exception {
 		String token = service.kakaoGetToken(code,model);
+		session.setAttribute("token",token);
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		 System.out.println("컨트롤러 토큰:" + token);
 		 
@@ -131,6 +134,15 @@ public class LoginController {
 		 // 받아온 정보를 jsp 전송
  
 	}
+	/*
+	 * @RequestMapping("/kakao/share") public String kakaoShareGet(HttpSession
+	 * session) { String token = session.getAttribute("token").toString(); if(token
+	 * != null) { System.out.println(token); } return "redirect:/"; }
+	 * 
+	 * @PostMapping("/kakao/share") public String kakaoSharePost(HttpSession
+	 * session) { String token = session.getAttribute("token").toString();
+	 * service.getkakaofirends(token); return "redirect:/"; }
+	 */
 	
 	
 	@RequestMapping("/callback")
