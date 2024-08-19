@@ -109,10 +109,11 @@ public class LoginController {
 		 }
 		 member.setMember_birth(LocalDate.parse((userinfo.get("birthyear")+"-"+userinfo.get("birthday").substring(0,2)+"-"+userinfo.get("birthday").substring(2,4)),format));
 		 member.setMember_phone(userinfo.get("phone_number"));
+		 member.setMember_type("kakao");
 		 
+		 MemberDTO SessionMember = service.kakaomemberCheck(member);
 		 
-		 
-		 System.out.println(member.toString());
+		 System.out.println(SessionMember.toString());
 		 
 		 int result = service.memberemailChk(userinfo.get("email"));
 		 System.out.println(result);
@@ -121,11 +122,11 @@ public class LoginController {
 		        service.kakaoSignup(member);
 		        
 		        // 회원 정보를 세션에 저장
-		        session.setAttribute("member", member);
+		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
 		    } else {
 		        // 회원 정보를 세션에 저장
-		        session.setAttribute("member", member);
+		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
 		    }
 		 
@@ -158,7 +159,10 @@ public class LoginController {
 		member.setMember_email(userinfo.get("email"));
 		member.setMember_phone(userinfo.get("mobile"));
 		member.setMember_name(userinfo.get("name"));
+		member.setMember_type("naver");
 		member.setMember_birth(LocalDate.parse((userinfo.get("birthyear") + "-" + userinfo.get("birthday")),format));
+		
+		MemberDTO SessionMember = service.navermemberCheck(member);
 		int result = service.memberemailChk(userinfo.get("email"));
 		 System.out.println(result);
 		 if (result == 0) {
@@ -166,11 +170,11 @@ public class LoginController {
 		        service.naverSignup(member);
 		        
 		        // 회원 정보를 세션에 저장
-		        session.setAttribute("member", member);
+		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
 		    } else {
 		        // 회원 정보를 세션에 저장
-		        session.setAttribute("member", member);
+		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
 		    }
 	
@@ -231,6 +235,9 @@ public class LoginController {
 		member.setMember_nickname(userinfo.get("name")+"_google");
 		member.setMember_email(userinfo.get("email"));
 		member.setMember_name(userinfo.get("name"));
+		member.setMember_type("google");
+		
+		MemberDTO SessionMember = service.googlememberCheck(member);
 		System.out.println(member);
 		int result = service.memberemailChk(userinfo.get("email"));
 		 System.out.println(result);
@@ -239,11 +246,11 @@ public class LoginController {
 		        service.googleSignup(member);
 		        
 		        // 회원 정보를 세션에 저장
-		        session.setAttribute("member", member);
+		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
 		    } else {
 		        // 회원 정보를 세션에 저장
-		        session.setAttribute("member", member);
+		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
 		    }
 	}

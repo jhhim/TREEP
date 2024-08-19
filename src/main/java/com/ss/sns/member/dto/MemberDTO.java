@@ -7,10 +7,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Setter
 public class MemberDTO {
 	private int member_no;
 	private String member_id;
@@ -27,6 +29,7 @@ public class MemberDTO {
 	private String member_img;
 	private String member_grade;
 	private String manager_yn;
+	
 	
 	
 	
