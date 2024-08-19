@@ -39,6 +39,11 @@ public interface BoardMapper {
 	public void insertBoard(Map<String, Object> hmap);
 	public void updateBoard(Map<String, Object> hmap);
 	public List<ReplyDTO> selectReplyList(List<Integer> boardNo);
+	public void insertAskBoard(Map<String, Object> hmap);
+	public void updateAskBoard(Map<String, Object> hmap);
+	public void deleteAsk(int no);
+	public void insertAnswer(Map<String, Object> hmap);
+	public void updateAnswer(Map<String, Object> hmap);
 
 
 }
