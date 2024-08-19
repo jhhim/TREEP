@@ -134,15 +134,15 @@ public class LoginController {
 		 // 받아온 정보를 jsp 전송
  
 	}
-	/*
-	 * @RequestMapping("/kakao/share") public String kakaoShareGet(HttpSession
-	 * session) { String token = session.getAttribute("token").toString(); if(token
-	 * != null) { System.out.println(token); } return "redirect:/"; }
-	 * 
-	 * @PostMapping("/kakao/share") public String kakaoSharePost(HttpSession
-	 * session) { String token = session.getAttribute("token").toString();
-	 * service.getkakaofirends(token); return "redirect:/"; }
-	 */
+
+	 @RequestMapping("/kakao/share") public String kakaoShareGet(HttpSession
+	  session) { String token = session.getAttribute("token").toString(); if(token
+	  != null) { System.out.println(token); } return "redirect:/"; }
+	  
+	  @PostMapping("/kakao/share") public String kakaoSharePost(HttpSession
+	  session) { String token = session.getAttribute("token").toString();
+	  service.getkakaofirends(token); return "redirect:/"; }
+
 	
 	
 	@RequestMapping("/callback")

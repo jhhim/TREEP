@@ -6,7 +6,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <main>
 
-	
+	<form method="post" enctype="multipart/form-data" action="${path}/insertboard">
 	<div class="write-container container-md" id="writeboard-container">
 		<h4>게시글 작성</h4>
 		<hr>
@@ -14,38 +14,38 @@
 			<span class="board"> <select id="board-select" name="board">
 					<option value="default">게시판을 선택해 주세요</option>
 					<option value="free">자유게시판</option>
-					<option value="accompany">동행게시판</option>
+					<option value="join">동행게시판</option>
 			</select>
 			</span> <span class="free-category"> <select
 				id="free-category-select" name="free-category">
 					<option value="default">카테고리를 선택해 주세요</option>
-					<option value="talk">잡담</option>
-					<option value="information">정보</option>
-					<option value="review">후기</option>
+					<option value="잡담">잡담</option>
+					<option value="정보">정보</option>
+					<option value="후기">후기</option>
 			</select>
 			</span>
-			<!-- <span class="category">
-                <select id="category-select" name="category">
+			<span class="category">
+                <select id="category-select" name="join-category">
                     <option value="default">카테고리를 선택해 주세요</option>
-                    <option value="Asia">아시아</option>
-                    <option value="Europe">유럽</option>
-                    <option value="North America">북아메리카</option>
-                    <option value="South America">남아메리카</option>
-                    <option value="Africa">아프리카</option>
-                    <option value="Oceania">오세아니아</option>
+                    <option value="아시아">아시아</option>
+                    <option value="유럽">유럽</option>
+                    <option value="북아메리카">북아메리카</option>
+                    <option value="남아메리카">남아메리카</option>
+                    <option value="아프리카">아프리카</option>
+                    <option value="오세아니아">오세아니아</option>
                 </select>
-            </span> -->
+            </span>
 		</div>
 		<br>
 		<div class="write-title input-group mb-3">
-			<input type="text" class="form-control" id="write_title"
+			<input type="text" class="form-control" id="write_title" name="write_title"
 				placeholder="제목을 입력해주세요.">
 		</div>
 		<div class="input-group mb-3" id="upload-container">
-			<input type="file" class="form-control" id="write-input-img">
+			<input type="file" name="files" class="form-control" id="write-input-img" >
 			<label class="input-group-text" for="write-input-img">Upload</label>
 
-			<button id="open-WriteOffcanvas" class="btn">
+			<button id="open-WriteOffcanvas" class="btn" type="button">
 				<span class="trip-upload-icon">+</span> <span
 					class="trip-upload-text"> 여행일정</span>
 			</button>
@@ -54,7 +54,7 @@
 		<!-- 여행 일정 추가 오프캔버스 -->
 		<div id="write-offcanvas" class="write-offcanvas">
 			<div class="write-offcanvas-content" id="write-offcanvas-content">
-				<button id="close-WriteOffcanvas" class="btn-close"></button>
+				<button id="close-WriteOffcanvas" class="btn-close" type="button"></button>
 				<h4 class="share-place-title">나의 일정</h4>
 
 				<div class="row trip-share-item container-md"
@@ -132,13 +132,13 @@
 
 		<div class="write_content">
 			<textarea placeholder="내용을 입력해 주세요." id="write-text-container"
-				class="form-control"></textarea>
+				class="form-control" name="content"></textarea>
 		</div>
 
 		<br>
 		<button type="submit" class="btn" id="post-submit">등록</button>
 	</div>
-
+	</form>
 
 
 
