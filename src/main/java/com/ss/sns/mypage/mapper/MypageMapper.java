@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.ss.sns.mypage.dto.MyBoardDTO;
+import com.ss.sns.trip.dto.ScheduleDTO;
 import com.ss.sns.trip.dto.TripDTO;
+import com.ss.sns.trip.dto.TripPlaceDTO;
 
 @Mapper
 public interface MypageMapper {
@@ -24,5 +27,9 @@ public interface MypageMapper {
 
 	ArrayList<MyBoardDTO> selectMyLikeBoardList(Map<String, Integer> myBLmap);
 
-
+	 TripDTO getTripDetails(@Param("tripNo") int tripNo);
+	    
+	 List<ScheduleDTO> getSchedulesByTripNo(@Param("tripNo") int tripNo);
+	    
+	 List<TripPlaceDTO> getPlacesByScheduleNo(@Param("scheduleNo") int scheduleNo);
 }

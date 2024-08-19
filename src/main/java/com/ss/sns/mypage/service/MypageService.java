@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.ss.sns.mypage.dto.MyBoardDTO;
 import com.ss.sns.mypage.mapper.MypageMapper;
+import com.ss.sns.trip.dto.ScheduleDTO;
 import com.ss.sns.trip.dto.TripDTO;
+import com.ss.sns.trip.dto.TripPlaceDTO;
 
 @Service
 public class MypageService {
@@ -41,4 +43,19 @@ public class MypageService {
 		// TODO Auto-generated method stub
 		return mapper.selectMyLikeBoardList(myBLmap);
 	}
+
+	public TripDTO getTripDetails(int tripNo) {
+        TripDTO trip = mapper.getTripDetails(tripNo);
+        if (trip != null) {
+            // 스케줄 리스트를 가져와서 TripDTO에 설정
+            List<ScheduleDTO> schedules = mapper.getSchedulesByTripNo(tripNo);
+            for (ScheduleDTO schedule : schedules) {
+                // 각 스케줄에 대해 장소 리스트를 가져와서 ScheduleDTO에 설정
+                List<TripPlaceDTO> places = mapper.getPlacesByScheduleNo(schedule.getSchedule_no());
+                schedule.setPlaces(places);
+            }
+            trip.setSchedules(schedules);
+        }
+        return trip;
+    }
 }
