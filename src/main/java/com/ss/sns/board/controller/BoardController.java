@@ -255,7 +255,17 @@ public class BoardController {
 	            e.printStackTrace();
 	        }
 	    }
-
+	    
+	    System.out.println("board_kind"+board_kind);
+	    System.out.println("member_no"+member_no);
+	    System.out.println("board_type"+freeCategory);
+	    System.out.println("board_title"+title);
+	    System.out.println("board_content"+content);
+	    System.out.println("board_img"+fileReadName);
+	    System.out.println("board_content"+joinCategory);
+	    
+	    
+	    
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("board_kind", board_kind);
 		hmap.put("member_no", member_no);

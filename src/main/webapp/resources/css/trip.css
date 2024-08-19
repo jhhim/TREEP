@@ -24,11 +24,12 @@
 
 
 .a-modal-custom{
-    /* margin-left: 30px; */
     text-decoration: none;
     color: black;
     outline: none;
     border: 0px;
+    font-size: 1.1rem;
+    width:100px;
 }
 
 
@@ -75,6 +76,7 @@
     padding-left: 20px;
     line-height: 1;
     margin-right: 50px;
+    font-size: 1.8rem;
 }
 
 .sec_cal .cal_nav .year-month2 {
@@ -82,21 +84,26 @@
     text-align: center;
     margin-left: 90px;
     line-height: 1;
+    font-size: 1.8rem;
 }
 
 .sec_cal .cal_nav .year-month3 {
-    width: 50px;
+    width: 100px;
     text-align: center;
-    /* padding-left: 23px; */
-    line-height: 1;
-    /* margin-right: 25px; */
-    font-size: 14px;
+/*     line-height: 1;
+ */    font-size: 14px;
 }
 
 .sec_cal .cal_nav .nav {
     display: flex;
     border: 1px solid #333333;
     border-radius: 5px;
+}
+.cal_nav{
+	display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+	
 }
 
 .sec_cal .cal_nav .go-prev,
@@ -152,6 +159,7 @@
     /* display: flex; */
     justify-content: center;
     align-items: center;
+ 
 }
 
 .sec_cal .cal_nav .go-prev2::before,
@@ -224,17 +232,20 @@
     justify-content: center;
     width: calc(100% / 7);
     text-align: left;
-    color: #999;
-    font-size: 12px;
+    color: black;
+    font-size:1.2rem;
+    font-weight: bold;
     text-align: center;
     border-radius:5px
+    
 }
 
 .current.today {
     /* border-radius: 100%; */
-    background: rgb(0, 0, 0);
+    background: #AFE1AF;
     
 }
+
 
 .current.todayselect {
     background:	#AFE1AF;
@@ -255,7 +266,13 @@
     display: flex;
     flex-flow: wrap;
     height: 290px;
+    
 }
+/* .current{
+	font-size:2rem;
+    font-weight:bold;
+}
+ */
 .sec_cal .cal_wrap .dates2{
     width: 370px;
     display: flex;
@@ -272,10 +289,14 @@
 
 .sec_cal .cal_wrap .day:nth-child(7n) {
     color: #3c6ffa;
+    font-size:1.2rem;
+    font-weight: bold;
 }
 
 .sec_cal .cal_wrap .day:nth-child(7n-6) {
     color: #ed2a61;
+    font-size:1.2rem;
+    font-weight: bold;
 }
 
 .sec_cal .cal_wrap .day.disable {

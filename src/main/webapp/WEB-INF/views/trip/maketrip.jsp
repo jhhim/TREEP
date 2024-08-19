@@ -43,26 +43,26 @@
                                             <div class="cal_wrap_container">
                                                 <div class="cal_wrap">
                                                     <div class="days">
-                                                        <div class="day">SUN</div>
-                                                        <div class="day">MON</div>
-                                                        <div class="day">TUE</div>
-                                                        <div class="day">WED</div>
-                                                        <div class="day">THU</div>
-                                                        <div class="day">FRI</div>
-                                                        <div class="day">SAT</div>
+                                                        <div class="day">일</div>
+                                                        <div class="day">월</div>
+                                                        <div class="day">화</div>
+                                                        <div class="day">수</div>
+                                                        <div class="day">목</div>
+                                                        <div class="day">금</div>
+                                                        <div class="day">토</div>
                                                     </div>
                                                     <div class="dates1"></div>
                                                 </div>
 
                                                 <div class="cal_wrap">
                                                     <div class="days">
-                                                        <div class="day">SUN</div>
-                                                        <div class="day">MON</div>
-                                                        <div class="day">TUE</div>
-                                                        <div class="day">WED</div>
-                                                        <div class="day">THU</div>
-                                                        <div class="day">FRI</div>
-                                                        <div class="day">SAT</div>
+                                                        <div class="day">일</div>
+                                                        <div class="day">월</div>
+                                                        <div class="day">화</div>
+                                                        <div class="day">수</div>
+                                                        <div class="day">목</div>
+                                                        <div class="day">금</div>
+                                                        <div class="day">토</div>
                                                     </div>
                                                     <div class="dates2"></div>
                                                 </div>
