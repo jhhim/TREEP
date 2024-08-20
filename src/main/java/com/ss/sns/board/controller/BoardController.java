@@ -172,7 +172,8 @@ public class BoardController {
 		MemberDTO writeMember = service.selectJoinBoardMember(no);
 		model.addAttribute("board", board);
 		model.addAttribute("writeMember", writeMember);
-
+		MemberDTO M = service.selectJoinBoardMember(no);
+		model.addAttribute("Nick",M.getMember_nickname());
 		return "board/detail";
 	}
 
@@ -401,4 +402,6 @@ public class BoardController {
 		return "redirect:askboard";
 	}
 
+	
+	
 }
