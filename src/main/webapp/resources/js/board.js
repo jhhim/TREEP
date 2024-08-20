@@ -51,6 +51,7 @@ card.forEach((a, index) =>{
 // 여행지버튼 정렬버튼 클릭시 스타일 변경 및 최대 3개 넘길 시 alert 창
 const locationBtn = document.querySelectorAll('.locationBtn');
 const lineupBtn = document.querySelectorAll('.lineupBtn');
+const lineupBtn12 = document.querySelectorAll('.lineupBtn12');
 const gradeBtn = document.querySelectorAll('.gradeBtn');
 
 let LocationCount = 0;
@@ -106,9 +107,10 @@ for(let i = 0; i < lineupBtn.length; i++){
             
             if(LineupCount!=0){
                 --LineupCount;
-               if(LocationCount==0 & LineupCount==0 & GradeCount == 0){
+               if(LocationCount==0 & LineupCount==0){
                 const d = document.querySelector('.filter-submitBtn');
                 d.classList.remove('filter-submitBtn-Click');
+                 d.classList.add('filter-submitBtn-nonClick');
                 }
             }
             
@@ -550,6 +552,10 @@ function appendAnswer() {
     $('#updateAnswerForm').attr('action', newAction);
   });
   
+  
+
+  
+  
 /*************************************** insertboard ******************************************************/
 // 카테고리 선택 
 document.addEventListener('DOMContentLoaded', function () {
@@ -610,6 +616,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 오프캔버스 기능 추가
 document.addEventListener('DOMContentLoaded', function () {
+
+ 
     const openBtn = document.getElementById('open-WriteOffcanvas');
     const closeBtn = document.getElementById('close-WriteOffcanvas');
     const offcanvas = document.getElementById('write-offcanvas');
@@ -641,50 +649,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const backButton = document.getElementById('backButton');
     const tripDetailContent = document.getElementById('tripDetailContent');
     const writeTextContainer = document.getElementById('write-text-container');
-    const tripDetailDisplayContainer = document.getElementById('tripDetailDisplayContainer'); // 새 공간
+    const tripDetailDisplayContainer = document.getElementById('tripDetailDisplayContainer');
     const tripItemsList = document.getElementById('trip-items-list');
 
-    // 날짜를 나열하는 함수
-    function getDatesInRange(startDate, endDate) {
-        const date = new Date(startDate);
-        const dates = [];
-
-        while (date <= endDate) {
-            dates.push(new Date(date));
-            date.setDate(date.getDate() + 1);
-        }
-
-        return dates;
-    }
-
-    // 각 날짜에 대해 장소를 매핑하는 함수 
-    function getPlacesForDate(date) {
-        const places = {
-            "2024-08-09": [
-                { place: "에펠탑" },
-                { place: "루브르 박물관" },
-                { place: "노트르담 대성당" }
-            ],
-            "2024-08-10": [
-                { place: "몽마르트 언덕" },
-                { place: "사크레쾨르 성당" },
-                { place: "파리 시청" }
-            ],
-            "2024-08-11": [
-                { place: "오르세 미술관" },
-                { place: "콩코르드 광장" },
-                { place: "샹젤리제 거리" }
-            ],
-            "2024-08-12": [
-                { place: "베르사유 궁전" },
-                { place: "라데팡스" },
-                { place: "파리 디즈니랜드" }
-            ]
-        };
-
-        const formattedDate = date.toISOString().split('T')[0];
-        return places[formattedDate] || [{ place: "장소 정보 없음" }];
-    }
 
     // 컨테이너의 표시 상태를 업데이트하는 함수
     function updateContainerVisibility() {
@@ -698,82 +665,75 @@ document.addEventListener('DOMContentLoaded', () => {
     // 각 trip-share-item에 클릭 이벤트 추가
     tripShareitems.forEach(tripShareitem => {
         tripShareitem.addEventListener('click', () => {
+        console.log("클릭");
             tripShareContainer.style.display = 'none';
             tripShareDetail.style.display = 'block';
 
             const titleElement = tripShareitem.querySelector('.trip-uplaod-title');
-            const dateElement = tripShareitem.querySelector('.share-upload-date');
-
+			
+            // 제목 표시
             if (titleElement) {
                 tripDetailContent.innerHTML = `<h4 style="margin-bottom:20px">${titleElement.textContent}</h4>`;
             } else {
                 tripDetailContent.innerHTML = '<h4>제목 없음</h4>';
             }
+      
+            tripDetailContent.innerHTML = 
+    "<h3>Schedules</h3>" +
+    "<c:forEach var='schedule' items='${trip.schedules}'>" +
+        "<div>Date: ${schedule.schedule_date}</div>" +
+        "<c:forEach var='place' items='${schedule.places}'>" +
+            "<li class='place-item'>Place: ${place.place_name}</li>" +
+        "</c:forEach>" +
+    "</c:forEach>";
 
-            if (dateElement) {
-                const dateRange = dateElement.textContent.match(/\d{4}\.\d{2}\.\d{2}/g);
 
-                if (dateRange.length === 2) {
-                    const startDate = new Date(dateRange[0].replace(/\./g, '-'));
-                    const endDate = new Date(dateRange[1].replace(/\./g, '-'));
+            // 각 장소에 클릭 이벤트 추가
+            const placeItems = tripDetailContent.querySelectorAll('.place-item');
+            placeItems.forEach(placeItem => {
+                placeItem.addEventListener('click', () => {
+                    const date = placeItem.getAttribute('data-date');
+                    const place = placeItem.getAttribute('data-place');
 
-                    // 시작일 끝일 넣기
-                    const dates = getDatesInRange(startDate, endDate);
+                    const currentText = writeTextContainer.value;
+                    const newEntry = `${date} ${place}`;
 
-                    dates.forEach(date => {
-                        const dateStr = date.toISOString().split('T')[0];
-                        const places = getPlacesForDate(date);
+                    if (currentText.includes(newEntry)) {
+                        alert('이미 추가된 일정입니다.');
+                    } else {
+                        // 새로운 공간에 날짜와 장소를 표시, 그리고 삭제 버튼 추가
+                        const detailEntry = document.createElement('div');
+                        detailEntry.className = 'trip-detail-entry';
+                        detailEntry.innerHTML = `
+                            <span><strong>${date} </strong> - ${place}</span>
+                            <button class="remove-select-item-btn">삭제</button>
+                        `;
 
-                        const placeListHtml = places.map(place => `<li class="place-item" data-date="${dateStr}"  data-place="${place.place}"> ${place.place}</li>`).join('');
-                        tripDetailContent.innerHTML += `<div><strong>${dateStr}</strong><ul">${placeListHtml}</ul></div>`;
-                    });
+                        tripItemsList.appendChild(detailEntry);
 
-                    // 각 장소에 클릭 이벤트 추가
-                    const placeItems = tripDetailContent.querySelectorAll('.place-item');
-                    placeItems.forEach(placeItem => {
-                        placeItem.addEventListener('click', () => {
-                            const date = placeItem.getAttribute('data-date');
-                            const place = placeItem.getAttribute('data-place');
+                        // 삭제 버튼에 이벤트 추가
+                        const removeButton = detailEntry.querySelector('.remove-select-item-btn');
+                        removeButton.addEventListener('click', () => {
+                            tripItemsList.removeChild(detailEntry);
 
-                            const currentText = writeTextContainer.value;
-                            const newEntry = `${date} ${place}`;
+                            // textarea에서 해당 항목도 제거
+                            writeTextContainer.value = writeTextContainer.value.replace(`${newEntry}\n`, '');
 
-                            if (currentText.includes(newEntry)) {
-                                alert('이미 추가된 일정입니다.');
-                            } else {
-
-                                // 새로운 공간에 날짜와 장소를 표시, 그리고 삭제 버튼 추가
-                                const detailEntry = document.createElement('div');
-                                detailEntry.className = 'trip-detail-entry';
-                                detailEntry.innerHTML = `
-                                    <span><strong>${date}  </strong> - ${place}</span>
-                                    <button class="remove-select-item-btn">삭제</button>
-                                `;
-  
-                                tripItemsList.appendChild(detailEntry);
-
-                                // 삭제 버튼에 이벤트 추가
-                                const removeButton = detailEntry.querySelector('.remove-select-item-btn');
-                                removeButton.addEventListener('click', () => {
-                                    tripItemsList.removeChild(detailEntry);
-
-                                    // textarea에서 해당 항목도 제거
-                                    writeTextContainer.value = writeTextContainer.value.replace(`${newEntry}\n`, '');
-
-                                    // 컨테이너 표시 상태 업데이트
-                                    updateContainerVisibility();
-                                });
-
-                                // 컨테이너 표시 상태 업데이트
-                                updateContainerVisibility();
-                            }
+                            // 컨테이너 표시 상태 업데이트
+                            updateContainerVisibility();
                         });
-                    });
 
-                    // 초기 컨테이너 표시 상태 업데이트
-                    updateContainerVisibility();
-                }
-            }
+                        // textarea에 새로운 항목 추가
+                        writeTextContainer.value += `${newEntry}\n`;
+
+                        // 컨테이너 표시 상태 업데이트
+                        updateContainerVisibility();
+                    }
+                });
+            });
+
+            // 초기 컨테이너 표시 상태 업데이트
+            updateContainerVisibility();
         });
     });
 
@@ -781,4 +741,13 @@ document.addEventListener('DOMContentLoaded', () => {
         tripShareDetail.style.display = 'none';
         tripShareContainer.style.display = 'block';
     });
+
+    // 컨테이너의 표시 상태를 업데이트하는 함수
+    function updateContainerVisibility() {
+        if (tripItemsList.children.length > 0) {
+            tripDetailDisplayContainer.style.display = 'block';
+        } else {
+            tripDetailDisplayContainer.style.display = 'none';
+        }
+    }
 });

@@ -10,6 +10,10 @@
 LocalDate today = LocalDate.now();
 pageContext.setAttribute("today", today.toString());
 %>
+<script>
+const basePath = "${path}";
+</script>
+
 <title>자유 게시판</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <main>
@@ -19,24 +23,14 @@ pageContext.setAttribute("today", today.toString());
 		<li class="MyTabMenu"><a href="askboard">문의게시판</a></li>
 	</ul>
 
-	<!-- <div class="summary-container">
-        <p id="summary-icon"><i class="fa-solid fa-house"></i></p>
-        <p id="summary-icon"><i class="fa-solid fa-arrow-right"></i></p>
-        <p id="summary-icon">
-            <select name="" id="" class="boardSelect" onchange="window.open(value,'_self')">
-                <option value="FriendBoard.html">동행친구</option>
-                <option value="FreeBoard.html" selected>자유게시판</option>
-                <option value="AskBoard.html">문의게시판</option>
-            </select>
-        </p>
-    </div> -->
+
 
 	<div class="title-container">
 		<h1 class="title">자유게시판</h1>
 	</div>
 	
 	<div class="filter-container">
-		<button type="button" onclick="location.href='writeboard'">글 쓰기</button>
+		<button type="button" class="boardWriteBtn" onclick="location.href='writeboard'"><img src="${path}/resources/img/board/boardwrite.png" class="boardwriteImg" alt="">글 쓰기</button>
 		<button type="button" class="btn filterBtn" data-bs-toggle="modal"
 			data-bs-target="#filter">
 			<img src="${path}/resources/img/board/filter.png" class="filterImg"
@@ -82,12 +76,12 @@ pageContext.setAttribute("today", today.toString());
 							<div style="padding: 10px;">
 								<h3>정렬</h3>
 							</div>
-							<input type="radio" id="checkline1" class="lineupBtn"
+							<input type="radio" id="checkline1" 
 								name="sortOrder" value="최신순"> <label for="checkline1"
 								class="lineupBtn">최신순</label> <input type="radio"
-								id="checkline2" class="lineupBtn" name="sortOrder" value="조회순">
+								id="checkline2"  name="sortOrder" value="조회순">
 							<label for="checkline2" class="lineupBtn">조회순</label> <input
-								type="radio" id="checkline3" class="lineupBtn" name="sortOrder"
+								type="radio" id="checkline3"  name="sortOrder"
 								value="좋아요순"> <label for="checkline3" class="lineupBtn">좋아요순</label>
 						</div>
 						<div class="search-container">
@@ -128,7 +122,7 @@ pageContext.setAttribute("today", today.toString());
 								<div class="card-body h-50 ratio" style="-bs-aspect-ratio: 50%;">
 									<img src="${path}/resources/img/board/${board.board_img}"
 										class="card-img-top boardImg"
-										onerror="this.src='/sns/resources/img/board/car1.png'" alt="">
+										onerror="this.src='/sns/resources/img/board/TREEP2.jpg'" alt="">
 								</div>
 								<h5 class="card-title p-3">${board.board_title}</h5>
 								<div
@@ -153,16 +147,16 @@ pageContext.setAttribute("today", today.toString());
 											</c:choose>
 										</p>
 										<p class="mb-0">조회수 : ${board.board_hit}</p>
-										<p class="mb-0">LIKE : ${board.board_like}</p>
+										<p class="mb-0 boardLike">LIKE : ${board.board_like}</p>
 									</small>
 								</div>
 							</div>
 						</a>
 					</div>
 				</c:forEach>
-
 			</div>
 			<div class="pagination-container">
+			<div class="d-flex justify-content-center">
 				<div class="pagination">
 					<button type="button"
 						onclick="location.href='freeboard?page=${boardPage.currentPage - 1}'"
@@ -171,13 +165,14 @@ pageContext.setAttribute("today", today.toString());
 						end="${boardPage.endPage}">
 						<button type="button"
 							onclick="location.href='freeboard?page=${i}'"
-							class="${boardPage.currentPage == i ? 'active' : ''}">
+							class="${boardPage.currentPage == i ? 'active' : ''}" style="font-size:20px; padding:10px;">
 							${i}</button>
 					</c:forEach>
 					<button type="button"
 						onclick="location.href='freeboard?page=${boardPage.currentPage + 1}'"
 						${boardPage.currentPage == boardPage.totalPage ? 'disabled' : ''}>
 						»</button>
+				</div>
 				</div>
 			</div>
 

@@ -24,6 +24,8 @@ import com.ss.sns.board.dto.BoardPage;
 import com.ss.sns.board.dto.ReplyDTO;
 import com.ss.sns.board.service.BoardService;
 import com.ss.sns.member.dto.MemberDTO;
+import com.ss.sns.trip.dto.ScheduleDTO;
+import com.ss.sns.trip.dto.TripDTO;
 
 @Controller
 public class BoardController {
@@ -130,6 +132,7 @@ public class BoardController {
 	@RequestMapping("/askboard")
 	public String askboard(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model,
 			HttpSession session) {
+
 		int board_kind = 3;
 		int freeTotalCount = service.countBoard(board_kind);
 		int pageSize = 8;
@@ -165,28 +168,14 @@ public class BoardController {
 	}
 
 	@RequestMapping("/detailboard")
-<<<<<<< HEAD
-	public String detailboard(int kind, int no, Model model,HttpSession session) {
-
-		Map<String, Integer> hmap = new HashMap<String, Integer>();
-		hmap.put("board_kind", kind);
-		hmap.put("board_no", no);
-		service.updateHit(hmap);
-		BoardDTO board = service.selectByBoardNo(hmap);
-		
-		MemberDTO writeMember = service.selectJoinBoardMember(hmap);
-	
-=======
 	public String detailboard(int no, Model model) {
-
 		service.updateHit(no);
 		BoardDTO board = service.selectByBoardNo(no);
 		MemberDTO writeMember = service.selectJoinBoardMember(no);
-
->>>>>>> b3fa48fb98931c6039d42208c2fa3eedb31ca077
 		model.addAttribute("board", board);
 		model.addAttribute("writeMember", writeMember);
-
+		MemberDTO M = service.selectJoinBoardMember(no);
+		model.addAttribute("Nick",M.getMember_nickname());
 		return "board/detail";
 	}
 
@@ -198,7 +187,6 @@ public class BoardController {
 
 		int boardKind = 1;
 		int pageSize = 8;
-
 		BoardPage boardPage = service.filteredFreePage(boardKind, postTypes, sortOrder, searchText, currentPage,
 				pageSize, session);
 		model.addAttribute("boardPage", boardPage);
@@ -236,21 +224,36 @@ public class BoardController {
 	}
 
 	@RequestMapping("/deleteBoard")
-	   public String deleteBoard(@RequestParam(value = "kind") int kind, @RequestParam(value = "no") int boardNo) {
-	      Map<String, Object> DeleteMap = new HashMap<String, Object>();
-	      DeleteMap.put("kind", kind);
-	      DeleteMap.put("no", boardNo);
-	      service.boardDelete(DeleteMap);
+	public String deleteBoard(@RequestParam(value = "kind") int kind, @RequestParam(value = "no") int boardNo) {
+		Map<String, Object> DeleteMap = new HashMap<String, Object>();
+		DeleteMap.put("kind", kind);
+		DeleteMap.put("no", boardNo);
+		service.boardDelete(DeleteMap);
 
-	      if (kind == 1) {
-	         return "redirect:/freeboard";
-	      } else {
-	         return "redirect:/joinboard";
-	      }
-	   }
+		if (kind == 1) {
+			return "redirect:/freeboard";
+		} else {
+			return "redirect:/joinboard";
+		}
+	}
 
 	@GetMapping("/writeboard")
-	public String writeBoard() {
+	public String writeboard(HttpSession session, Model model) {
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		if (member == null) {
+			return "redirect:/login";
+		}
+
+		int memberNo = member.getMember_no();
+		List<TripDTO> trips = service.getTripsByMemberNo(memberNo);
+		model.addAttribute("trips", trips);
+	System.out.println("trips:"+trips);
+		for (TripDTO trip : trips) {
+			List<ScheduleDTO> schedules = service.getSchedulesAndPlaces(trip.getTrip_no());
+			trip.setSchedules(schedules); 
+			System.out.println("schedules:"+schedules);
+		}
+
 		return "board/writeboard";
 	}
 
@@ -394,6 +397,7 @@ public class BoardController {
 		hmap.put("board_no", no);
 		hmap.put("reply_content", reply_content);
 		service.insertAnswer(hmap);
+		service.updateBoardStatus(no);
 		return "redirect:askboard";
 	}
 
@@ -407,4 +411,14 @@ public class BoardController {
 
 		return "redirect:askboard";
 	}
+
+	@RequestMapping("answerdelete")
+	public String answerDelete(int no) {
+		service.updateAnswerStatus(no);
+		service.deleteAnswer(no);
+		return "redirect:askboard";
+	}
+
+	
+	
 }

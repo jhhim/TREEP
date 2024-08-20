@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <title>문의 게시판</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -169,24 +170,26 @@
                             <p class="ask">문의</p>
                         </th>
                         <td class="askText" style="vertical-align: middle;">
-                            제목 : ${board.board_title}<br>${board.board_content}
+                            <p style="font-size: 1.4rem; font-weight: bold; margin-bottom:14px;">제목 : ${board.board_title}</p>
+							<p style="margin-bottom: 10px;" id="askcontent-box">${fn:escapeXml(board.board_content)}</p>
                         </td>
                         <c:choose>
                             <c:when test="${sessionScope.member.manager_yn eq 'Y'}">
                                 <td style="text-align: right;">
-                                    <input type="button" value="삭제" class="btn btn-danger" onclick="location.href='askDelete?no=${board.board_no}'">
+                                    <input type="button" class="deleteBtn" onclick="location.href='askDelete?no=${board.board_no}'">
                                     <br><br>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#answerAsk" data-info="${board.board_no}">답변</button>
+                                    <button type="button" class="ModiAskBtn" data-bs-toggle="modal" data-bs-target="#answerAsk" data-info="${board.board_no}">답변</button>
                                 </td>
                             </c:when>
            					<c:when test="${sessionScope.member.member_no eq board.member_no}">
            						<td style="text-align: right;">
-                                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateAsk" data-info="${board.board_no}">수정</button>
+           						<input type="button" class="deleteBtn" onclick="location.href='askDelete?no=${board.board_no}'">
                                   <br><br>
-           						<input type="button" value="삭제" class="btn btn-danger" onclick="location.href='askDelete?no=${board.board_no}'">
+                                  <button type="button" class="ModiAskBtn" data-bs-toggle="modal" data-bs-target="#updateAsk" data-info="${board.board_no}">수정</button>
                                 </td>
            					</c:when>
                         </c:choose>
+                        <td></td>
                     </tr>
                     
 
@@ -199,12 +202,19 @@
                                         <p style="position: relative; right: 2px;">답변</p>
                                     </div>
                                 </th>
-                                <td colspan="2">
-                                    <p>${reply.reply_content}</p>
-                                </td>
                                 <td>
-                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateAnswer" data-info="${reply.reply_no}">수정</button>
+                                    <p id="answercontent-box">${fn:escapeXml(reply.reply_content)}</p>
                                 </td>
+                                <c:choose>
+                            	<c:when test="${sessionScope.member.manager_yn eq 'Y'}">
+                                <td style="text-align: right;">
+           						<input type="button" class="deleteBtn" onclick="location.href='answerdelete?no=${reply.reply_no}'">
+                                <br><br>
+                                 <button type="button" class="ModiAskBtn" data-bs-toggle="modal" data-bs-target="#updateAnswer" data-info="${reply.reply_no}">수정</button>
+                                </td>
+                                </c:when>
+                                </c:choose>
+                                <td></td>
                             </tr>
                         </c:forEach>
                     </c:if>

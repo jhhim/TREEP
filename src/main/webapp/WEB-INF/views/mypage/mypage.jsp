@@ -3,16 +3,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <%
-	LocalDate today = LocalDate.now();
-	pageContext.setAttribute("today", today.toString());
+LocalDate today = LocalDate.now();
+pageContext.setAttribute("today", today.toString());
 %>
 
 <script>
-const MypageBasePath = "${path}";
+	const MypageBasePath = "${path}";
 </script>
 
 
@@ -29,8 +29,16 @@ const MypageBasePath = "${path}";
 	<div class="profile-content-container container-md">
 		<!-- 프로필 이름, 정보 관리 -->
 		<div class="profile_info container-md">
-
+		
+		<div class="d-flex justify-content-center mt-3">
+			
 			<div class="profile_nickname">${nickname }</div>
+				<img src="${path}/resources/img/mypage/${gradeImg}" class="grade_Img">
+				<%-- <div class="profile_grade">${grade }</div> --%>
+		
+			
+			
+		</div>
 			<!-- 마이페이지 설정으로 이동 -->
 			<a href="profile" class="profile_manage"> <span>프로필 관리</span> <img
 				src="${path}/resources/img/mypage/setting.png" class="setting_icon">
@@ -64,30 +72,36 @@ const MypageBasePath = "${path}";
 				<div class="tab-pane fade show active" id="home" role="tabpanel"
 					aria-labelledby="home-tab">
 					<c:forEach var="trip" items="${trips}">
-						<div class="row list-schedule">
-							<!--전체 일정 사진 -->
-							<div class="col-3 list-schedule-img-container">
-								<img src="${trip.place_photo_url}"
-									class="img-fluid list-schedule-img">
+						<div class="each-select-item">
+							<div class="row list-schedule">
+								<!--전체 일정 사진 -->
+								<div class="col-3 list-schedule-img-container">
+									<img src="${trip.place_photo_url}"
+										class="img-fluid list-schedule-img">
+								</div>
+								<!--전체 일정 세부사항-->
+								<div class="col-9 list-schedule-content">
+									<div>
+										<span class="schedule-DDay" data-start="${trip.trip_start}"
+											id="d-day-${trip.trip_no}"> </span> <span
+											class="schedule-title"> ${trip.trip_title}</span>
+									</div>
+									<span class="schedule-manage dropdown">
+										<button class="btn dropdown-toggle no-arrow" id="dot3-panel"
+											type="button" data-bs-toggle="dropdown" aria-expanded="false">⋮</button>
+										<ul class="dropdown-menu">
+											<li><a class="dropdown-item"
+												href="tripDetail?trip_no=${trip.trip_no}">상세보기</a></li>
+											<li><a class="dropdown-item" href="#">수정</a></li>
+											<li><a class="dropdown-item"
+												href="${path}/delete?trip_no=${trip.trip_no}">삭제</a></li>
+
+										</ul>
+									</span>
+									<div class="schedule-period">${trip.trip_start}~${trip.trip_end}</div>
+								</div>
 							</div>
-							<!--전체 일정 세부사항-->
-							<div class="col-9 list-schedule-content">
-           <div> <span class="schedule-DDay" data-start="${trip.trip_start}" id="d-day-${trip.trip_no}">
-									
-								</span> <span class="schedule-title"> ${trip.trip_title}</span> </div>
-								<span
-									class="schedule-manage dropdown">
-									<button class="btn dropdown-toggle no-arrow" type="button"
-										data-bs-toggle="dropdown" aria-expanded="false">⋮</button>
-									<ul class="dropdown-menu">									
-										<li><a class="dropdown-item" href="tripDetail?trip_no=${trip.trip_no}">상세보기</a></li>
-										<li><a class="dropdown-item" href="#">공유</a></li>
-										<li><a class="dropdown-item" href="#">수정</a></li>
-										<li><a class="dropdown-item" href="#">삭제</a></li>
-									</ul>
-								</span>								
-								<div class="schedule-period">${trip.trip_start}~${trip.trip_end}</div>
-							</div>
+							</a>
 						</div>
 					</c:forEach>
 				</div>
@@ -124,7 +138,7 @@ const MypageBasePath = "${path}";
 				<table class="table">
 					<thead>
 						<tr>
-					
+
 							<th scope="col">글번호</th>
 							<th scope="col">게시판</th>
 							<th scope="col">제목</th>
@@ -134,26 +148,30 @@ const MypageBasePath = "${path}";
 					</thead>
 					<tbody class="table-group-divider" id="writeTbody">
 
-					<c:forEach var="write" items="${myPage.boardList }">
+						<c:forEach var="write" items="${myPage.boardList }">
 							<tr>
-								
+
 								<th scope="row">${write.board_no }</th>
 								<td>${write.board_type }</td>
-								<td style="width: 40%;"><a href="detailboard?kind=${write.board_kind}&no=${write.board_no}" >${write.board_title }</a></td>
-								
-								<td>
-									<c:choose>
+								<td style="width: 40%;"><a
+									href="detailboard?kind=${write.board_kind}&no=${write.board_no}">${write.board_title }</a></td>
+
+								<td><c:choose>
 										<c:when
 											test="${fn:substring(write.create_date, 0, 10) eq today}">
-											<fmt:parseDate value="${write.create_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
-											 <fmt:formatDate pattern="HH:mm" value="${parsedDateTime}"/>
+											<fmt:parseDate value="${write.create_date}"
+												pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
+												type="both" />
+											<fmt:formatDate pattern="HH:mm" value="${parsedDateTime}" />
 										</c:when>
 										<c:otherwise>
-											 <fmt:parseDate value="${write.create_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
-											 <fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/>
+											<fmt:parseDate value="${write.create_date}"
+												pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
+												type="both" />
+											<fmt:formatDate pattern="yyyy-MM-dd"
+												value="${parsedDateTime}" />
 										</c:otherwise>
-									</c:choose>
-								</td>
+									</c:choose></td>
 								<td>${write.board_hit }</td>
 							</tr>
 						</c:forEach>
@@ -162,8 +180,9 @@ const MypageBasePath = "${path}";
 					</tbody>
 				</table>
 				<div class="activity-manage">
-					<a href="${path}/writeboard"><button type="button" class="btn" id="mypage-write">글쓰기</button></a>
-					
+					<a href="${path}/writeboard"><button type="button" class="btn"
+							id="mypage-write">글쓰기</button></a>
+
 				</div>
 
 
@@ -200,7 +219,7 @@ const MypageBasePath = "${path}";
 			</div>
 
 
-<!-- 내가 좋아요 누른 글 -->
+			<!-- 내가 좋아요 누른 글 -->
 
 			<div class="tab-pane fade" id="likePost" role="tabpanel"
 				aria-labelledby="like-p">
@@ -209,7 +228,7 @@ const MypageBasePath = "${path}";
 				<table class="table">
 					<thead>
 						<tr>
-							
+
 							<th scope="col">글번호</th>
 							<th scope="col">게시판</th>
 							<th scope="col">작성자</th>
@@ -220,38 +239,43 @@ const MypageBasePath = "${path}";
 					</thead>
 					<tbody class="table-group-divider">
 
-									
-					<c:forEach var="Like" items="${myPageLike.boardList }">
-						<tr>
-							
-							<th scope="row">${Like.board_no }</th>
-							<td>${Like.board_type }</td>
-							<td>${Like.member_nickname }</td>
-							<td style="width: 40%;"><a href="detailboard?kind=${Like.board_kind}&no=${Like.board_no}" >${Like.board_title }</a></td>
-							<td>
-									<c:choose>
+
+						<c:forEach var="Like" items="${myPageLike.boardList }">
+							<tr>
+
+								<th scope="row">${Like.board_no }</th>
+								<td>${Like.board_type }</td>
+								<td>${Like.member_nickname }</td>
+								<td style="width: 40%;"><a
+									href="detailboard?kind=${Like.board_kind}&no=${Like.board_no}">${Like.board_title }</a></td>
+								<td><c:choose>
 										<c:when
 											test="${fn:substring(Like.create_date, 0, 10) eq today}">
-											<fmt:parseDate value="${Like.create_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
-											 <fmt:formatDate pattern="HH:mm" value="${parsedDateTime}"/>
+											<fmt:parseDate value="${Like.create_date}"
+												pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
+												type="both" />
+											<fmt:formatDate pattern="HH:mm" value="${parsedDateTime}" />
 										</c:when>
 										<c:otherwise>
-											 <fmt:parseDate value="${Like.create_date}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
-											 <fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDateTime}"/>
+											<fmt:parseDate value="${Like.create_date}"
+												pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime"
+												type="both" />
+											<fmt:formatDate pattern="yyyy-MM-dd"
+												value="${parsedDateTime}" />
 										</c:otherwise>
-									</c:choose>
-								</td>
-							<td>${Like.board_hit }</td>
-						</tr>
-					</c:forEach> 
-						
+									</c:choose></td>
+								<td>${Like.board_hit }</td>
+							</tr>
+						</c:forEach>
+
 					</tbody>
 				</table>
 				<div class="activity-manage">
-					<a href="${path}/writeboard"><button type="button" class="btn" id="mypage-write">글쓰기</button></a>
-				
+					<a href="${path}/writeboard"><button type="button" class="btn"
+							id="mypage-write">글쓰기</button></a>
+
 				</div>
-				
+
 				<nav aria-label="Page navigation example">
 					<ul class="pagination" id="note-pagination">
 						<li class="page-item">
@@ -280,7 +304,7 @@ const MypageBasePath = "${path}";
 						</li>
 					</ul>
 				</nav>
-				
+
 			</div>
 		</div>
 	</div>

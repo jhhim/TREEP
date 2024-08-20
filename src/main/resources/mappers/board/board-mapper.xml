@@ -9,28 +9,29 @@
 		SELECT
 		COUNT(*) FROM BOARD WHERE board_kind = #{board_kind}
 	</select>
-	
+
 	<!-- 매니저일때 전부 불러오기 -->
 	<select id="selectBoardListAll" parameterType="map"
 		resultType="BoardDTO">
 		select * from( select rownum rNum, Tb.* from (select * from
-		board 
-		where BOARD_KIND=#{board_kind} 
-		ORDER BY create_date DESC) Tb) 
+		board
+		where BOARD_KIND=#{board_kind}
+		ORDER BY create_date DESC) Tb)
 		where rNum between #{startNo} and #{endNo}
 	</select>
-	
+
 	<!-- 보드 종류별 페이징 후 전부 불러오기 -->
-<select id="selectBoardList" parameterType="map"
-	resultType="BoardDTO">
-	SELECT * FROM ( SELECT rownum rNum, Tb.* FROM (SELECT * FROM board JOIN MEMBER USING (MEMBER_NO)
-	WHERE BOARD_KIND = #{board_kind}
-	<if test="board_kind != 3">
-		AND BOARD_STATUS = 'Y'
-	</if>
-	ORDER BY create_date DESC
-	) Tb)WHERE rNum BETWEEN #{startNo} AND #{endNo}
-</select>
+	<select id="selectBoardList" parameterType="map"
+		resultType="BoardDTO">
+		SELECT * FROM ( SELECT rownum rNum, Tb.* FROM (SELECT * FROM board
+		JOIN MEMBER USING (MEMBER_NO)
+		WHERE BOARD_KIND = #{board_kind}
+		<if test="board_kind != 3">
+			AND BOARD_STATUS = 'Y'
+		</if>
+		ORDER BY create_date DESC
+		) Tb)WHERE rNum BETWEEN #{startNo} AND #{endNo}
+	</select>
 
 	<!-- 보드 종류, 보드 번호로 보드 1개 불러오기 -->
 	<select id="selectByBoardNo" parameterType="int"
@@ -44,18 +45,20 @@
 		SELECT m.* FROM board b JOIN member m ON b.member_no =
 		m.member_no WHERE b.board_no = #{board_no}
 	</select>
-	
-	
+
+
 	<!-- ask 보드 답변 -->
 
-<select id="selectReplyList" parameterType="list" resultType="ReplyDTO">
-    SELECT * 
-    FROM REPLY 
-    WHERE BOARD_NO IN
-    <foreach item="boardNo" index="index" collection="list" open="(" close=")" separator=",">
-        #{boardNo}
-    </foreach>
-</select>
+	<select id="selectReplyList" parameterType="list"
+		resultType="ReplyDTO">
+		SELECT *
+		FROM REPLY
+		WHERE BOARD_NO IN
+		<foreach item="boardNo" index="index" collection="list"
+			open="(" close=")" separator=",">
+			#{boardNo}
+		</foreach>
+	</select>
 
 	<!-- 보드 조회수 up -->
 	<update id="updateHit" parameterType="int">
@@ -63,374 +66,495 @@
 		= board_hit+1 where board_no=#{board_no}
 	</update>
 	<sql id="sortOrder">
-    <choose>
-        <when test="sortOrder == '최신순'">
-            ORDER BY create_date DESC
-        </when>
-        <when test="sortOrder == '조회순'">
-            ORDER BY board_hit DESC
-        </when>
-        <when test="sortOrder == '좋아요순'">
-            ORDER BY board_like DESC
-        </when>
-        <otherwise>
-            ORDER BY create_date DESC
-        </otherwise>
-    </choose>
-</sql>
+		<choose>
+			<when test="sortOrder == '최신순'">
+				ORDER BY create_date DESC
+			</when>
+			<when test="sortOrder == '조회순'">
+				ORDER BY board_hit DESC
+			</when>
+			<when test="sortOrder == '좋아요순'">
+				ORDER BY board_like DESC
+			</when>
+			<otherwise>
+				ORDER BY create_date DESC
+			</otherwise>
+		</choose>
+	</sql>
 	<!-- 필터링 셀렉트 -->
-	<select id="selectFilterFreeBoardList" parameterType="map" resultType="BoardDTO">
-    SELECT * FROM (
-        SELECT rownum rNum, Tb.*
-        FROM (
-            SELECT * 
-            FROM board
-            WHERE 1=1 AND BOARD_STATUS = 'Y'
-            <if test="board_kind != null">
-                AND BOARD_KIND = #{board_kind}
-            </if>
-            <if test="postTypes != null and postTypes.size() > 0">
-                AND board_type IN
-                <foreach item="type" collection="postTypes" open="(" close=")" separator=",">
-                    #{type}
-                </foreach>
-            </if>
-            <if test="searchText != null and searchText.trim() != ''">
-                AND (board_content LIKE '%' || #{searchText} || '%' 
-                     OR board_title LIKE '%' || #{searchText} || '%')
-            </if>
-            <choose>
-                <when test="sortOrder == '최신순'">
-                    ORDER BY create_date DESC
-                </when>
-                <when test="sortOrder == '조회순'">
-                    ORDER BY board_hit DESC
-                </when>
-                <when test="sortOrder == '좋아요순'">
-                    ORDER BY board_like DESC
-                </when>
-                <otherwise>
-                    ORDER BY create_date DESC
-                </otherwise>
-            </choose>
-        ) Tb
-    ) 
-    WHERE rNum BETWEEN #{startNo} AND #{endNo}
-</select>
+	<select id="selectFilterFreeBoardList" parameterType="map"
+		resultType="BoardDTO">
+		SELECT * FROM (
+		SELECT rownum rNum, Tb.*
+		FROM (
+		SELECT *
+		FROM board
+		WHERE 1=1 AND BOARD_STATUS = 'Y'
+		<if test="board_kind != null">
+			AND BOARD_KIND = #{board_kind}
+		</if>
+		<if test="postTypes != null and postTypes.size() > 0">
+			AND board_type IN
+			<foreach item="type" collection="postTypes" open="("
+				close=")" separator=",">
+				#{type}
+			</foreach>
+		</if>
+		<if test="searchText != null and searchText.trim() != ''">
+			AND (board_content LIKE '%' || #{searchText} || '%'
+			OR board_title LIKE '%' || #{searchText} || '%')
+		</if>
+		<choose>
+			<when test="sortOrder == '최신순'">
+				ORDER BY create_date DESC
+			</when>
+			<when test="sortOrder == '조회순'">
+				ORDER BY board_hit DESC
+			</when>
+			<when test="sortOrder == '좋아요순'">
+				ORDER BY board_like DESC
+			</when>
+			<otherwise>
+				ORDER BY create_date DESC
+			</otherwise>
+		</choose>
+		) Tb
+		)
+		WHERE rNum BETWEEN #{startNo} AND #{endNo}
+	</select>
 
-<select id="totalCountFreeFilter" parameterType="map" resultType="int">
-    SELECT COUNT(*)
-    FROM board
-    WHERE 1=1 AND BOARD_STATUS = 'Y'
-    <if test="board_kind != null">
-        AND BOARD_KIND = #{board_kind}
-    </if>
-    <if test="postTypes != null and postTypes.size() > 0">
-        AND board_type IN
-        <foreach item="type" collection="postTypes" open="(" close=")" separator=",">
-            #{type}
-        </foreach>
-    </if>
-    <if test="searchText != null and searchText.trim() != ''">
-        AND board_content LIKE '%' || #{searchText} || '%'
-    </if>
-</select>
+	<select id="totalCountFreeFilter" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM board
+		WHERE 1=1 AND BOARD_STATUS = 'Y'
+		<if test="board_kind != null">
+			AND BOARD_KIND = #{board_kind}
+		</if>
+		<if test="postTypes != null and postTypes.size() > 0">
+			AND board_type IN
+			<foreach item="type" collection="postTypes" open="("
+				close=")" separator=",">
+				#{type}
+			</foreach>
+		</if>
+		<if test="searchText != null and searchText.trim() != ''">
+			AND board_content LIKE '%' || #{searchText} || '%'
+		</if>
+	</select>
 
-<select id="totalCountJoinFilter" parameterType="map" resultType="int">
-    SELECT COUNT(*)
-    FROM board
-    WHERE 1=1 AND BOARD_STATUS = 'Y'
-    <if test="board_kind != null">
-        AND BOARD_KIND = #{board_kind}
-    </if>
-    <if test="locations != null and locations.size() > 0">
-        AND board_continent IN
-        <foreach item="location" collection="locations" open="(" close=")" separator=",">
-            #{location}
-        </foreach>
-    </if>
-    <if test="searchText != null and searchText.trim() != ''">
-        AND board_content LIKE '%' || #{searchText} || '%'
-    </if>
-</select>
+	<select id="totalCountJoinFilter" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM board
+		WHERE 1=1 AND BOARD_STATUS = 'Y'
+		<if test="board_kind != null">
+			AND BOARD_KIND = #{board_kind}
+		</if>
+		<if test="locations != null and locations.size() > 0">
+			AND board_continent IN
+			<foreach item="location" collection="locations" open="("
+				close=")" separator=",">
+				#{location}
+			</foreach>
+		</if>
+		<if test="searchText != null and searchText.trim() != ''">
+			AND board_content LIKE '%' || #{searchText} || '%'
+		</if>
+	</select>
 
-<select id="selectFilterJoinBoardList" parameterType="map" resultType="BoardDTO">
-    SELECT * FROM (
-        SELECT rownum rNum, Tb.*
-        FROM (
-            SELECT * 
-            FROM board
-            WHERE 1=1 AND BOARD_STATUS = 'Y'
-            <if test="board_kind != null">
-                AND BOARD_KIND = #{board_kind}
-            </if>
-            <if test="locations != null and locations.size() > 0">
-                AND board_continent IN
-                <foreach item="location" collection="locations" open="(" close=")" separator=",">
-                    #{location}
-                </foreach>
-            </if>
-            <if test="searchText != null and searchText.trim() != ''">
-                AND (board_content LIKE '%' || #{searchText} || '%' 
-                     OR board_title LIKE '%' || #{searchText} || '%')
-            </if>
-            <choose>
-                <when test="sortOrder == '최신순'">
-                    ORDER BY create_date DESC
-                </when>
-                <when test="sortOrder == '조회순'">
-                    ORDER BY board_hit DESC
-                </when>
-                <when test="sortOrder == '좋아요순'">
-                    ORDER BY board_like DESC
-                </when>
-                <otherwise>
-                    ORDER BY create_date DESC
-                </otherwise>
-            </choose>
-        ) Tb
-    ) 
-    WHERE rNum BETWEEN #{startNo} AND #{endNo}
-</select>
-<!-- ******************************** 보드 인서트 ********************************* -->
+	<select id="selectFilterJoinBoardList" parameterType="map"
+		resultType="BoardDTO">
+		SELECT * FROM (
+		SELECT rownum rNum, Tb.*
+		FROM (
+		SELECT *
+		FROM board
+		WHERE 1=1 AND BOARD_STATUS = 'Y'
+		<if test="board_kind != null">
+			AND BOARD_KIND = #{board_kind}
+		</if>
+		<if test="locations != null and locations.size() > 0">
+			AND board_continent IN
+			<foreach item="location" collection="locations" open="("
+				close=")" separator=",">
+				#{location}
+			</foreach>
+		</if>
+		<if test="searchText != null and searchText.trim() != ''">
+			AND (board_content LIKE '%' || #{searchText} || '%'
+			OR board_title LIKE '%' || #{searchText} || '%')
+		</if>
+		<choose>
+			<when test="sortOrder == '최신순'">
+				ORDER BY create_date DESC
+			</when>
+			<when test="sortOrder == '조회순'">
+				ORDER BY board_hit DESC
+			</when>
+			<when test="sortOrder == '좋아요순'">
+				ORDER BY board_like DESC
+			</when>
+			<otherwise>
+				ORDER BY create_date DESC
+			</otherwise>
+		</choose>
+		) Tb
+		)
+		WHERE rNum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	<!-- ******************************** 보드 인서트 ********************************* -->
 	<insert id="insertBoard" parameterType="map">
-	 <choose>
-		<when test="board_kind == 1">
-			INSERT INTO BOARD(MEMBER_NO,BOARD_TYPE,CREATE_DATE,BOARD_TITLE,BOARD_CONTENT,BOARD_IMG,
-			BOARD_HIT,BOARD_LIKE,BOARD_KIND,BOARD_STATUS) VALUES (
-			#{member_no}, #{board_type},SYSDATE,#{board_title},#{board_content},#{board_img,jdbcType=VARCHAR},
-			0,0,#{board_kind},'Y')
-		</when>
-		<otherwise>
-		INSERT INTO BOARD(MEMBER_NO,CREATE_DATE,BOARD_TITLE,BOARD_CONTENT,BOARD_IMG,
-			BOARD_HIT,BOARD_LIKE,BOARD_KIND,BOARD_STATUS,BOARD_CONTINENT) VALUES (
-			#{member_no},SYSDATE,#{board_title},#{board_content},#{board_img,jdbcType=VARCHAR},
-			0,0,#{board_kind},'Y',#{board_continent})
-		</otherwise>
-	 </choose>
+		<choose>
+			<when test="board_kind == 1">
+				INSERT INTO
+				BOARD(MEMBER_NO,BOARD_TYPE,CREATE_DATE,BOARD_TITLE,BOARD_CONTENT,BOARD_IMG,
+				BOARD_HIT,BOARD_LIKE,BOARD_KIND,BOARD_STATUS) VALUES (
+				#{member_no},
+				#{board_type},SYSDATE,#{board_title},#{board_content},#{board_img,jdbcType=VARCHAR},
+				0,0,#{board_kind},'Y')
+			</when>
+			<otherwise>
+				INSERT INTO
+				BOARD(MEMBER_NO,CREATE_DATE,BOARD_TITLE,BOARD_CONTENT,BOARD_IMG,
+				BOARD_HIT,BOARD_LIKE,BOARD_KIND,BOARD_STATUS,BOARD_CONTINENT) VALUES
+				(
+				#{member_no},SYSDATE,#{board_title},#{board_content},#{board_img,jdbcType=VARCHAR},
+				0,0,#{board_kind},'Y',#{board_continent})
+			</otherwise>
+		</choose>
 	</insert>
 
 
-<!-- ******************************** ask보드 인서트 ********************************* -->
+	<!-- ******************************** ask보드 인서트 ********************************* -->
 
-<insert id="insertAskBoard" parameterType="map">
-	INSERT INTO BOARD(MEMBER_NO, CREATE_DATE, BOARD_TITLE, BOARD_CONTENT, BOARD_KIND, BOARD_STATUS)VALUES 
-	(#{member_no}, sysdate,#{board_title},#{board_content},#{board_kind},'답변 대기')
-</insert>
+	<insert id="insertAskBoard" parameterType="map">
+		INSERT INTO BOARD(MEMBER_NO, CREATE_DATE, BOARD_TITLE, BOARD_CONTENT,
+		BOARD_KIND, BOARD_STATUS)VALUES
+		(#{member_no}, sysdate,#{board_title},#{board_content},#{board_kind},'답변 대기')
+	</insert>
 
-<!-- 답변 -->
+	<!-- 답변 -->
 	<insert id="insertAnswer" parameterType="map">
-	INSERT INTO REPLY(BOARD_NO,MEMBER_NO,REPLY_CONTENT,REPLY_STATUS_YN,REPLY_DATE) VALUES 
-	(#{board_no},#{member_no}, #{reply_content},'Y',sysdate)
+		INSERT INTO
+		REPLY(BOARD_NO,MEMBER_NO,REPLY_CONTENT,REPLY_STATUS_YN,REPLY_DATE)
+		VALUES
+		(#{board_no},#{member_no}, #{reply_content},'Y',sysdate)
 	</insert>
-<!-- ******************************** ask보드 업데이트 ********************************* -->
+	<!-- ******************************** ask보드 업데이트 ********************************* -->
 
 	<update id="updateAskBoard" parameterType="map">
-	update board set board_title = #{board_title},boardㄱ_content=#{board_content} where board_no=#{board_no}
+		update board set board_title = #{board_title},board_content=#{board_content}
+		where board_no=#{board_no}
 	</update>
 	<!-- 답변 -->
 	<update id="updateAnswer" parameterType="map">
-	update reply set reply_content=#{reply_content} where reply_no=#{reply_no}
+		update reply set reply_content=#{reply_content} where reply_no=#{reply_no}
 	</update>
-<!-- ******************************** ask보드 딜리트 ********************************* -->	
+	<!-- ******************************** ask보드 딜리트 ********************************* -->
 	<delete id="deleteAsk" parameterType="int">
-		delete from board where board_no = #{no}
+		delete from board where
+		board_no = #{no}
 	</delete>
-	
-	
-<!-- ******************************** 보드 업데이트 ********************************* -->
+	<!-- 답변 -->
+	<delete id="deleteAnswer">
+		delete from reply where reply_no = #{no}
+	</delete>
+	<!-- ******************************** 보드 업데이트 ********************************* -->
 	<update id="updateBoard" parameterType="map">
 		<choose>
 			<when test="board_kind == 1">
-				UPDATE BOARD SET BOARD_TITLE = #{board_title},BOARD_TYPE=#{board_type},
-				BOARD_CONTENT = #{board_content},BOARD_IMG = #{board_img},BOARD_KIND=#{board_kind}
+				UPDATE BOARD SET BOARD_TITLE =
+				#{board_title},BOARD_TYPE=#{board_type},
+				BOARD_CONTENT =
+				#{board_content},BOARD_IMG = #{board_img},BOARD_KIND=#{board_kind}
 				WHERE BOARD_NO = #{board_no}
 			</when>
-	<otherwise>
-		UPDATE BOARD SET BOARD_TITLE = #{board_title},BOARD_CONTENT = #{board_content},
-		BOARD_IMG = #{board_img},BOARD_KIND = #{board_kind},BOARD_CONTINENT = #{board_continent}
-		WHERE BOARD_NO = #{board_no}
-	</otherwise>
+			<otherwise>
+				UPDATE BOARD SET BOARD_TITLE = #{board_title},BOARD_CONTENT =
+				#{board_content},
+				BOARD_IMG = #{board_img},BOARD_KIND = #{board_kind},BOARD_CONTINENT =
+				#{board_continent}
+				WHERE BOARD_NO = #{board_no}
+			</otherwise>
 
 		</choose>
 	</update>
+	<!-- ******************************** ask보드 답변상태 업데이트 ********************************* -->
+	<update id="updateBoardStatus" parameterType="int">
+		UPDATE board SET board_status = '답변 완료' where board_no = #{no}
+	</update>
+	<!-- 답변삭제시 상태 업데이트 -->
+	<update id="updateAnswerStatus" parameterType="int">
+		UPDATE board b SET b.board_status = '답변 대기' WHERE EXISTS (
+		SELECT 1 FROM reply r
+		WHERE b.board_no = r.board_no AND r.reply_no = #{no})
+	</update>
 
 
-
-
-
-<!-- ********************************************* 매니저 필터 ************************************************* -->
+	<!-- ********************************************* 매니저 필터 ************************************************* -->
 
 	<!-- 필터링 셀렉트 -->
-	<select id="selectFilterFreeBoardListMG" parameterType="map" resultType="BoardDTO">
-    SELECT * FROM (
-        SELECT rownum rNum, Tb.*
-        FROM (
-            SELECT * 
-            FROM board
-            WHERE 1=1 
-            <if test="board_kind != null">
-                AND BOARD_KIND = #{board_kind}
-            </if>
-            <if test="postTypes != null and postTypes.size() > 0">
-                AND board_type IN
-                <foreach item="type" collection="postTypes" open="(" close=")" separator=",">
-                    #{type}
-                </foreach>
-            </if>
-            <if test="searchText != null and searchText.trim() != ''">
-                AND (board_content LIKE '%' || #{searchText} || '%' 
-                     OR board_title LIKE '%' || #{searchText} || '%')
-            </if>
-            <choose>
-                <when test="sortOrder == '최신순'">
-                    ORDER BY create_date DESC
-                </when>
-                <when test="sortOrder == '조회순'">
-                    ORDER BY board_hit DESC
-                </when>
-                <when test="sortOrder == '좋아요순'">
-                    ORDER BY board_like DESC
-                </when>
-                <otherwise>
-                    ORDER BY create_date DESC
-                </otherwise>
-            </choose>
-        ) Tb
-    ) 
-    WHERE rNum BETWEEN #{startNo} AND #{endNo}
-</select>
+	<select id="selectFilterFreeBoardListMG" parameterType="map"
+		resultType="BoardDTO">
+		SELECT * FROM (
+		SELECT rownum rNum, Tb.*
+		FROM (
+		SELECT *
+		FROM board
+		WHERE 1=1
+		<if test="board_kind != null">
+			AND BOARD_KIND = #{board_kind}
+		</if>
+		<if test="postTypes != null and postTypes.size() > 0">
+			AND board_type IN
+			<foreach item="type" collection="postTypes" open="("
+				close=")" separator=",">
+				#{type}
+			</foreach>
+		</if>
+		<if test="searchText != null and searchText.trim() != ''">
+			AND (board_content LIKE '%' || #{searchText} || '%'
+			OR board_title LIKE '%' || #{searchText} || '%')
+		</if>
+		<choose>
+			<when test="sortOrder == '최신순'">
+				ORDER BY create_date DESC
+			</when>
+			<when test="sortOrder == '조회순'">
+				ORDER BY board_hit DESC
+			</when>
+			<when test="sortOrder == '좋아요순'">
+				ORDER BY board_like DESC
+			</when>
+			<otherwise>
+				ORDER BY create_date DESC
+			</otherwise>
+		</choose>
+		) Tb
+		)
+		WHERE rNum BETWEEN #{startNo} AND #{endNo}
+	</select>
 
-<select id="totalCountFreeFilterMG" parameterType="map" resultType="int">
-    SELECT COUNT(*)
-    FROM board
-    WHERE 1=1 
-    <if test="board_kind != null">
-        AND BOARD_KIND = #{board_kind}
-    </if>
-    <if test="postTypes != null and postTypes.size() > 0">
-        AND board_type IN
-        <foreach item="type" collection="postTypes" open="(" close=")" separator=",">
-            #{type}
-        </foreach>
-    </if>
-    <if test="searchText != null and searchText.trim() != ''">
-        AND board_content LIKE '%' || #{searchText} || '%'
-    </if>
-</select>
+	<select id="totalCountFreeFilterMG" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM board
+		WHERE 1=1
+		<if test="board_kind != null">
+			AND BOARD_KIND = #{board_kind}
+		</if>
+		<if test="postTypes != null and postTypes.size() > 0">
+			AND board_type IN
+			<foreach item="type" collection="postTypes" open="("
+				close=")" separator=",">
+				#{type}
+			</foreach>
+		</if>
+		<if test="searchText != null and searchText.trim() != ''">
+			AND board_content LIKE '%' || #{searchText} || '%'
+		</if>
+	</select>
 
-<select id="totalCountJoinFilterMG" parameterType="map" resultType="int">
-    SELECT COUNT(*)
-    FROM board
-    WHERE 1=1 
-    <if test="board_kind != null">
-        AND BOARD_KIND = #{board_kind}
-    </if>
-    <if test="locations != null and locations.size() > 0">
-        AND board_continent IN
-        <foreach item="location" collection="locations" open="(" close=")" separator=",">
-            #{location}
-        </foreach>
-    </if>
-    <if test="searchText != null and searchText.trim() != ''">
-        AND board_content LIKE '%' || #{searchText} || '%'
-    </if>
-</select>
+	<select id="totalCountJoinFilterMG" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM board
+		WHERE 1=1
+		<if test="board_kind != null">
+			AND BOARD_KIND = #{board_kind}
+		</if>
+		<if test="locations != null and locations.size() > 0">
+			AND board_continent IN
+			<foreach item="location" collection="locations" open="("
+				close=")" separator=",">
+				#{location}
+			</foreach>
+		</if>
+		<if test="searchText != null and searchText.trim() != ''">
+			AND board_content LIKE '%' || #{searchText} || '%'
+		</if>
+	</select>
 
-<select id="selectFilterJoinBoardListMG" parameterType="map" resultType="BoardDTO">
-    SELECT * FROM (
-        SELECT rownum rNum, Tb.*
-        FROM (
-            SELECT * 
-            FROM board
-            WHERE 1=1 
-            <if test="board_kind != null">
-                AND BOARD_KIND = #{board_kind}
-            </if>
-            <if test="locations != null and locations.size() > 0">
-                AND board_continent IN
-                <foreach item="location" collection="locations" open="(" close=")" separator=",">
-                    #{location}
-                </foreach>
-            </if>
-            <if test="searchText != null and searchText.trim() != ''">
-                AND (board_content LIKE '%' || #{searchText} || '%' 
-                     OR board_title LIKE '%' || #{searchText} || '%')
-            </if>
-            <choose>
-                <when test="sortOrder == '최신순'">
-                    ORDER BY create_date DESC
-                </when>
-                <when test="sortOrder == '조회순'">
-                    ORDER BY board_hit DESC
-                </when>
-                <when test="sortOrder == '좋아요순'">
-                    ORDER BY board_like DESC
-                </when>
-                <otherwise>
-                    ORDER BY create_date DESC
-                </otherwise>
-            </choose>
-        ) Tb
-    ) 
-    WHERE rNum BETWEEN #{startNo} AND #{endNo}
-</select>
+	<select id="selectFilterJoinBoardListMG" parameterType="map"
+		resultType="BoardDTO">
+		SELECT * FROM (
+		SELECT rownum rNum, Tb.*
+		FROM (
+		SELECT *
+		FROM board
+		WHERE 1=1
+		<if test="board_kind != null">
+			AND BOARD_KIND = #{board_kind}
+		</if>
+		<if test="locations != null and locations.size() > 0">
+			AND board_continent IN
+			<foreach item="location" collection="locations" open="("
+				close=")" separator=",">
+				#{location}
+			</foreach>
+		</if>
+		<if test="searchText != null and searchText.trim() != ''">
+			AND (board_content LIKE '%' || #{searchText} || '%'
+			OR board_title LIKE '%' || #{searchText} || '%')
+		</if>
+		<choose>
+			<when test="sortOrder == '최신순'">
+				ORDER BY create_date DESC
+			</when>
+			<when test="sortOrder == '조회순'">
+				ORDER BY board_hit DESC
+			</when>
+			<when test="sortOrder == '좋아요순'">
+				ORDER BY board_like DESC
+			</when>
+			<otherwise>
+				ORDER BY create_date DESC
+			</otherwise>
+		</choose>
+		) Tb
+		)
+		WHERE rNum BETWEEN #{startNo} AND #{endNo}
+	</select>
 
 
-<!-- ********************************************* 댓글 ************************************************* -->
+	<!-- ********************************************* 댓글 ************************************************* -->
 	<!-- 댓글 insert -->
 	<insert id="insertReply" parameterType="map">
 		<choose>
 			<when test="rereply_no != null">
 				INSERT INTO reply
-				(rereply_no, board_no, member_no, REPLY_CONTENT, REPLY_STATUS_YN, REPLY_DATE)
+				(rereply_no, board_no, member_no,
+				REPLY_CONTENT, REPLY_STATUS_YN, REPLY_DATE)
 				VALUES
-				(#{rereply_no}, #{board_no}, #{member_no}, #{reply_content}, 'Y', SYSDATE)
+				(#{rereply_no},
+				#{board_no}, #{member_no}, #{reply_content}, 'Y', SYSDATE)
 			</when>
 			<otherwise>
 				INSERT INTO reply
-				(BOARD_NO, MEMBER_NO, REPLY_CONTENT, REPLY_STATUS_YN, REPLY_DATE)
+				(BOARD_NO, MEMBER_NO, REPLY_CONTENT,
+				REPLY_STATUS_YN, REPLY_DATE)
 				VALUES
-				(#{board_no}, #{member_no}, #{reply_content}, 'Y', SYSDATE)
+				(#{board_no}, #{member_no},
+				#{reply_content}, 'Y', SYSDATE)
 			</otherwise>
 		</choose>
 	</insert>
 	<!-- 댓글 조회 -->
 	<select id="selectReply" parameterType="int"
-		resultType="ReplyDTO">
-		select * from reply where board_no= #{board_no} order by reply_date
+		resultType="ReplyNickDTO">
+		SELECT *
+		FROM reply r
+		JOIN member m ON r.member_no = m.member_no
+		WHERE r.board_no = #{board_no}
+		ORDER BY r.reply_date
 	</select>
-	<!--  대댓글 조회  -->
+	<!-- 대댓글 조회 -->
 	<select id="selectReReply" parameterType="int"
-		resultType="ReplyDTO">
-		select * from reply where rereply_no = #{reply_no}
+		resultType="ReplyNickDTO">
+		SELECT *
+		FROM reply r
+		JOIN member m ON r.member_no = m.member_no
+		WHERE r.rereply_no = #{reply_no}
 	</select>
 	<!--댓글 삭제 -->
 	<delete id="deleteReply" parameterType="map">
-	DELETE FROM REPLY WHERE REPLY_NO = #{reply_no} AND (MEMBER_NO = #{member_no} OR EXISTS (SELECT 1 FROM MEMBER
-    WHERE MEMBER_NO = #{member_no} AND MANAGER_YN = 'Y'))
+		DELETE FROM REPLY WHERE REPLY_NO = #{reply_no} AND (MEMBER_NO = #{member_no}
+		OR EXISTS (SELECT 1 FROM MEMBER
+		WHERE MEMBER_NO = #{member_no} AND MANAGER_YN = 'Y'))
 	</delete>
 	<!-- 부모댓글 삭제시 하위 댓글 삭제 -->
 	<delete id="deleteReReply" parameterType="map">
-	delete from reply where rereply_no = #{reply_no}
+		delete from reply where rereply_no = #{reply_no}
 	</delete>
-	<!-- 	댓글 수정 -->
+	<!-- 댓글 수정 -->
 	<update id="updateReply" parameterType="map">
-	update reply set reply_content = #{reply_content} where reply_no = #{reply_no} and member_no=#{member_no}
+		update reply set reply_content = #{reply_content} where reply_no =
+		#{reply_no} and member_no=#{member_no}
 	</update>
-	
-	
+
+
 	<!-- BOARD_STATUS 업데이트 -->
 	<update id="boardStatusUpdate" parameterType="map">
-		UPDATE BOARD SET BOARD_STATUS = 'N' 
+		UPDATE BOARD SET
+		BOARD_STATUS = 'N'
 		WHERE BOARD_KIND = #{kind} and BOARD_NO = #{no}
 	</update>
-	
-	
-	
+
+
+
 	<!-- 게시물 삭제 -->
 	<delete id="boardDelete">
-		DELETE FROM BOARD 
+		DELETE FROM BOARD
 		WHERE BOARD_KIND = #{kind} AND BOARD_NO = #{no}
-	</delete>	
+	</delete>
+
+	<!-- ****************************************** 좋아요 ************************************************* -->
+	<!-- 추가 -->
+	<insert id="addLike">
+		INSERT INTO like2 (board_no, member_no) VALUES
+		(#{boardNo}, #{memberNo})
+	</insert>
+	<!-- 삭제 -->
+	<delete id="removeLike">
+		delete from like2 where board_no=#{boardNo} and
+		member_no = #{memberNo}
+	</delete>
+	<!-- 조회 -->
+	<select id="getLikeCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM like2 WHERE board_no = #{boardNo}
+	</select>
+	<!-- board_like update -->
+	<update id="updateBoardLike" parameterType="map">
+		update board set
+		board_like = board_like+#{num} where board_no = #{boardNo}
+	</update>
+<select id="isLiked" parameterType="map" resultType="int">
+    SELECT COUNT(*) FROM like2
+    WHERE board_no = #{boardNo} AND member_no = #{memberNo}
+</select>
+
+<!-- 일정가져오기 -->
+
+<resultMap id="tripResultMap" type="TripDTO">
+    <id property="trip_no" column="trip_no"/>
+    <result property="trip_title" column="trip_title"/>
+    <result property="trip_start" column="trip_start"/>
+    <result property="trip_end" column="trip_end"/>
+    <result property="place_photo_url" column="place_photo_url"/>
+    <result property="member_nickname" column="member_nickname" />
+    <result property="grade_img" column="grade_img" />
+</resultMap>
+
+<resultMap id="scheduleResultMap" type="ScheduleDTO">
+    <id property="schedule_no" column="schedule_no"/>
+    <result property="schedule_date" column="schedule_date"/>
+    <result property="schedule_content" column="schedule_content"/>
+    <collection property="places" ofType="TripPlaceDTO">
+        <id property="place_no" column="place_no"/>
+        <result property="place_name" column="place_name"/>
+    </collection>
+</resultMap>
+<select id="getTripDetails" resultMap="tripResultMap">
+    SELECT t.trip_no, t.trip_title, t.trip_start, t.trip_end, t.place_photo_url,
+           m.member_nickname, g.grade_img  
+    FROM member_trip mt
+    JOIN trip t ON mt.trip_no = t.trip_no
+    JOIN member m ON mt.member_no = m.member_no
+    LEFT JOIN grade g ON m.member_grade = g.grade  
+    WHERE mt.member_no = #{memberNo}
+</select>
+
+<select id="getSchedulesAndPlaces" resultMap="scheduleResultMap">
+    SELECT s.schedule_no, s.schedule_date, s.schedule_content,
+           tp.place_no, tp.place_name
+    FROM schedule s
+    LEFT JOIN trip_place tp ON s.schedule_no = tp.schedule_no
+    WHERE s.trip_no = #{trip_no}
+    ORDER BY s.schedule_date, tp.place_no
+</select>
+
+
+
+
 </mapper>

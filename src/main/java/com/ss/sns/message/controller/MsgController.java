@@ -36,7 +36,7 @@ public class MsgController {
 		
 		// 세션에 있는 멤버한테 온 메시지 전체 개수
 		int MessageTotalCount = service.selectMessageRevCount(member_no);
-		int pageSize = 2;
+		int pageSize = 8;
 		
 //		받은 쪽지함
 		MsgPage msgPage = new MsgPage(pageSize, MessageTotalCount, currentPage);
@@ -172,6 +172,38 @@ public class MsgController {
 		
 		return "redirect:/message";
 	}
+	
+	
+	// 쪽지 보내기
+		@RequestMapping("/SendMessageb")
+		public String SendMessageb(@RequestParam(value="recipient_name") String name, 
+								  @RequestParam(value="message_text") String msgText,
+								  HttpSession session,
+								  RedirectAttributes redirectAttributes){
+			Map<String, Object> sendMsg = new HashMap<String, Object>();
+			
+
+			MemberDTO Session = (MemberDTO)session.getAttribute("member");
+			
+			// 세션에 있는 memberDTO에서 닉네임 값 받아서 디비에서 member_no값 가져오기
+			int SessionMember_No = service.getMemberNo(Session.getMember_nickname());
+
+			Integer member_no = service.selectMsgMemberNo(name);
+			
+			if(member_no == null) {
+				redirectAttributes.addFlashAttribute("nullMsg","존재하지 않는 닉네임 입니다.");
+				return "redirect:/message";
+			}
+
+			sendMsg.put("message_sen", SessionMember_No);
+			sendMsg.put("message_rev", member_no);
+			sendMsg.put("text",msgText);
+			
+			service.SendMessage(sendMsg);
+			service.RevStore(sendMsg);
+			
+			return "redirect:/freeboard";
+		}
 	
 	
 	

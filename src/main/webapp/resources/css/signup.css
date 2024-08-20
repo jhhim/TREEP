@@ -424,4 +424,49 @@
 	display: none;
 }
 
+.share_info_container{
+    width: 30%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    margin: 10% 35% 10% 35%;
+    font-size: large;
+}
+.share_button_div{
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.share_button{
+    border: solid 2px;
+    border-color: #7FD858;
+    color: #7FD858;
+    vertical-align: middle;
+    justify-content: center;
+    text-align: center;
+    font-weight: 100;
+    border-radius: 5px;
+    height: 100%;
+    width: 50%;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.share_button:hover,.share_button:active{
+    border: solid 2px;
+    border-color: #7FD858;
+    color: #fafafa;
+    background-color: #7FD858;
+}
+.share_img{
+    width: 50%;
+    height: auto;
+    margin-bottom: 10px;
+}
+.resultid{
+	color: blue;
+}
 /* id pw pwchk name nicknamechk idck  nicknamechkCheck pwckcorCheck*/

@@ -19,19 +19,6 @@ pageContext.setAttribute("today", today.toString());
 		<li class="MyTabMenufd"><a href="freeboard">자유게시판</a></li>
 		<li class="MyTabMenufd"><a href="askboard">문의게시판</a></li>
 	</ul>
-
-	<!-- <div class="summary-container">
-        <p id="summary-icon"><i class="fa-solid fa-house"></i></p>
-        <p id="summary-icon"><i class="fa-solid fa-arrow-right"></i></p>
-        <p id="summary-icon">
-            <select name="" id="" class="boardSelect" onchange="window.open(value,'_self')">
-                <option value="FriendBoard.html" selected>동행친구</option>
-                <option value="FreeBoard.html">자유게시판</option>
-                <option value="AskBoard.html">문의게시판</option>
-            </select>
-        </p>
-    </div> -->
-
 	<div class="title-containerfd">
 		<h1 class="titlefd">동행 친구</h1>
 	</div>
@@ -39,6 +26,7 @@ pageContext.setAttribute("today", today.toString());
 
 
 	<div class="filter-containerfd">
+	<button type="button" class="boardWriteBtn" onclick="location.href='writeboard'"><img src="${path}/resources/img/board/boardwrite.png" class="boardwriteImg" alt="">글 쓰기</button>
 		<button type="button" class="btn filterBtnfd" data-bs-toggle="modal"
 			data-bs-target="#filterfd">
 			<img src="${path}/resources/img/board/filter.png" class="filterImgfd"
@@ -104,12 +92,12 @@ pageContext.setAttribute("today", today.toString());
 							<div style="padding: 15px;">
 								<h3>정렬</h3>
 							</div>
-							<input type="radio" class="lineupBtnfd" id="latest"
+							<input type="radio"  id="latest"
 								name="sortOrder" value="최신순" /> <label for="latest"
 								class="lineupBtnfd">최신순</label> <input type="radio"
-								class="lineupBtnfd" id="viewCount" name="sortOrder" value="조회순" />
+								 id="viewCount" name="sortOrder" value="조회순" />
 							<label for="viewCount" class="lineupBtnfd">조회순</label> <input
-								type="radio" class="lineupBtnfd" id="likes" name="sortOrder"
+								type="radio" id="likes" name="sortOrder"
 								value="좋아요순" /> <label for="likes" class="lineupBtnfd">좋아요순</label>
 						</div>
 
@@ -188,6 +176,7 @@ pageContext.setAttribute("today", today.toString());
 
 
 	<div class="pagination-container">
+				<div class="d-flex justify-content-center mt-5">
 		<div class="pagination">
 			<button type="button"
 				onclick="location.href='joinboard?page=${boardPage.currentPage - 1}'"
@@ -195,13 +184,14 @@ pageContext.setAttribute("today", today.toString());
 			<c:forEach var="i" begin="${boardPage.startPage}"
 				end="${boardPage.endPage}">
 				<button type="button" onclick="location.href='joinboard?page=${i}'"
-					class="${boardPage.currentPage == i ? 'active' : ''}">
+					class="${boardPage.currentPage == i ? 'active' : ''}" style="font-size:20px; padding:10px;">
 					${i}</button>
 			</c:forEach>
 			<button type="button"
 				onclick="location.href='joinboard?page=${boardPage.currentPage + 1}'"
 				${boardPage.currentPage == boardPage.totalPage ? 'disabled' : ''}>
 				»</button>
+		</div>
 		</div>
 	</div>
 		</c:otherwise>

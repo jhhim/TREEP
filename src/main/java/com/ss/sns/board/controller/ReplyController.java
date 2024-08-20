@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ss.sns.board.dto.ReplyDTO;
+import com.ss.sns.board.dto.ReplyNickDTO;
 import com.ss.sns.board.service.BoardService;
 
 @RequestMapping("/reply")
@@ -29,9 +30,9 @@ public class ReplyController {
 	private BoardService service;
 
 	@GetMapping("")
-	public ResponseEntity<List<ReplyDTO>> selectReply(@RequestParam("kind") int kind, @RequestParam("no") int no) {
-		List<ReplyDTO> repliList = service.selectReply(no);
-		return ResponseEntity.status(HttpStatus.OK).body(repliList);
+	public ResponseEntity<List<ReplyNickDTO>> selectReply(@RequestParam("kind") int kind, @RequestParam("no") int no) {
+	    List<ReplyNickDTO> replyList = service.selectReply(no);
+	    return ResponseEntity.status(HttpStatus.OK).body(replyList);
 	}
 
 	@PostMapping("")
@@ -73,7 +74,7 @@ public class ReplyController {
 	@CacheEvict
 	@GetMapping("/count")
 	public ResponseEntity<Integer> selectReplyCount(@RequestParam("kind") int kind, @RequestParam("no") int no) {
-	    List<ReplyDTO> replyList = service.selectReply(no);
+	    List<ReplyNickDTO> replyList = service.selectReply(no);
 	    int replyCount = replyList.size();
 	    return ResponseEntity.status(HttpStatus.OK).body(replyCount);
 	}

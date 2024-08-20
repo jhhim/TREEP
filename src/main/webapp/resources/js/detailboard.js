@@ -1,32 +1,94 @@
-const images = ['./img/white_heart.png', './img/red_heart.png'];
-let currentIndex = 0;
-const imageElement = document.getElementById("like")
+var boardContent = $('#contentDiv').html();
+    
+    var formattedContent = boardContent.replace(/\n/g, '<br/>');
+    $('#contentDiv').html(formattedContent);
 
-// 좋아요 버튼 클릭
-document.getElementById('like').addEventListener('click', function (event) {
-    console.log("좋아요버튼 클릭")
-    currentIndex = (currentIndex + 1) % images.length;
-    imageElement.src = images[currentIndex];
-    console.log(imageElement.src)
+
+
+let isProcessing = false;
+
+
+
+
+
+// 좋아요 버튼 클릭 이벤트 핸들러
+$('#like').on('click', function() {
+    if (isProcessing) return; 
+
+    let $likeImg = $(this);
+    let currentSrc = $likeImg.attr('src');
+    let newSrc = currentSrc.includes('white_heart.png') 
+        ? `${basePath}/resources/img/detailboard/red_heart.png` 
+        : `${basePath}/resources/img/detailboard/white_heart.png`;
+    let action = currentSrc.includes('white_heart.png') ? 'like' : 'unlike';
+
+    isProcessing = true;
+
+    $.ajax({
+        url: `${basePath}/updatelike`,
+        type: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        data: $.param({
+            board_no: boardNo,
+            member_no: memberNo,
+            action: action
+        }),
+        success: function(response) {
+            if (response.success) {
+                $likeImg.attr('src', newSrc);
+                $('#likeCount').text(response.newLikeCount !== undefined ? response.newLikeCount : 0);
+            } else {
+                alert('좋아요 업데이트에 실패했습니다. 나중에 다시 시도해 주세요.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error status:', status);
+            console.error('Error:', error);
+            alert('서버와의 통신에 실패했습니다. 나중에 다시 시도해 주세요.');
+        },
+        complete: function() {
+            isProcessing = false;
+        }
+    });
 });
 
-function showReplyContainer(commentId, boardKind, boardNo) {
-    let replyInputContainer = document.getElementById(`reply-input-container-${commentId}`);
+// 페이지 로드 시 좋아요 수 가져오기
 
-    if (!replyInputContainer) {
-        replyInputContainer = document.createElement('div');
-        replyInputContainer.id = `reply-input-container-${commentId}`;
-        replyInputContainer.innerHTML = `
-<div id="reply-container-${commentId}">
-    <textarea id="reply-content-${commentId}" class="form-control input-reply" placeholder="댓글을 작성해주세요" name="replyContent"></textarea>
-    <button class="btn" id="reply-reply-submit" type="button">등록</button>
-</div>
-        `;
-        document.getElementById(`replies-${commentId}`).appendChild(replyInputContainer);
-    } else {
-        replyInputContainer.style.display = replyInputContainer.style.display === 'none' ? 'block' : 'none';
-    }
-}
+    $.ajax({
+        url: `${basePath}/getLikeCount`,
+        type: 'GET',
+        data: {
+            board_no: boardNo
+        },
+        success: function(response) {
+            $('#likeCount').text(response.newLikeCount !== undefined ? response.newLikeCount : 0);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error status:', status);
+            console.error('Error:', error);
+            $('#likeCount').text('0');
+        }
+    });
+    $.ajax({
+        url: `${basePath}/isLiked`,
+        type: 'GET',
+        data: {
+            board_no: boardNo,
+            member_no: memberNo
+        },
+        success: function(response) {
+            let liked = response.liked;
+            let $likeImg = $('#like');
+            let newSrc = liked
+                ? `${basePath}/resources/img/detailboard/red_heart.png`
+                : `${basePath}/resources/img/detailboard/white_heart.png`;
+            $likeImg.attr('src', newSrc);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error status:', status);
+            console.error('Error:', error);
+        }
+    });
 /****************************************** 댓글 조회 *************************************************/
 function loadReply() {
 			  $.ajax({
@@ -65,8 +127,8 @@ function loadReply() {
 							                        '</div>' +
 							                    '</div>' +
 							                     '<div id="edit-section-' + reply.reply_no + '" class="edit-section" style="display: none;">' +
-                                '<textarea id="reply-textarea-' + reply.reply_no + '">' + reply.reply_content + '</textarea>' +
-                                '<button id="save-btn-' + reply.reply_no + '">저장</button>' +
+                                '<textarea id="reply-textarea-' + reply.reply_no + '" class="reply-modify">' + reply.reply_content + '</textarea>' +
+                                '<button id="save-btn-' + reply.reply_no + '" class="save-btn-reply">저장</button>' +
                             '</div>' +
 							                    '<div class="row">' +
 							                        '<div class="col-12">' +
@@ -94,7 +156,7 @@ function loadReply() {
                 '</div>' +
             '</div>' +
             '<div id="edit-sub-section-' + subReply.reply_no + '" class="edit-section" style="display: none;">' +
-                '<textarea id="sub-reply-textarea-' + subReply.reply_no + '">' + subReply.reply_content + '</textarea>' +
+                '<textarea id="sub-reply-textarea-' + subReply.reply_no + '" class="reply-modify">' + subReply.reply_content + '</textarea>' +
                 '<button id="save-sub-btn-' + subReply.reply_no + '">저장</button>' +
             '</div>' +
             '<div class="row">' +
@@ -382,4 +444,26 @@ const no = urlParams.get('no');
  location.href='deleteBoard?kind=' + kind + '&no=' + no;
 
 
+}
+
+
+/*************************클립보드************************/
+
+function clipboard(){
+	let clip = document.createElement("input");
+	const url = location.href;
+	
+	document.body.appendChild(clip);
+	clip.value = url;
+	clip.select();
+	document.execCommand("copy");
+	alert("클립보드에 복사했습니다.");
+	document.body.removeChild(clip);
+}
+
+
+function sendMessageboard() {
+    const recipientName = document.getElementById('send-recipient-nameb').value;
+    const messageText = document.getElementById('send-message-textb').value;
+    location.href = 'SendMessageb?recipient_name=' + recipientName + '&message_text=' + messageText;
 }

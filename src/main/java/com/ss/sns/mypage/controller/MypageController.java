@@ -4,15 +4,20 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,15 +41,78 @@ public class MypageController {
 						 Model model, HttpSession session) {
 		
 		MemberDTO Session = (MemberDTO)session.getAttribute("member");
+		int member_no = Session.getMember_no();
 		
 		System.out.println(Session.getMember_nickname());
 		System.out.println(Session.getMember_img());
 		model.addAttribute("nickname",Session.getMember_nickname()); 
 		model.addAttribute("img",Session.getMember_img()); 
+		int MyBoardCount = service.getMyBoardCount(member_no);
+		String genderGrade = "";
+		String GradeImg = "";
+		
+		if(Session.getMember_gender().equals("M")) {
+			if(MyBoardCount >= 0 & MyBoardCount < 3) {
+				genderGrade = "1M";
+				
+			}else if(MyBoardCount < 8) {
+				genderGrade = "2M";
+	
+			}else if(MyBoardCount < 100) {
+				genderGrade = "3M";
+		
+			}else {
+				genderGrade = "4M";
+	
+			}
+			
+		}else {
+			if(MyBoardCount >= 0 & MyBoardCount < 3) {
+				genderGrade = "1F";
+		
+			}else if(MyBoardCount < 8) {
+				genderGrade = "2F";
+			
+			}else if(MyBoardCount < 100) {
+				genderGrade = "3F";
+		
+			}else {
+				genderGrade = "4F";
+	
+			}
+		}
+		
+		Map<String,Object> Gmap = new HashMap<String, Object>();
+		Gmap.put("genderGrade", genderGrade);
+		Gmap.put("member_no",member_no);
+		
+		service.UpdateGrade(Gmap);
+		Session.setMember_grade(genderGrade);
+		
+		GradeImg = service.selectGradeImg(genderGrade);
+		model.addAttribute("gradeImg" ,GradeImg);
+		
+		String grade = Session.getMember_grade();
+		String Member_grade = "";
+		switch(Integer.parseInt(grade.substring(0,1))) {
+		case 1:
+			Member_grade = "초심자";
+			break;
+		case 2:
+			Member_grade = "여행 애호가";
+			break;
+		case 3:
+			Member_grade = "전문가";
+			break;
+		case 4:
+			Member_grade = "마스터";
+			break;
+		}
+		
+		model.addAttribute("grade",Member_grade);
 //		int member_no = service.getMemberNo(Session.getMember_nickname());
 		
 	
-		int member_no = Session.getMember_no();
 		int BoardTotalCount = service.selectBoardTotalCount(member_no);
 		int pageSize = 2;
 		
@@ -110,7 +178,10 @@ public class MypageController {
 		System.out.println("파일명 : " + fileReadName);
 		System.out.println("파일 사이즈 : " + size);
 		
-		String fileRename = fileReadName.substring(fileReadName.lastIndexOf("."),fileReadName.length());
+		String extension = fileReadName.substring(fileReadName.lastIndexOf("."),fileReadName.length());
+//		System.out.println("fileRename : " +fileRename);
+		
+		String newFileName = UUID.randomUUID().toString() + extension;
 		
 		String uploadFolder = context.getRealPath("/resources/img/mypage");
 		String uploadFolder2 = "C:\\fullstack_project2\\TREEP\\src\\main\\webapp\\resources\\img\\mypage";
@@ -124,7 +195,7 @@ public class MypageController {
 			
 			
 			// 저장할 파일 경로 
-			File saveFile = new File(uploadFolder + File.separator + fileReadName);
+			File saveFile = new File(uploadFolder + File.separator + newFileName);
 //			File saveFile2 = new File(uploadFolder2 + "\\" + fileReadName);
 			
 			System.out.println(uploadFolder);
@@ -139,7 +210,7 @@ public class MypageController {
 		
 		Map<String,Object> userDataMap = new HashMap<String, Object>();
 		userDataMap.put("nickname",nickname);
-		userDataMap.put("img",fileReadName);
+		userDataMap.put("img",newFileName);
 		userDataMap.put("email", email);
 		
 		service.profileModify(userDataMap);
@@ -165,7 +236,12 @@ public class MypageController {
         System.out.println("getTrip컨트로로");
         return "mypage/tripDetail";  
     }
-	
-	
-	
+	 @RequestMapping("/delete")
+	    public String deleteTrip(@RequestParam("trip_no") int tripNo) {
+
+		 System.out.println("tripno: "+ tripNo);
+	        service.deleteTripAndRelatedData(tripNo);
+	        
+			return "redirect:/mypage";
+	    }
 }
