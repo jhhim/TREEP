@@ -1143,8 +1143,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const autocompleteInput = document.getElementById(`autocomplete`);
     const selectPlaceList = document.getElementById(`select-place-list`);
 
-        const lat = parseFloat(document.getElementById(`lat`).textContent); // 빈 값 처리
-        const lng = parseFloat(document.getElementById(`lng`).textContent); // 빈 값 처리
+    let lat = parseFloat(document.getElementById('lat') ? document.getElementById('lat').textContent : "NaN");
+    let lng = parseFloat(document.getElementById('lng') ? document.getElementById('lng').textContent : "NaN");
+
+    // lat과 lng 값이 NaN인 경우 기본값으로 설정
+    if (isNaN(lat)) {
+        lat = 37.550263;
+    }
+    if (isNaN(lng)) {
+        lng = 126.9970831;
+    }
 
     let map;
     let service;

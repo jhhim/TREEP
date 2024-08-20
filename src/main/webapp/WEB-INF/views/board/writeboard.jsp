@@ -96,12 +96,12 @@
 
 						</div>
 						<div class="place-item-listcontainer">
-						<c:forEach var='schedule' items="${trip.schedules}">
-							<div>Date: ${schedule.schedule_date}</div>
-							<c:forEach var='place' items="${schedule.places}">
-								<li class='place-item-write'>Place: ${place.place_name}</li>
+							<c:forEach var='schedule' items="${trip.schedules}">
+								<div>Date: ${schedule.schedule_date}</div>
+								<c:forEach var='place' items="${schedule.places}">
+									<li class='place-item-write'>Place: ${place.place_name}</li>
+								</c:forEach>
 							</c:forEach>
-						</c:forEach>
 						</div>
 					</c:forEach>
 				</div>
