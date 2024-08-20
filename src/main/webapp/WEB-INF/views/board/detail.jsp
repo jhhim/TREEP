@@ -252,15 +252,9 @@ request.setAttribute("Member_No", Member_No);
 				id="like"> <span id="likeCount"></span> <i
 				class="fa-regular fa-message"></i><span class="reply-count"></span>
 			<span class="sns-container"> <span class="social"> <!-- <span class="share-text">공유하기</span> -->
-					<span class="social-links"> <!-- sns 공유 --> <a href="javascript:sendLinkDefaultBoard();"><img
-							src="${path}/resources/img/detailboard/kakao.png" class="sns_img"
-							alt="kakao"></a> <a href="#"><img
-							src="${path}/resources/img/detailboard/naver.png" class="sns_img"
-							alt="naver"></a> <a href="#"><img
-							src="${path}/resources/img/detailboard/facebook.png"
-							class="sns_img" alt="facebook"></a> <a href="#"><img
-							src="${path}/resources/img/detailboard/share_link.png"
-							class="sns_img" alt="link"></a>
+					<span class="social-links"> <!-- sns 공유 --> <a href="javascript:sendLinkDefaultBoard();">
+					<img src="${path}/resources/img/detailboard/kakao.png" class="sns_img" alt="kakao"></a> <a href="#">
+							<img src="${path}/resources/img/detailboard/share_link.png" class="sns_img" alt="link"></a>
 				</span>
 			</span>
 			</span>
