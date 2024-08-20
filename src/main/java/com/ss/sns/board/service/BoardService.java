@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.ss.sns.board.dto.BoardDTO;
 import com.ss.sns.board.dto.BoardPage;
 import com.ss.sns.board.dto.ReplyDTO;
+import com.ss.sns.board.dto.ReplyNickDTO;
 import com.ss.sns.board.mapper.BoardMapper;
 import com.ss.sns.member.dto.MemberDTO;
 
@@ -46,15 +47,24 @@ public class BoardService {
 		mapper.insertReply(insertReply);	
 	}
 
-	public ArrayList<ReplyDTO> selectReply(int board_no) {		
-	    ArrayList<ReplyDTO> replies = mapper.selectReply(board_no);
-	    for (ReplyDTO reply : replies) {
-	        ArrayList<ReplyDTO> rereplies = mapper.selectReReply(reply.getReply_no());
-	        reply.setReReplyList(rereplies);
+	/*
+	 * public ArrayList<ReplyDTO> selectReply(int board_no) { ArrayList<ReplyDTO>
+	 * replies = mapper.selectReply(board_no); for (ReplyDTO reply : replies) {
+	 * ArrayList<ReplyDTO> rereplies = mapper.selectReReply(reply.getReply_no());
+	 * reply.setReReplyList(rereplies); } return replies; }
+	 */
+
+	public List<ReplyNickDTO> selectReply(int boardNo) {
+	    List<ReplyNickDTO> replies = mapper.selectReply(boardNo);
+	    
+	    for (ReplyNickDTO reply : replies) {
+	        List<ReplyNickDTO> reReplies = mapper.selectReReply(reply.getReply_no());
+	        reply.setReReplyList(reReplies);
 	    }
+	    
 	    return replies;
 	}
-
+	
 	public boolean deleteReply(Map<String, Integer> hmap) {
 		mapper.deleteReReply(hmap);
 	    return mapper.deleteReply(hmap) > 0;
@@ -194,14 +204,27 @@ public class BoardService {
 		mapper.deleteAsk(no);
 		
 	}
-
 	public void insertAnswer(Map<String, Object> hmap) {
 		mapper.insertAnswer(hmap);
 		
 	}
-
 	public void updateAnswer(Map<String, Object> hmap) {
 		mapper.updateAnswer(hmap);	
+	}
+
+	public void deleteAnswer(int no) {
+		mapper.deleteAnswer(no);	
+		
+	}
+
+	public void updateBoardStatus(Integer askUpdateNo) {
+		mapper.updateBoardStatus(askUpdateNo);
+		
+	}
+
+	public void updateAnswerStatus(int no) {
+	mapper.updateAnswerStatus(no);
+		
 	}
 
 

@@ -130,6 +130,7 @@ public class BoardController {
 	@RequestMapping("/askboard")
 	public String askboard(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model,
 			HttpSession session) {
+
 		int board_kind = 3;
 		int freeTotalCount = service.countBoard(board_kind);
 		int pageSize = 8;
@@ -157,7 +158,7 @@ public class BoardController {
 			}
 			repliesForBoard.add(reply);
 		}
-
+		 
 		model.addAttribute("boardPage", boardPage);
 		model.addAttribute("boardReplyMap", boardReplyMap);
 
@@ -221,18 +222,18 @@ public class BoardController {
 	}
 
 	@RequestMapping("/deleteBoard")
-	   public String deleteBoard(@RequestParam(value = "kind") int kind, @RequestParam(value = "no") int boardNo) {
-	      Map<String, Object> DeleteMap = new HashMap<String, Object>();
-	      DeleteMap.put("kind", kind);
-	      DeleteMap.put("no", boardNo);
-	      service.boardDelete(DeleteMap);
+	public String deleteBoard(@RequestParam(value = "kind") int kind, @RequestParam(value = "no") int boardNo) {
+		Map<String, Object> DeleteMap = new HashMap<String, Object>();
+		DeleteMap.put("kind", kind);
+		DeleteMap.put("no", boardNo);
+		service.boardDelete(DeleteMap);
 
-	      if (kind == 1) {
-	         return "redirect:/freeboard";
-	      } else {
-	         return "redirect:/joinboard";
-	      }
-	   }
+		if (kind == 1) {
+			return "redirect:/freeboard";
+		} else {
+			return "redirect:/joinboard";
+		}
+	}
 
 	@GetMapping("/writeboard")
 	public String writeBoard() {
@@ -379,6 +380,7 @@ public class BoardController {
 		hmap.put("board_no", no);
 		hmap.put("reply_content", reply_content);
 		service.insertAnswer(hmap);
+		service.updateBoardStatus(no);
 		return "redirect:askboard";
 	}
 
@@ -392,4 +394,12 @@ public class BoardController {
 
 		return "redirect:askboard";
 	}
+
+	@RequestMapping("answerdelete")
+	public String answerDelete(int no) {
+		service.updateAnswerStatus(no);
+		service.deleteAnswer(no);
+		return "redirect:askboard";
+	}
+
 }

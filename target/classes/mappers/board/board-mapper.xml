@@ -236,8 +236,10 @@
 	<delete id="deleteAsk" parameterType="int">
 		delete from board where board_no = #{no}
 	</delete>
-	
-	
+	<!-- 답변 -->
+	<delete id="deleteAnswer">
+		delete from reply where reply_no = #{no}
+	</delete>
 <!-- ******************************** 보드 업데이트 ********************************* -->
 	<update id="updateBoard" parameterType="map">
 		<choose>
@@ -254,9 +256,16 @@
 
 		</choose>
 	</update>
-
-
-
+	<!-- ******************************** ask보드 답변상태 업데이트 ********************************* -->
+	<update id="updateBoardStatus" parameterType="int">
+	UPDATE board SET board_status = '답변 완료' where board_no = #{no}
+	</update>
+	<!-- 답변삭제시 상태 업데이트 -->
+ 	<update id="updateAnswerStatus" parameterType="int">
+	UPDATE board b SET b.board_status = '답변 대기' WHERE EXISTS (
+	SELECT 1 FROM reply r
+	WHERE b.board_no = r.board_no AND r.reply_no = #{no})
+	</update>
 
 
 <!-- ********************************************* 매니저 필터 ************************************************* -->
@@ -396,15 +405,20 @@
 		</choose>
 	</insert>
 	<!-- 댓글 조회 -->
-	<select id="selectReply" parameterType="int"
-		resultType="ReplyDTO">
-		select * from reply where board_no= #{board_no} order by reply_date
+	<select id="selectReply" parameterType="int" resultType="ReplyNickDTO">
+    SELECT *
+    FROM reply r
+    JOIN member m ON r.member_no = m.member_no
+    WHERE r.board_no = #{board_no}
+    ORDER BY r.reply_date
 	</select>
 	<!--  대댓글 조회  -->
-	<select id="selectReReply" parameterType="int"
-		resultType="ReplyDTO">
-		select * from reply where rereply_no = #{reply_no}
-	</select>
+	<select id="selectReReply" parameterType="int" resultType="ReplyNickDTO">
+    SELECT *
+    FROM reply r
+    JOIN member m ON r.member_no = m.member_no
+    WHERE r.rereply_no = #{reply_no}
+</select>
 	<!--댓글 삭제 -->
 	<delete id="deleteReply" parameterType="map">
 	DELETE FROM REPLY WHERE REPLY_NO = #{reply_no} AND (MEMBER_NO = #{member_no} OR EXISTS (SELECT 1 FROM MEMBER
