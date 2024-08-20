@@ -32,8 +32,12 @@ public interface MypageMapper {
 	 List<ScheduleDTO> getSchedulesByTripNo(@Param("tripNo") int tripNo);
 	    
 	 List<TripPlaceDTO> getPlacesByScheduleNo(@Param("scheduleNo") int scheduleNo);
-	 
-	 
+
+	 int getMyBoardCount(int member_no);
+
+	 void UpdateGrade(Map<String, Object> gmap);
+
+	 String selectGradeImg(String genderGrade);
 	 
 	    void deleteTripPlace(@Param("tripNo") int tripNo);
 	    void deleteSchedule(@Param("tripNo") int tripNo);

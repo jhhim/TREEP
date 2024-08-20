@@ -29,12 +29,6 @@ public class ReplyController {
 	@Autowired
 	private BoardService service;
 
-	/*
-	 * @GetMapping("") public ResponseEntity<List<ReplyDTO>>
-	 * selectReply(@RequestParam("kind") int kind, @RequestParam("no") int no) {
-	 * List<ReplyDTO> repliList = service.selectReply(no); return
-	 * ResponseEntity.status(HttpStatus.OK).body(repliList); }
-	 */
 	@GetMapping("")
 	public ResponseEntity<List<ReplyNickDTO>> selectReply(@RequestParam("kind") int kind, @RequestParam("no") int no) {
 	    List<ReplyNickDTO> replyList = service.selectReply(no);

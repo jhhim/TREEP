@@ -29,8 +29,16 @@ pageContext.setAttribute("today", today.toString());
 	<div class="profile-content-container container-md">
 		<!-- 프로필 이름, 정보 관리 -->
 		<div class="profile_info container-md">
-
+		
+		<div class="d-flex justify-content-center">
+			<div class="grade-container">	
+				<img src="${path}/resources/img/mypage/${gradeImg}" class="grade_Img">
+				<div class="profile_grade">${grade }</div>
+			</div>
+			
 			<div class="profile_nickname">${nickname }</div>
+			
+		</div>
 			<!-- 마이페이지 설정으로 이동 -->
 			<a href="profile" class="profile_manage"> <span>프로필 관리</span> <img
 				src="${path}/resources/img/mypage/setting.png" class="setting_icon">

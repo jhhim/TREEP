@@ -174,7 +174,7 @@
                         <c:choose>
                             <c:when test="${sessionScope.member.manager_yn eq 'Y'}">
                                 <td style="text-align: right;">
-                                    <input type="button" value="삭제" class="btn btn-danger" onclick="location.href='askDelete?no=${board.board_no}'">
+                                    <input type="button" class="deleteBtn" onclick="location.href='askDelete?no=${board.board_no}'">
                                     <br><br>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#answerAsk" data-info="${board.board_no}">답변</button>
                                 </td>
@@ -183,7 +183,7 @@
            						<td style="text-align: right;">
                                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateAsk" data-info="${board.board_no}">수정</button>
                                   <br><br>
-           						<input type="button" value="삭제" class="btn btn-danger" onclick="location.href='askDelete?no=${board.board_no}'">
+           						<input type="button" class="deleteBtn" onclick="location.href='askDelete?no=${board.board_no}'">
                                 </td>
            					</c:when>
                         </c:choose>
@@ -207,7 +207,7 @@
                                 <td style="text-align: right;">
                                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateAnswer" data-info="${reply.reply_no}">수정</button>
                                 <br><br>
-           						<input type="button" value="삭제" class="btn btn-danger" onclick="location.href='answerdelete?no=${reply.reply_no}'">
+           						<input type="button" class="deleteBtn" onclick="location.href='answerdelete?no=${reply.reply_no}'">
                                 </td>
                                 </c:when>
                                 </c:choose>

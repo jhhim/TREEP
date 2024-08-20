@@ -59,6 +59,19 @@ public class MypageService {
         }
         return trip;
     }
+
+	public int getMyBoardCount(int member_no) {
+		return mapper.getMyBoardCount(member_no);
+	}
+
+	public void UpdateGrade(Map<String, Object> gmap) {
+		mapper.UpdateGrade(gmap);
+	}
+
+	public String selectGradeImg(String genderGrade) {
+		return mapper.selectGradeImg(genderGrade);
+	}
+
 	//삭제
 	 @Transactional
 	    public void deleteTripAndRelatedData(int tripNo) {
@@ -68,4 +81,5 @@ public class MypageService {
 	        mapper.deleteMemberTrip(tripNo);
 	        mapper.deleteTrip(tripNo);
 	    }
+
 }
