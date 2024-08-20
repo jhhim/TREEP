@@ -184,7 +184,6 @@ public class BoardController {
 
 		int boardKind = 1;
 		int pageSize = 8;
-
 		BoardPage boardPage = service.filteredFreePage(boardKind, postTypes, sortOrder, searchText, currentPage,
 				pageSize, session);
 		model.addAttribute("boardPage", boardPage);
