@@ -92,12 +92,12 @@ pageContext.setAttribute("today", today.toString());
 							<div style="padding: 15px;">
 								<h3>정렬</h3>
 							</div>
-							<input type="radio" class="lineupBtnfd" id="latest"
+							<input type="radio"  id="latest"
 								name="sortOrder" value="최신순" /> <label for="latest"
 								class="lineupBtnfd">최신순</label> <input type="radio"
-								class="lineupBtnfd" id="viewCount" name="sortOrder" value="조회순" />
+								 id="viewCount" name="sortOrder" value="조회순" />
 							<label for="viewCount" class="lineupBtnfd">조회순</label> <input
-								type="radio" class="lineupBtnfd" id="likes" name="sortOrder"
+								type="radio" id="likes" name="sortOrder"
 								value="좋아요순" /> <label for="likes" class="lineupBtnfd">좋아요순</label>
 						</div>
 

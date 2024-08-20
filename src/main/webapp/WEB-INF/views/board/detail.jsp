@@ -87,7 +87,8 @@ request.setAttribute("Member_No", Member_No);
 						<!-- 게시글 신고,쪽지,수정,삭제 페이지 이동-->
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
 							data-bs-target="#staticBackdropPolice">신고하기</a></li>
-						<li><a class="dropdown-item" href="#">쪽지보내기</a></li>
+						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+							data-bs-target="#messageWrite">쪽지보내기</a></li>
 						<li><a class="dropdown-item"
 							href="updateboard?no=${board.board_no}">수정</a></li>
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
@@ -118,7 +119,7 @@ request.setAttribute("Member_No", Member_No);
 
 		</c:choose>
 
-
+</span>
 
 		<!-- 신고하기 모달 -->
 
@@ -232,7 +233,38 @@ request.setAttribute("Member_No", Member_No);
 				</div>
 			</div>
 		</div>
-		</span>
+	
+		
+		
+		  <!--쪽지 보내기 모달-->
+                <div class="modal fade" id="messageWrite" tabindex="-1" aria-labelledby="noteWriteLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">쪽지 보내기</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close" onclick="resetSendMsg()"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="">
+                                    <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">받는 사람(닉네임)</label>
+                                        <input type="text" class="form-control" id="send-recipient-nameb" value="${Nick }" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="message-text" class="col-form-label">내용</label>
+                                        <textarea class="form-control" id="send-message-textb"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn" data-bs-dismiss="modal" id="send-close" onclick="resetSendMsg()">닫기</button>
+                                <button type="button" class="btn" id="send-confirm" onclick="sendMessageboard()">보내기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 		<div class="post_response">
 			<span style="color: gray;">${board.create_date }</span> <i
 				class="fa-regular fa-eye"> ${board.board_hit }</i> <i
@@ -240,20 +272,12 @@ request.setAttribute("Member_No", Member_No);
 		</div>
 		<br>
 		<div class="post-content">
-		<c:choose>
-			<c:when test="${board.board_img !='null'}">
-			<div class="img">
-					<img src="${path}/resources/img/board/${board.board_img}"
-						class="post-content-img" alt="...">
-				</div>
-			
-			
-			</c:when>
-			<c:otherwise>
-			
-				
-			</c:otherwise>
-		</c:choose>
+		<c:if test="${board.board_img != 'null' && !empty board.board_img}">
+    <div class="img">
+        <img src="${path}/resources/img/board/${board.board_img}"
+            class="post-content-img" alt="...">
+    </div>
+</c:if>
 			
 			<br>
 			<div class="text" id="contentDiv">${fn:escapeXml(board.board_content)}</div>

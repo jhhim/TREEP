@@ -456,3 +456,10 @@ function clipboard(){
 	alert("클립보드에 복사했습니다.");
 	document.body.removeChild(clip);
 }
+
+
+function sendMessageboard() {
+    const recipientName = document.getElementById('send-recipient-nameb').value;
+    const messageText = document.getElementById('send-message-textb').value;
+    location.href = 'SendMessageb?recipient_name=' + recipientName + '&message_text=' + messageText;
+}

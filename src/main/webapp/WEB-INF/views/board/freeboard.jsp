@@ -76,12 +76,12 @@ const basePath = "${path}";
 							<div style="padding: 10px;">
 								<h3>정렬</h3>
 							</div>
-							<input type="radio" id="checkline1" class="lineupBtn"
+							<input type="radio" id="checkline1" 
 								name="sortOrder" value="최신순"> <label for="checkline1"
 								class="lineupBtn">최신순</label> <input type="radio"
-								id="checkline2" class="lineupBtn" name="sortOrder" value="조회순">
+								id="checkline2"  name="sortOrder" value="조회순">
 							<label for="checkline2" class="lineupBtn">조회순</label> <input
-								type="radio" id="checkline3" class="lineupBtn" name="sortOrder"
+								type="radio" id="checkline3"  name="sortOrder"
 								value="좋아요순"> <label for="checkline3" class="lineupBtn">좋아요순</label>
 						</div>
 						<div class="search-container">
