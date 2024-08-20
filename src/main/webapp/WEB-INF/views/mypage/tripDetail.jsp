@@ -12,7 +12,7 @@
 			<div class="mypage-detail-titlePanel">
 				<span class="mypage-detail-trip-title">${trip.trip_title}</span>
 				<span><button type="button"
-							class="btn" id="mypage-detail-share">공유</button>
+							class="btn" id="mypage-detail-share" >공유</button>
 				</span>
 			</div>
 				<div class="mypage-detail-trip-dates">
@@ -50,4 +50,21 @@
 	</div>
 
 </main>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 현재 페이지의 URL에서 trip_no 파라미터를 추출
+    const urlParams = new URLSearchParams(window.location.search);
+    const tripNo = urlParams.get('trip_no');
+	
+    // 공유 버튼 클릭 시 trip_no를 포함한 URL로 이동
+    document.getElementById('mypage-detail-share').addEventListener('click', function() {
+        if (tripNo) {
+            const shareUrl = '${window.location.origin}/sns/share?trip_no='+tripNo;
+            window.location.href = shareUrl;
+        } else {
+            console.error('trip_no parameter is missing in the URL.');
+        }
+    });
+});
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

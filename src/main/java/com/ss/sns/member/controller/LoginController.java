@@ -37,6 +37,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ss.sns.member.dto.MemberDTO;
 import com.ss.sns.member.dto.kakaoDTO;
 import com.ss.sns.member.sevice.MemberService;
+import com.ss.sns.trip.dto.shareBO;
 
 import oracle.jdbc.proxy.annotation.Post;
 
@@ -163,12 +164,12 @@ public class LoginController {
 		 if (result == 0) {
 		        System.out.println("회원가입은 됐어유");
 		        service.naverSignup(member);
-		        MemberDTO SessionMember = service.googlememberCheck(member);
+		        MemberDTO SessionMember = service.navermemberCheck(member);
 		        // 회원 정보를 세션에 저장
 		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
 		    } else {
-		    	MemberDTO SessionMember = service.googlememberCheck(member);
+		    	MemberDTO SessionMember = service.navermemberCheck(member);
 		        // 회원 정보를 세션에 저장
 		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
@@ -189,7 +190,7 @@ public class LoginController {
 		 
 		 String setFrom = "alsehdns@naver.com";
 			String toMail = email;
-			String title = "회원가입 인증 이메일 입니다.";
+			String title = "인증 이메일 입니다.";
 			String content = "홈페이지를 방문해주셔서 감사합니다." +
 							"<br><br>" +
 							"인증 번호는 " + checkNum + " 입니다." +
@@ -316,6 +317,26 @@ public class LoginController {
 		}
 	
 	}
+	@GetMapping("/emailcheck/memberemailChk2")
+	public String memberEmailChkGet2(String member_email) {
+	
+		return "/emailcheck/memberemailChk2";
+		
+	}
+	@PostMapping("/emailcheck/memberemailChk2")
+	@ResponseBody
+	public String memberEmailChk2(String member_email) {
+		
+		
+		int result = service.memberemailChk(member_email);
+		logger.info("결과 : " + result);
+		if(result != 1) {
+			return "fail";
+		}else {
+			return "success";
+		}
+	
+	}
 	@GetMapping("/logout")
 	public String logoutGet(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -334,4 +355,29 @@ public class LoginController {
 	public String changePW() {
 		return "signup/changePW";
 	}
+	@RequestMapping("/share")
+	public String share(@RequestParam(name = "trip_no", required = false) Integer tripNo,Model model) {
+		 // 기본값으로 초기화
+		 if (tripNo != null) {
+	            System.out.println("Received trip_no: " + tripNo);
+	            // trip_no를 사용하여 필요한 작업 수행
+	            // 예: 데이터베이스에서 여행 정보를 가져오기
+	        } else {
+	            System.err.println("trip_no parameter is missing or invalid.");
+	            // 적절한 오류 처리를 수행
+	            return "error"; // 에러 페이지로 이동
+	        }
+		 	shareBO info = service.getShareInfo(tripNo);
+		 	model.addAttribute("info", info);
+	        
+	        return "mypage/share";
+	}
+	@RequestMapping("/resultSearchid")
+	public String resultID(HttpServletRequest request,Model model) {
+		String email = request.getParameter("member_email");
+		MemberDTO member = service.getmemberbyEmail(email);
+		model.addAttribute("member",member);
+		return "signup/resultID";
+	}
+	
 }

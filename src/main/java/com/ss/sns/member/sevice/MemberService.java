@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 
 import com.ss.sns.member.dto.MemberDTO;
 import com.ss.sns.member.mapper.MemberMapper;
+import com.ss.sns.trip.dto.shareBO;
 
 @Service
 @PropertySource("classpath:application-API-KEY.properties")
@@ -492,5 +493,13 @@ public void kakaoSignup(MemberDTO member) {
 	public MemberDTO googlememberCheck(MemberDTO member) {
 		return	membermapper.googlememberCheck(member);	
 		}
+
+	public MemberDTO getmemberbyEmail(String email) {
+		// TODO Auto-generated method stub
+		return membermapper.getmemberbyEmail(email);	
+	}
+	public shareBO getShareInfo(int trip_no) {
+		return membermapper.getShareInfo(trip_no);
+	}
 	
 }

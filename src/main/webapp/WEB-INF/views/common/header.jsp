@@ -82,6 +82,7 @@
 			<c:if test="${member != null }">
 				<div class="navbar-menu-container">
 					<ul class="nav">
+						<li class="nav-item br"><a class="nav-item" href="maketrip">일정생성</a></li>
 						<li class="nav-item br"><a class="nav-item" href="freeboard">커뮤니티</a></li>
 
 
