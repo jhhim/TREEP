@@ -152,5 +152,13 @@
 	<select id="emailcheck" resultType="int">
 		select count(*) from member where member_email = #{member_email} 
 	</select>
-	
+	<select id="getmemberbyEmail" resultType="com.ss.sns.member.dto.MemberDTO">
+		select * from member where member_email = #{email}
+	</select>
+	<select id="getShareInfo" resultType="com.ss.sns.trip.dto.shareBO">
+	SELECT m.member_nickname,t.trip_title,mt.trip_no
+        FROM member_trip mt
+        JOIN member m ON m.member_no = mt.member_no
+        JOIN trip t ON mt.trip_no = t.trip_no where t.trip_no = #{trip_no}
+    </select>
 </mapper>
