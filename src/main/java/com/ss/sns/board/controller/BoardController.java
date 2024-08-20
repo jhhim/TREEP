@@ -139,41 +139,36 @@ public class BoardController {
 		hmap.put("endNo", boardPage.getEndNo());
 		hmap.put("board_kind", board_kind);
 		boardPage.setBoardList(service.selectBoardList(hmap));
-		
+
 		List<Integer> boardNo = new ArrayList<>();
-	    for (BoardDTO board : boardPage.getBoardList()) {
-	        boardNo.add(board.getBoard_no());
-	    }
+		for (BoardDTO board : boardPage.getBoardList()) {
+			boardNo.add(board.getBoard_no());
+		}
 
-	    List<ReplyDTO> replyList = service.selectReplyList(boardNo);
+		List<ReplyDTO> replyList = service.selectReplyList(boardNo);
 
-	    Map<Integer, List<ReplyDTO>> boardReplyMap = new HashMap<>();
-	    for (ReplyDTO reply : replyList) {
-	        Integer board_no = reply.getBoard_no();
-	        List<ReplyDTO> repliesForBoard = boardReplyMap.get(board_no);
-	        if (repliesForBoard == null) {
-	            repliesForBoard = new ArrayList<>();
-	            boardReplyMap.put(board_no, repliesForBoard);
-	        }
-	        repliesForBoard.add(reply);
-	    }
+		Map<Integer, List<ReplyDTO>> boardReplyMap = new HashMap<>();
+		for (ReplyDTO reply : replyList) {
+			Integer board_no = reply.getBoard_no();
+			List<ReplyDTO> repliesForBoard = boardReplyMap.get(board_no);
+			if (repliesForBoard == null) {
+				repliesForBoard = new ArrayList<>();
+				boardReplyMap.put(board_no, repliesForBoard);
+			}
+			repliesForBoard.add(reply);
+		}
 
-	    model.addAttribute("boardPage", boardPage);
-	    model.addAttribute("boardReplyMap", boardReplyMap);
+		model.addAttribute("boardPage", boardPage);
+		model.addAttribute("boardReplyMap", boardReplyMap);
 
-	    return "board/askboard";
+		return "board/askboard";
 	}
-		
-		
 
 	@RequestMapping("/detailboard")
 	public String detailboard(int no, Model model) {
-
-		
 		service.updateHit(no);
 		BoardDTO board = service.selectByBoardNo(no);
 		MemberDTO writeMember = service.selectJoinBoardMember(no);
-
 		model.addAttribute("board", board);
 		model.addAttribute("writeMember", writeMember);
 
@@ -226,18 +221,18 @@ public class BoardController {
 	}
 
 	@RequestMapping("/deleteBoard")
-	public String deleteBoard(@RequestParam(value = "kind") int kind, @RequestParam(value = "no") int boardNo) {
-		Map<String, Object> DeleteMap = new HashMap<String, Object>();
-		DeleteMap.put("kind", kind);
-		DeleteMap.put("no", boardNo);
-		service.boardDelete(DeleteMap);
+	   public String deleteBoard(@RequestParam(value = "kind") int kind, @RequestParam(value = "no") int boardNo) {
+	      Map<String, Object> DeleteMap = new HashMap<String, Object>();
+	      DeleteMap.put("kind", kind);
+	      DeleteMap.put("no", boardNo);
+	      service.boardDelete(DeleteMap);
 
-		if (kind == 1) {
-			return "redirect:/freeboard";
-		} else {
-			return "redirect:/joinboard";
-		}
-	}
+	      if (kind == 1) {
+	         return "redirect:/freeboard";
+	      } else {
+	         return "redirect:/joinboard";
+	      }
+	   }
 
 	@GetMapping("/writeboard")
 	public String writeBoard() {
@@ -250,7 +245,7 @@ public class BoardController {
 	@PostMapping("/insertboard")
 	public String insertBoard(@RequestParam("board") String board,
 			@RequestParam(value = "free-category", required = false) String freeCategory,
-			@RequestParam(value = "join-category", required = false) String joinCategory,		
+			@RequestParam(value = "join-category", required = false) String joinCategory,
 			@RequestParam("write_title") String title, @RequestParam("content") String content,
 			@RequestParam(value = "files", required = false) MultipartFile file, HttpSession session) {
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
@@ -258,27 +253,27 @@ public class BoardController {
 		int board_kind = "free".equals(board) ? 1 : 2;
 		String fileReadName = null;
 
-	    if (file != null && !file.isEmpty()) {
+		if (file != null && !file.isEmpty()) {
 
-	        String originalFilename = file.getOriginalFilename();
-	        String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-	        String newFilename = UUID.randomUUID().toString() + extension;
+			String originalFilename = file.getOriginalFilename();
+			String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+			String newFilename = UUID.randomUUID().toString() + extension;
 
-	        String uploadFolder = context.getRealPath("/resources/img/board");
-	        File uploadDir = new File(uploadFolder);
-	        if (!uploadDir.exists()) {
-	            uploadDir.mkdirs();
-	        }
-	        File saveFile = new File(uploadFolder + File.separator + newFilename);
+			String uploadFolder = context.getRealPath("/resources/img/board");
+			File uploadDir = new File(uploadFolder);
+			if (!uploadDir.exists()) {
+				uploadDir.mkdirs();
+			}
+			File saveFile = new File(uploadFolder + File.separator + newFilename);
 
-	        try {
-	            file.transferTo(saveFile);
-	            fileReadName = newFilename;
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
-	       
+			try {
+				file.transferTo(saveFile);
+				fileReadName = newFilename;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("board_kind", board_kind);
 		hmap.put("member_no", member_no);
@@ -290,6 +285,7 @@ public class BoardController {
 		service.insertBoard(hmap);
 		return "redirect:" + (board_kind == 2 ? "/joinboard" : "/freeboard");
 	}
+
 	@GetMapping("/updateboard")
 	public String updateboard(int no, Model model) {
 
@@ -297,37 +293,38 @@ public class BoardController {
 		model.addAttribute("board", board);
 		return "board/updateboard";
 	}
+
 	@PostMapping("/updateboard")
-	public String updateBoard(int no,@RequestParam("board") String board,
+	public String updateBoard(int no, @RequestParam("board") String board,
 			@RequestParam(value = "free-category", required = false) String freeCategory,
-			@RequestParam(value = "join-category", required = false) String joinCategory,		
+			@RequestParam(value = "join-category", required = false) String joinCategory,
 			@RequestParam("write_title") String title, @RequestParam("content") String content,
 			@RequestParam(value = "files", required = false) MultipartFile file, HttpSession session) {
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
 		int member_no = member.getMember_no();
 		int board_kind = "free".equals(board) ? 1 : 2;
 		String fileReadName = null;
-		
-	    if (file != null && !file.isEmpty()) {
 
-	        String originalFilename = file.getOriginalFilename();
-	        String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-	        String newFilename = UUID.randomUUID().toString() + extension;
+		if (file != null && !file.isEmpty()) {
 
-	        String uploadFolder = context.getRealPath("/resources/img/board");
-	        File uploadDir = new File(uploadFolder);
-	        if (!uploadDir.exists()) {
-	            uploadDir.mkdirs();
-	        }
-	        File saveFile = new File(uploadFolder + File.separator + newFilename);
+			String originalFilename = file.getOriginalFilename();
+			String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+			String newFilename = UUID.randomUUID().toString() + extension;
 
-	        try {
-	            file.transferTo(saveFile);
-	            fileReadName = newFilename;
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
+			String uploadFolder = context.getRealPath("/resources/img/board");
+			File uploadDir = new File(uploadFolder);
+			if (!uploadDir.exists()) {
+				uploadDir.mkdirs();
+			}
+			File saveFile = new File(uploadFolder + File.separator + newFilename);
+
+			try {
+				file.transferTo(saveFile);
+				fileReadName = newFilename;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		Map<String, Object> hmap = new HashMap<String, Object>();
 		hmap.put("board_kind", board_kind);
 		hmap.put("member_no", member_no);
@@ -339,8 +336,60 @@ public class BoardController {
 		hmap.put("board_no", no);
 		service.updateBoard(hmap);
 
-		
-		
-		return "redirect:detailboard?no="+no;
+		return "redirect:detailboard?no=" + no;
+	}
+
+	@PostMapping("/askinsert")
+	public String askInsert(String title, String content, HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		int member_no = member.getMember_no();
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("member_no", member_no);
+		hmap.put("board_title", title);
+		hmap.put("board_content", content);
+		hmap.put("board_kind", 3);
+		service.insertAskBoard(hmap);
+
+		return "redirect:askboard";
+
+	}
+
+	@PostMapping("/askupdate")
+	public String askupdate(int no, String title, String content) {
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("board_title", title);
+		hmap.put("board_content", content);
+		hmap.put("board_no", no);
+		service.updateAskBoard(hmap);
+		return "redirect:askboard";
+	}
+
+	@RequestMapping("/askDelete")
+	public String askupdate(int no) {
+		service.deleteAsk(no);
+		return "redirect:askboard";
+	}
+
+	@PostMapping("/askanswer")
+	public String askupdate(int no, String reply_content, HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		int member_no = member.getMember_no();
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("member_no", member_no);
+		hmap.put("board_no", no);
+		hmap.put("reply_content", reply_content);
+		service.insertAnswer(hmap);
+		return "redirect:askboard";
+	}
+
+	@PostMapping("/updateanswer")
+	public String askupdate(int no, String reply_content) {
+
+		Map<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("reply_no", no);
+		hmap.put("reply_content", reply_content);
+		service.updateAnswer(hmap);
+
+		return "redirect:askboard";
 	}
 }

@@ -56,7 +56,7 @@
         #{boardNo}
     </foreach>
 </select>
-	
+
 	<!-- 보드 조회수 up -->
 	<update id="updateHit" parameterType="int">
 		update board set board_hit
@@ -210,6 +210,34 @@
 	 </choose>
 	</insert>
 
+
+<!-- ******************************** ask보드 인서트 ********************************* -->
+
+<insert id="insertAskBoard" parameterType="map">
+	INSERT INTO BOARD(MEMBER_NO, CREATE_DATE, BOARD_TITLE, BOARD_CONTENT, BOARD_KIND, BOARD_STATUS)VALUES 
+	(#{member_no}, sysdate,#{board_title},#{board_content},#{board_kind},'답변 대기')
+</insert>
+
+<!-- 답변 -->
+	<insert id="insertAnswer" parameterType="map">
+	INSERT INTO REPLY(BOARD_NO,MEMBER_NO,REPLY_CONTENT,REPLY_STATUS_YN,REPLY_DATE) VALUES 
+	(#{board_no},#{member_no}, #{reply_content},'Y',sysdate)
+	</insert>
+<!-- ******************************** ask보드 업데이트 ********************************* -->
+
+	<update id="updateAskBoard" parameterType="map">
+	update board set board_title = #{board_title},board_content=#{board_content} where board_no=#{board_no}
+	</update>
+	<!-- 답변 -->
+	<update id="updateAnswer" parameterType="map">
+	update reply set reply_content=#{reply_content} where reply_no=#{reply_no}
+	</update>
+<!-- ******************************** ask보드 딜리트 ********************************* -->	
+	<delete id="deleteAsk" parameterType="int">
+		delete from board where board_no = #{no}
+	</delete>
+	
+	
 <!-- ******************************** 보드 업데이트 ********************************* -->
 	<update id="updateBoard" parameterType="map">
 		<choose>

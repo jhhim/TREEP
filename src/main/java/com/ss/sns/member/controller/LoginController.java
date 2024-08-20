@@ -111,13 +111,14 @@ public class LoginController {
 		 member.setMember_phone(userinfo.get("phone_number"));
 		 member.setMember_type("kakao");
 		 
-		 MemberDTO SessionMember = service.kakaomemberCheck(member);
+		
 		 
-		 System.out.println(SessionMember.toString());
+		
 		 
 		 int result = service.memberemailChk(userinfo.get("email"));
 		 System.out.println(result);
 		 if (result == 0) {
+			 MemberDTO SessionMember = service.kakaomemberCheck(member);
 		        System.out.println("회원가입은 됐어유");
 		        service.kakaoSignup(member);
 		        
@@ -125,6 +126,7 @@ public class LoginController {
 		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
 		    } else {
+		    	MemberDTO SessionMember = service.kakaomemberCheck(member);
 		        // 회원 정보를 세션에 저장
 		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
@@ -136,13 +138,6 @@ public class LoginController {
  
 	}
 
-	 @RequestMapping("/kakao/share") public String kakaoShareGet(HttpSession
-	  session) { String token = session.getAttribute("token").toString(); if(token
-	  != null) { System.out.println(token); } return "redirect:/"; }
-	  
-	  @PostMapping("/kakao/share") public String kakaoSharePost(HttpSession
-	  session) { String token = session.getAttribute("token").toString();
-	  service.getkakaofirends(token); return "redirect:/"; }
 
 	
 	
@@ -162,17 +157,18 @@ public class LoginController {
 		member.setMember_type("naver");
 		member.setMember_birth(LocalDate.parse((userinfo.get("birthyear") + "-" + userinfo.get("birthday")),format));
 		
-		MemberDTO SessionMember = service.navermemberCheck(member);
+		
 		int result = service.memberemailChk(userinfo.get("email"));
 		 System.out.println(result);
 		 if (result == 0) {
 		        System.out.println("회원가입은 됐어유");
 		        service.naverSignup(member);
-		        
+		        MemberDTO SessionMember = service.googlememberCheck(member);
 		        // 회원 정보를 세션에 저장
 		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
 		    } else {
+		    	MemberDTO SessionMember = service.googlememberCheck(member);
 		        // 회원 정보를 세션에 저장
 		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
@@ -237,12 +233,13 @@ public class LoginController {
 		member.setMember_name(userinfo.get("name"));
 		member.setMember_type("google");
 		
-		MemberDTO SessionMember = service.googlememberCheck(member);
-		System.out.println(member);
+		
+		
 		int result = service.memberemailChk(userinfo.get("email"));
 		 System.out.println(result);
 		 if (result == 0) {
 		        System.out.println("회원가입은 됐어유");
+		        MemberDTO SessionMember = service.googlememberCheck(member);
 		        service.googleSignup(member);
 		        
 		        // 회원 정보를 세션에 저장
@@ -250,6 +247,7 @@ public class LoginController {
 		        return "redirect:/";
 		    } else {
 		        // 회원 정보를 세션에 저장
+		    	MemberDTO SessionMember = service.googlememberCheck(member);
 		        session.setAttribute("member", SessionMember);
 		        return "redirect:/";
 		    }

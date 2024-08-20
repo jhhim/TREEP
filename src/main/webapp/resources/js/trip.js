@@ -1106,6 +1106,8 @@ function updateIndexes(dayIndex) {
 // }
 
 
+
+
 document.addEventListener('DOMContentLoaded', function () {
 
     const placeList = document.querySelector('.place-list');

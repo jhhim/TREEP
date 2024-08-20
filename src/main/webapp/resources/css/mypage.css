@@ -254,3 +254,110 @@
 	background-color: #7FD858;
 	color: white;
 }
+
+/** 상세 보기 페이지 **/
+.mypage-detail{
+display:flex;
+justify-content: center; 
+    align-items: center; 
+}
+
+.mypage-detail-container {
+    display: flex;
+    height: 70vh;
+    margin-top: 100px;
+    border:4px solid #7FD858;
+    padding:50px;
+    border-radius: 20px;
+    width: 60vw;
+}
+
+.left-panel {
+    flex: 0 0 400px; 
+    background: #ffffff;
+    padding: 20px;
+    border-right: 2px solid #cce5cc; 
+    overflow: hidden; 
+}
+.mypage-detail-titlePanel{
+	display:flex;
+	justify-content: space-between;
+}
+.mypage-detail-trip-title {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: #2e8b57; 
+}
+
+.mypage-detail-trip-dates p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.mypage-detail-trip-photo {
+    text-align: center;
+    margin-top: 15px;
+    margin-right: 20px;
+}
+
+.mypage-detail-photo {
+    max-width: 100%;
+    height: 550px;
+    border-radius: 10px;
+    border: 2px solid #d1e7d1; 
+}
+
+.right-panel {
+	margin-left: 15px;
+    flex: 1;
+    padding: 20px;
+    max-height: calc(100vh - 40px); 
+    overflow-y: auto; 
+}
+
+
+.mypage-schedule {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #cce5cc; 
+    border-radius: 10px;
+    background: #f9fff9; 
+}
+
+.mypage-schedule-date {
+    font-size: 1.4em;
+    color: #2e8b57; 
+    margin-bottom: 10px;
+}
+
+.mypage-schedule-content {
+    font-size: 1.1em;
+    color: #666;
+    margin: 10px 0;
+}
+
+.mypage-places-list {
+    list-style: none;
+    padding: 0;
+}
+
+.mypage-place-item {
+    background: #e6ffe6; /* 밝은 연두색 배경 */
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 6px;
+    color: #2e8b57; /* 진한 연두색 텍스트 */
+    border: 1px solid #b3e2b3; /* 연두색 계열의 테두리 */
+}
+
+#mypage-detail-share{
+	margin-top:3px;
+	    border: 1px solid #7FD858;
+    border-radius: 5px;
+}
+#mypage-detail-share:hover{
+      outline: none;
+      background-color: #7FD858;
+      color: white;
+}
