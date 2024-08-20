@@ -64,7 +64,7 @@ request.setAttribute("Member_No", Member_No);
 <main>
 	<!-- 게시글 컨테이너 -->
 	<div class="container-md" id="post">
-
+		<br><h3>${board.board_title }</h3><br>
 		<div class="post-category">
 			<c:choose>
 				<c:when test="${board.board_kind == 1}">자유</c:when>

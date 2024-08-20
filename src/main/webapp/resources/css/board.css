@@ -1203,8 +1203,16 @@
         background-color: #6dbd44;
     }
     
+    .reply-modify{
+    border: solid 1px #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 0 0 2px #caf7b6;
+    width: 95%;
+    }
     
-    
+/*     .save-btn-reply{
+ 		border: 1px solid #7FD858;
+    } */
 /*********************************************신고************************************************/
 .SingoBtn{
    background-color: #fad271;
