@@ -113,9 +113,6 @@ request.setAttribute("Member_No", Member_No);
 
 					</ul>
 			</c:otherwise>
-
-
-
 		</c:choose>
 
 
