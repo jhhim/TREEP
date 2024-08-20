@@ -46,9 +46,9 @@
 						<span id="modal-city-country"></span>
 						<h1 id="modal-city-name"></h1>
 						<p id="modal-city-info"></p>
-						<a href="maketrip"><button class="make-plan-btn">
-								일정 만들기 <i class="fa-solid fa-chevron-right"></i>
-							</button></a>
+						<button class="make-plan-btn" onclick="redirectToMaketrip()">
+        일정 만들기 <i class="fa-solid fa-chevron-right"></i>
+    </button>
 					</div>
 					<div class="detail-modal-right col">
 						<img id="modal-city-image" src="" alt="City Image">

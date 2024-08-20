@@ -1,6 +1,5 @@
 package com.ss.sns.trip.controller;
 
-import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ss.sns.member.dto.MemberDTO;
 import com.ss.sns.trip.dto.TripDTO;
@@ -22,10 +22,20 @@ public class MakeTripController {
     @Autowired
     private TripService tripService;
     
-	@RequestMapping("/maketrip")
-	public String maketrip(Locale locale, Model model) {		
-		return "trip/maketrip";
-	}
+    @RequestMapping("/maketrip")
+    public String maketrip(
+            @RequestParam(value = "city", required = false, defaultValue = "Unknown") String city, 
+            @RequestParam(value = "lat", required = false) String lat,
+            @RequestParam(value = "lng", required = false) String lng,
+            Model model) {
+
+        model.addAttribute("city", city);
+        model.addAttribute("lat", lat);
+        model.addAttribute("lng", lng);
+        
+        return "trip/maketrip"; 
+    }
+
 	
 	@RequestMapping("/submittrip")
     public String submittrip(@ModelAttribute TripDTO tripdto,

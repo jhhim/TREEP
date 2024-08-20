@@ -1137,15 +1137,14 @@ function updateIndexes(dayIndex) {
 // }
 
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
 
     const placeList = document.querySelector('.place-list');
     const autocompleteInput = document.getElementById(`autocomplete`);
     const selectPlaceList = document.getElementById(`select-place-list`);
 
-
+        const lat = parseFloat(document.getElementById(`lat`).textContent); // 빈 값 처리
+        const lng = parseFloat(document.getElementById(`lng`).textContent); // 빈 값 처리
 
     let map;
     let service;
@@ -1153,7 +1152,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let autocomplete;
 
     function initialize() {
-        const initialLocation = new google.maps.LatLng(37.7749, -122.4194); // Initial location (San Francisco)
+
+        const initialLocation = new google.maps.LatLng(lat, lng); // Initial location (San Francisco)
         map = new google.maps.Map(document.getElementById('map'), {
             center: initialLocation,
             zoom: 15,
@@ -1473,4 +1473,3 @@ document.addEventListener("DOMContentLoaded", function () {
         dDayElement.textContent = `D-${daysDiff}`;
     });
 });
-

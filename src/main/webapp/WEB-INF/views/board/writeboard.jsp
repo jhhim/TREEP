@@ -90,41 +90,38 @@
 										class="share-writepro"><span id="writer-name"
 										class="writer-name-in">${trip.member_nickname }</span>
 								</div>
-							</div>
-						</div>
+								<h3>Schedules</h3>
 
-						<!-- 일정 아이템 클릭 상세 보기 -->
-						<div id="detail-hidden-sch" style="display: none;">
-							<button id="backButton" class="btn"
-								style="margin-top: 10px; margin-bottom: 10px;">
-								<i class="fa-solid fa-arrow-left"></i>
-							</button>
-							<div class="container-md" id="tripDetailContent"
-								name="tripDetailContent"></div>
+							</div>
+
+						</div>
+						<div class="place-item-listcontainer">
+						<c:forEach var='schedule' items="${trip.schedules}">
+							<div>Date: ${schedule.schedule_date}</div>
+							<c:forEach var='place' items="${schedule.places}">
+								<li class='place-item-write'>Place: ${place.place_name}</li>
+							</c:forEach>
+						</c:forEach>
 						</div>
 					</c:forEach>
 				</div>
-
+			</div>
+			<div id="tripDetailDisplayContainer"
+				class="tripDetailDisplayContainer" style="display: none;">
+				<h2 class="MadeCal">
+					UserName의 일정 <i class="fa-regular fa-calendar-days"
+						style="color: #7FD858;"></i>
+				</h2>
+				<div id="trip-items-list"></div>
 			</div>
 
+			<div class="write_content">
+				<textarea placeholder="내용을 입력해 주세요." id="write-text-container"
+					class="form-control" name="content"></textarea>
+			</div>
 
-		</div>
-		<div id="tripDetailDisplayContainer"
-			class="tripDetailDisplayContainer" style="display: none;">
-			<h2 class="MadeCal">
-				UserName의 일정 <i class="fa-regular fa-calendar-days"
-					style="color: #7FD858;"></i>
-			</h2>
-			<div id="trip-items-list"></div>
-		</div>
-
-		<div class="write_content">
-			<textarea placeholder="내용을 입력해 주세요." id="write-text-container"
-				class="form-control" name="content"></textarea>
-		</div>
-
-		<br>
-		<button type="submit" class="btn" id="post-submit" name="post-submit">등록</button>
+			<br>
+			<button type="submit" class="btn" id="post-submit" name="post-submit">등록</button>
 		</div>
 	</form>
 

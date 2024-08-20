@@ -239,3 +239,32 @@ $(document).on('click', '.search-box-wrap', function() {
         console.error('Error parsing city data:', error);
     }
 });
+
+function redirectToMaketrip() {
+            const cityName = document.querySelector('#modal-city-name').textContent;
+            const apiKey = 'AIzaSyB2m6Rp1mtpZoFmdWrCm098wRY05mLnBbw'; 
+            const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(cityName)}&key=${apiKey}`;
+
+            fetch(geocodeUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'OK') {
+                        const location = data.results[0].geometry.location;
+                        const lat = location.lat;
+                        const lng = location.lng;
+
+                        
+                        const url = `/sns/maketrip?city=${encodeURIComponent(cityName)}&lat=${lat}&lng=${lng}`;
+
+                        // 페이지 이동
+                        window.location.href = url;
+                    } else {
+                        console.error('Error fetching location data:', data.status);
+                        alert('해당 도시의 위치 정보를 가져올 수 없습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('위치 정보를 가져오는 중 오류가 발생했습니다.');
+                });
+        }
