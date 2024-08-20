@@ -2,8 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script>
+
+ 
+
 	const boardKind = "${board.board_kind}";
 	const boardNo = "${board.board_no}";
 	const memberNo = "${sessionScope.member.member_no}";
@@ -244,7 +248,7 @@ request.setAttribute("Member_No", Member_No);
 				</div>
 			</c:if>
 			<br>
-			<div class="text">${board.board_content}</div>
+			<div class="text" id="contentDiv">${fn:escapeXml(board.board_content)}</div>
 		</div>
 		<br>
 		<div class="reaction">
@@ -253,7 +257,7 @@ request.setAttribute("Member_No", Member_No);
 				class="fa-regular fa-message"></i><span class="reply-count"></span>
 			<span class="sns-container"> <span class="social"> <!-- <span class="share-text">공유하기</span> -->
 					<span class="social-links"> <!-- sns 공유 --> <a href="javascript:sendLinkDefaultBoard();">
-					<img src="${path}/resources/img/detailboard/kakao.png" class="sns_img" alt="kakao"></a> <a href="#">
+					<img src="${path}/resources/img/detailboard/kakao.png" class="sns_img" alt="kakao"></a> <a onclick="clipboard()">
 							<img src="${path}/resources/img/detailboard/share_link.png" class="sns_img" alt="link"></a>
 				</span>
 			</span>

@@ -1,3 +1,10 @@
+var boardContent = $('#contentDiv').html();
+    
+    var formattedContent = boardContent.replace(/\n/g, '<br/>');
+    $('#contentDiv').html(formattedContent);
+
+
+
 let isProcessing = false;
 
 // 좋아요 버튼 클릭 이벤트 핸들러
@@ -433,4 +440,19 @@ const no = urlParams.get('no');
  location.href='deleteBoard?kind=' + kind + '&no=' + no;
 
 
+}
+
+
+/*************************클립보드************************/
+
+function clipboard(){
+	let clip = document.createElement("input");
+	const url = location.href;
+	
+	document.body.appendChild(clip);
+	clip.value = url;
+	clip.select();
+	document.execCommand("copy");
+	alert("클립보드에 복사했습니다.");
+	document.body.removeChild(clip);
 }
