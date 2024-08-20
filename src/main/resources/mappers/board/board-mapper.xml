@@ -236,8 +236,10 @@
 	<delete id="deleteAsk" parameterType="int">
 		delete from board where board_no = #{no}
 	</delete>
-	
-	
+	<!-- 답변 -->
+	<delete id="deleteAnswer">
+		delete from reply where reply_no = #{no}
+	</delete>
 <!-- ******************************** 보드 업데이트 ********************************* -->
 	<update id="updateBoard" parameterType="map">
 		<choose>
@@ -254,9 +256,16 @@
 
 		</choose>
 	</update>
-
-
-
+	<!-- ******************************** ask보드 답변상태 업데이트 ********************************* -->
+	<update id="updateBoardStatus" parameterType="int">
+	UPDATE board SET board_status = '답변 완료' where board_no = #{no}
+	</update>
+	<!-- 답변삭제시 상태 업데이트 -->
+ 	<update id="updateAnswerStatus" parameterType="int">
+	UPDATE board b SET b.board_status = '답변 대기' WHERE EXISTS (
+	SELECT 1 FROM reply r
+	WHERE b.board_no = r.board_no AND r.reply_no = #{no})
+	</update>
 
 
 <!-- ********************************************* 매니저 필터 ************************************************* -->

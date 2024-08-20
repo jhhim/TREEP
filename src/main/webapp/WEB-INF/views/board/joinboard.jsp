@@ -19,19 +19,6 @@ pageContext.setAttribute("today", today.toString());
 		<li class="MyTabMenufd"><a href="freeboard">자유게시판</a></li>
 		<li class="MyTabMenufd"><a href="askboard">문의게시판</a></li>
 	</ul>
-
-	<!-- <div class="summary-container">
-        <p id="summary-icon"><i class="fa-solid fa-house"></i></p>
-        <p id="summary-icon"><i class="fa-solid fa-arrow-right"></i></p>
-        <p id="summary-icon">
-            <select name="" id="" class="boardSelect" onchange="window.open(value,'_self')">
-                <option value="FriendBoard.html" selected>동행친구</option>
-                <option value="FreeBoard.html">자유게시판</option>
-                <option value="AskBoard.html">문의게시판</option>
-            </select>
-        </p>
-    </div> -->
-
 	<div class="title-containerfd">
 		<h1 class="titlefd">동행 친구</h1>
 	</div>

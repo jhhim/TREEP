@@ -44,6 +44,9 @@ public interface BoardMapper {
 	public void deleteAsk(int no);
 	public void insertAnswer(Map<String, Object> hmap);
 	public void updateAnswer(Map<String, Object> hmap);
+	public void deleteAnswer(int no);
+	public void updateBoardStatus(Integer askUpdateNo);
+	public void updateAnswerStatus(int no);
 
 
 }

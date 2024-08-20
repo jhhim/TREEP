@@ -199,12 +199,18 @@
                                         <p style="position: relative; right: 2px;">답변</p>
                                     </div>
                                 </th>
-                                <td colspan="2">
+                                <td>
                                     <p>${reply.reply_content}</p>
                                 </td>
-                                <td>
+                                <c:choose>
+                            	<c:when test="${sessionScope.member.manager_yn eq 'Y'}">
+                                <td style="text-align: right;">
                                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateAnswer" data-info="${reply.reply_no}">수정</button>
+                                <br><br>
+           						<input type="button" value="삭제" class="btn btn-danger" onclick="location.href='answerdelete?no=${reply.reply_no}'">
                                 </td>
+                                </c:when>
+                                </c:choose>
                             </tr>
                         </c:forEach>
                     </c:if>

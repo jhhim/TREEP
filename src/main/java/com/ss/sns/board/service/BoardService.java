@@ -194,14 +194,27 @@ public class BoardService {
 		mapper.deleteAsk(no);
 		
 	}
-
 	public void insertAnswer(Map<String, Object> hmap) {
 		mapper.insertAnswer(hmap);
 		
 	}
-
 	public void updateAnswer(Map<String, Object> hmap) {
 		mapper.updateAnswer(hmap);	
+	}
+
+	public void deleteAnswer(int no) {
+		mapper.deleteAnswer(no);	
+		
+	}
+
+	public void updateBoardStatus(Integer askUpdateNo) {
+		mapper.updateBoardStatus(askUpdateNo);
+		
+	}
+
+	public void updateAnswerStatus(int no) {
+	mapper.updateAnswerStatus(no);
+		
 	}
 
 
