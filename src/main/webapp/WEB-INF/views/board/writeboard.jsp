@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
+
+
 <title>게시글 작성</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <main>
@@ -67,43 +69,42 @@
 
 
 
-					<c:forEach var="trip" items="${trips}">
-						<div class="row trip-share-item container-md"
-							style="margin-left: 1px;">
-							<div class="col-4">
-								<img src="${trip.place_photo_url }" id="upload-place-img"
-									class="upload-place-img">
-							</div>
-							<!-- 텍스트 -->
-							<div class="col-8">
-								<div class="trip-uplaod-title" id="trip-uplaod-title">${trip.trip_title}</div>
+  <c:forEach var="trip" items="${trips}">
+        <div class="row trip-share-item container-md"
+            style="margin-left: 1px;" onclick="toggleContainer(${trip.trip_no})">
+            <div class="col-4">
+                <img src="${trip.place_photo_url }" id="upload-place-img"
+                    class="upload-place-img">
+            </div>
+            <!-- 텍스트 -->
+            <div class="col-8">
+                <div class="trip-uplaod-title" id="trip-uplaod-title">${trip.trip_title}</div>
 
-								<!-- 날짜 -->
-								<div class="share-upload-date">
-									<i class="fa-regular fa-calendar-days"></i> PLAN ·
-									${trip.trip_start}~${trip.trip_end}
-								</div>
+                <!-- 날짜 -->
+                <div class="share-upload-date">
+                    <i class="fa-regular fa-calendar-days"></i> PLAN ·
+                    ${trip.trip_start}~${trip.trip_end}
+                </div>
 
-								<!-- 작성자 -->
-								<div class="share-write">
-									<img src="${trip.grade_img}" id="share-writepro"
-										class="share-writepro"><span id="writer-name"
-										class="writer-name-in">${trip.member_nickname }</span>
-								</div>
-								<h3>Schedules</h3>
-
-							</div>
-
-						</div>
-						<div class="place-item-listcontainer">
-							<c:forEach var='schedule' items="${trip.schedules}">
-								<div>Date: ${schedule.schedule_date}</div>
-								<c:forEach var='place' items="${schedule.places}">
-									<li class='place-item-write'>Place: ${place.place_name}</li>
-								</c:forEach>
-							</c:forEach>
-						</div>
-					</c:forEach>
+                <!-- 작성자 -->
+                <div class="share-write">
+                    <img src="${trip.grade_img}" id="share-writepro"
+                        class="share-writepro"><span id="writer-name"
+                        class="writer-name-in">${trip.member_nickname }</span>
+                </div>
+            </div>
+        </div>
+        <div class="place-item-listcontainer" id="place-item-listcontainer${trip.trip_no}"
+        style="display: none">
+            <c:forEach var='schedule' items="${trip.schedules}">
+                <div>Date: ${schedule.schedule_date}</div>
+                <c:forEach var='place' items="${schedule.places}">
+                    <li class='place-item-write'>Place: ${place.place_name}</li>
+                </c:forEach>
+            </c:forEach>
+        </div>
+    </c:forEach>
+					
 				</div>
 			</div>
 			<div id="tripDetailDisplayContainer"
@@ -127,4 +128,112 @@
 
 
 </main>
+<script>
+//카테고리 선택 
+document.addEventListener('DOMContentLoaded', function () {
+    // 페이지 로드 시 초기 상태 설정
+    var selected = document.getElementById('board-select').value;
+    updateCategoryDisplay(selected);
+
+    // 선택이 변경될 때 상태 업데이트
+    document.getElementById('board-select').addEventListener('change', function (event) {
+        var selected = document.getElementById('board-select').value;
+        updateCategoryDisplay(selected);
+    });
+
+    function updateCategoryDisplay(selected) {
+        if (selected == "free") {
+            document.getElementById('category-select').style.display = "none";
+            document.getElementById('free-category-select').style.display = "inline";
+        } else if (selected == "join") {
+            document.getElementById('free-category-select').style.display = "none";
+            document.getElementById('category-select').style.display = "inline";
+        } else {
+            document.getElementById('category-select').style.display = "none";
+            document.getElementById('free-category-select').style.display = "none";
+        }
+    }
+
+});
+// 인풋 값 없을 시 처리
+   $('#insert-board-form').on('submit', function(event) {
+        let boardSelect = $('#board-select').val();
+        let freeCategorySelect = $('#free-category-select').length ? $('#free-category-select').val() : null;
+        let categorySelect = $('#category-select').length ? $('#category-select').val() : null;
+ 		let writeTitle = $('#write_title').val().trim();
+        if (boardSelect === 'default') {
+            alert('게시판을 선택해 주세요.');
+            event.preventDefault();
+            return false;
+        }
+        
+        if (boardSelect === 'free' && freeCategorySelect === 'default') {
+            alert('카테고리를 선택해 주세요.');
+            event.preventDefault();
+            return false;
+        }
+        
+        if (boardSelect === 'join' && categorySelect === 'default') {
+            alert('카테고리를 선택해 주세요.');
+            event.preventDefault();
+            return false;
+            }
+            
+            if (writeTitle === '') {
+            alert('제목을 입력해 주세요.');
+            event.preventDefault();
+            return false;
+        
+        }});
+
+
+// 오프캔버스 기능 추가
+document.addEventListener('DOMContentLoaded', function () {
+
+ 
+    const openBtn = document.getElementById('open-WriteOffcanvas');
+    const closeBtn = document.getElementById('close-WriteOffcanvas');
+    const offcanvas = document.getElementById('write-offcanvas');
+
+    openBtn.addEventListener('click', function () {
+    console.log("오프캔버스 열기");
+        offcanvas.classList.add('show');
+
+        document.addEventListener('click', handleOutsideClick);
+    });
+
+    closeBtn.addEventListener('click', function () {
+        offcanvas.classList.remove('show');
+
+        document.removeEventListener('click', handleOutsideClick);
+    });
+    function handleOutsideClick(event) {
+        // 오프캔버스와 관련된 요소를 제외한 클릭 감지
+        if (!offcanvas.contains(event.target) && !openBtn.contains(event.target)) {
+            offcanvas.classList.remove('show');
+            document.removeEventListener('click', handleOutsideClick);
+        }
+    }
+});
+
+function toggleContainer(tripNo) {
+    const containers = document.querySelectorAll('.place-item-listcontainer');
+    console.log(tripNo)
+    console.log(`place-item-listcontainer${tripNo}`); // 템플릿 리터럴 사용
+
+    containers.forEach(container => {
+        if (container.id === `place-item-listcontainer${tripNo}`) {
+            // 현재 클릭된 컨테이너의 상태를 토글합니다.
+            container.style.display = container.style.display === 'block' ? 'none' : 'block';
+        } else {
+            // 다른 모든 컨테이너는 숨깁니다.
+            container.style.display = 'none';
+            console.log("다숨김")
+        }
+    });
+}
+
+
+
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

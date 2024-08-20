@@ -636,6 +636,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const offcanvas = document.getElementById('write-offcanvas');
 
     openBtn.addEventListener('click', function () {
+    console.log("오프캔버스 열기");
         offcanvas.classList.add('show');
 
         document.addEventListener('click', handleOutsideClick);

@@ -1197,7 +1197,10 @@
     color: white;
 }
 
-
+.place-item-listcontainer{
+	margin-top:30px;
+	border:1px solid black;
+}
 
 
 
