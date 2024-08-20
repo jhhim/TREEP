@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.ss.sns.board.dto.BoardDTO;
 import com.ss.sns.board.dto.ReplyDTO;
+import com.ss.sns.board.dto.ReplyNickDTO;
 import com.ss.sns.member.dto.MemberDTO;
 
 
@@ -20,8 +21,8 @@ public interface BoardMapper {
 	public MemberDTO selectJoinBoardMember(int board_no);
 	public void updateHit(int board_no);
 	public void insertReply(ReplyDTO insertReply);
-	public ArrayList<ReplyDTO> selectReply(int board_no);
-	public ArrayList<ReplyDTO> selectReReply(int reply_no);
+	public List<ReplyNickDTO> selectReply(int board_no);
+	public List<ReplyNickDTO> selectReReply(int reply_no);
 	public int deleteReply(Map<String, Integer> hmap);
 	public void deleteReReply(Map<String, Integer> hmap);
 	public int updateReply(Map<String, Object> hmap);
@@ -47,6 +48,7 @@ public interface BoardMapper {
 	public void deleteAnswer(int no);
 	public void updateBoardStatus(Integer askUpdateNo);
 	public void updateAnswerStatus(int no);
+
 
 
 }
