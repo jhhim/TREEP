@@ -174,7 +174,8 @@ public class BoardController {
 		MemberDTO writeMember = service.selectJoinBoardMember(no);
 		model.addAttribute("board", board);
 		model.addAttribute("writeMember", writeMember);
-
+		MemberDTO M = service.selectJoinBoardMember(no);
+		model.addAttribute("Nick",M.getMember_nickname());
 		return "board/detail";
 	}
 
@@ -186,7 +187,6 @@ public class BoardController {
 
 		int boardKind = 1;
 		int pageSize = 8;
-
 		BoardPage boardPage = service.filteredFreePage(boardKind, postTypes, sortOrder, searchText, currentPage,
 				pageSize, session);
 		model.addAttribute("boardPage", boardPage);
@@ -419,4 +419,6 @@ public class BoardController {
 		return "redirect:askboard";
 	}
 
+	
+	
 }

@@ -26,6 +26,7 @@ pageContext.setAttribute("today", today.toString());
 
 
 	<div class="filter-containerfd">
+	<button type="button" class="boardWriteBtn" onclick="location.href='writeboard'"><img src="${path}/resources/img/board/boardwrite.png" class="boardwriteImg" alt="">글 쓰기</button>
 		<button type="button" class="btn filterBtnfd" data-bs-toggle="modal"
 			data-bs-target="#filterfd">
 			<img src="${path}/resources/img/board/filter.png" class="filterImgfd"
@@ -91,12 +92,12 @@ pageContext.setAttribute("today", today.toString());
 							<div style="padding: 15px;">
 								<h3>정렬</h3>
 							</div>
-							<input type="radio" class="lineupBtnfd" id="latest"
+							<input type="radio"  id="latest"
 								name="sortOrder" value="최신순" /> <label for="latest"
 								class="lineupBtnfd">최신순</label> <input type="radio"
-								class="lineupBtnfd" id="viewCount" name="sortOrder" value="조회순" />
+								 id="viewCount" name="sortOrder" value="조회순" />
 							<label for="viewCount" class="lineupBtnfd">조회순</label> <input
-								type="radio" class="lineupBtnfd" id="likes" name="sortOrder"
+								type="radio" id="likes" name="sortOrder"
 								value="좋아요순" /> <label for="likes" class="lineupBtnfd">좋아요순</label>
 						</div>
 
@@ -164,7 +165,7 @@ pageContext.setAttribute("today", today.toString());
 										</p>
 
 										<p class="mb-0">조회수 : ${board.board_hit}</p>
-										<p class="mb-0">LIKE : <span id="boardLikeCount"></span></p>
+										<p class="mb-0">LIKE : ${board.board_like}</p>
 									</small>
 								</div>
 							</div>
@@ -175,7 +176,7 @@ pageContext.setAttribute("today", today.toString());
 
 
 	<div class="pagination-container">
-				<div class="d-flex justify-content-center">
+				<div class="d-flex justify-content-center mt-5">
 		<div class="pagination">
 			<button type="button"
 				onclick="location.href='joinboard?page=${boardPage.currentPage - 1}'"
@@ -183,7 +184,7 @@ pageContext.setAttribute("today", today.toString());
 			<c:forEach var="i" begin="${boardPage.startPage}"
 				end="${boardPage.endPage}">
 				<button type="button" onclick="location.href='joinboard?page=${i}'"
-					class="${boardPage.currentPage == i ? 'active' : ''}">
+					class="${boardPage.currentPage == i ? 'active' : ''}" style="font-size:20px; padding:10px;">
 					${i}</button>
 			</c:forEach>
 			<button type="button"

@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script>
 	const boardKind = "${board.board_kind}";
@@ -9,41 +10,40 @@
 	const memberNo = "${sessionScope.member.member_no}";
 	const basePath = "${path}";
 	document.addEventListener('DOMContentLoaded', function() {
-	    // Kakao 객체가 존재하는지 확인
-	    if (typeof Kakao !== 'undefined') {
-	        console.log('Kakao SDK가 로드되었습니다.');
-	        Kakao.init('f5be83671ab1fd039f403cdb875c42a3');  // 여기에 실제 앱 키를 입력하세요
-	    } else {
-	        console.error('Kakao SDK가 로드되지 않았습니다.');
-	    }
+		// Kakao 객체가 존재하는지 확인
+		if (typeof Kakao !== 'undefined') {
+			console.log('Kakao SDK가 로드되었습니다.');
+			Kakao.init('f5be83671ab1fd039f403cdb875c42a3'); // 여기에 실제 앱 키를 입력하세요
+		} else {
+			console.error('Kakao SDK가 로드되지 않았습니다.');
+		}
 	});
 
-	    /*<![CDATA[*/
-	  function sendLinkDefaultBoard() {
-	    Kakao.Link.sendDefault({
-	    	
-	      objectType: 'feed',
-	      content: {
-	        title: '${board.board_title}',
-	        description: 'TREEP과 함께 여행을 시작해보세요!',
-	        imageUrl:
-	          'https://ibb.co/pJHk10N',
-	        link: {
-	            mobileWebUrl: 'http://localhost:8080/sns/detailboard?kind=1&no=${board.board_no}',
-	            webUrl: 'http://localhost:8080/sns/detailboard?kind=1&no=${board.board_no}',
-	        },
-	      },
-	      buttons: [
-	        {
-	          title: '웹으로 보기',
-	          link: {
-	            mobileWebUrl: 'http://localhost:8080/sns/detailboard?kind=1&no=${board.board_no}',
-	            webUrl: 'http://localhost:8080/sns/detailboard?kind=1&no=${board.board_no}',
-	          },
-	        },
-	      ],
-	    })
-	  };
+	/*<![CDATA[*/
+	function sendLinkDefaultBoard() {
+		Kakao.Link
+				.sendDefault({
+
+					objectType : 'feed',
+					content : {
+						title : '${board.board_title}',
+						description : 'TREEP과 함께 여행을 시작해보세요!',
+						imageUrl : 'https://ibb.co/pJHk10N',
+						link : {
+							mobileWebUrl : 'http://localhost:8080/sns/detailboard?kind=1&no=${board.board_no}',
+							webUrl : 'http://localhost:8080/sns/detailboard?kind=1&no=${board.board_no}',
+						},
+					},
+					buttons : [
+							{
+								title : '웹으로 보기',
+								link : {
+									mobileWebUrl : 'http://localhost:8080/sns/detailboard?kind=1&no=${board.board_no}',
+									webUrl : 'http://localhost:8080/sns/detailboard?kind=1&no=${board.board_no}',
+								},
+							}, ],
+				})
+	};
 	window.kakaoDemoCallback && window.kakaoDemoCallback();
 </script>
 
@@ -64,7 +64,9 @@ request.setAttribute("Member_No", Member_No);
 <main>
 	<!-- 게시글 컨테이너 -->
 	<div class="container-md" id="post">
-
+		<br>
+		<h3>${board.board_title }</h3>
+		<br>
 		<div class="post-category">
 			<c:choose>
 				<c:when test="${board.board_kind == 1}">자유</c:when>
@@ -85,8 +87,10 @@ request.setAttribute("Member_No", Member_No);
 						<!-- 게시글 신고,쪽지,수정,삭제 페이지 이동-->
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
 							data-bs-target="#staticBackdropPolice">신고하기</a></li>
-						<li><a class="dropdown-item" href="#">쪽지보내기</a></li>
-						<li><a class="dropdown-item" href="updateboard?no=${board.board_no}">수정</a></li>
+						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+							data-bs-target="#messageWrite">쪽지보내기</a></li>
+						<li><a class="dropdown-item"
+							href="updateboard?no=${board.board_no}">수정</a></li>
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
 							data-bs-target="#staticBackdropDelete">삭제</a></li>
 					</ul>
@@ -110,12 +114,9 @@ request.setAttribute("Member_No", Member_No);
 
 					</ul>
 			</c:otherwise>
-
-
-
 		</c:choose>
 
-
+</span>
 
 		<!-- 신고하기 모달 -->
 
@@ -229,7 +230,38 @@ request.setAttribute("Member_No", Member_No);
 				</div>
 			</div>
 		</div>
-		</span>
+	
+		
+		
+		  <!--쪽지 보내기 모달-->
+                <div class="modal fade" id="messageWrite" tabindex="-1" aria-labelledby="noteWriteLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">쪽지 보내기</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close" onclick="resetSendMsg()"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="">
+                                    <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">받는 사람(닉네임)</label>
+                                        <input type="text" class="form-control" id="send-recipient-nameb" value="${Nick }" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="message-text" class="col-form-label">내용</label>
+                                        <textarea class="form-control" id="send-message-textb"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn" data-bs-dismiss="modal" id="send-close" onclick="resetSendMsg()">닫기</button>
+                                <button type="button" class="btn" id="send-confirm" onclick="sendMessageboard()">보내기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 		<div class="post_response">
 			<span style="color: gray;">${board.create_date }</span> <i
 				class="fa-regular fa-eye"> ${board.board_hit }</i> <i
@@ -237,14 +269,15 @@ request.setAttribute("Member_No", Member_No);
 		</div>
 		<br>
 		<div class="post-content">
-			<c:if test="${not empty board.board_img}">
-				<div class="img">
-					<img src="${path}/resources/img/board/${board.board_img}"
-						class="post-content-img" alt="...">
-				</div>
-			</c:if>
+		<c:if test="${board.board_img != 'null' && !empty board.board_img}">
+    <div class="img">
+        <img src="${path}/resources/img/board/${board.board_img}"
+            class="post-content-img" alt="...">
+    </div>
+</c:if>
+			
 			<br>
-			<div class="text">${board.board_content}</div>
+			<div class="text" id="contentDiv">${fn:escapeXml(board.board_content)}</div>
 		</div>
 		<br>
 		<div class="reaction">
@@ -252,13 +285,10 @@ request.setAttribute("Member_No", Member_No);
 				id="like"> <span id="likeCount"></span> <i
 				class="fa-regular fa-message"></i><span class="reply-count"></span>
 			<span class="sns-container"> <span class="social"> <!-- <span class="share-text">공유하기</span> -->
-					<span class="social-links"> <!-- sns 공유 --> <a href="javascript:sendLinkDefaultBoard();"><img
+					<span class="social-links"> <!-- sns 공유 --> <a
+						href="javascript:sendLinkDefaultBoard();"> <img
 							src="${path}/resources/img/detailboard/kakao.png" class="sns_img"
-							alt="kakao"></a> <a href="#"><img
-							src="${path}/resources/img/detailboard/naver.png" class="sns_img"
-							alt="naver"></a> <a href="#"><img
-							src="${path}/resources/img/detailboard/facebook.png"
-							class="sns_img" alt="facebook"></a> <a href="#"><img
+							alt="kakao"></a> <a onclick="clipboard()"> <img
 							src="${path}/resources/img/detailboard/share_link.png"
 							class="sns_img" alt="link"></a>
 				</span>

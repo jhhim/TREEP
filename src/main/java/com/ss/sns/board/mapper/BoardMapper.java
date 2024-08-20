@@ -60,5 +60,4 @@ public interface BoardMapper {
 	List<ScheduleDTO> getSchedulesAndPlaces(@Param("trip_no") int trip_no);
 
 
-
 }

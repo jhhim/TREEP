@@ -51,6 +51,7 @@ card.forEach((a, index) =>{
 // 여행지버튼 정렬버튼 클릭시 스타일 변경 및 최대 3개 넘길 시 alert 창
 const locationBtn = document.querySelectorAll('.locationBtn');
 const lineupBtn = document.querySelectorAll('.lineupBtn');
+const lineupBtn12 = document.querySelectorAll('.lineupBtn12');
 const gradeBtn = document.querySelectorAll('.gradeBtn');
 
 let LocationCount = 0;
@@ -106,9 +107,10 @@ for(let i = 0; i < lineupBtn.length; i++){
             
             if(LineupCount!=0){
                 --LineupCount;
-               if(LocationCount==0 & LineupCount==0 & GradeCount == 0){
+               if(LocationCount==0 & LineupCount==0){
                 const d = document.querySelector('.filter-submitBtn');
                 d.classList.remove('filter-submitBtn-Click');
+                 d.classList.add('filter-submitBtn-nonClick');
                 }
             }
             

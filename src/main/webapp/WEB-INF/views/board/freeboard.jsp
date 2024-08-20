@@ -76,12 +76,12 @@ const basePath = "${path}";
 							<div style="padding: 10px;">
 								<h3>정렬</h3>
 							</div>
-							<input type="radio" id="checkline1" class="lineupBtn"
+							<input type="radio" id="checkline1" 
 								name="sortOrder" value="최신순"> <label for="checkline1"
 								class="lineupBtn">최신순</label> <input type="radio"
-								id="checkline2" class="lineupBtn" name="sortOrder" value="조회순">
+								id="checkline2"  name="sortOrder" value="조회순">
 							<label for="checkline2" class="lineupBtn">조회순</label> <input
-								type="radio" id="checkline3" class="lineupBtn" name="sortOrder"
+								type="radio" id="checkline3"  name="sortOrder"
 								value="좋아요순"> <label for="checkline3" class="lineupBtn">좋아요순</label>
 						</div>
 						<div class="search-container">
@@ -122,7 +122,7 @@ const basePath = "${path}";
 								<div class="card-body h-50 ratio" style="-bs-aspect-ratio: 50%;">
 									<img src="${path}/resources/img/board/${board.board_img}"
 										class="card-img-top boardImg"
-										onerror="this.src='/sns/resources/img/board/car1.png'" alt="">
+										onerror="this.src='/sns/resources/img/board/TREEP2.jpg'" alt="">
 								</div>
 								<h5 class="card-title p-3">${board.board_title}</h5>
 								<div
@@ -165,7 +165,7 @@ const basePath = "${path}";
 						end="${boardPage.endPage}">
 						<button type="button"
 							onclick="location.href='freeboard?page=${i}'"
-							class="${boardPage.currentPage == i ? 'active' : ''}">
+							class="${boardPage.currentPage == i ? 'active' : ''}" style="font-size:20px; padding:10px;">
 							${i}</button>
 					</c:forEach>
 					<button type="button"

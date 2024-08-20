@@ -89,6 +89,6 @@ public class BoardRestController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		}
 	}
-	
-	
+
+
 }

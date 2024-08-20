@@ -1,3 +1,10 @@
+var boardContent = $('#contentDiv').html();
+    
+    var formattedContent = boardContent.replace(/\n/g, '<br/>');
+    $('#contentDiv').html(formattedContent);
+
+
+
 let isProcessing = false;
 
 // 좋아요 버튼 클릭 이벤트 핸들러
@@ -78,102 +85,105 @@ $('#like').on('click', function() {
             console.error('Error:', error);
         }
     });
-
 /****************************************** 댓글 조회 *************************************************/
 function loadReply() {
-    $.ajax({
-        method: 'get',
-        url: `${basePath}/reply`,
-        data: {
+			  $.ajax({
+			    method: 'get',
+			    url: `${basePath}/reply`,
+			    data: {
             kind: boardKind,
             no: boardNo
         },
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function(replyList) {
-            $('#comment-container').empty();
-            replyList.forEach(function(reply) {
-                if (reply.rereply_no === 0) {
-                    let commentHtml = 
-                        '<div class="comment" id="comment-' + reply.reply_no + '">' +
-                            '<div class="row">' +
-                                '<div class="col-12">' +
-                                    '<span class="reply-writer">' + reply.member_nickName + '</span>' + // member_nickName으로 수정
-                                    '<span class="reply-manage dropdown">' +
-                                        '<button class="btn dropdown-toggle no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold;">⋮</button>' +
-                                        '<ul class="dropdown-menu">' +
-                                            '<li><a class="dropdown-item" href="#">신고하기</a></li>' +
-                                            '<li><a class="dropdown-item" href="#">쪽지보내기</a></li>' +
-                                            '<li><a class="dropdown-item update-reply-btn" href="#">수정</a></li>' +
-                                            '<li><a class="dropdown-item delete-reply-btn" href="#" data-reply-no="' + reply.reply_no + '">삭제</a></li>' +
-                                        '</ul>' +
-                                    '</span>' +
-                                '</div>' +
-                            '</div>' +
-                            '<div class="row">' +
-                                '<div class="col-12">' +
-                                    '<span class="reply-content">' + reply.reply_content + '</span>' +
-                                '</div>' +
-                            '</div>' +
-                             '<div id="edit-section-' + reply.reply_no + '" class="edit-section" style="display: none;">' +
-                                '<textarea id="reply-textarea-' + reply.reply_no + '">' + reply.reply_content + '</textarea>' +
-                                '<button id="save-btn-' + reply.reply_no + '">저장</button>' +
-                            '</div>' +
-                            '<div class="row">' +
-                                '<div class="col-12">' +
-                                    '<span style="color: gray;">' + reply.reply_date + '</span>' +
-                                    '<button type="button" class="btn btn-secondary" onclick="showReplyContainer(' + reply.reply_no + ')">↳답글쓰기</button>' +
-                                '</div>' +
-                            '</div>' +
-                            '<div id="replies-' + reply.reply_no + '" class="replies">';
+			    contentType: 'application/json',
+			    dataType: 'json',
 
-                    reply.reReplyList.forEach(function(subReply) {
-                        commentHtml += 
-                            '<div class="comment sub-comment">' +
-                                '<div class="row">' +
-                                    '<div class="col-12">' +
-                                        '<span class="reply-writer">' + subReply.member_nickName + '</span>' + // member_nickName으로 수정
-                                        '<span class="reply-manage dropdown">' +
-                                            '<button class="btn dropdown-toggle no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold;">⋮</button>' +
-                                            '<ul class="dropdown-menu">' +
-                                                '<li><a class="dropdown-item" href="#">신고하기</a></li>' +
-                                                '<li><a class="dropdown-item" href="#">쪽지보내기</a></li>' +
-                                                '<li><a class="dropdown-item update-sub-reply-btn" href="#">수정</a></li>' +
-                                                '<li><a class="dropdown-item delete-sub-reply-btn" href="#" data-reply-no="' + subReply.reply_no + '">삭제</a></li>' +
-                                            '</ul>' +
-                                        '</span>' +
-                                    '</div>' +
-                                '</div>' +
-                                '<div id="edit-sub-section-' + subReply.reply_no + '" class="edit-section" style="display: none;">' +
-                                    '<textarea id="sub-reply-textarea-' + subReply.reply_no + '">' + subReply.reply_content + '</textarea>' +
-                                    '<button id="save-sub-btn-' + subReply.reply_no + '">저장</button>' +
-                                '</div>' +
-                                '<div class="row">' +
-                                    '<div class="col-12">' +
-                                        '<span class="reply-content">' + subReply.reply_content + '</span>' +
-                                    '</div>' +
-                                '</div>' +
-                                '<div class="row">' +
-                                    '<div class="col-12">' +
-                                        '<span style="color: gray;">' + subReply.reply_date + '</span>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>';
-                    });
+			success : function(replyList) {
+								$('#comment-container').empty();
+								replyList.forEach(function(reply) {
+							        if (reply.rereply_no === 0) {
+							            let commentHtml = 
+							                '<div class="comment" id="comment-' + reply.reply_no + '">' +
+							                    '<div class="row">' +
+							                        '<div class="col-12">' +
+							                            '<span class="reply-writer">작성자</span>' +
+							                            '<span class="reply-manage dropdown">' +
+							                                '<button class="btn dropdown-toggle no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold;">⋮</button>' +
+							                                '<ul class="dropdown-menu">' +
+							                                    '<li><a class="dropdown-item" href="#">신고하기</a></li>' +
+							                                    '<li><a class="dropdown-item" href="#">쪽지보내기</a></li>' +
+							                                    '<li><a class="dropdown-item update-reply-btn" href="#">수정</a></li>' +
+							                                    '<li><a class="dropdown-item delete-reply-btn" href="#" data-reply-no="' + reply.reply_no + '">삭제</a></li>' +
+							                                '</ul>' +
+							                            '</span>' +
+							                        '</div>' +
+							                    '</div>' +
+							                    '<div class="row">' +
+							                        '<div class="col-12">' +
+							                            '<span class="reply-content">' + reply.reply_content + '</span>' +
+							                        '</div>' +
+							                    '</div>' +
+							                     '<div id="edit-section-' + reply.reply_no + '" class="edit-section" style="display: none;">' +
+                                '<textarea id="reply-textarea-' + reply.reply_no + '" class="reply-modify">' + reply.reply_content + '</textarea>' +
+                                '<button id="save-btn-' + reply.reply_no + '" class="save-btn-reply">저장</button>' +
+                            '</div>' +
+							                    '<div class="row">' +
+							                        '<div class="col-12">' +
+							                            '<span style="color: gray;">' + reply.reply_date + '</span>' +
+							                            '<button type="button" class="btn btn-secondary" onclick="showReplyContainer('+reply.reply_no+')">↳답글쓰기</button>' +
+							                        '</div>' +
+							                    '</div>' +
+							                    '<div id="replies-' + reply.reply_no + '" class="replies">';
 
-                    commentHtml += '</div></div>';
-                    $('#comment-container').append(commentHtml);
-                }
-            });
-        },
-        error: function(e) {
-            console.error(e);
-            alert('전송 실패!!');
-        }
-    });
-}
+							           reply.reReplyList.forEach(function(subReply) {
+    commentHtml += 
+        '<div class="comment sub-comment">' +
+            '<div class="row">' +
+                '<div class="col-12">' +
+                    '<span class="reply-writer">작성자</span>' +
+                    '<span class="reply-manage dropdown">' +
+                        '<button class="btn dropdown-toggle no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: bold;">⋮</button>' +
+                        '<ul class="dropdown-menu">' +
+                            '<li><a class="dropdown-item" href="#">신고하기</a></li>' +
+                            '<li><a class="dropdown-item" href="#">쪽지보내기</a></li>' +
+                            '<li><a class="dropdown-item update-sub-reply-btn" href="#">수정</a></li>' +
+                            '<li><a class="dropdown-item delete-sub-reply-btn" href="#" data-reply-no="' + subReply.reply_no + '">삭제</a></li>' +
+                        '</ul>' +
+                    '</span>' +
+                '</div>' +
+            '</div>' +
+            '<div id="edit-sub-section-' + subReply.reply_no + '" class="edit-section" style="display: none;">' +
+                '<textarea id="sub-reply-textarea-' + subReply.reply_no + '" class="reply-modify">' + subReply.reply_content + '</textarea>' +
+                '<button id="save-sub-btn-' + subReply.reply_no + '">저장</button>' +
+            '</div>' +
+            '<div class="row">' +
+                '<div class="col-12">' +
+                    '<span class="reply-content">' + subReply.reply_content + '</span>' +
+                '</div>' +
+            '</div>' +
+            '<div class="row">' +
+                '<div class="col-12">' +
+                    '<span style="color: gray;">' + subReply.reply_date + '</span>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+});
 
-loadReply();
+							            commentHtml += '</div></div>';
+							            $('#comment-container').append(commentHtml);
+							        }
+							    });
+							},
+							error : function(e) {
+								console.error(e);
+								alert('전송 실패!!');
+							}
+						});
+			}
+
+
+
+    loadReply();
+
 
 /****************************************** 댓글 추가 *************************************************/
  $('#reply-submit').click(function() {
@@ -430,4 +440,26 @@ const no = urlParams.get('no');
  location.href='deleteBoard?kind=' + kind + '&no=' + no;
 
 
+}
+
+
+/*************************클립보드************************/
+
+function clipboard(){
+	let clip = document.createElement("input");
+	const url = location.href;
+	
+	document.body.appendChild(clip);
+	clip.value = url;
+	clip.select();
+	document.execCommand("copy");
+	alert("클립보드에 복사했습니다.");
+	document.body.removeChild(clip);
+}
+
+
+function sendMessageboard() {
+    const recipientName = document.getElementById('send-recipient-nameb').value;
+    const messageText = document.getElementById('send-message-textb').value;
+    location.href = 'SendMessageb?recipient_name=' + recipientName + '&message_text=' + messageText;
 }

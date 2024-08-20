@@ -56,6 +56,7 @@
                         </div>
                         <button class="login_button" type="button" id="kakao_share_button" onclick="location.href='/kakao/share'">대충 카카오 공유 버튼</button>
 					</form>
+					<a href="${path}/share">공유</a>
     </div>
     
     <script>
