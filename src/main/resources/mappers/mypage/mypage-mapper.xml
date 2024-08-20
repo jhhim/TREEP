@@ -145,5 +145,7 @@ SELECT MBL.BOARD_NO,MBL.BOARD_TYPE, MBL.MEMBER_NICKNAME, MBL.BOARD_TITLE,MBL.CRE
 <select id="selectGradeImg" parameterType="string" resultType="string">
 	SELECT GRADE_IMG FROM GRADE WHERE GRADE = #{genderGrade}
 </select>
-
+<insert id="insertMemberTrip">
+	insert into member_trip(member_no,trip_no) values (#{member_no},#{trip_no})
+</insert>
 </mapper>

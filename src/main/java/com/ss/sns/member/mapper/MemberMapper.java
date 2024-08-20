@@ -22,6 +22,7 @@ public interface MemberMapper {
 	public MemberDTO googlememberCheck(MemberDTO member);
 	public MemberDTO getmemberbyEmail(String email);
 	public shareBO getShareInfo(int trip_no);
+	public void changePW(MemberDTO member);
 	
 	
 	

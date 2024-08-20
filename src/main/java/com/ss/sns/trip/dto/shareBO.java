@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class shareBO {
 	int trip_no;
+	int member_no;
 	String member_nickname;
 	String trip_title;
 }

@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import com.ss.sns.member.dto.MemberDTO;
 import com.ss.sns.mypage.dto.MypagePage;
 import com.ss.sns.mypage.service.MypageService;
 import com.ss.sns.trip.dto.TripDTO;
+import com.ss.sns.trip.dto.shareBO;
 
 
 @Controller
@@ -244,4 +247,19 @@ public class MypageController {
 	        
 			return "redirect:/mypage";
 	    }
+	 @RequestMapping("/insertMemberTrip")
+	 public String insertMemberTrip(@RequestParam(name = "trip_no") String trip_no,HttpSession session,HttpServletRequest request) {
+		 if(session.getAttribute("member") == null) {
+			 return "redirect:/login";
+		 }else {
+			MemberDTO nowMem = (MemberDTO) session.getAttribute("member");
+			int trip_No = Integer.parseInt(trip_no);
+			int member_no = nowMem.getMember_no();
+			shareBO share = new shareBO();
+			share.setMember_no(member_no);
+			share.setTrip_no(trip_No);
+			service.insertMemberTrip(share);
+			 
+		 return "redirect:/mypage";}
+	 }
 }

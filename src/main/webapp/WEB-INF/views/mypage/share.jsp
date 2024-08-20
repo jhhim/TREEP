@@ -10,7 +10,7 @@
         <p class="share_info"> ${info.member_nickname} 님의  ${info.trip_title} 일정에 초대되셨습니다.</p>
         <p class="share_info">초대를 수락하시겠습니까?</p>
         <div class="share_button_div">
-            <button type="button" class="share_button" id="share_ok">추가하기</button>
+            <button type="button" class="share_button" id="share_ok" onclick="location.href='${path}/insertMemberTrip?trip_no=${info.trip_no}'">추가하기</button>
             <button type="button" class="share_button" id="share_no">취소하기</button>
         </div>
         <div>
@@ -57,5 +57,6 @@ function sendLinkDefaultTrip() {
     })
   };
 window.kakaoDemoCallback && window.kakaoDemoCallback();
+
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
