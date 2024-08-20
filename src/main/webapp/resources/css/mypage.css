@@ -378,7 +378,8 @@ justify-content: center;
 	padding:13px 30px 1px 30px;
 	margin-bottom:20px;
  	border-radius:10px;
-box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;}
+box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
 .each-select-item:hover{
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px,  #7FD858 0px 0px 0px 3px;
 }
@@ -386,4 +387,45 @@ box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 
 	font-size: 2rem;
 	font-weight: bold;	
 }
+
+
+.active1{
+	color:#2e8b57;
+}
+
+/* 작성글 */
+#write-tab{
+	color:black;
+}
+
+#write-tab.active{
+	color: #2e8b57;
+}
+
+/* 좋아요한 글 */
+#like-tab{
+	color:black;
+}
+
+#like-tab.active{
+	color: #2e8b57;
+}
+
+/* 전체일정 */
+#allsch-tab{
+	color:black;
+}
+
+#allsch-tab.active{
+	color: #2e8b57;
+	
+}
+	
+/* 공유일정 */
+#sharesch-tab{
+	color:black;
+}
+
+#sharesch-tab.active{
+	color: #2e8b57;
 }
