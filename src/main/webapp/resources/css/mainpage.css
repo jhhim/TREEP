@@ -24,6 +24,7 @@
 
 .main-banner-wrap h1 {
 	margin-bottom: 20px;
+	font-size: 42px;
 }
 
 .main-banner-left {
@@ -244,7 +245,7 @@
 .main-place h1 {
 	font-weight: bold;
 	color: #7FD858;
-	font-size: 50px;
+	font-size: 55px;
 }
 
 .main-place-nav ul {
@@ -256,7 +257,7 @@
 
 .main-place-nav a {
 	padding: 2px;
-	font-size: 20px;
+	font-size: 25px;
 	cursor: pointer;
 	color: #264653;
 }
@@ -267,7 +268,7 @@
 }
 
 .card-wrap {
-	margin-top: 35px;
+	margin-top: 40px;
 }
 .card-wrap h2{
 	color:darkgray;

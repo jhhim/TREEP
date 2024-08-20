@@ -11,17 +11,7 @@
 		<li class="MyTabMenu"><a href="freeboard">자유게시판</a></li>
 		<li class="MyTabMenu MyActive"><a href="askboard">문의게시판</a></li>
 	</ul>
-	<!-- <div class="summary-container">
-        <p id="summary-icon"><i class="fa-solid fa-house"></i></p>
-        <p id="summary-icon"><i class="fa-solid fa-arrow-right"></i></p>
-        <p id="summary-icon">
-            <select name="" id="" class="boardSelect" onchange="window.open(value,'_self')">
-                <option value="FriendBoard.html">동행친구</option>
-                <option value="FreeBoard.html">자유게시판</option>
-                <option value="Askboard.html" selected>문의게시판</option>
-            </select>
-        </p>
-    </div> -->
+
 
 	<div class="title-container">
 		<h1 class="title">문의게시판</h1>
@@ -170,7 +160,7 @@
                             <p class="ask">문의</p>
                         </th>
                         <td class="askText" style="vertical-align: middle;">
-                            <p style="font-size: 1.4rem; font-weight: bold; margin-bottom:14px;">제목 : ${board.board_title}</p>
+                            <p style="font-size: 1.6rem; font-weight: bold; margin-bottom:14px;">제목 : ${board.board_title}</p>
 							<p style="margin-bottom: 10px;" id="askcontent-box">${fn:escapeXml(board.board_content)}</p>
                         </td>
                         <c:choose>
