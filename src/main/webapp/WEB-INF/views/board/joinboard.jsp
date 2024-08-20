@@ -164,7 +164,7 @@ pageContext.setAttribute("today", today.toString());
 										</p>
 
 										<p class="mb-0">조회수 : ${board.board_hit}</p>
-										<p class="mb-0">LIKE : ${board.board_like}</p>
+										<p class="mb-0">LIKE : <span id="boardLikeCount"></span></p>
 									</small>
 								</div>
 							</div>
@@ -175,6 +175,7 @@ pageContext.setAttribute("today", today.toString());
 
 
 	<div class="pagination-container">
+				<div class="d-flex justify-content-center">
 		<div class="pagination">
 			<button type="button"
 				onclick="location.href='joinboard?page=${boardPage.currentPage - 1}'"
@@ -189,6 +190,7 @@ pageContext.setAttribute("today", today.toString());
 				onclick="location.href='joinboard?page=${boardPage.currentPage + 1}'"
 				${boardPage.currentPage == boardPage.totalPage ? 'disabled' : ''}>
 				»</button>
+		</div>
 		</div>
 	</div>
 		</c:otherwise>

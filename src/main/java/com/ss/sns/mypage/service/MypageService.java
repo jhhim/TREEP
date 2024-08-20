@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ss.sns.mypage.dto.MyBoardDTO;
 import com.ss.sns.mypage.mapper.MypageMapper;
@@ -70,4 +71,15 @@ public class MypageService {
 	public String selectGradeImg(String genderGrade) {
 		return mapper.selectGradeImg(genderGrade);
 	}
+
+	//삭제
+	 @Transactional
+	    public void deleteTripAndRelatedData(int tripNo) {
+		 System.out.println("삭제 서비스");
+		  mapper.deleteTripPlace(tripNo);
+	      mapper.deleteSchedule(tripNo);
+	        mapper.deleteMemberTrip(tripNo);
+	        mapper.deleteTrip(tripNo);
+	    }
+
 }

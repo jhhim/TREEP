@@ -48,6 +48,12 @@ public interface BoardMapper {
 	public void deleteAnswer(int no);
 	public void updateBoardStatus(Integer askUpdateNo);
 	public void updateAnswerStatus(int no);
+	public boolean addLike(Map<String, Integer> hmap);
+	public boolean removeLike(Map<String, Integer> hmap);
+	public int getLikeCount(int boardNo);
+	public void updateBoardLike(Map<String, Integer> hashMap);
+	public int isLiked(Map<String, Integer> hmap);
+
 
 
 
