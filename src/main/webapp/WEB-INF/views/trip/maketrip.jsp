@@ -154,7 +154,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-9" style="padding: 0;">
+				<div class="col-md" style="padding: 0;">
 					<div id="map"></div>
 				</div>
 

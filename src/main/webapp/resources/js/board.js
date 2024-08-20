@@ -200,7 +200,7 @@ for(let i = 0; i < gradeBtn.length; i++){
 
 /*********************** join board *******************************/
 // 카드 추가 함수
-function appendCardfd() {
+/*function appendCardfd() {
     for (let i = 0; i < 8; i++) {
 
         if(i < 4){
@@ -241,7 +241,7 @@ function appendCardfd() {
 
 }
 
-appendCardfd();
+appendCardfd();*/
 
 
 // 일반 카드 스타일 변경
@@ -270,7 +270,7 @@ cardfd.forEach((a, index) => {
 })
 
 // 급구 카드 스타일 변경
-const cardfd1 = document.querySelectorAll('.siren-card-customfd');
+/*const cardfd1 = document.querySelectorAll('.siren-card-customfd');
 cardfd1.forEach((a, index) => {
 
 
@@ -292,7 +292,7 @@ cardfd1.forEach((a, index) => {
 
     });
 
-})
+})*/
 
 
 
@@ -445,6 +445,20 @@ for(let i = 0; i < gradeBtnfd.length; i++){
 }
 /*********************** ask board *******************************/
 
+var askContent = $('#askcontent-box').html();
+    
+    var formattedaskContent = askContent.replace(/\n/g, '<br/>');
+    $('#askcontent-box').html(formattedaskContent);
+    
+var answerContent = $('#answercontent-box').html();
+    
+    var formattedaskContent = answerContent.replace(/\n/g, '<br/>');
+    $('#answercontent-box').html(formattedaskContent);
+
+
+let isProcessing = false;
+
+
 function appendAsk() {
 
     const title = document.querySelector('#asktitlevalue').value;
@@ -533,7 +547,7 @@ function appendAnswer() {
     tbody.appendChild(tr);
 }
 
-  $('#updateAsk').on('show.bs.modal', function (event) {
+$('#updateAsk').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); 
     var info = button.data('info'); 
     var newAction = 'askupdate?no=' + encodeURIComponent(info);
@@ -551,7 +565,6 @@ function appendAnswer() {
     var newAction = 'updateanswer?no=' + encodeURIComponent(info);
     $('#updateAnswerForm').attr('action', newAction);
   });
-  
   
 
   
