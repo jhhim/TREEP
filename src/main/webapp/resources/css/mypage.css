@@ -45,11 +45,12 @@
 
 /* 프로필 이름 */
 .profile_nickname {
-	margin-right:10px;
+	margin-left:10px;
 	font-size: 2rem;
 
     justify-content: center;
     align-items: center;
+
 }
 /* 프로필 관리 */
 .profile_manage {

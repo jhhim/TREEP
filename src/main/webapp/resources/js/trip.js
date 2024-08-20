@@ -772,6 +772,7 @@ function renderCalender3(selectMonth3) {
 
         return nextDay.toISOString().split('T')[0]; // 'YYYY-MM-DD' 형식으로 변환
     }
+    
 
     const trip_start = formatDate(selectMonth3); // selectMonth3의 값을 Date 객체로 변환
     const trip_end = formatDate(selectMonth4);   // selectMonth4의 값을 Date 객체로 변환
@@ -895,8 +896,25 @@ function renderCalender3(selectMonth3) {
     } else if (month3 != month31) {
 
         if (differenceInDays >= 0) {
-
             for (let i = 0; i < tttt.length; i++) {
+                const startDate = new Date(trip_start);
+
+
+            // i일을 더한 날짜를 계산합니다.
+            const newDate = new Date(startDate);
+            newDate.setDate(startDate.getDate() + i); // i일을 더합니다.
+
+            // yyyy-mm-dd 형식으로 변환합니다.
+            const yyyy = newDate.getFullYear();
+            const mm = String(newDate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+            const dd = String(newDate.getDate()).padStart(2, '0');
+            const calculatedDate = `${yyyy}-${mm}-${dd}`;
+
+            const calculatedDateField = document.createElement('input');
+            calculatedDateField.type = 'hidden';
+            calculatedDateField.name = `schedules[${i}].schedule_date`;
+            calculatedDateField.value = calculatedDate;
+            submitform.appendChild(calculatedDateField); // 폼에 추가 
                 tttt[i].addEventListener('click', function () {
                     // $('.Plan-write-container').css('border', '1px solid #d2d2d2');
 
@@ -910,65 +928,59 @@ function renderCalender3(selectMonth3) {
                     if (!$(`#${containerId}`).length) {
                         // Plan-write-container가 없으면 새로 생성
                         var PlanCardAppend =
-                            `<div class="Plan-write-container" id="${containerId}">`
-                            + '<div class="Plan-Write-DayTitle">'
-                            + `<h1 class="DayTitle">Day${i + 1}</h1>`
-                            + '<p class="CalenderTitle">2024-08-06</p>'
-                            + '<i class="fa-solid fa-trash"></i>'
-                            + '</div>'
-                            + `<div class="Detail-container" id="Detail-container${i + 1}">`
-                            + '<div class="Line"></div>'
-                            + `<ul class="sortable container md" id="sortable${i + 1}"></ul>` // Day별 고유한 ID
-                            + `<div class="memo_content"><textarea placeholder="메모를 입력해 주세요." id="write-memo-container${i + 1}" class="form-control"></textarea></div> `
-                            + '<div class="Plus-Btn-container">'
-                            + `<button class="Plus-Plan openOffcanvas" type="button" id="openOffcanvas${i + 1}"><i class="fa-regular fa-calendar-plus"></i>`
-                            + '일정 추가</button>'
-                            + '</div>'
-                            + '</div>'; // Plan-write-container 종료
+                        `<div class="Plan-write-container" id="${containerId}">`
+                        + '<div class="Plan-Write-DayTitle">'
+                        + `<h1 class="DayTitle">Day${i + 1}</h1>`
+                        + `<p class="CalenderTitle">${calculatedDate}</p>`
+                        + '<i class="fa-solid fa-trash"></i>'
+                        + '</div>'
+                        + `<div class="Detail-container" id="Detail-container${i + 1}">`
+                        + '<div class="Line"></div>'
+                        + `<ul class="sortable container md" id="sortable${i + 1}"></ul>` // Day별 고유한 ID
+                        + `<div class="memo_content"><textarea placeholder="메모를 입력해 주세요." name="schedules[${i}].schedule_content" id="write-memo-container${i + 1}" class="form-control"></textarea></div> `
+                        + '<div class="Plus-Btn-container">'
+                        + `<button class="Plus-Plan openOffcanvas" type="button" id="openOffcanvas${i + 1}"><i class="fa-regular fa-calendar-plus"></i>`
+                        + '일정 추가</button>'
+                        + '</div>'
+                        + '</div>'; // Plan-write-container 종료
+                        
 
                         // 새로 생성한 Plan-write-container를 추가
                         $('.Plan-write-container').parent().append(PlanCardAppend);
                     }
 
-                    // 해당 Day의 Plan-write-container만 보이도록 설정
-                    $(`#${containerId}`).show();
+                     // 해당 Day의 Plan-write-container만 보이도록 설정
+                $(`#${containerId}`).show();
 
-                    // URL을 변경
-                    history.pushState(null, '', `maketrip?day=${i + 1}`);
+                // URL을 변경
+                history.pushState(null, '', `maketrip?day=${i + 1}`);
 
-                    // 오프캔버스 설정
-                    const placeOff = document.querySelector('.place-offcanvas');
-                    placeOff.id = `place-offcanvas${i + 1}`;
+                // 오프캔버스 설정
+                const placeOff = document.querySelector('.place-offcanvas');
+                placeOff.id = `place-offcanvas${i + 1}`;
 
-                    const closeOff = document.querySelector('.closeOff');
-                    closeOff.id = `closeOffcanvas${i + 1}`;
+                const closeOff = document.querySelector('.closeOff');
+                closeOff.id = `closeOffcanvas${i + 1}`;
 
-                    const openBtn = document.getElementById(`openOffcanvas${i + 1}`);
-                    const closeBtn = document.getElementById(`closeOffcanvas${i + 1}`);
-                    const offcanvas = document.getElementById(`place-offcanvas${i + 1}`);
+                const openBtn = document.getElementById(`openOffcanvas${i + 1}`);
+                const closeBtn = document.getElementById(`closeOffcanvas${i + 1}`);
+                const offcanvas = document.getElementById(`place-offcanvas${i + 1}`);
 
-                    openBtn.addEventListener('click', function () {
-                        offcanvas.classList.add('show');
-                        console.log("오프캔버스 클릭");
-                    });
+                openBtn.addEventListener('click', function () {
+                    offcanvas.classList.add('show');
+                    console.log("오프캔버스 클릭");
+                });
 
-                    closeBtn.addEventListener('click', function () {
-                        offcanvas.classList.remove('show');
-                        document.getElementById('autocomplete').value = '';
+                closeBtn.addEventListener('click', function () {
+                    offcanvas.classList.remove('show');
+                    document.getElementById('autocomplete').value = '';
 
 
-                    });
+                });
 
-                    // sortable 초기화
-                    initializeSortable(i + 1); // Day별로 sortable을 초기화
+                // sortable 초기화
+                initializeSortable(i + 1); // Day별로 sortable을 초기화
 
-                    // $(function () {
-                    //     $(`#sortable${i + 1}`).sortable({
-                    //         update: function () {
-                    //             updateIndexes(); // 순서 업데이트 함수 호출
-                    //         }
-                    //     });
-                    // });
                 });
                 storei = i
             }
@@ -978,8 +990,27 @@ function renderCalender3(selectMonth3) {
             console.log(storei)
             console.log(tttt.length)
             for (let i = 0; i < tttt.length; i++) {
+
+                const startDate = new Date(trip_start);
+
+
+                // i일을 더한 날짜를 계산합니다.
+                const newDate = new Date(startDate);
+                newDate.setDate(startDate.getDate() + i); // i일을 더합니다.
+    
+                // yyyy-mm-dd 형식으로 변환합니다.
+                const yyyy = newDate.getFullYear();
+                const mm = String(newDate.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+                const dd = String(newDate.getDate()).padStart(2, '0');
+                const calculatedDate = `${yyyy}-${mm}-${dd}`;
+    
+                const calculatedDateField = document.createElement('input');
+                calculatedDateField.type = 'hidden';
+                calculatedDateField.name = `schedules[${i}].schedule_date`;
+                calculatedDateField.value = calculatedDate;
+                submitform.appendChild(calculatedDateField); // 폼에 추가 
+                
                 tttt[i].addEventListener('click', function () {
-                    // $('.Plan-write-container').css('border', '1px solid #d2d2d2');
 
                     // 모든 Plan-write-container를 숨김
                     $('.Plan-write-container').hide();
@@ -992,20 +1023,20 @@ function renderCalender3(selectMonth3) {
                         // Plan-write-container가 없으면 새로 생성
                         var PlanCardAppend =
                             `<div class="Plan-write-container" id="${containerId}">`
-                            + '<div class="Plan-Write-DayTitle">'
-                            + `<h1 class="DayTitle">Day${i + storei + 2}</h1>`
-                            + '<p class="CalenderTitle">2024-08-06</p>'
-                            + '<i class="fa-solid fa-trash"></i>'
-                            + '</div>'
-                            + `<div class="Detail-container" id="Detail-container${i + storei + 2}">`
-                            + '<div class="Line"></div>'
-                            + `<ul class="sortable container md" id="sortable${i + storei + 2}"></ul>` // Day별 고유한 ID
-                            + `<div class="memo_content"><textarea placeholder="메모를 입력해 주세요." id="write-memo-container${i + storei + 2}" class="form-control"></textarea></div> `
-                            + '<div class="Plus-Btn-container">'
-                            + `<button class="Plus-Plan openOffcanvas" type="button" id="openOffcanvas${i + storei + 2}"><i class="fa-regular fa-calendar-plus"></i>`
-                            + '일정 추가</button>'
-                            + '</div>'
-                            + '</div>'; // Plan-write-container 종료
+                        + '<div class="Plan-Write-DayTitle">'
+                        + `<h1 class="DayTitle">Day${i + storei + 2}</h1>`
+                        + `<p class="CalenderTitle">${calculatedDate}</p>`
+                        + '<i class="fa-solid fa-trash"></i>'
+                        + '</div>'
+                        + `<div class="Detail-container" id="Detail-container${i + storei + 2}">`
+                        + '<div class="Line"></div>'
+                        + `<ul class="sortable container md" id="sortable${i + storei + 2}"></ul>` // Day별 고유한 ID
+                        + `<div class="memo_content"><textarea placeholder="메모를 입력해 주세요." name="schedules[${i + storei + 2}].schedule_content" id="write-memo-container${i + 1}" class="form-control"></textarea></div> `
+                        + '<div class="Plus-Btn-container">'
+                        + `<button class="Plus-Plan openOffcanvas" type="button" id="openOffcanvas${i + storei + 2}"><i class="fa-regular fa-calendar-plus"></i>`
+                        + '일정 추가</button>'
+                        + '</div>'
+                        + '</div>'; // Plan-write-container 종료
 
                         // 새로 생성한 Plan-write-container를 추가
                         $('.Plan-write-container').parent().append(PlanCardAppend);
