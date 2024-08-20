@@ -11,6 +11,7 @@ import com.ss.sns.mypage.dto.MyBoardDTO;
 import com.ss.sns.trip.dto.ScheduleDTO;
 import com.ss.sns.trip.dto.TripDTO;
 import com.ss.sns.trip.dto.TripPlaceDTO;
+import com.ss.sns.trip.dto.shareBO;
 
 @Mapper
 public interface MypageMapper {
@@ -43,5 +44,7 @@ public interface MypageMapper {
 	    void deleteSchedule(@Param("tripNo") int tripNo);
 	    void deleteMemberTrip(@Param("tripNo") int tripNo);
 	    void deleteTrip(@Param("tripNo") int tripNo);
+
+		void insertMemberTrip(shareBO sahre);
 
 }

@@ -22,6 +22,10 @@
 						<input type="text" class="form-control" id="trip-detail-title"
 							name="trip_title" placeholder="여행 제목을 입력해주세요.">
 					</div>
+					<div class="lat and lng" style="display: none;">
+						<p id="lat">${lat}</p>
+						<p id="lng">${lng}</p>
+					</div>
 					<div class="Plan-Calendar-container">
 
 
@@ -150,7 +154,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-9" style="padding: 0;">
+				<div class="col-md" style="padding: 0;">
 					<div id="map"></div>
 				</div>
 

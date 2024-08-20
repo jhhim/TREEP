@@ -501,5 +501,10 @@ public void kakaoSignup(MemberDTO member) {
 	public shareBO getShareInfo(int trip_no) {
 		return membermapper.getShareInfo(trip_no);
 	}
+
+	public void changePW(MemberDTO member) {
+		membermapper.changePW(member);
+		
+	}
 	
 }

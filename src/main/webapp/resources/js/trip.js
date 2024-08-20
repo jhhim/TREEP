@@ -1137,15 +1137,22 @@ function updateIndexes(dayIndex) {
 // }
 
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
 
     const placeList = document.querySelector('.place-list');
     const autocompleteInput = document.getElementById(`autocomplete`);
     const selectPlaceList = document.getElementById(`select-place-list`);
 
+    let lat = parseFloat(document.getElementById('lat') ? document.getElementById('lat').textContent : "NaN");
+    let lng = parseFloat(document.getElementById('lng') ? document.getElementById('lng').textContent : "NaN");
 
+    // lat과 lng 값이 NaN인 경우 기본값으로 설정
+    if (isNaN(lat)) {
+        lat = 37.550263;
+    }
+    if (isNaN(lng)) {
+        lng = 126.9970831;
+    }
 
     let map;
     let service;
@@ -1153,7 +1160,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let autocomplete;
 
     function initialize() {
-        const initialLocation = new google.maps.LatLng(37.7749, -122.4194); // Initial location (San Francisco)
+
+        const initialLocation = new google.maps.LatLng(lat, lng); // Initial location (San Francisco)
         map = new google.maps.Map(document.getElementById('map'), {
             center: initialLocation,
             zoom: 15,
@@ -1473,4 +1481,3 @@ document.addEventListener("DOMContentLoaded", function () {
         dDayElement.textContent = `D-${daysDiff}`;
     });
 });
-

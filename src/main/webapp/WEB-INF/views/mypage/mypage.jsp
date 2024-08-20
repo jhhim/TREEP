@@ -92,7 +92,6 @@ pageContext.setAttribute("today", today.toString());
 										<ul class="dropdown-menu">
 											<li><a class="dropdown-item"
 												href="tripDetail?trip_no=${trip.trip_no}">상세보기</a></li>
-											<li><a class="dropdown-item" href="#">수정</a></li>
 											<li><a class="dropdown-item"
 												href="${path}/delete?trip_no=${trip.trip_no}">삭제</a></li>
 

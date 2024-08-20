@@ -156,9 +156,15 @@
 		select * from member where member_email = #{email}
 	</select>
 	<select id="getShareInfo" resultType="com.ss.sns.trip.dto.shareBO">
-	SELECT m.member_nickname,t.trip_title,mt.trip_no
+	select * from(
+	SELECT m.member_no,m.member_nickname,t.trip_title,mt.trip_no
         FROM member_trip mt
         JOIN member m ON m.member_no = mt.member_no
-        JOIN trip t ON mt.trip_no = t.trip_no where t.trip_no = #{trip_no}
+        JOIN trip t ON mt.trip_no = t.trip_no where t.trip_no = #{trip_no})
+    where rownum = 1
+        
     </select>
+    <update id="changePW">
+    update member set member_pw = #{member_pw} where member_email = #{member_email}
+    </update>
 </mapper>

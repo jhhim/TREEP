@@ -13,6 +13,7 @@ import com.ss.sns.mypage.mapper.MypageMapper;
 import com.ss.sns.trip.dto.ScheduleDTO;
 import com.ss.sns.trip.dto.TripDTO;
 import com.ss.sns.trip.dto.TripPlaceDTO;
+import com.ss.sns.trip.dto.shareBO;
 
 @Service
 public class MypageService {
@@ -81,5 +82,10 @@ public class MypageService {
 	        mapper.deleteMemberTrip(tripNo);
 	        mapper.deleteTrip(tripNo);
 	    }
+
+	public void insertMemberTrip(shareBO share) {
+		 mapper.insertMemberTrip(share);
+		
+	}
 
 }

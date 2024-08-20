@@ -349,11 +349,19 @@ public class LoginController {
 	}
 	@RequestMapping("/searchpw")
 	public String searchPW() {
+		
 		return "signup/searchPW";
 	}
-	@RequestMapping("/changepw")
+	@GetMapping("/changePW")
 	public String changePW() {
+		
 		return "signup/changePW";
+	}
+	@PostMapping("/changePW")
+	public String changePWpost(MemberDTO member) {
+		System.out.println(member.toString());
+		service.changePW(member);
+		return "redirect:/login";
 	}
 	@RequestMapping("/share")
 	public String share(@RequestParam(name = "trip_no", required = false) Integer tripNo,Model model) {

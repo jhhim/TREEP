@@ -200,7 +200,7 @@ for(let i = 0; i < gradeBtn.length; i++){
 
 /*********************** join board *******************************/
 // 카드 추가 함수
-function appendCardfd() {
+/*function appendCardfd() {
     for (let i = 0; i < 8; i++) {
 
         if(i < 4){
@@ -241,7 +241,7 @@ function appendCardfd() {
 
 }
 
-appendCardfd();
+appendCardfd();*/
 
 
 // 일반 카드 스타일 변경
@@ -270,7 +270,7 @@ cardfd.forEach((a, index) => {
 })
 
 // 급구 카드 스타일 변경
-const cardfd1 = document.querySelectorAll('.siren-card-customfd');
+/*const cardfd1 = document.querySelectorAll('.siren-card-customfd');
 cardfd1.forEach((a, index) => {
 
 
@@ -292,7 +292,7 @@ cardfd1.forEach((a, index) => {
 
     });
 
-})
+})*/
 
 
 
@@ -445,6 +445,20 @@ for(let i = 0; i < gradeBtnfd.length; i++){
 }
 /*********************** ask board *******************************/
 
+var askContent = $('#askcontent-box').html();
+    
+    var formattedaskContent = askContent.replace(/\n/g, '<br/>');
+    $('#askcontent-box').html(formattedaskContent);
+    
+var answerContent = $('#answercontent-box').html();
+    
+    var formattedaskContent = answerContent.replace(/\n/g, '<br/>');
+    $('#answercontent-box').html(formattedaskContent);
+
+
+let isProcessing = false;
+
+
 function appendAsk() {
 
     const title = document.querySelector('#asktitlevalue').value;
@@ -533,7 +547,7 @@ function appendAnswer() {
     tbody.appendChild(tr);
 }
 
-  $('#updateAsk').on('show.bs.modal', function (event) {
+$('#updateAsk').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); 
     var info = button.data('info'); 
     var newAction = 'askupdate?no=' + encodeURIComponent(info);
@@ -551,7 +565,6 @@ function appendAnswer() {
     var newAction = 'updateanswer?no=' + encodeURIComponent(info);
     $('#updateAnswerForm').attr('action', newAction);
   });
-  
   
 
   
@@ -642,112 +655,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const tripShareitems = document.querySelectorAll('.trip-share-item');
-    const tripShareDetail = document.getElementById('detail-hidden-sch');
-    const tripShareContainer = document.getElementById('write-offcanvas-content');
-    const backButton = document.getElementById('backButton');
-    const tripDetailContent = document.getElementById('tripDetailContent');
-    const writeTextContainer = document.getElementById('write-text-container');
-    const tripDetailDisplayContainer = document.getElementById('tripDetailDisplayContainer');
-    const tripItemsList = document.getElementById('trip-items-list');
-
-
-    // 컨테이너의 표시 상태를 업데이트하는 함수
-    function updateContainerVisibility() {
-        if (tripItemsList.children.length > 0) {
-            tripDetailDisplayContainer.style.display = 'block';
-        } else {
-            tripDetailDisplayContainer.style.display = 'none';
-        }
-    }
-
-    // 각 trip-share-item에 클릭 이벤트 추가
-    tripShareitems.forEach(tripShareitem => {
-        tripShareitem.addEventListener('click', () => {
-        console.log("클릭");
-            tripShareContainer.style.display = 'none';
-            tripShareDetail.style.display = 'block';
-
-            const titleElement = tripShareitem.querySelector('.trip-uplaod-title');
-			
-            // 제목 표시
-            if (titleElement) {
-                tripDetailContent.innerHTML = `<h4 style="margin-bottom:20px">${titleElement.textContent}</h4>`;
-            } else {
-                tripDetailContent.innerHTML = '<h4>제목 없음</h4>';
-            }
-      
-            tripDetailContent.innerHTML = 
-    "<h3>Schedules</h3>" +
-    "<c:forEach var='schedule' items='${trip.schedules}'>" +
-        "<div>Date: ${schedule.schedule_date}</div>" +
-        "<c:forEach var='place' items='${schedule.places}'>" +
-            "<li class='place-item'>Place: ${place.place_name}</li>" +
-        "</c:forEach>" +
-    "</c:forEach>";
-
-
-            // 각 장소에 클릭 이벤트 추가
-            const placeItems = tripDetailContent.querySelectorAll('.place-item');
-            placeItems.forEach(placeItem => {
-                placeItem.addEventListener('click', () => {
-                    const date = placeItem.getAttribute('data-date');
-                    const place = placeItem.getAttribute('data-place');
-
-                    const currentText = writeTextContainer.value;
-                    const newEntry = `${date} ${place}`;
-
-                    if (currentText.includes(newEntry)) {
-                        alert('이미 추가된 일정입니다.');
-                    } else {
-                        // 새로운 공간에 날짜와 장소를 표시, 그리고 삭제 버튼 추가
-                        const detailEntry = document.createElement('div');
-                        detailEntry.className = 'trip-detail-entry';
-                        detailEntry.innerHTML = `
-                            <span><strong>${date} </strong> - ${place}</span>
-                            <button class="remove-select-item-btn">삭제</button>
-                        `;
-
-                        tripItemsList.appendChild(detailEntry);
-
-                        // 삭제 버튼에 이벤트 추가
-                        const removeButton = detailEntry.querySelector('.remove-select-item-btn');
-                        removeButton.addEventListener('click', () => {
-                            tripItemsList.removeChild(detailEntry);
-
-                            // textarea에서 해당 항목도 제거
-                            writeTextContainer.value = writeTextContainer.value.replace(`${newEntry}\n`, '');
-
-                            // 컨테이너 표시 상태 업데이트
-                            updateContainerVisibility();
-                        });
-
-                        // textarea에 새로운 항목 추가
-                        writeTextContainer.value += `${newEntry}\n`;
-
-                        // 컨테이너 표시 상태 업데이트
-                        updateContainerVisibility();
-                    }
-                });
-            });
-
-            // 초기 컨테이너 표시 상태 업데이트
-            updateContainerVisibility();
-        });
-    });
-
-    backButton.addEventListener('click', () => {
-        tripShareDetail.style.display = 'none';
-        tripShareContainer.style.display = 'block';
-    });
-
-    // 컨테이너의 표시 상태를 업데이트하는 함수
-    function updateContainerVisibility() {
-        if (tripItemsList.children.length > 0) {
-            tripDetailDisplayContainer.style.display = 'block';
-        } else {
-            tripDetailDisplayContainer.style.display = 'none';
-        }
-    }
-});
