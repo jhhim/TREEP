@@ -405,15 +405,20 @@
 		</choose>
 	</insert>
 	<!-- 댓글 조회 -->
-	<select id="selectReply" parameterType="int"
-		resultType="ReplyDTO">
-		select * from reply where board_no= #{board_no} order by reply_date
+	<select id="selectReply" parameterType="int" resultType="ReplyNickDTO">
+    SELECT *
+    FROM reply r
+    JOIN member m ON r.member_no = m.member_no
+    WHERE r.board_no = #{board_no}
+    ORDER BY r.reply_date
 	</select>
 	<!--  대댓글 조회  -->
-	<select id="selectReReply" parameterType="int"
-		resultType="ReplyDTO">
-		select * from reply where rereply_no = #{reply_no}
-	</select>
+	<select id="selectReReply" parameterType="int" resultType="ReplyNickDTO">
+    SELECT *
+    FROM reply r
+    JOIN member m ON r.member_no = m.member_no
+    WHERE r.rereply_no = #{reply_no}
+</select>
 	<!--댓글 삭제 -->
 	<delete id="deleteReply" parameterType="map">
 	DELETE FROM REPLY WHERE REPLY_NO = #{reply_no} AND (MEMBER_NO = #{member_no} OR EXISTS (SELECT 1 FROM MEMBER
