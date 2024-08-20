@@ -31,10 +31,10 @@ pageContext.setAttribute("today", today.toString());
 		<div class="profile_info container-md">
 		
 		<div class="d-flex justify-content-center">
-			<div class="grade-container">	
+			
 				<img src="${path}/resources/img/mypage/${gradeImg}" class="grade_Img">
-				<div class="profile_grade">${grade }</div>
-			</div>
+				<%-- <div class="profile_grade">${grade }</div> --%>
+		
 			
 			<div class="profile_nickname">${nickname }</div>
 			

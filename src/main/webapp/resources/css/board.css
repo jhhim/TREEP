@@ -3,7 +3,7 @@
 .deleteBtn{
     width: 20px;
     height: 20px;
-    background-image: url("/img/board/X.png");
+    background-image: url("/sns/resources/img/board/X.png");
     background-repeat: no-repeat;
     background-size: 20px;
     border: none;
