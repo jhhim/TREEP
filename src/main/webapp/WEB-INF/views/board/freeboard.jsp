@@ -10,6 +10,10 @@
 LocalDate today = LocalDate.now();
 pageContext.setAttribute("today", today.toString());
 %>
+<script>
+const basePath = "${path}";
+</script>
+
 <title>자유 게시판</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <main>
@@ -19,24 +23,14 @@ pageContext.setAttribute("today", today.toString());
 		<li class="MyTabMenu"><a href="askboard">문의게시판</a></li>
 	</ul>
 
-	<!-- <div class="summary-container">
-        <p id="summary-icon"><i class="fa-solid fa-house"></i></p>
-        <p id="summary-icon"><i class="fa-solid fa-arrow-right"></i></p>
-        <p id="summary-icon">
-            <select name="" id="" class="boardSelect" onchange="window.open(value,'_self')">
-                <option value="FriendBoard.html">동행친구</option>
-                <option value="FreeBoard.html" selected>자유게시판</option>
-                <option value="AskBoard.html">문의게시판</option>
-            </select>
-        </p>
-    </div> -->
+
 
 	<div class="title-container">
 		<h1 class="title">자유게시판</h1>
 	</div>
 	
 	<div class="filter-container">
-		<button type="button" onclick="location.href='writeboard'">글 쓰기</button>
+		<button type="button" class="boardWriteBtn" onclick="location.href='writeboard'"><img src="${path}/resources/img/board/boardwrite.png" class="boardwriteImg" alt="">글 쓰기</button>
 		<button type="button" class="btn filterBtn" data-bs-toggle="modal"
 			data-bs-target="#filter">
 			<img src="${path}/resources/img/board/filter.png" class="filterImg"
@@ -153,16 +147,16 @@ pageContext.setAttribute("today", today.toString());
 											</c:choose>
 										</p>
 										<p class="mb-0">조회수 : ${board.board_hit}</p>
-										<p class="mb-0">LIKE : ${board.board_like}</p>
+										<p class="mb-0 boardLike">LIKE : ${board.board_like}</p>
 									</small>
 								</div>
 							</div>
 						</a>
 					</div>
 				</c:forEach>
-
 			</div>
 			<div class="pagination-container">
+			<div class="d-flex justify-content-center">
 				<div class="pagination">
 					<button type="button"
 						onclick="location.href='freeboard?page=${boardPage.currentPage - 1}'"
@@ -178,6 +172,7 @@ pageContext.setAttribute("today", today.toString());
 						onclick="location.href='freeboard?page=${boardPage.currentPage + 1}'"
 						${boardPage.currentPage == boardPage.totalPage ? 'disabled' : ''}>
 						»</button>
+				</div>
 				</div>
 			</div>
 

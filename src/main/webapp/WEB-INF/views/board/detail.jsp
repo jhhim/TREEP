@@ -229,22 +229,6 @@ request.setAttribute("Member_No", Member_No);
 				</div>
 			</div>
 		</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		</span>
 		<div class="post_response">
 			<span style="color: gray;">${board.create_date }</span> <i
@@ -265,7 +249,7 @@ request.setAttribute("Member_No", Member_No);
 		<br>
 		<div class="reaction">
 			<img src="${path}/resources/img/detailboard/white_heart.png"
-				id="like"> <span>${board.board_like } </span> <i
+				id="like"> <span id="likeCount"></span> <i
 				class="fa-regular fa-message"></i><span class="reply-count"></span>
 			<span class="sns-container"> <span class="social"> <!-- <span class="share-text">공유하기</span> -->
 					<span class="social-links"> <!-- sns 공유 --> <a href="javascript:sendLinkDefaultBoard();"><img

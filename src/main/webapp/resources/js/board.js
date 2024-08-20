@@ -781,4 +781,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tripShareDetail.style.display = 'none';
         tripShareContainer.style.display = 'block';
     });
+
+    
 });

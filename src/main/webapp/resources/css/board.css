@@ -1,5 +1,32 @@
 @charset "UTF-8";
 /*********************** free board *******************************/
+.deleteBtn{
+    width: 20px;
+    height: 20px;
+    background-image: url("/img/board/X.png");
+    background-repeat: no-repeat;
+    background-size: 20px;
+    border: none;
+    outline: none;
+    background-color: white;
+
+}
+
+.boardWriteBtn{
+    background-color: #ffffff;
+    color: black;
+    border: 2px solid #7ed858;
+    outline: none;
+    border-radius: 10px;
+    padding: 7px 10px 7px 10px;
+}
+
+.boardwriteImg{
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
 .MyTab {
 	display: flex;
 	justify-content: space-around;
