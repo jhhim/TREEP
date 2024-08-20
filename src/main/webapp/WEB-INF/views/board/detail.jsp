@@ -1,9 +1,16 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="com.ss.sns.member.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="java.time.LocalDateTime"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
+<%
+LocalDate today = LocalDate.now();
+pageContext.setAttribute("today", today.toString());
+%>
 <script>
 	const boardKind = "${board.board_kind}";
 	const boardNo = "${board.board_no}";
@@ -263,8 +270,13 @@ request.setAttribute("Member_No", Member_No);
                     </div>
                 </div>
 		<div class="post_response">
-			<span style="color: gray;">${board.create_date }</span> <i
-				class="fa-regular fa-eye"> ${board.board_hit }</i> <i
+
+			<span style="color: gray;"> <fmt:parseDate
+					value="${board.create_date}" pattern="yyyy-MM-dd'T'HH:mm"
+					var="parsedDateTime" type="both" /> <fmt:formatDate
+					pattern="yyyy-MM-dd HH:mm" value="${parsedDateTime}" />
+
+			</span> <i class="fa-regular fa-eye"> ${board.board_hit }</i> <i
 				class="fa-regular fa-message"><span class="reply-count"></span></i>
 		</div>
 		<br>

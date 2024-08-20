@@ -36,7 +36,7 @@ public class MsgController {
 		
 		// 세션에 있는 멤버한테 온 메시지 전체 개수
 		int MessageTotalCount = service.selectMessageRevCount(member_no);
-		int pageSize = 2;
+		int pageSize = 8;
 		
 //		받은 쪽지함
 		MsgPage msgPage = new MsgPage(pageSize, MessageTotalCount, currentPage);

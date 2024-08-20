@@ -552,6 +552,10 @@ function appendAnswer() {
     $('#updateAnswerForm').attr('action', newAction);
   });
   
+  
+
+  
+  
 /*************************************** insertboard ******************************************************/
 // 카테고리 선택 
 document.addEventListener('DOMContentLoaded', function () {
