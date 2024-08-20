@@ -67,7 +67,33 @@ SELECT MBL.BOARD_NO,MBL.BOARD_TYPE, MBL.MEMBER_NICKNAME, MBL.BOARD_TITLE,MBL.CRE
         WHERE tp.schedule_no = #{scheduleNo}
     </select>
 
-    <!-- ResultMap 정의 -->
+   
+
+<delete id="deleteTripPlace">
+    DELETE FROM trip_place 
+    WHERE schedule_no IN (
+        SELECT schedule_no 
+        FROM schedule 
+        WHERE trip_no = #{tripNo}
+    )
+</delete>
+
+<delete id="deleteSchedule">
+    DELETE FROM schedule 
+    WHERE trip_no = #{tripNo}
+</delete>
+
+<delete id="deleteMemberTrip">
+    DELETE FROM member_trip 
+    WHERE trip_no = #{tripNo}
+</delete>
+
+<delete id="deleteTrip">
+    DELETE FROM trip 
+    WHERE trip_no = #{tripNo}
+</delete>
+
+ <!-- ResultMap 정의 -->
     <resultMap id="tripResultMap" type="TripDTO">
         <id property="trip_no" column="trip_no"/>
         <result property="trip_title" column="trip_title"/>
