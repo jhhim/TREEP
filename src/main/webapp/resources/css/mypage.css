@@ -11,8 +11,10 @@
     font-weight: bold;
 }
 .grade_Img{
-    width:25px;
-    height:25px;
+    width:40px;
+    height:40px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 /* 프로필 이미지 컨테이너 */
@@ -33,11 +35,6 @@
 	text-align: center;
 }
 
-.grade_Img{
-	width:40px;
-	height:40px;
-}
-
 .profile_grade{
 	color:blue;
 	font-size: 1rem;
@@ -45,9 +42,10 @@
 
 /* 프로필 이름 */
 .profile_nickname {
-	margin-left:10px;
+	margin-right:10px;
 	font-size: 2rem;
-
+	margin-top:20px;
+	margin-bottom: 10px;
     justify-content: center;
     align-items: center;
 

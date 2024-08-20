@@ -165,7 +165,7 @@ const basePath = "${path}";
 						end="${boardPage.endPage}">
 						<button type="button"
 							onclick="location.href='freeboard?page=${i}'"
-							class="${boardPage.currentPage == i ? 'active' : ''}">
+							class="${boardPage.currentPage == i ? 'active' : ''}" style="font-size:20px; padding:10px;">
 							${i}</button>
 					</c:forEach>
 					<button type="button"
