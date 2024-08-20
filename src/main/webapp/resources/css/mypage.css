@@ -5,6 +5,16 @@
 	height: 300px;
 	background-color: #7FD858;
 }
+.profile_grade{
+    color:blue;
+    font-size: 0.5rem;
+    font-weight: bold;
+}
+.grade_Img{
+    width:25px;
+    height:25px;
+}
+
 /* 프로필 이미지 컨테이너 */
 .profile-img-container {
 	text-align: center;
@@ -24,7 +34,8 @@
 }
 /* 프로필 이름 */
 .profile_nickname {
-	font-size: 2rem;
+    margin-right:10px;
+    font-size: 2rem;
 }
 /* 프로필 관리 */
 .profile_manage {
@@ -61,6 +72,7 @@
 }
 
 .list-schedule-img-container {
+	margin-top:23px;
 	position: relative;
 	overflow: hidden;
 	height:200px;
@@ -348,4 +360,17 @@ justify-content: center;
       outline: none;
       background-color: #7FD858;
       color: white;
+}
+.each-select-item{
+	padding:13px 30px 1px 30px;
+	margin-bottom:20px;
+ 	border-radius:10px;
+box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;}
+.each-select-item:hover{
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px,  #7FD858 0px 0px 0px 3px;
+}
+#dot3-panel{
+	font-size: 2rem;
+	font-weight: bold;	
+}
 }

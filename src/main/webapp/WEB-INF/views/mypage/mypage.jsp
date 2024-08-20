@@ -64,6 +64,7 @@ const MypageBasePath = "${path}";
 				<div class="tab-pane fade show active" id="home" role="tabpanel"
 					aria-labelledby="home-tab">
 					<c:forEach var="trip" items="${trips}">
+					<div class="each-select-item">
 						<div class="row list-schedule">
 							<!--전체 일정 사진 -->
 							<div class="col-3 list-schedule-img-container">
@@ -77,17 +78,17 @@ const MypageBasePath = "${path}";
 								</span> <span class="schedule-title"> ${trip.trip_title}</span> </div>
 								<span
 									class="schedule-manage dropdown">
-									<button class="btn dropdown-toggle no-arrow" type="button"
+									<button class="btn dropdown-toggle no-arrow" id="dot3-panel" type="button"
 										data-bs-toggle="dropdown" aria-expanded="false">⋮</button>
-									<ul class="dropdown-menu">									
-										<li><a class="dropdown-item" href="tripDetail?trip_no=${trip.trip_no}">상세보기</a></li>
-										<li><a class="dropdown-item" href="#">공유</a></li>
+									<ul class="dropdown-menu">			
+										<li><a class="dropdown-item" href="tripDetail?trip_no=${trip.trip_no}">상세보기</a></li>				
 										<li><a class="dropdown-item" href="#">수정</a></li>
 										<li><a class="dropdown-item" href="#">삭제</a></li>
 									</ul>
 								</span>								
 								<div class="schedule-period">${trip.trip_start}~${trip.trip_end}</div>
 							</div>
+						</div></a>
 						</div>
 					</c:forEach>
 				</div>
