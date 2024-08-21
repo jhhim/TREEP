@@ -85,6 +85,23 @@ $('#like').on('click', function() {
             console.error('Error:', error);
         }
     });
+    
+    function showReplyContainer(commentId, boardKind, boardNo) {
+    let replyInputContainer = document.getElementById(`reply-input-container-${commentId}`);
+    if (!replyInputContainer) {
+        replyInputContainer = document.createElement('div');
+        replyInputContainer.id = `reply-input-container-${commentId}`;
+        replyInputContainer.innerHTML = `
+<div id="reply-container-${commentId}">
+    <textarea id="reply-content-${commentId}" class="form-control input-reply" placeholder="댓글을 작성해주세요" name="replyContent"></textarea>
+    <button class="btn" id="reply-reply-submit" type="button">등록</button>
+</div>
+        `;
+        document.getElementById(`replies-${commentId}`).appendChild(replyInputContainer);
+    } else {
+        replyInputContainer.style.display = replyInputContainer.style.display === 'none' ? 'block' : 'none';
+    }
+}
 /****************************************** 댓글 조회 *************************************************/
 function loadReply() {
 			  $.ajax({
