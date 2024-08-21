@@ -409,6 +409,7 @@ function loadReplyCount() {
         success: function(response) {
             const replyCount = response || 0;
             $('.reply-count').text(replyCount);
+           
         },
         error: function(xhr, status, error) {
             console.error('댓글 수 조회 실패:', error);
