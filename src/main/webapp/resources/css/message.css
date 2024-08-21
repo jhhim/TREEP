@@ -95,3 +95,32 @@
     outline: none;
     box-shadow: none;
 }
+
+/* 받은쪽지 */
+
+#rev2-tab{
+	color: black;
+}
+
+#rev2-tab.active{
+	color: #2e8b57;
+}
+
+/* 보낸쪽지 */
+#send2-tab{
+	color: black;
+}
+
+#send2-tab.active{
+	color: #2e8b57;
+}
+
+/* 보관쪽지 */
+#store2-tab{
+	color: black;
+}
+
+#store2-tab.active{
+	color: #2e8b57;
+}
+

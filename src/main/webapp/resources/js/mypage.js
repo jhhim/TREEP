@@ -81,12 +81,12 @@ $('#save').click(()=>{
 
 */
 
-
+/*
 $(document).ready(function(){
 	loadWrite();
 
 });
-
+*/
 
 /*
 

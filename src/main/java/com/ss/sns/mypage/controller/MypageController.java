@@ -117,7 +117,7 @@ public class MypageController {
 		
 	
 		int BoardTotalCount = service.selectBoardTotalCount(member_no);
-		int pageSize = 2;
+		int pageSize = 5;
 		
 		// 내가 작성한 글
 		MypagePage mypage = new MypagePage(pageSize, BoardTotalCount, currentPage);

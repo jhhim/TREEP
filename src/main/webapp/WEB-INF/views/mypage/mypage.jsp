@@ -54,12 +54,12 @@ pageContext.setAttribute("today", today.toString());
 		<div class="schedule-container">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
-					<button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+					<button class="nav-link active" id="allsch-tab" data-bs-toggle="tab"
 						data-bs-target="#home" type="button" role="tab"
 						aria-controls="home" aria-selected="true">전체 일정</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+					<button class="nav-link" id="sharesch-tab" data-bs-toggle="tab"
 						data-bs-target="#profile" type="button" role="tab"
 						aria-controls="profile" aria-selected="false">공유된 일정</button>
 				</li>
@@ -119,7 +119,7 @@ pageContext.setAttribute("today", today.toString());
 		<br>
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation">
-				<button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+				<button class="nav-link active" id="write-tab" data-bs-toggle="tab"
 					data-bs-target="#write" type="button" role="tab"
 					aria-controls="home" aria-selected="true">작성글</button>
 			</li>
@@ -186,34 +186,27 @@ pageContext.setAttribute("today", today.toString());
 
 
 
-				<nav aria-label="Page navigation example">
-					<ul class="pagination" id="note-pagination">
-						<li class="page-item">
-							<button type=button class="page-link"
-								onclick="location.href='mypage?page=${myPage.currentPage -1 }'"
-								${myPage.currentPage == 1 ? 'disabled' : ''}
-								aria-label="Previous">
-								<span aria-hidden="true">&laquo;</span>
-							</button>
-						</li>
-						<c:forEach var="i" begin="${myPage.startPage}"
-							end="${myPage.endPage }">
-							<li class="page-item"><button type="button"
-									class="page-link ${myPage.currentPage == i ? 'active' : '' }"
-									onclick="location.href='mypage?page=${i}'">${i}</button></li>
-						</c:forEach>
-
-
-						<li class="page-item">
-							<button type=button class="page-link"
-								onclick="location.href='mypage?page=${myPage.currentPage +1 }'"
-								${myPage.currentPage == myPage.totalPage ? 'disabled' : ''}
-								aria-label="Next">
-								<span aria-hidden="true">&raquo;</span>
-							</button>
-						</li>
-					</ul>
-				</nav>
+				<div class="pagination-container">
+		<div class="d-flex justify-content-center">
+				<div class="pagination">
+					<button type="button"
+						onclick="location.href='mypage?page=${myPage.currentPage - 1}'"
+						${myPage.currentPage == 1 ? 'disabled' : ''}>«</button>
+					<c:forEach var="i" begin="${myPage.startPage}"
+						end="${myPage.endPage}">
+						<button type="button"
+							onclick="location.href='mypage?page=${i}'"
+							class="${myPage.currentPage == i ? 'active1' : ''}" style="font-size:20px; padding:10px;">
+							${i}</button>
+					</c:forEach>
+					<button type="button"
+						onclick="location.href='mypage?page=${myPage.currentPage + 1}'"
+						${myPage.currentPage == myPage.totalPage ? 'disabled' : ''}>
+						»</button>
+				</div>
+				
+				</div>
+			</div>
 
 			</div>
 
@@ -275,34 +268,27 @@ pageContext.setAttribute("today", today.toString());
 
 				</div>
 
-				<nav aria-label="Page navigation example">
-					<ul class="pagination" id="note-pagination">
-						<li class="page-item">
-							<button type=button class="page-link"
-								onclick="location.href='mypage?page2=${myPageLike.currentPage -1 }'"
-								${myPageLike.currentPage == 1 ? 'disabled' : ''}
-								aria-label="Previous">
-								<span aria-hidden="true">&laquo;</span>
-							</button>
-						</li>
-						<c:forEach var="i" begin="${myPageLike.startPage}"
-							end="${myPageLike.endPage }">
-							<li class="page-item"><button type="button"
-									class="page-link ${myPageLike.currentPage == i ? 'active' : '' }"
-									onclick="location.href='mypage?page2=${i}'">${i}</button></li>
-						</c:forEach>
-
-
-						<li class="page-item">
-							<button type=button class="page-link"
-								onclick="location.href='mypage?page2=${myPageLike.currentPage +1 }'"
-								${myPageLike.currentPage == myPageLike.totalPage ? 'disabled' : ''}
-								aria-label="Next">
-								<span aria-hidden="true">&raquo;</span>
-							</button>
-						</li>
-					</ul>
-				</nav>
+		<div class="pagination-container">
+		<div class="d-flex justify-content-center">
+				<div class="pagination">
+					<button type="button"
+						onclick="location.href='mypage?page2=${myPageLike.currentPage - 1}'"
+						${myPageLike.currentPage == 1 ? 'disabled' : ''}>«</button>
+					<c:forEach var="i" begin="${myPageLike.startPage}"
+						end="${myPageLike.endPage}">
+						<button type="button"
+							onclick="location.href='mypage?page2=${i}'"
+							class="${myPageLike.currentPage == i ? 'active1' : ''}" style="font-size:20px; padding:10px;">
+							${i}</button>
+					</c:forEach>
+					<button type="button"
+						onclick="location.href='mypage?page2=${myPageLike.currentPage + 1}'"
+						${myPageLike.currentPage == myPageLike.totalPage ? 'disabled' : ''}>
+						»</button>
+				</div>
+				
+				</div>
+			</div>
 
 			</div>
 		</div>

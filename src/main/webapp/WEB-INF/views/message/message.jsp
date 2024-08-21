@@ -21,15 +21,15 @@ pageContext.setAttribute("today", today.toString());
     <h4 style="text-align: center;">쪽지함 <i class="fa-regular fa-envelope"></i></h4><br>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#receive"
+            <button class="nav-link active" id="rev2-tab" data-bs-toggle="tab" data-bs-target="#receive"
                 type="button" role="tab" aria-controls="receive" aria-selected="true">받은 쪽지</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="send-tab" data-bs-toggle="tab" data-bs-target="#send" type="button" role="tab"
+            <button class="nav-link" id="send2-tab" data-bs-toggle="tab" data-bs-target="#send" type="button" role="tab"
                 aria-controls="send" aria-selected="false">보낸 쪽지</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="store-tab" data-bs-toggle="tab" data-bs-target="#store" type="button"
+            <button class="nav-link" id="store2-tab" data-bs-toggle="tab" data-bs-target="#store" type="button"
                 role="tab" aria-controls="store" aria-selected="false">보관 쪽지함</button>
         </li>
     </ul>
@@ -224,6 +224,29 @@ pageContext.setAttribute("today", today.toString());
             </span>
 
 
+           <div class="pagination-container">
+		<div class="d-flex justify-content-center">
+				<div class="pagination">
+					<button type="button"
+						onclick="location.href='message?page=${msgPage.currentPage - 1}'"
+						${msgPage.currentPage == 1 ? 'disabled' : ''}>«</button>
+					<c:forEach var="i" begin="${msgPage.startPage}"
+						end="${msgPage.endPage}">
+						<button type="button"
+							onclick="location.href='message?page=${i}'"
+							class="${msgPage.currentPage == i ? 'active1' : ''}" style="font-size:20px; padding:10px;">
+							${i}</button>
+					</c:forEach>
+					<button type="button"
+						onclick="location.href='message?page=${msgPage.currentPage + 1}'"
+						${msgPage.currentPage == msgPage.totalPage ? 'disabled' : ''}>
+						»</button>
+				</div>
+				
+				</div>
+			</div>
+
+
         </div>
 
         <div class="tab-pane fade" id="send" role="send" aria-labelledby="send-tab">
@@ -295,6 +318,29 @@ pageContext.setAttribute("today", today.toString());
                 </div>
                 
             </span>
+            
+            
+            <div class="pagination-container">
+		<div class="d-flex justify-content-center">
+				<div class="pagination">
+					<button type="button"
+						onclick="location.href='message?page2=${msgPage2.currentPage - 1}'"
+						${msgPage2.currentPage == 1 ? 'disabled' : ''}>«</button>
+					<c:forEach var="i" begin="${msgPage2.startPage}"
+						end="${msgPage2.endPage}">
+						<button type="button"
+							onclick="location.href='message?page2=${i}'"
+							class="${msgPage2.currentPage == i ? 'active1' : ''}" style="font-size:20px; padding:10px;">
+							${i}</button>
+					</c:forEach>
+					<button type="button"
+						onclick="location.href='message?page2=${msgPage2.currentPage + 1}'"
+						${msgPage2.currentPage == msgPage2.totalPage ? 'disabled' : ''}>
+						»</button>
+				</div>
+				
+				</div>
+			</div>
 
         </div>
 
@@ -440,60 +486,34 @@ pageContext.setAttribute("today", today.toString());
                 
                 
             </span>
+            
+            
+             
+            <div class="pagination-container">
+		<div class="d-flex justify-content-center">
+				<div class="pagination">
+					<button type="button"
+						onclick="location.href='message?page3=${msgPage3.currentPage - 1}'"
+						${msgPage3.currentPage == 1 ? 'disabled' : ''}>«</button>
+					<c:forEach var="i" begin="${msgPage3.startPage}"
+						end="${msgPage3.endPage}">
+						<button type="button"
+							onclick="location.href='message?page3=${i}'"
+							class="${msgPage3.currentPage == i ? 'active1' : ''}" style="font-size:20px; padding:10px;">
+							${i}</button>
+					</c:forEach>
+					<button type="button"
+						onclick="location.href='message?page3=${msgPage3.currentPage + 1}'"
+						${msgPage3.currentPage == msgPage3.totalPage ? 'disabled' : ''}>
+						»</button>
+				</div>
+				
+				</div>
+			</div>
+			
         </div>
     </div>
-     <nav aria-label="Page navigation example">
-        <ul class="pagination" id="note-pagination">
-            <li class="page-item">
-                <button type=button class="page-link" onclick="location.href='message?page=${msgPage.currentPage -1 }'" 
-                ${msgPage.currentPage == 1 ? 'disabled' : ''} aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </button>
-            </li>
-            <c:forEach var="i" begin="${msgPage.startPage}" end="${msgPage.endPage }">
-             <li class="page-item"><button type="button" class="page-link ${msgPage.currentPage == i ? 'active' : '' }"  onclick="location.href='message?page=${i}'">${i}</button></li>
-            </c:forEach>
-           
-        <!--     <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li> -->
 
-            <li class="page-item">
-                 <button type=button class="page-link" onclick="location.href='message?page=${msgPage.currentPage +1 }'" 
-                ${msgPage.currentPage == msgPage.totalPage ? 'disabled' : ''} aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </button>
-            </li>
-        </ul>
-    </nav> 
-    
-    
-  <%--    <nav aria-label="Page navigation example">
-        <ul class="pagination" id="note-pagination">
-            <li class="page-item">
-                <button type=button class="page-link" onclick="location.href='message?page=${msgPage2.currentPage -1 }'" 
-                ${msgPage2.currentPage == 1 ? 'disabled' : ''} aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </button>
-            </li>
-            <c:forEach var="i" begin="${msgPage2.startPage}" end="${msgPage2.endPage }">
-             <li class="page-item"><button type="button" class="page-link ${msgPage2.currentPage == i ? 'active' : '' }"  onclick="location.href='message?page=${i}'">${i}</button></li>
-            </c:forEach>
-           
-        <!--     <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li> -->
-
-            <li class="page-item">
-                 <button type=button class="page-link" onclick="location.href='message?page=${msgPage2.currentPage +1 }'" 
-                ${msgPage2.currentPage == msgPage2.totalPage ? 'disabled' : ''} aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </button>
-            </li>
-        </ul>
-    </nav>  --%>
 </div>
 </main>
 
