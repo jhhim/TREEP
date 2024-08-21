@@ -513,4 +513,48 @@
     SELECT COUNT(*) FROM like2
     WHERE board_no = #{boardNo} AND member_no = #{memberNo}
 </select>
+
+<!-- 일정가져오기 -->
+
+<resultMap id="tripResultMap" type="TripDTO">
+    <id property="trip_no" column="trip_no"/>
+    <result property="trip_title" column="trip_title"/>
+    <result property="trip_start" column="trip_start"/>
+    <result property="trip_end" column="trip_end"/>
+    <result property="place_photo_url" column="place_photo_url"/>
+    <result property="member_nickname" column="member_nickname" />
+    <result property="grade_img" column="grade_img" />
+</resultMap>
+
+<resultMap id="scheduleResultMap" type="ScheduleDTO">
+    <id property="schedule_no" column="schedule_no"/>
+    <result property="schedule_date" column="schedule_date"/>
+    <result property="schedule_content" column="schedule_content"/>
+    <collection property="places" ofType="TripPlaceDTO">
+        <id property="place_no" column="place_no"/>
+        <result property="place_name" column="place_name"/>
+    </collection>
+</resultMap>
+<select id="getTripDetails" resultMap="tripResultMap">
+    SELECT t.trip_no, t.trip_title, t.trip_start, t.trip_end, t.place_photo_url,
+           m.member_nickname, g.grade_img  
+    FROM member_trip mt
+    JOIN trip t ON mt.trip_no = t.trip_no
+    JOIN member m ON mt.member_no = m.member_no
+    LEFT JOIN grade g ON m.member_grade = g.grade  
+    WHERE mt.member_no = #{memberNo}
+</select>
+
+<select id="getSchedulesAndPlaces" resultMap="scheduleResultMap">
+    SELECT s.schedule_no, s.schedule_date, s.schedule_content,
+           tp.place_no, tp.place_name
+    FROM schedule s
+    LEFT JOIN trip_place tp ON s.schedule_no = tp.schedule_no
+    WHERE s.trip_no = #{trip_no}
+    ORDER BY s.schedule_date, tp.place_no
+</select>
+
+
+
+
 </mapper>

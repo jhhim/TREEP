@@ -26,7 +26,10 @@ public class MsgController {
 	
 	
 	@RequestMapping("/message")
-	public String message(@RequestParam(value="page", defaultValue = "1") int currentPage, Model model, HttpSession session) {
+	public String message(@RequestParam(value="page", defaultValue = "1") int currentPage,
+						  @RequestParam(value="page2", defaultValue = "1") int currentPage2,
+						  @RequestParam(value="page3", defaultValue = "1") int currentPage3,
+						  Model model, HttpSession session) {
 		// session이 누군지
 		
 		MemberDTO Session = (MemberDTO)session.getAttribute("member");
@@ -36,7 +39,7 @@ public class MsgController {
 		
 		// 세션에 있는 멤버한테 온 메시지 전체 개수
 		int MessageTotalCount = service.selectMessageRevCount(member_no);
-		int pageSize = 2;
+		int pageSize = 8;
 		
 //		받은 쪽지함
 		MsgPage msgPage = new MsgPage(pageSize, MessageTotalCount, currentPage);
@@ -68,7 +71,7 @@ public class MsgController {
 //		보낸쪽지함
 		
 		int MessageTotalCount2 = service.selectMessageSenCount(member_no);
-		MsgPage msgPage2 = new MsgPage(pageSize, MessageTotalCount2, currentPage);
+		MsgPage msgPage2 = new MsgPage(pageSize, MessageTotalCount2, currentPage2);
 		Map<String, Integer> hmap2 = new HashMap<String,Integer>();
 		
 		hmap2.put("startNo", msgPage2.getStartNo());
@@ -80,7 +83,7 @@ public class MsgController {
 		
 //      보관쪽지함
 		int MessageTotalCount3 = service.selectMessageStoreCount(member_no);
-		MsgPage msgPage3 = new MsgPage(pageSize, MessageTotalCount3, currentPage);
+		MsgPage msgPage3 = new MsgPage(pageSize, MessageTotalCount3, currentPage3);
 		
 		Map<String, Integer> hmap3 = new HashMap<String,Integer>();
 		

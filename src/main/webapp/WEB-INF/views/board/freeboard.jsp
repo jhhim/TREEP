@@ -122,7 +122,7 @@ const basePath = "${path}";
 								<div class="card-body h-50 ratio" style="-bs-aspect-ratio: 50%;">
 									<img src="${path}/resources/img/board/${board.board_img}"
 										class="card-img-top boardImg"
-										onerror="this.src='/sns/resources/img/board/car1.png'" alt="">
+										onerror="this.src='/sns/resources/img/board/TREEP2.jpg'" alt="">
 								</div>
 								<h5 class="card-title p-3">${board.board_title}</h5>
 								<div

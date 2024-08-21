@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.ss.sns.board.dto.BoardDTO;
 import com.ss.sns.board.dto.ReplyDTO;
 import com.ss.sns.board.dto.ReplyNickDTO;
 import com.ss.sns.member.dto.MemberDTO;
+import com.ss.sns.trip.dto.ScheduleDTO;
+import com.ss.sns.trip.dto.TripDTO;
 
 
 @Mapper
@@ -53,7 +56,8 @@ public interface BoardMapper {
 	public int getLikeCount(int boardNo);
 	public void updateBoardLike(Map<String, Integer> hashMap);
 	public int isLiked(Map<String, Integer> hmap);
-
+	List<TripDTO> getTripDetails(@Param("memberNo") int memberNo);
+	List<ScheduleDTO> getSchedulesAndPlaces(@Param("trip_no") int trip_no);
 
 
 }

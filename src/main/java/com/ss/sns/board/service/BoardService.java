@@ -16,6 +16,8 @@ import com.ss.sns.board.dto.ReplyDTO;
 import com.ss.sns.board.dto.ReplyNickDTO;
 import com.ss.sns.board.mapper.BoardMapper;
 import com.ss.sns.member.dto.MemberDTO;
+import com.ss.sns.trip.dto.ScheduleDTO;
+import com.ss.sns.trip.dto.TripDTO;
 
 @Service
 public class BoardService {
@@ -266,6 +268,14 @@ public class BoardService {
 	    int count = mapper.isLiked(params);
 	    return count > 0;
 	}
+	
+	public List<TripDTO> getTripsByMemberNo(int memberNo) {
+        return mapper.getTripDetails(memberNo);
+    }
+
+    public List<ScheduleDTO> getSchedulesAndPlaces(int trip_no) {
+        return mapper.getSchedulesAndPlaces(trip_no);
+    }
 
 
 }

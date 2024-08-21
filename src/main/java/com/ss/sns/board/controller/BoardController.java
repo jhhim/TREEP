@@ -24,6 +24,8 @@ import com.ss.sns.board.dto.BoardPage;
 import com.ss.sns.board.dto.ReplyDTO;
 import com.ss.sns.board.service.BoardService;
 import com.ss.sns.member.dto.MemberDTO;
+import com.ss.sns.trip.dto.ScheduleDTO;
+import com.ss.sns.trip.dto.TripDTO;
 
 @Controller
 public class BoardController {
@@ -158,7 +160,7 @@ public class BoardController {
 			}
 			repliesForBoard.add(reply);
 		}
-		 
+
 		model.addAttribute("boardPage", boardPage);
 		model.addAttribute("boardReplyMap", boardReplyMap);
 
@@ -236,7 +238,22 @@ public class BoardController {
 	}
 
 	@GetMapping("/writeboard")
-	public String writeBoard() {
+	public String writeboard(HttpSession session, Model model) {
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		if (member == null) {
+			return "redirect:/login";
+		}
+
+		int memberNo = member.getMember_no();
+		List<TripDTO> trips = service.getTripsByMemberNo(memberNo);
+		model.addAttribute("trips", trips);
+	System.out.println("trips:"+trips);
+		for (TripDTO trip : trips) {
+			List<ScheduleDTO> schedules = service.getSchedulesAndPlaces(trip.getTrip_no());
+			trip.setSchedules(schedules); 
+			System.out.println("schedules:"+schedules);
+		}
+
 		return "board/writeboard";
 	}
 

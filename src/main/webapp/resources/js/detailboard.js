@@ -7,6 +7,10 @@ var boardContent = $('#contentDiv').html();
 
 let isProcessing = false;
 
+
+
+
+
 // 좋아요 버튼 클릭 이벤트 핸들러
 $('#like').on('click', function() {
     if (isProcessing) return; 

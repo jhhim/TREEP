@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <title>문의 게시판</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -170,7 +171,7 @@
                         </th>
                         <td class="askText" style="vertical-align: middle;">
                             <p style="font-size: 1.4rem; font-weight: bold; margin-bottom:14px;">제목 : ${board.board_title}</p>
-							<p style="margin-bottom: 10px;">${board.board_content}</p>
+							<p style="margin-bottom: 10px;" id="askcontent-box">${fn:escapeXml(board.board_content)}</p>
                         </td>
                         <c:choose>
                             <c:when test="${sessionScope.member.manager_yn eq 'Y'}">
@@ -202,7 +203,7 @@
                                     </div>
                                 </th>
                                 <td>
-                                    <p>${reply.reply_content}</p>
+                                    <p id="answercontent-box">${fn:escapeXml(reply.reply_content)}</p>
                                 </td>
                                 <c:choose>
                             	<c:when test="${sessionScope.member.manager_yn eq 'Y'}">
@@ -222,6 +223,7 @@
         </table>
 
 		<div class="pagination-container">
+		<div class="d-flex justify-content-center">
 				<div class="pagination">
 					<button type="button"
 						onclick="location.href='askboard?page=${boardPage.currentPage - 1}'"
@@ -230,13 +232,15 @@
 						end="${boardPage.endPage}">
 						<button type="button"
 							onclick="location.href='askboard?page=${i}'"
-							class="${boardPage.currentPage == i ? 'active' : ''}">
+							class="${boardPage.currentPage == i ? 'active' : ''}" style="font-size:20px; padding:10px;">
 							${i}</button>
 					</c:forEach>
 					<button type="button"
 						onclick="location.href='askboard?page=${boardPage.currentPage + 1}'"
 						${boardPage.currentPage == boardPage.totalPage ? 'disabled' : ''}>
 						»</button>
+				</div>
+				
 				</div>
 			</div>
 
